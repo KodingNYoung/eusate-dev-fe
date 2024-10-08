@@ -1,0 +1,132 @@
+.regular-xxs {
+  @apply text-regular-xxs;
+}
+.regular-xs {
+  @apply text-regular-xs;
+}
+.regular-sm {
+  @apply text-regular-sm;
+}
+.regular-base {
+  @apply text-regular-base;
+}
+.regular-lg {
+  @apply text-regular-lg;
+}
+.regular-xl {
+  @apply text-regular-xl;
+}
+.regular-2xl {
+  @apply text-regular-2xl;
+}
+.regular-3xl {
+  @apply text-regular-3xl;
+}
+.regular-4xl {
+  @apply text-regular-4xl;
+}
+.regular-5xl {
+  @apply text-regular-5xl;
+}
+.medium-xxs {
+  @apply text-medium-xxs;
+}
+.medium-xs {
+  @apply text-medium-xs;
+}
+.medium-sm {
+  @apply text-medium-sm;
+}
+.medium-base {
+  @apply text-medium-base;
+}
+.medium-lg {
+  @apply text-medium-lg;
+}
+.medium-xl {
+  @apply text-medium-xl;
+}
+.medium-2xl {
+  @apply text-medium-2xl;
+}
+.medium-3xl {
+  @apply text-medium-3xl;
+}
+.medium-4xl {
+  @apply text-medium-4xl;
+}
+.medium-5xl {
+  @apply text-medium-5xl;
+}
+.semibold-xxs {
+  @apply text-semibold-xxs;
+}
+.semibold-xs {
+  @apply text-semibold-xs;
+}
+.semibold-sm {
+  @apply text-semibold-sm;
+}
+.semibold-base {
+  @apply text-semibold-base;
+}
+.semibold-lg {
+  @apply text-semibold-lg;
+}
+.semibold-xl {
+  @apply text-semibold-xl;
+}
+.semibold-2xl {
+  @apply text-semibold-2xl;
+}
+.semibold-3xl {
+  @apply text-semibold-3xl;
+}
+.semibold-4xl {
+  @apply text-semibold-4xl;
+}
+.semibold-5xl {
+  @apply text-semibold-5xl;
+}
+.bold-xxs {
+  @apply text-bold-xxs;
+}
+.bold-xs {
+  @apply text-bold-xs;
+}
+.bold-sm {
+  @apply text-bold-sm;
+}
+.bold-base {
+  @apply text-bold-base;
+}
+.bold-lg {
+  @apply text-bold-lg;
+}
+.bold-xl {
+  @apply text-bold-xl;
+}
+.bold-2xl {
+  @apply text-bold-2xl;
+}
+.bold-3xl {
+  @apply text-bold-3xl;
+}
+.bold-4xl {
+  @apply text-bold-4xl;
+}
+.bold-5xl {
+  @apply text-bold-5xl;
+}
+.bold-6xl {
+  @apply text-bold-6xl;
+}
+.bold-7xl {
+  @apply text-bold-7xl;
+}
+.bold-8xl {
+  @apply text-bold-8xl;
+}
+.bold-9xl {
+  @apply text-bold-9xl;
+}

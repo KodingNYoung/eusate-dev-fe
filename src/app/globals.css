@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* @import url(../assets/icomoon/style.css); */
+  html {
+    /*noinspection CssUnresolvedCustomProperty*/
+    font-size: 16px;
+    @apply scroll-smooth antialiased text-black-100;
+  }
+}
+
+@layer utilities {
+  @import url(../styles/typography.css);
+}
