@@ -1,0 +1,32 @@
+@property --radioColor1 {
+  syntax: "<color>";
+  initial-value: #b9bdc7;
+  inherits: false;
+}
+
+@property --radioColor2 {
+  syntax: "<color>";
+  initial-value: #b9bdc7;
+  inherits: false;
+}
+
+.radio-with-label:has(:checked)::before {
+  --radioColor1: #d7ab07;
+  --radioColor2: #e86555;
+}
+.radio-icon-outer-circle {
+  --radioColor1: #b9bdc7;
+  --radioColor2: #b9bdc7;
+}
+input:checked ~ .radio-icon-outer-circle {
+  --radioColor1: #d7ab07;
+  --radioColor2: #e86555;
+}
+.radio-icon-inner-circle {
+  --radioColor1: #858d9d;
+  --radioColor2: #858d9d;
+}
+.radio:has(:checked) .radio-icon-inner-circle {
+  --radioColor1: #d7ab07;
+  --radioColor2: #e86555;
+}

@@ -10,6 +10,9 @@ Frontend for eusate
 4. Run `npm run dev` in your terminal to start server and open localhost:3000 in your browser.
 
 ## Contributing
+### Folder structure 
+_coming soon..._
+
 ### Icons
- _coming soon_
+ _coming soon..._
 

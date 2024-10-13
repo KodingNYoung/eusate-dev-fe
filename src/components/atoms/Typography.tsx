@@ -1,9 +1,9 @@
 import { cls } from "@/utils/helpers";
 import { FC, TWClassNames, TypographyVariants } from "@/utils/types";
-import React, { createElement, HTMLProps, ReactNode } from "react";
+import { createElement, HTMLProps, ReactNode } from "react";
 
 type Props = HTMLProps<HTMLHeadingElement & HTMLParagraphElement> & {
-  variant: TypographyVariants;
+  variant?: TypographyVariants;
   as?: keyof HTMLElementTagNameMap;
   weight?: 400 | 500 | 600 | 700;
 };
@@ -30,7 +30,7 @@ const getElement = (
 
 const Typography: FC<Props> = ({
   as,
-  variant,
+  variant = "regular-base",
   weight,
   children,
   className,
@@ -39,7 +39,7 @@ const Typography: FC<Props> = ({
   return getElement(
     as,
     children,
-    cls(weight && weightProps[weight], className, variant),
+    cls("font-app", weight && weightProps[weight], className, variant),
     props
   );
 };
