@@ -14,7 +14,10 @@
   background: linear-gradient(90deg, var(--btnColor1), var(--btnColor2));
   background-size: calc(100% + 2px); /* 2px for the borders */
   background-position: -1px; /* 1px to the left */
-  transition: all 0.3s, --btnColor1 0.3s, --btnColor2 0.3s;
+  transition:
+    all 0.3s,
+    --btnColor1 0.3s,
+    --btnColor2 0.3s;
 }
 .primary-btn:hover {
   --btnColor1: #d7ab07;

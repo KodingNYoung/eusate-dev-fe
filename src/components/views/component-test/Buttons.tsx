@@ -1,7 +1,7 @@
-import Typography from "@/components/atoms/Typography";
-import Button from "@/components/molecules/Button";
-import { FC } from "@/utils/types";
-import React from "react";
+import Typography from "@/components/atoms/Typography"
+import Button from "@/components/molecules/Button"
+import { FC } from "@/utils/types"
+import React from "react"
 
 const Buttons: FC = () => {
   return (
@@ -37,7 +37,7 @@ const Buttons: FC = () => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Buttons;
+export default Buttons

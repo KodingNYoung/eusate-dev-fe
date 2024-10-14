@@ -1,11 +1,11 @@
-import { FC, TWClassNames, TypographyVariants } from "@/utils/types";
-import React, { HTMLProps, ReactNode } from "react";
-import Typography from "../../atoms/Typography";
-import { cls } from "@/utils/helpers";
-import "./style.css";
-import Spinner from "@/components/atoms/Spinner";
+import { FC, TWClassNames, TypographyVariants } from "@/utils/types"
+import React, { HTMLProps, ReactNode } from "react"
+import Typography from "../../atoms/Typography"
+import { cls } from "@/utils/helpers"
+import "./style.css"
+import Spinner from "@/components/atoms/Spinner"
 
-type Sizes = "xl" | "lg" | "sm" | "mini";
+type Sizes = "xl" | "lg" | "sm" | "mini"
 type ButtonVariants =
   | "primary"
   | "outlined"
@@ -15,14 +15,14 @@ type ButtonVariants =
   | "success"
   | "info"
   | "warning"
-  | "error";
+  | "error"
 type Props = Omit<HTMLProps<HTMLButtonElement>, "type" | "size"> & {
-  startContent?: ReactNode;
-  endContent?: ReactNode;
-  size?: Sizes;
-  variant?: ButtonVariants;
-  loading?: boolean;
-};
+  startContent?: ReactNode
+  endContent?: ReactNode
+  size?: Sizes
+  variant?: ButtonVariants
+  loading?: boolean
+}
 
 const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
   primary: cls(
@@ -87,19 +87,19 @@ const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
     "disabled:bg-error-100", // disabled
     "focus:border-error-100 focus:bg-error-600" // active
   ),
-};
+}
 const buttonSize: { [sizes in Sizes]: TWClassNames } = {
   mini: "h-7",
   sm: "h-10",
   lg: "h-12",
   xl: "h-14",
-};
+}
 const textVariants: { [size in Sizes]: TypographyVariants } = {
   mini: "medium-xs",
   sm: "medium-sm",
   lg: "medium-sm",
   xl: "semibold-sm",
-};
+}
 
 const Button: FC<Props> = ({
   children,
@@ -129,7 +129,7 @@ const Button: FC<Props> = ({
       </Typography>
       {endContent}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

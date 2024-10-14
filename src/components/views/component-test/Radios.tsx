@@ -1,7 +1,7 @@
-import Typography from "@/components/atoms/Typography";
-import Radio from "@/components/molecules/Radio";
-import { FC } from "@/utils/types";
-import React from "react";
+import Typography from "@/components/atoms/Typography"
+import Radio from "@/components/molecules/Radio"
+import { FC } from "@/utils/types"
+import React from "react"
 
 const Radios: FC = () => {
   return (
@@ -18,7 +18,7 @@ const Radios: FC = () => {
         <Radio id="radio4" name="radios" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Radios;
+export default Radios

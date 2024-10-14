@@ -1,7 +1,7 @@
-import Badge from "@/components/atoms/Badge";
-import Typography from "@/components/atoms/Typography";
-import { FC } from "@/utils/types";
-import React from "react";
+import Badge from "@/components/atoms/Badge"
+import Typography from "@/components/atoms/Typography"
+import { FC } from "@/utils/types"
+import React from "react"
 
 const Badges: FC = () => {
   return (
@@ -17,7 +17,7 @@ const Badges: FC = () => {
         <Badge color="disabled">Disabled</Badge>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Badges;
+export default Badges

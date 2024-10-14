@@ -1,10 +1,10 @@
-import { FC, TWClassNames, TypographyVariants } from "@/utils/types";
-import React from "react";
-import Typography from "./Typography";
-import { cls } from "@/utils/helpers";
+import { FC, TWClassNames, TypographyVariants } from "@/utils/types"
+import React from "react"
+import Typography from "./Typography"
+import { cls } from "@/utils/helpers"
 
-type BadgeType = "filled" | "outline" | "accent";
-type Sizes = "sm" | "md" | "lg";
+type BadgeType = "filled" | "outline" | "accent"
+type Sizes = "sm" | "md" | "lg"
 type Color =
   | "primary"
   | "info"
@@ -12,19 +12,19 @@ type Color =
   | "success"
   | "error"
   | "neutral"
-  | "disabled";
-type Variants = `${BadgeType}-${Color}`;
+  | "disabled"
+type Variants = `${BadgeType}-${Color}`
 type Props = {
-  type?: BadgeType;
-  color?: Color;
-  size?: Sizes;
-};
+  type?: BadgeType
+  color?: Color
+  size?: Sizes
+}
 
 const typoVariants: { [size in Sizes]: TypographyVariants } = {
   sm: "medium-xs",
   md: "medium-sm",
   lg: "medium-sm",
-};
+}
 const badgeVariants: { [variant in Variants]?: TWClassNames } = {
   "filled-primary": "text-white-100 bg-gold-500",
   "filled-info": "text-white-100 bg-info-700",
@@ -47,12 +47,12 @@ const badgeVariants: { [variant in Variants]?: TWClassNames } = {
   "outline-error": "text-error-700 border border-error-700",
   "outline-neutral": "text-gray-700 border border-gray-700",
   "outline-disabled": "text-gray-500 border border-gray-400",
-};
+}
 const badgeSizes: { [size in Sizes]: TWClassNames } = {
   sm: "px-2",
   md: "px-3 py-0.5",
   lg: "px-3 py-1",
-};
+}
 
 const Badge: FC<Props> = ({
   size = "lg",
@@ -72,7 +72,7 @@ const Badge: FC<Props> = ({
     >
       {children}
     </Typography>
-  );
-};
+  )
+}
 
-export default Badge;
+export default Badge
