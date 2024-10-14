@@ -10,6 +10,7 @@ const Spinner: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => {
       width="1em"
       height="1em"
       viewBox="0 0 24 24"
+      role="loader"
       className={cls("h-full", className)}
       {...props}
     >

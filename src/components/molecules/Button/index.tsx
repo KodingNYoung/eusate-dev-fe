@@ -46,42 +46,42 @@ const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
     "active:bg-opacity-70" //pressed state
   ),
   tetiary: cls(
-    "border-gray-100 text-gray-500", // default
+    "tetiary-btn border-gray-100 text-gray-500", // default
     "hover:border-gray-500 hover:[&:not(:disabled)]:bg-gray-50 hover:text-gray-900", // hover
     "active:border-gray-500 active:bg-gray-50 active:text-gray-900 active:opacity-70", // active
     "disabled:border-gray-50 disabled:text-gray-100", // disabled
     "focus:border-2 focus:border-gray-900 focus:text-gray-900" // active
   ),
   tetiaryText: cls(
-    "border-transparent border-2 text-gray-600", // default
+    "tetiary-text-btn border-transparent border-2 text-gray-600", // default
     "hover:text-gray-900", // hover
     "active:text-gray-600", // active
     "disabled:text-gray-100", // disabled
     "focus:border-gray-900 focus:text-gray-900" // active
   ),
   success: cls(
-    "border-transparent border-2 bg-success-500 text-white-100", // default
+    "success-btn border-transparent border-2 bg-success-500 text-white-100", // default
     "hover:bg-success-600", // hover
     "active:bg-success-700", // active
     "disabled:bg-success-100", // disabled
     "focus:border-success-100 focus:bg-success-600" // active
   ),
   info: cls(
-    "border-transparent border-2 bg-info-500 text-white-100", // default
+    "info-btn border-transparent border-2 bg-info-500 text-white-100", // default
     "hover:bg-info-600", // hover
     "active:bg-info-700", // active
     "disabled:bg-info-100", // disabled
     "focus:border-info-100 focus:bg-info-600" // active
   ),
   warning: cls(
-    "border-transparent border-2 bg-warning-500 text-white-100", // default
+    "warning-btn border-transparent border-2 bg-warning-500 text-white-100", // default
     "hover:bg-warning-600", // hover
     "active:bg-warning-700", // active
     "disabled:bg-warning-100", // disabled
     "focus:border-warning-100 focus:bg-warning-600" // active
   ),
   error: cls(
-    "border-transparent border-2 bg-error-500 text-white-100", // default
+    "error-btn border-transparent border-2 bg-error-500 text-white-100", // default
     "hover:bg-error-600", // hover
     "active:bg-error-700", // active
     "disabled:bg-error-100", // disabled
