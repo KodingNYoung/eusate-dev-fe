@@ -1,7 +1,7 @@
-import Typography from "@/components/atoms/Typography";
-import Chip from "@/components/molecules/Chip";
-import { FC } from "@/utils/types";
-import React from "react";
+import Typography from "@/components/atoms/Typography"
+import Chip from "@/components/molecules/Chip"
+import { FC } from "@/utils/types"
+import React from "react"
 
 const Chips: FC = () => {
   return (
@@ -11,7 +11,7 @@ const Chips: FC = () => {
         <Chip name="default">Default</Chip>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Chips;
+export default Chips

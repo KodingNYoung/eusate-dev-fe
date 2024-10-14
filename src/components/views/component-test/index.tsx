@@ -1,9 +1,9 @@
-import { FC } from "@/utils/types";
-import React from "react";
-import Radios from "./Radios";
-import Buttons from "./Buttons";
-import Badges from "./Badges";
-import Chips from "./Chips";
+import { FC } from "@/utils/types"
+import React from "react"
+import Radios from "./Radios"
+import Buttons from "./Buttons"
+import Badges from "./Badges"
+import Chips from "./Chips"
 
 const ComponentTest: FC = () => {
   return (
@@ -13,7 +13,7 @@ const ComponentTest: FC = () => {
       <Badges />
       <Chips />
     </div>
-  );
-};
+  )
+}
 
-export default ComponentTest;
+export default ComponentTest

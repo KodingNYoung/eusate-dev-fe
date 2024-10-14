@@ -1,7 +1,7 @@
-import { cls } from "@/utils/helpers";
-import { FC } from "@/utils/types";
-import React from "react";
-import type { SVGProps } from "react";
+import { cls } from "@/utils/helpers"
+import { FC } from "@/utils/types"
+import React from "react"
+import type { SVGProps } from "react"
 
 const Spinner: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => {
   return (
@@ -86,7 +86,7 @@ const Spinner: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => {
         ></animateTransform>
       </g>
     </svg>
-  );
-};
+  )
+}
 
-export default Spinner;
+export default Spinner
