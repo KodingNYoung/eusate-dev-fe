@@ -115,7 +115,7 @@ const Button: FC<Props> = ({
   return (
     <button
       className={cls(
-        "border rounded-[90px] cursor-pointer disabled:cursor-not-allowed flex items-center gap-1.5 outline-none whitespace-nowrap transition-all duration-300 ",
+        "border rounded-[90px] cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap-1.5 outline-none whitespace-nowrap transition-all duration-300 ",
         variant && buttonVariant[variant],
         buttonSize[size],
         className

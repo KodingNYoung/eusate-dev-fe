@@ -63,6 +63,7 @@ const config: Config = {
     },
     backgroundImage: {
       "brand-gradient": "linear-gradient(90deg, #D7AB07 0%, #E86555 100%)",
+      "auth-design": "url(../assets/images/auth-design-bg.png)",
     },
     colors: {
       red: {
@@ -189,6 +190,7 @@ const config: Config = {
       3: "0.75rem", // 12px
       3.5: "0.875rem", // 12px
       4: "1rem", // 16px
+      4.5: "1.125rem", //18px
       5: "1.25rem", // 20px
       6: "1.5rem", // 24px
       8: "2rem", // 32px
@@ -213,6 +215,7 @@ const config: Config = {
       3: "0.75rem", // 12px
       3.5: "0.875rem", // 12px
       4: "1rem", // 16px
+      4.5: "1.125rem", //18px
       5: "1.25rem", // 20px
       6: "1.5rem", // 24px
       8: "2rem", // 32px
@@ -237,6 +240,7 @@ const config: Config = {
       3: "0.75rem", // 12px
       3.5: "0.875rem", // 12px
       4: "1rem", // 16px
+      4.5: "1.125rem", //18px
       5: "1.25rem", // 20px
       6: "1.5rem", // 24px
       8: "2rem", // 32px
@@ -261,6 +265,7 @@ const config: Config = {
       3: "0.75rem", // 12px
       3.5: "0.875rem", // 12px
       4: "1rem", // 16px
+      4.5: "1.125rem", //18px
       5: "1.25rem", // 20px
       6: "1.5rem", // 24px
       8: "2rem", // 32px
@@ -285,6 +290,7 @@ const config: Config = {
       3: "0.75rem", // 12px
       3.5: "0.875rem", // 12px
       4: "1rem", // 16px
+      4.5: "1.125rem", //18px
       5: "1.25rem", // 20px
       6: "1.5rem", // 24px
       8: "2rem", // 32px
@@ -330,6 +336,9 @@ const config: Config = {
       xlarge: "10px",
     },
     extend: {
+      borderRadius: {
+        x20: "1.25rem", // 20px
+      },
       zIndex: {
         1: "1",
         2: "2",

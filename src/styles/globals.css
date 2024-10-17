@@ -3,11 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-  /* @import url(../assets/icomoon/style.css); */
+  @import url(../assets/icomoon/style.css);
   html {
     /*noinspection CssUnresolvedCustomProperty*/
     font-size: 16px;
     @apply scroll-smooth antialiased text-black-100;
+  }
+  body {
+    @apply min-h-screen;
   }
 }
 

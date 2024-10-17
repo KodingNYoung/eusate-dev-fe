@@ -24,9 +24,15 @@ const typeProps: { [key in LogoVariants]: StaticImport } = {
   "icon-gradient": iconGradient,
 }
 
-const Logo: FC<Props> = ({ type }) => {
+const Logo: FC<Props> = ({ type, className }) => {
   return (
-    <Image src={typeProps[type]} alt={`logo-${type}`} priority height={111} />
+    <Image
+      src={typeProps[type]}
+      alt={`logo-${type}`}
+      className={className}
+      priority
+      height={111}
+    />
   )
 }
 
