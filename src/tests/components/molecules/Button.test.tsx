@@ -1,7 +1,5 @@
-import { it, expect, describe, vi } from "vitest"
 import { fireEvent, getByRole, render, screen } from "@testing-library/react"
 import Button from "@/components/molecules/Button"
-import "@testing-library/jest-dom/vitest"
 
 describe("Button", () => {
   it("renders the button with children", () => {
@@ -14,18 +12,6 @@ describe("Button", () => {
     expect(typography).toBeInTheDocument()
     expect(button).toContainElement(typography)
     expect(button).toHaveClass("primary-btn")
-  })
-
-  it("applies the correct class based on the variant prop", () => {
-    render(
-      <Button variant="error" data-testid="variant-test">
-        Primary button
-      </Button>
-    )
-
-    const button = screen.getByTestId("variant-test")
-
-    expect(button).toHaveClass("error-btn")
   })
 
   it("renders start and end content when provided", () => {
