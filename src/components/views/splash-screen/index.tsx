@@ -1,7 +1,7 @@
 import Icon from "@/components/atoms/Icon"
 import Logo from "@/components/atoms/Logo"
 import Typography from "@/components/atoms/Typography"
-import Button from "@/components/molecules/Button"
+import Button from "@/components/molecules/Buttons"
 import { ROUTES } from "@/utils/constants"
 import { FC } from "@/utils/types"
 import Link from "next/link"
@@ -10,7 +10,7 @@ import "./style.css"
 
 const SplashScreen: FC = () => {
   return (
-    <main className="splash h-screen">
+    <main className="h-screen">
       <div className="bg-auth-design bg-fixed bg-cover bg-no-repeat h-full bg-left-top flex flex-col items-center justify-center gap-5 text-center">
         <Logo type="full-gradient-white" className="h-6 w-fit" />
         <Typography

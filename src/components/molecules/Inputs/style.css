@@ -1,0 +1,28 @@
+@property --inputColor1 {
+  syntax: "<color>";
+  initial-value: #e4e7ec;
+  inherits: false;
+}
+
+@property --inputColor2 {
+  syntax: "<color>";
+  initial-value: #e4e7ec;
+  inherits: false;
+}
+
+.text-input-container:has(:hover):before {
+  --inputColor1: #b9bdc7;
+  --inputColor2: #b9bdc7;
+}
+.text-input-container:has(:focus):before {
+  --inputColor1: #d7ab07;
+  --inputColor2: #e86555;
+}
+.text-input-container[data-error="true"]:before {
+  --inputColor1: #f04438;
+  --inputColor2: #f04438;
+}
+.text-input-container[data-success="true"]:before {
+  --inputColor1: #12b76a;
+  --inputColor2: #12b76a;
+}

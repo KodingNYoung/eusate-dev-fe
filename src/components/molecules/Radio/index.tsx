@@ -8,6 +8,7 @@ type Slots = "root" | "label" | "input" | "icon"
 type Props = HTMLProps<HTMLInputElement> & {
   id: string
   name: string
+  value: string
   classNames?: { [slot in Slots]?: TWClassNames }
 }
 
@@ -29,37 +30,39 @@ const radioIconInnerStyle = cls(
 const Radio: FC<Props> = ({ children, id, name, classNames, ...props }) => {
   const hasLabel = !!children
   return (
-    <label
-      htmlFor={id}
-      className={cls(
-        "flex gap-2.5 group radio",
-        hasLabel && labelledRadioStyle,
-        classNames?.root
-      )}
-    >
-      <input
-        type="radio"
-        id={id}
-        name={name}
-        className={cls("peer absolute opacity-0", classNames?.input)}
-        {...props}
-      />
-      <span className={cls(radioIconOuterStyle, classNames?.icon)}>
-        <span className={cls(radioIconMidStyle)}>
-          <span className={radioIconInnerStyle}></span>
+    <div className="relative z-1">
+      <label
+        htmlFor={id}
+        className={cls(
+          "flex gap-2.5 group radio",
+          hasLabel && labelledRadioStyle,
+          classNames?.root
+        )}
+      >
+        <input
+          type="radio"
+          id={id}
+          name={name}
+          className={cls("peer absolute opacity-0", classNames?.input)}
+          {...props}
+        />
+        <span className={cls(radioIconOuterStyle, classNames?.icon)}>
+          <span className={cls(radioIconMidStyle)}>
+            <span className={radioIconInnerStyle}></span>
+          </span>
         </span>
-      </span>
-      {hasLabel && (
-        <Typography
-          className={cls(
-            "text-gray-500 peer-[:checked]:text-gray-900 peer-[:checked]:!text-medium-base",
-            classNames?.label
-          )}
-        >
-          {children}
-        </Typography>
-      )}
-    </label>
+        {hasLabel && (
+          <Typography
+            className={cls(
+              "text-gray-500 peer-[:checked]:text-gray-900 peer-[:checked]:!text-medium-base",
+              classNames?.label
+            )}
+          >
+            {children}
+          </Typography>
+        )}
+      </label>
+    </div>
   )
 }
 

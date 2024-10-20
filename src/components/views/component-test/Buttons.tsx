@@ -1,5 +1,5 @@
 import Typography from "@/components/atoms/Typography"
-import Button from "@/components/molecules/Button"
+import Button from "@/components/molecules/Buttons"
 import { FC } from "@/utils/types"
 import React from "react"
 

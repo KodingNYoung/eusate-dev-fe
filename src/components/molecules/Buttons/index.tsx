@@ -16,12 +16,16 @@ type ButtonVariants =
   | "info"
   | "warning"
   | "error"
-type Props = Omit<HTMLProps<HTMLButtonElement>, "type" | "size"> & {
+export type ButtonProps = Omit<
+  HTMLProps<HTMLButtonElement>,
+  "type" | "size"
+> & {
   startContent?: ReactNode
   endContent?: ReactNode
   size?: Sizes
   variant?: ButtonVariants
   loading?: boolean
+  type?: "submit" | "button" | "reset"
 }
 
 const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
@@ -101,7 +105,7 @@ const textVariants: { [size in Sizes]: TypographyVariants } = {
   xl: "semibold-sm",
 }
 
-const Button: FC<Props> = ({
+const Button: FC<ButtonProps> = ({
   children,
   className,
   startContent,

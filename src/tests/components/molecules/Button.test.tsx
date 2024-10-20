@@ -1,5 +1,5 @@
 import { fireEvent, getByRole, render, screen } from "@testing-library/react"
-import Button from "@/components/molecules/Button"
+import Button from "@/components/molecules/Buttons"
 
 describe("Button", () => {
   it("renders the button with children", () => {

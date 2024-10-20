@@ -8,14 +8,24 @@ const Radios: FC = () => {
     <div className="grid gap-5">
       <Typography variant="semibold-3xl">Radio buttons</Typography>
       <div className="flex items-center gap-3 flex-wrap">
-        <Radio id="radio1" name="radios" classNames={{ root: "w-52" }}>
+        <Radio
+          id="radio1"
+          name="radios"
+          value="radio1"
+          classNames={{ root: "w-52" }}
+        >
           Radio 1
         </Radio>
-        <Radio id="radio2" name="radios" classNames={{ root: "w-52" }}>
+        <Radio
+          id="radio2"
+          name="radios"
+          value="radio2"
+          classNames={{ root: "w-52" }}
+        >
           Radio 2
         </Radio>
-        <Radio id="radio3" name="radios" />
-        <Radio id="radio4" name="radios" />
+        <Radio id="radio3" value="radio3" name="radios" />
+        <Radio id="radio4" value="radio4" name="radios" />
       </div>
     </div>
   )

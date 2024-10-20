@@ -89,3 +89,25 @@ export type PageFC<
   ): ReactElement | null | Promise<ReactElement | null>
   displayName?: string
 }
+export type ErrorObjectType = {
+  type: "request" | "validation"
+  message?: string
+  fields?: {
+    [field: string]: string
+  }
+}
+
+export type FormState<SP = unknown, EP = unknown> =
+  | { redirectTo?: string }
+  | (
+      | {
+          redirectTo?: string
+          success: { message: string }
+          payload?: SP
+        }
+      | {
+          redirectTo?: string
+          error: ErrorObjectType
+          payload?: EP
+        }
+    )
