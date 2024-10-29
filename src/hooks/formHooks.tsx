@@ -60,11 +60,12 @@ export const useValidation = (
   }, [formRef, validate])
 
   useEffect(() => {
-    if (!formRef?.current) return
-    formRef.current.addEventListener("submit", onSubmit)
+    const form = formRef?.current
+    if (!form) return
+    form.addEventListener("submit", onSubmit)
 
-    return () => formRef.current?.removeEventListener("submit", onSubmit)
-  }, [formRef])
+    return () => form?.removeEventListener("submit", onSubmit)
+  }, [formRef, onSubmit])
 
   return { touched, errors, hasErrors, validate, markFieldTouched }
 }
@@ -81,7 +82,7 @@ export const useFormToast = (state: FormState, showSuccess?: boolean) => {
         variant: "outlined",
       })
     }
-  }, [state])
+  }, [state, showSuccess])
 
   return null
 }
