@@ -1,5 +1,6 @@
 import { ZodError } from "zod"
 import { ErrorObjectType, FormState, TWClassNames } from "./types"
+import { RefObject } from "react"
 
 export function cls(
   ...classNames: (TWClassNames | string | null | undefined | false)[]
@@ -9,7 +10,7 @@ export function cls(
 }
 
 export function formStateResponse<SP = unknown, EP = unknown>(
-  formState: FormState<SP, EP>
+  formState?: FormState<SP, EP>
 ) {
   const state: FormState = {
     ...formState,
@@ -54,4 +55,10 @@ export const extractZodErrors = (err: ZodError) => {
     },
     {} as { [field: string]: string }
   )
+}
+
+export const getFormdataFromFormRef = (formRef: RefObject<HTMLFormElement>) => {
+  const form = formRef.current
+
+  return form ? new FormData(form) : undefined
 }

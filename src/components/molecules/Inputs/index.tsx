@@ -4,6 +4,7 @@ import { cls } from "@/utils/helpers"
 import Typography from "@/components/atoms/Typography"
 import "./style.css"
 import Icon from "@/components/atoms/Icon"
+import HelperText from "@/components/atoms/HelperText"
 
 type Sizes = "lg" | "sm"
 type InputProps = Omit<HTMLProps<HTMLInputElement>, "size"> & {
@@ -95,17 +96,9 @@ const Input: FC<InputProps> = ({
         </div>
       </label>
       {helperText && (
-        <Typography
-          as="span"
-          variant="regular-xs"
-          data-error={isError}
-          data-success={isSuccess}
-          className={cls(
-            "text-gray-500 data-[success=true]:text-success-600 data-[error=true]:text-error-500"
-          )}
-        >
+        <HelperText isError={isError} isSuccess={isSuccess}>
           {helperText}
-        </Typography>
+        </HelperText>
       )}
     </div>
   )

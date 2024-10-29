@@ -1,15 +1,18 @@
 import FinalizeLogin from "@/components/views/login/FinalizeLogin"
+import { getSession } from "@/lib/sessions"
 import { TwoFAMethods } from "@/utils/enums"
 import { PageFC } from "@/utils/types"
-import React from "react"
+import React, { Suspense } from "react"
 
-const FinalizeLoginPage: PageFC = ({ searchParams }) => {
-  console.log(searchParams)
+const FinalizeLoginPage: PageFC = async ({ searchParams }) => {
+  const { email } = (await getSession()) || {}
   return (
-    <FinalizeLogin
-      method={searchParams?.method as TwoFAMethods}
-      email={searchParams?.email as string | undefined}
-    />
+    <Suspense fallback={<>loading...</>}>
+      <FinalizeLogin
+        method={searchParams?.method as TwoFAMethods}
+        email={email as string | undefined}
+      />
+    </Suspense>
   )
 }
 

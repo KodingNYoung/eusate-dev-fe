@@ -1,15 +1,16 @@
 import { TwoFAMethods } from "@/utils/enums"
 import { FC } from "@/utils/types"
 import React from "react"
-import TwoFACodeInputView from "@/components/templates/auth/TwoFACodeInputView"
+import TwoFACodeInputView from "@/components/templates/TwoFACodeInputView"
 import { sendCode } from "@/app/(auth)/setup-2fa/actions"
 
 type Props = {
   method: TwoFAMethods
   email?: string
+  qrcodeProps?: { svg: string; secretKey: string }
 }
 
-const TwoFAMethod: FC<Props> = ({ method, email }) => {
+const TwoFAMethod: FC<Props> = ({ method, email, qrcodeProps }) => {
   const methodSubtitles = {
     [TwoFAMethods.AUTHENTICATOR]:
       "Scan the QR code with your authenticator app (e.g., Google Authenticator) and enter the generated code below.",
@@ -20,16 +21,15 @@ const TwoFAMethod: FC<Props> = ({ method, email }) => {
       </span>
     ),
   }
+
   return (
     <TwoFACodeInputView
       title="Set up 2FA"
       subtitle={methodSubtitles[method]}
       method={method}
-      submitHandler={async (...args) => {
-        "use server"
-        return sendCode(...args)
-      }}
+      submitAction={sendCode}
       isSetup
+      qrcodeProps={qrcodeProps}
     />
   )
 }

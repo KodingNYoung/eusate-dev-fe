@@ -45,9 +45,9 @@ const OtpInput: FC<Props> = ({
     }
 
     /// Call onChange when OTP is completely filled
-    if (newOtp.every((char) => char !== "")) {
-      if (onChange) onChange(newOtp.join(""))
-    }
+    // if (newOtp.every((char) => char !== "")) {
+    if (onChange) onChange(newOtp.join(""))
+    // }
   }
 
   const handleKeyDown = (

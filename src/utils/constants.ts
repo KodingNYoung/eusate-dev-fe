@@ -1,12 +1,25 @@
+export const API_BASEURL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT_URL
+
 export const ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   LOGIN_2FA: "/login/finalize",
   SIGN_UP: "/sign-up",
-  SETUP_2FA: "/setup-2fa",
-  AUTHENTICATON_2FA: "/setup-2fa/authenticator",
-  EMAIL_2FA: "/setup-2fa/email",
+  TWOFA_SETUP: "/setup-2fa",
+  TWOFA_METHOD: "/setup-2fa/method",
   TWOFA_COMPLETED: "/setup-2fa/completed",
   ONOBOARDING_SETUP: "/onboarding-setup",
   OVERVIEW: "/overview",
 }
+
+export const EMAIL_REGEX_PATTERNS =
+  /^[^@]+@(?!gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|aol\.com|icloud\.com|mail\.com|yandex\.com|zoho\.com|protonmail\.com|gmx\.com|me\.com|live\.com$).+$/i
+
+export const COOKIES_KEYS = {
+  SESSION: "@eusate-dev-session",
+  TWOFA_AUTH_CRED: "@2fa-auth-credentials",
+} as const
+
+export const ERROR_CAUSES = {
+  SESSION_EXPIRED: "SESSION_EXPIRED",
+} as const

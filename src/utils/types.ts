@@ -1,4 +1,5 @@
 import { HTMLProps, PropsWithChildren, ReactElement } from "react"
+import { TwoFAMethods } from "./enums"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -111,3 +112,15 @@ export type FormState<SP = unknown, EP = unknown> =
           payload?: EP
         }
     )
+
+export type SessionPayload = {
+  refreshToken?: string
+  accessToken?: string
+  email: string
+  userId?: string
+  organisationId?: string
+  isVerified?: boolean
+  twofaMethod?: TwoFAMethods | null
+  expiresAt?: Date
+  shouldOnboard?: boolean
+}

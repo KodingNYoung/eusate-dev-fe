@@ -2,19 +2,20 @@ import { FC } from "@/utils/types"
 import React from "react"
 import Setup2FAForm from "./Setup2FAForm"
 import AuthHeader from "@/components/molecules/AuthHeader"
+import ToastContextProvider from "@/providers/toastProviders"
 
-type Props = { email: string }
-
-const Setup2FA: FC<Props> = ({ email }) => {
+const Setup2FA: FC = () => {
   return (
-    <main className="w-[544px] px-4 py-8 max-w-full flex flex-col">
-      <AuthHeader
-        title="Set up 2FA"
-        subtitle="Select a preferred 2FA method"
-        // hasBackBtn
-      />
-      <Setup2FAForm email={email} />
-    </main>
+    <ToastContextProvider>
+      <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col">
+        <AuthHeader
+          toast
+          title="Set up 2FA"
+          subtitle="Select a preferred 2FA method"
+        />
+        <Setup2FAForm />
+      </main>
+    </ToastContextProvider>
   )
 }
 

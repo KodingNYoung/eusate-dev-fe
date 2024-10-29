@@ -1,5 +1,5 @@
 import { finalizeLogin } from "@/app/(auth)/login/actions"
-import TwoFACodeInputView from "@/components/templates/auth/TwoFACodeInputView"
+import TwoFACodeInputView from "@/components/templates/TwoFACodeInputView"
 import { TwoFAMethods } from "@/utils/enums"
 import { FC } from "@/utils/types"
 import React from "react"
@@ -26,7 +26,7 @@ const FinalizeLogin: FC<Props> = ({ email, method }) => {
       title="Complete 2FA"
       subtitle={methodSubtitles[method]}
       method={method}
-      submitHandler={finalizeLogin}
+      submitAction={finalizeLogin}
     />
   )
 }

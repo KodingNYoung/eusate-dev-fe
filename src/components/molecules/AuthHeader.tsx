@@ -6,14 +6,16 @@ import Button from "./Buttons"
 import Icon from "../atoms/Icon"
 import Typography from "../atoms/Typography"
 import { useRouter } from "next/navigation"
+import Toast from "../organisms/Toast"
 
 type Props = {
   hasBackBtn?: boolean
   title: ReactNode
   subtitle: ReactNode
+  toast?: boolean
 }
 
-const AuthHeader: FC<Props> = ({ hasBackBtn, title, subtitle }) => {
+const AuthHeader: FC<Props> = ({ hasBackBtn, title, subtitle, toast }) => {
   const router = useRouter()
   return (
     <>
@@ -28,6 +30,7 @@ const AuthHeader: FC<Props> = ({ hasBackBtn, title, subtitle }) => {
           Back
         </Button>
       )}
+      {toast && <Toast />}
       <header>
         <Typography as="h2" className="text-bold-2xl sm:text-bold-4xl mb-3">
           {title}

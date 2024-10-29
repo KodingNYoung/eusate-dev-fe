@@ -1,9 +1,13 @@
 import Login from "@/components/views/login"
 import { PageFC } from "@/utils/types"
-import React from "react"
+import React, { Suspense } from "react"
 
 const LoginPage: PageFC = () => {
-  return <Login />
+  return (
+    <Suspense fallback={<Login />}>
+      <Login />
+    </Suspense>
+  )
 }
 
 export default LoginPage
