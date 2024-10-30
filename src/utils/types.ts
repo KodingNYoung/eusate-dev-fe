@@ -116,6 +116,7 @@ export type FormState<SP = unknown, EP = unknown> =
 export type SessionPayload = {
   refreshToken?: string
   accessToken?: string
+  tokenVerified?: boolean
   email: string
   userId?: string
   organisationId?: string

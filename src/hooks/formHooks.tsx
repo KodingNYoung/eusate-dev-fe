@@ -82,7 +82,7 @@ export const useFormToast = (state: FormState, showSuccess?: boolean) => {
         variant: "outlined",
       })
     }
-  }, [state, showSuccess, toast])
+  }, [state, showSuccess])
 
   return null
 }

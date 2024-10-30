@@ -5,7 +5,7 @@ import { formStateResponse } from "@/utils/helpers"
 import { FormState } from "@/utils/types"
 import { sendAuthRequest, sendRequest } from "@/lib/request"
 import { redirect } from "next/navigation"
-import { createSession, getSession } from "@/lib/sessions"
+import { createSession, getSession, updateSession } from "@/lib/sessions"
 
 type InitiateLoginResponse = {
   access: string
@@ -81,11 +81,16 @@ export const finalizeLogin = async (
       { method: "POST" }
     )
 
-    // handle routes redirect
+    // handle auth check
     if ("shouldAuthenticate" in response) {
       route = ROUTES.LOGIN
       throw new Error("Session expired, log in again")
     }
+
+    // update session
+    await updateSession({ tokenVerified: true })
+
+    // handle route redirect
     if (session?.shouldOnboard) {
       message =
         "Login successful, you will be redirected to complete your onboarding."
