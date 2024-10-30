@@ -3,7 +3,7 @@ import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"
-import React, { HTMLProps, useRef, useState } from "react"
+import React, { ClipboardEvent, HTMLProps, useRef, useState } from "react"
 import "./style.css"
 
 type Sizes = "lg" | "sm"
@@ -64,6 +64,13 @@ const OtpInput: FC<Props> = ({
       }
     }
   }
+  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
+    const text = e.clipboardData.getData("text")
+    if (!text) return
+    const pastedCode = text.slice(0, 6)
+    setOtp(pastedCode.split(""))
+    if (onChange) onChange(pastedCode)
+  }
 
   return (
     <div className={"text-input-group"}>
@@ -91,6 +98,7 @@ const OtpInput: FC<Props> = ({
                   placeholder="-"
                   onChange={(e) => handleChange(e.target.value, idx)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
+                  onPaste={handlePaste}
                   ref={(el) => {
                     inputsRef.current[idx] = el
                   }}

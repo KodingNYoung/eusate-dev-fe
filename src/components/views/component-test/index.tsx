@@ -4,6 +4,7 @@ import React from "react"
 import Buttons from "./Buttons"
 import Badges from "./Badges"
 import Chips from "./Chips"
+import OtpInput from "@/components/molecules/Inputs/OtpInput"
 
 const ComponentTest: FC = () => {
   return (
@@ -12,6 +13,7 @@ const ComponentTest: FC = () => {
       <Buttons />
       <Badges />
       <Chips />
+      <OtpInput />
     </div>
   )
 }
