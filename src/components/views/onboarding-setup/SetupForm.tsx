@@ -29,9 +29,7 @@ const SetupForm: FC = () => {
 
   useEffect(() => {
     if ("success" in state) {
-      setTimeout(() => {
-        router.push(state?.redirectTo || "")
-      }, 1000)
+      router.push(state?.redirectTo || "")
     }
   }, [state, router])
 

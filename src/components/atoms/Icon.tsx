@@ -18,7 +18,7 @@ const Icon: FC<Props> = ({ className, name, size, ...props }) => {
             : size
           : undefined,
       }}
-      className={cls("text-xl text-inherit", name, className)}
+      className={cls("text-inherit", name, className)}
       {...props}
     />
   )

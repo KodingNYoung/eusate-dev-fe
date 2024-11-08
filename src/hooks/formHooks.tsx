@@ -74,6 +74,7 @@ export const useFormToast = (state: FormState, showSuccess?: boolean) => {
   const toast = useToast()
 
   useEffect(() => {
+    if (!state) return
     if ("error" in state) {
       toast.show(state.error.message, { type: "error", variant: "outlined" })
     } else if (showSuccess && "success" in state) {

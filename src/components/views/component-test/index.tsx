@@ -5,6 +5,7 @@ import Buttons from "./Buttons"
 import Badges from "./Badges"
 import Chips from "./Chips"
 import OtpInput from "@/components/molecules/Inputs/OtpInput"
+import Tooltip from "@/components/molecules/Tooltip"
 
 const ComponentTest: FC = () => {
   return (
@@ -14,6 +15,18 @@ const ComponentTest: FC = () => {
       <Badges />
       <Chips />
       <OtpInput />
+
+      <Tooltip
+        position="left"
+        alignment="start"
+        reference={<>I have tooltip</>}
+        classNames={{ tooltip: "w-96" }}
+      >
+        I am the tooltip. Lorem, ipsum dolor sit amet consectetur adipisicing
+        elit. Fugit, expedita facilis molestiae illo illum quo ducimus est
+        deserunt voluptas ipsum, nesciunt ut nulla quia suscipit consequatur
+        soluta fuga vitae impedit.
+      </Tooltip>
     </div>
   )
 }

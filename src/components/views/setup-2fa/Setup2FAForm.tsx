@@ -3,13 +3,13 @@
 import { setup2fa } from "@/app/(auth)/setup-2fa/actions"
 import HelperText from "@/components/atoms/HelperText"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
-import Radio from "@/components/molecules/Radio"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { TwoFAMethods } from "@/utils/enums"
 import { FC, FormState } from "@/utils/types"
 import { setup2faPayloadSchema } from "@/lib/schemas/auth"
 import React, { ChangeEvent, useRef } from "react"
 import { useFormState } from "react-dom"
+import MethodRadio from "./_components/MethodRadio"
 
 const Setup2FAForm: FC = () => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -30,22 +30,22 @@ const Setup2FAForm: FC = () => {
   return (
     <form action={action} className="py-10 flex flex-col gap-3" ref={formRef}>
       <div className="grid sm:grid-cols-2 gap-5">
-        <Radio
+        <MethodRadio
           id={TwoFAMethods.AUTHENTICATOR}
           name="method"
           value={TwoFAMethods.AUTHENTICATOR}
           onChange={onFieldChange}
-        >
-          Authenticator app
-        </Radio>
-        <Radio
+          title="Authenticator  app"
+          description="Scan a QR code with your authenticator app (e.g., Google Authenticator) and enter the generated code for authentication."
+        />
+        <MethodRadio
           id={TwoFAMethods.EMAIL}
           name="method"
           value={TwoFAMethods.EMAIL}
           onChange={onFieldChange}
-        >
-          OTP to Email
-        </Radio>
+          title="OTP to Email"
+          description="Receive a 2FA code via your company email and use it for verification in the next step."
+        />
       </div>
       {hasErrors && (
         <HelperText isError={hasErrors}>{errors.method}</HelperText>
