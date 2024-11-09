@@ -15,18 +15,25 @@ const ComponentTest: FC = () => {
       <Badges />
       <Chips />
       <OtpInput />
-
-      <Tooltip
-        position="left"
-        alignment="start"
-        reference={<>I have tooltip</>}
-        classNames={{ tooltip: "w-96" }}
-      >
-        I am the tooltip. Lorem, ipsum dolor sit amet consectetur adipisicing
-        elit. Fugit, expedita facilis molestiae illo illum quo ducimus est
-        deserunt voluptas ipsum, nesciunt ut nulla quia suscipit consequatur
-        soluta fuga vitae impedit.
-      </Tooltip>
+      <div className="flex items-center justify-center">
+        <Tooltip
+          position="bottom"
+          alignment="end"
+          content={
+            <>
+              I am the tooltip. Lorem, ipsum dolor sit amet consectetur
+              adipisicing elit. Fugit, expedita facilis molestiae illo illum quo
+              ducimus est deserunt voluptas ipsum, nesciunt ut
+            </>
+          }
+          classNames={{ tooltip: "w-96 p-2.5 rounded-xl" }}
+          visible
+        >
+          I have tooltip nulla quia suscipit consequatur soluta fuga vitae
+          impedit.
+        </Tooltip>
+      </div>
+      hello
     </div>
   )
 }

@@ -10,7 +10,7 @@ const AuthAppIcon: FC = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_268_102834)">
+      <g clipPath="url(#clip0_268_102834)">
         <rect
           x="0.5"
           width="64"
@@ -81,7 +81,7 @@ const AuthAppIcon: FC = () => {
           <stop className="[stop-color:#F6F6F8] group-has-[:checked]:[stop-color:#F3E5B2]" />
           <stop
             offset="0.329581"
-            stop-opacity="0"
+            stopOpacity="0"
             className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]"
           />
         </linearGradient>
@@ -97,7 +97,7 @@ const AuthAppIcon: FC = () => {
           <stop
             offset="0.329581"
             className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]"
-            stop-opacity="0"
+            stopOpacity="0"
           />
         </linearGradient>
         <linearGradient
@@ -112,7 +112,7 @@ const AuthAppIcon: FC = () => {
           <stop
             offset="0.519335"
             className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]"
-            stop-opacity="0"
+            stopOpacity="0"
           />
         </linearGradient>
         <linearGradient
@@ -123,8 +123,8 @@ const AuthAppIcon: FC = () => {
           y2="32"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D7AB07" />
-          <stop offset="1" stop-color="#E86555" />
+          <stop stopColor="#D7AB07" />
+          <stop offset="1" stopColor="#E86555" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_268_102834"
@@ -134,8 +134,8 @@ const AuthAppIcon: FC = () => {
           y2="33"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D7AB07" />
-          <stop offset="1" stop-color="#E86555" />
+          <stop stopColor="#D7AB07" />
+          <stop offset="1" stopColor="#E86555" />
         </linearGradient>
         <clipPath id="clip0_268_102834">
           <rect x="0.5" width="64" height="64" rx="8" fill="white" />

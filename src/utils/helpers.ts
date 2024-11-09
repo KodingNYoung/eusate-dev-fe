@@ -62,3 +62,7 @@ export const getFormdataFromFormRef = (formRef: RefObject<HTMLFormElement>) => {
 
   return form ? new FormData(form) : undefined
 }
+
+export const copy = (text: string) => {
+  navigator.clipboard.writeText(text)
+}

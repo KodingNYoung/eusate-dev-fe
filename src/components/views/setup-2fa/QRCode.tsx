@@ -2,6 +2,7 @@ import { FC } from "@/utils/types"
 import React from "react"
 import Typography from "@/components/atoms/Typography"
 import Icon from "@/components/atoms/Icon"
+import CopyButton from "@/components/molecules/Buttons/CopyButton"
 
 type Props = {
   svg: string
@@ -20,10 +21,13 @@ const QRCode: FC<Props> = ({ svg, secretKey }) => {
           If u have any problems scanning the code enter the code below into the
           authenticator app
         </Typography>
-        <button className="bg-gray-50 flex items-center gap-2 w-fit px-3 py-1 rounded-[100px]">
+        <CopyButton
+          text={secretKey}
+          className="bg-gray-50 flex items-center gap-2 w-fit px-3 py-1 rounded-[100px]"
+        >
           <Typography variant="semibold-xs">{secretKey}</Typography>
           <Icon name="icon-copy" className="text-gray-500" />
-        </button>
+        </CopyButton>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@
 
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"
-import React, { MouseEvent, ReactNode, useRef, useState } from "react"
+import React, { ReactNode, useMemo, useRef } from "react"
 
 type TooltipPosition = "top" | "bottom" | "left" | "right"
 type Alignment = "start" | "center" | "end"
@@ -12,25 +12,52 @@ type Slots = "root" | "reference" | "tooltip"
 type Props = {
   position?: TooltipPosition
   alignment?: Alignment
-  reference?: ReactNode
+  content?: ReactNode
   classNames?: { [slot in Slots]?: TWClassNames }
+  visible: boolean
 }
 
-const positionClassNameMap: {
+const positionClassNames: {
   [positionalign in PositionAlignment]: TWClassNames
 } = {
-  "top-start": "bottom-[calc(100%_+_10px)] left-0",
-  "top-center": "bottom-[calc(100%_+_10px)] left-1/2 -translate-x-1/2",
-  "top-end": "bottom-[calc(100%_+_10px)] right-0",
-  "right-start": "left-[calc(100%_+_10px)] top-0",
-  "right-center": "left-[calc(100%_+_10px)] top-1/2 -translate-y-1/2",
-  "right-end": "left-[calc(100%_+_10px)] bottom-0",
-  "bottom-start": "top-[calc(100%_+_10px)] left-0",
-  "bottom-center": "top-[calc(100%_+_10px)] left-1/2 -translate-x-1/2",
-  "bottom-end": "top-[calc(100%_+_10px)] right-0",
-  "left-start": "right-[calc(100%_+_10px)] top-0",
-  "left-center": "right-[calc(100%_+_10px)] top-1/2 -translate-y-1/2",
-  "left-end": "right-[calc(100%_+_10px)] bottom-0",
+  "top-start": "bottom-[calc(100%_+_12px)] left-0 ",
+  "top-center": "bottom-[calc(100%_+_12px)] left-1/2 -translate-x-1/2",
+  "top-end": "bottom-[calc(100%_+_12px)] right-0 ",
+  "right-start": "left-[calc(100%_+_12px)] top-0",
+  "right-center": "left-[calc(100%_+_12px)] top-1/2 -translate-y-1/2",
+  "right-end": "left-[calc(100%_+_12px)] bottom-0",
+  "bottom-start": "top-[calc(100%_+_12px)] left-0",
+  "bottom-center": "top-[calc(100%_+_12px)] left-1/2 -translate-x-1/2",
+  "bottom-end": "top-[calc(100%_+_12px)] right-0",
+  "left-start": "right-[calc(100%_+_12px)] top-0",
+  "left-center": "right-[calc(100%_+_12px)] top-1/2 -translate-y-1/2",
+  "left-end": "right-[calc(100%_+_12px)] bottom-0",
+}
+const arrowClassNames = {
+  "top-start":
+    "after:top-full after:left-3 after:border-y-[10px] after:border-x-[5px] after:border-[color:black_transparent_transparent_transparent]",
+  "top-center":
+    "after:top-full after:left-1/2 after:-translate-x-1/2 after:border-y-[10px] after:border-x-[5px] after:border-[color:black_transparent_transparent_transparent]",
+  "top-end":
+    "after:top-full after:right-3 after:border-y-[10px] after:border-x-[5px] after:border-[color:black_transparent_transparent_transparent]",
+  "right-start":
+    "after:right-full after:top-3 after:border-x-[10px] after:border-y-[5px] after:border-[color:transparent_black_transparent_transparent]",
+  "right-center":
+    "after:right-full after:top-1/2 after:-translate-y-1/2 after:border-x-[10px] after:border-y-[5px] after:border-[color:transparent_black_transparent_transparent]",
+  "right-end":
+    "after:right-full after:bottom-3 after:border-x-[10px] after:border-y-[5px] after:border-[color:transparent_black_transparent_transparent]",
+  "bottom-start":
+    "after:bottom-full after:left-3 after:border-y-[10px] after:border-x-[5px] after:border-[color:transparent_transparent_black_transparent]",
+  "bottom-center":
+    "after:bottom-full after:left-1/2 after:-translate-x-1/2 after:border-y-[10px] after:border-x-[5px] after:border-[color:transparent_transparent_black_transparent]",
+  "bottom-end":
+    "after:bottom-full after:right-3 after:border-y-[10px] after:border-x-[5px] after:border-[color:transparent_transparent_black_transparent]",
+  "left-start":
+    "after:left-full after:top-3 after:border-x-[10px] after:border-y-[5px] after:border-[color:transparent_transparent_transparent_black]",
+  "left-center":
+    "after:left-full after:top-1/2 after:-transalte-y-1/2 after:border-x-[10px] after:border-y-[5px] after:border-[color:transparent_transparent_transparent_black]",
+  "left-end":
+    "after:left-full after:bottom-3 after:border-x-[10px] after:border-y-[5px] after:border-[color:transparent_transparent_transparent_black]",
 }
 const positionAltMap: {
   [positionalign in PositionAlignment]: PositionAlignment[]
@@ -74,16 +101,15 @@ const checkPositionValidity = (
     return false
   }
 
-  console.log({ position, target, tooltip, window })
   return true
 }
 const getValidPosition = (
-  targetEl: Element,
+  targetEl: Element | null,
   tooltipEl: Element | null,
   position: TooltipPosition,
   alignment: Alignment
 ) => {
-  if (typeof window === "undefined" || !tooltipEl) return
+  if (typeof window === "undefined" || !tooltipEl || !targetEl) return
 
   const target = targetEl.getBoundingClientRect()
   const tooltipRects = tooltipEl.getBoundingClientRect()
@@ -91,7 +117,6 @@ const getValidPosition = (
 
   const validPosition = altPositions.find((positionAlignment) => {
     const position = positionAlignment.split("-")[0] as TooltipPosition
-    console.log(position)
     return checkPositionValidity(position, {
       target,
       tooltip: tooltipRects,
@@ -104,54 +129,49 @@ const getValidPosition = (
 const Tooltip: FC<Props> = ({
   position = "top",
   alignment = "center",
-  reference,
+  content,
   children,
   classNames,
+  visible,
 }) => {
   const targetRef = useRef<HTMLDivElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
+  const hideTimer = useRef<NodeJS.Timeout>()
 
-  const [tooltipPositionClass, setTooltipPositionClass] = useState<string>()
-  const [visible, setVisiblity] = useState(false)
+  const validPosition = useMemo(() => {
+    if (visible) {
+      clearTimeout(hideTimer.current)
+      const validPosition =
+        getValidPosition(
+          targetRef.current,
+          tooltipRef.current,
+          position,
+          alignment
+        ) || `${position}-${alignment}`
 
-  const handleTooltipDisplay = (e: MouseEvent<HTMLDivElement>) => {
-    const validPosition =
-      getValidPosition(
-        e.currentTarget,
-        tooltipRef.current,
-        position,
-        alignment
-      ) || `${position}-${alignment}`
-    const className = positionClassNameMap[validPosition]
-    setTooltipPositionClass(className)
-    setVisiblity(true)
-    console.log({ className, validPosition })
-  }
+      return validPosition
+    }
+  }, [visible, position, alignment])
 
   return (
-    <div
-      ref={targetRef}
-      onMouseEnter={handleTooltipDisplay}
-      onMouseLeave={() => {
-        setVisiblity(false)
-        setTooltipPositionClass("")
-      }}
-      className={cls("relative w-fit border", classNames?.root)}
-    >
+    <div ref={targetRef} className={cls("relative w-fit", classNames?.root)}>
       <div className={cls("relative whitespace-nowrap", classNames?.reference)}>
-        {reference}
+        {children}
       </div>
       <div
         ref={tooltipRef}
         role="tooltip"
         className={cls(
-          "absolute z-2 bg-black-100 text-white-100",
+          "absolute z-2 bg-black-100 text-white-100 text-regular-sm",
+          "after:absolute",
           visible ? "opacity-100" : "opacity-0 pointer-events-none",
-          tooltipPositionClass,
+          validPosition && positionClassNames[validPosition],
+          validPosition && arrowClassNames[validPosition],
+
           classNames?.tooltip
         )}
       >
-        {children}
+        {content}
       </div>
     </div>
   )

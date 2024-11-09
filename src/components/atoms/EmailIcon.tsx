@@ -10,7 +10,7 @@ const EmailIcon: FC = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_268_112470)">
+      <g clipPath="url(#clip0_268_112470)">
         <rect
           x="0.5"
           width="64"
@@ -77,7 +77,7 @@ const EmailIcon: FC = () => {
           <stop className="[stop-color:#F6F6F8] group-has-[:checked]:[stop-color:#F3E5B2]" />
           <stop
             offset="0.329581"
-            stop-opacity="0"
+            stopOpacity="0"
             className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]"
           />
         </linearGradient>
@@ -92,7 +92,7 @@ const EmailIcon: FC = () => {
           <stop className="[stop-color:#F6F6F8] group-has-[:checked]:[stop-color:#F3E5B2]" />
           <stop
             offset="0.329581"
-            stop-opacity="0"
+            stopOpacity="0"
             className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]"
           />
         </linearGradient>
@@ -107,7 +107,7 @@ const EmailIcon: FC = () => {
           <stop className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]" />
           <stop
             offset="0.519335"
-            stop-opacity="0"
+            stopOpacity="0"
             className="[stop-color:#f0f1f3] group-has-[:checked]:[stop-color:#F3E5B2]"
           />
         </linearGradient>
@@ -119,8 +119,8 @@ const EmailIcon: FC = () => {
           y2="32.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D7AB07" />
-          <stop offset="1" stop-color="#E86555" />
+          <stop stopColor="#D7AB07" />
+          <stop offset="1" stopColor="#E86555" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_268_112415"
@@ -130,8 +130,8 @@ const EmailIcon: FC = () => {
           y2="25"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D7AB07" />
-          <stop offset="1" stop-color="#E86555" />
+          <stop stopColor="#D7AB07" />
+          <stop offset="1" stopColor="#E86555" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_268_112415"
@@ -141,8 +141,8 @@ const EmailIcon: FC = () => {
           y2="42"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D7AB07" />
-          <stop offset="1" stop-color="#E86555" />
+          <stop stopColor="#D7AB07" />
+          <stop offset="1" stopColor="#E86555" />
         </linearGradient>
         <clipPath id="clip0_268_112470">
           <rect x="0.5" width="64" height="64" rx="8" fill="white" />
