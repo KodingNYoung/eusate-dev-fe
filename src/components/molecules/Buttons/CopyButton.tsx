@@ -1,13 +1,13 @@
 import { FC } from "@/utils/types"
-import React, { useState } from "react"
+import React, { HTMLProps, useState } from "react"
 import Tooltip from "../Tooltip"
 import { copy } from "@/utils/helpers"
 
-type Props = {
+type Props = Omit<HTMLProps<HTMLButtonElement>, "type"> & {
   text: string
 }
 
-const CopyButton: FC<Props> = ({ children, className, text }) => {
+const CopyButton: FC<Props> = ({ children, className, text, ...props }) => {
   const [tooltip, setTooltip] = useState(false)
 
   return (
@@ -25,6 +25,8 @@ const CopyButton: FC<Props> = ({ children, className, text }) => {
             setTooltip(false)
           }, 1000)
         }}
+        type="button"
+        {...props}
       >
         {children}
       </button>

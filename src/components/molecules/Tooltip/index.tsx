@@ -158,21 +158,23 @@ const Tooltip: FC<Props> = ({
       <div className={cls("relative whitespace-nowrap", classNames?.reference)}>
         {children}
       </div>
-      <div
-        ref={tooltipRef}
-        role="tooltip"
-        className={cls(
-          "absolute z-2 bg-black-100 text-white-100 text-regular-sm",
-          "after:absolute",
-          visible ? "opacity-100" : "opacity-0 pointer-events-none",
-          validPosition && positionClassNames[validPosition],
-          validPosition && arrowClassNames[validPosition],
+      {visible && (
+        <div
+          ref={tooltipRef}
+          role="tooltip"
+          className={cls(
+            "absolute z-2 bg-black-100 text-white-100 text-regular-sm",
+            "after:absolute",
+            visible ? "opacity-100" : "opacity-0 pointer-events-none",
+            validPosition && positionClassNames[validPosition],
+            validPosition && arrowClassNames[validPosition],
 
-          classNames?.tooltip
-        )}
-      >
-        {content}
-      </div>
+            classNames?.tooltip
+          )}
+        >
+          {content}
+        </div>
+      )}
     </div>
   )
 }
