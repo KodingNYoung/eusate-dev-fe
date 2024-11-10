@@ -1,0 +1,12 @@
+export type IconNames =
+  | "icon-arrow-left"
+  | "icon-arrow-right"
+  | "icon-close"
+  | "icon-copy"
+  | "icon-danger-bold"
+  | "icon-eusate"
+  | "icon-info-circle"
+  | "icon-info-circle-bold"
+  | "icon-tick-circle"
+  | "icon-tick-circle-bold"
+  | "icon-warning-2-bold"

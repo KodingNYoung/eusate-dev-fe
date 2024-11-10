@@ -1,4 +1,5 @@
 import { HTMLProps, PropsWithChildren, ReactElement } from "react"
+import { TwoFAMethods } from "./enums"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -88,4 +89,39 @@ export type PageFC<
     context?: unknown
   ): ReactElement | null | Promise<ReactElement | null>
   displayName?: string
+}
+export type ErrorObjectType = {
+  type: "request" | "validation"
+  message?: string
+  fields?: {
+    [field: string]: string
+  }
+}
+
+export type FormState<SP = unknown, EP = unknown> =
+  | { redirectTo?: string }
+  | (
+      | {
+          redirectTo?: string
+          success: { message: string }
+          payload?: SP
+        }
+      | {
+          redirectTo?: string
+          error: ErrorObjectType
+          payload?: EP
+        }
+    )
+
+export type SessionPayload = {
+  refreshToken?: string
+  accessToken?: string
+  tokenVerified?: boolean
+  email: string
+  userId?: string
+  organisationId?: string
+  isVerified?: boolean
+  twofaMethod?: TwoFAMethods | null
+  expiresAt?: Date
+  shouldOnboard?: boolean
 }
