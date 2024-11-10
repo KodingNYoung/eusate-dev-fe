@@ -1,0 +1,17 @@
+name: Code Check
+
+on: push
+
+jobs:
+  check_formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npx prettier .
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run build
