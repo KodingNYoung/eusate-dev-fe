@@ -6,12 +6,18 @@ jobs:
   check_formatting:
     runs-on: ubuntu-latest
     steps:
-      - run: npx prettier .
+      - uses: actions/checkout@v2
+      - name: Run Prettier for Code Formatting
+        run: npx prettier .
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: npm test
+      - uses: actions/checkout@v2
+      - name: Build Project
+        run: npm run build
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: npm run build
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: npm test
