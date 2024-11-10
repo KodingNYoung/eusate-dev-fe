@@ -4,20 +4,24 @@ on: push
 
 jobs:
   check_formatting:
+    name: Check codebase formating
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run Prettier for Code Formatting
         run: npx prettier .
-  build:
+
+  build_and_test:
+    name: Run test and build code base
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm i
+
       - name: Build Project
         run: npm run build
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+
       - name: Run tests
         run: npm test
