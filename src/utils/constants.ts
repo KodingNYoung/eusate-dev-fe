@@ -10,6 +10,11 @@ export const ROUTES = {
   TWOFA_COMPLETED: "/setup-2fa/completed",
   ONOBOARDING_SETUP: "/onboarding-setup",
   OVERVIEW: "/overview",
+  KNOWLEDGE_BASE: "/knowledge-base",
+  HELP_DESK: "/helpdesk",
+  REPORTS: "/reports",
+  SETTINGS: "/settings",
+  HELP_AND_SUPPORT: "/help-and-support",
 }
 
 export const EMAIL_REGEX_PATTERNS =

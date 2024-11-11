@@ -91,6 +91,7 @@ const config: Config = {
         900: "#5A4803",
       },
       white: {
+        DEFAULT: "#FFFFFF",
         5: "#FFFFFF0D",
         10: "#FFFFFF1A",
         15: "#FFFFFF26",
@@ -105,6 +106,7 @@ const config: Config = {
         100: "#FFFFFF",
       },
       black: {
+        DEFAULT: "#0A0A0A",
         5: "#0A0A0A0D",
         10: "#0A0A0A1A",
         15: "#0A0A0A26",

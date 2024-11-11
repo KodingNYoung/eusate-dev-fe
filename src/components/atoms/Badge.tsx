@@ -59,6 +59,7 @@ const Badge: FC<Props> = ({
   type = "outline",
   color = "primary",
   children,
+  className,
 }) => {
   return (
     <Typography
@@ -67,7 +68,8 @@ const Badge: FC<Props> = ({
       className={cls(
         "rounded-xl",
         badgeSizes[size],
-        badgeVariants[`${type}-${color}`]
+        badgeVariants[`${type}-${color}`],
+        className
       )}
     >
       {children}
