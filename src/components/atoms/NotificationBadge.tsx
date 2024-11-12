@@ -7,7 +7,7 @@ const NotificationBadge: FC = ({ children, className }) => {
     <div
       className={cls(
         "flex items-center justify-center relative",
-        "after:absolute after:top-0 after:right-0 after:size-2 after:bg-error-500 after:rounded-full after:scale-100 after:transition-all after:duration-100",
+        "after:absolute after:top-0 after:right-0 after:size-2 after:bg-error-500 after:rounded-full after:scale-100 after:transition-all after:duration-400",
         className
       )}
     >

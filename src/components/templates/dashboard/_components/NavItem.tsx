@@ -14,7 +14,7 @@ import React from "react"
 type Slots = "root" | "notificationBadge" | "badge" | "icon" | "label"
 type Props = {
   icon: IconNames
-  label: string
+  label?: string
   link: string
   badge?: number
   classNames?: { [slot in Slots]?: TWClassNames }
@@ -26,7 +26,7 @@ const NavItem: FC<Props> = ({ icon, label, link, badge, classNames }) => {
   return (
     <Link
       href={link}
-      data-active={pathname.includes(link)}
+      data-active={link && pathname.includes(link)}
       className={cls(
         "flex items-center justify-start gap-0 group-hover:gap-3 p-3 rounded-[1000px] group/navitem text-gray-500 hover:text-white data-[active=true]:text-white data-[active=true]:bg-brand-gradient",
         classNames?.root
@@ -44,16 +44,18 @@ const NavItem: FC<Props> = ({ icon, label, link, badge, classNames }) => {
           className={cls("text-regular-xl", classNames?.icon)}
         />
       </NotificationBadge>
-      <Typography
-        variant="medium-sm"
-        className={cls(
-          "w-0 group-hover:w-full whitespace-nowrap overflow-hidden",
-          classNames?.label
-        )}
-      >
-        {label}
-      </Typography>
-      {badge && (
+      {label && (
+        <Typography
+          variant="medium-sm"
+          className={cls(
+            "w-0 group-hover:w-full whitespace-nowrap overflow-hidden",
+            classNames?.label
+          )}
+        >
+          {label}
+        </Typography>
+      )}
+      {!!badge && (
         <Badge
           size="sm"
           type="filled"

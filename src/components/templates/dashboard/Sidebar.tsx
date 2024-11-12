@@ -7,7 +7,7 @@ import Logo from "@/components/atoms/Logo"
 const Sidebar = () => {
   return (
     <aside className="hidden sm:block w-[68px] relative z-[1]">
-      <div className="flex flex-col gap-3 px-3 py-2 bg-black-100 text-gray-500 rounded-r-2xl h-full group w-full hover:w-[272px] transition-all duration-300 [&_*]:transition-all [&_*]:duration-300">
+      <div className="flex flex-col gap-3 px-3 py-2 bg-black-100 text-gray-500 rounded-r-2xl h-full group w-full hover:w-[272px] transition-all duration-300 [&_*]:transition-all [&_*]:duration-100">
         <SidebarUserInfo />
         <section className="flex flex-col gap-3">
           <header className="px-1 group-hover:px-3">

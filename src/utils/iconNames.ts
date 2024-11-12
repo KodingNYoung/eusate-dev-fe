@@ -14,6 +14,7 @@ export type IconNames =
   | "icon-info-circle"
   | "icon-info-circle-bold"
   | "icon-layer"
+  | "icon-menu"
   | "icon-notification"
   | "icon-setting"
   | "icon-speedometer-bold"
