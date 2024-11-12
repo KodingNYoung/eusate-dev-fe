@@ -29,7 +29,7 @@ const Setup2FAForm: FC = () => {
 
   return (
     <form action={action} className="py-10 flex flex-col gap-3" ref={formRef}>
-      <div className="grid sm:grid-cols-2 gap-5">
+      <div className="grid gap-5">
         <MethodRadio
           id={TwoFAMethods.AUTHENTICATOR}
           name="method"

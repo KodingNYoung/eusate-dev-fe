@@ -6,7 +6,6 @@ import { ROUTES } from "@/utils/constants"
 import { FC } from "@/utils/types"
 import Link from "next/link"
 import React from "react"
-import "./style.css"
 
 const SplashScreen: FC = () => {
   return (
@@ -28,18 +27,24 @@ const SplashScreen: FC = () => {
         <div className="flex gap-3 justify-center items-center">
           <Link href={ROUTES.LOGIN}>
             <Button
-              size="xl"
               variant="tetiaryText"
-              className="px-3 py-1 sm:py-4.5 sm:w-40"
+              classNames={{
+                root: "px-3 py-2.5 sm:py-4.5 sm:px-8",
+                label: "text-medium-sm sm:text-semibold-sm",
+              }}
             >
               Login
             </Button>
           </Link>
           <Link href={ROUTES.SIGN_UP}>
             <Button
-              size="xl"
-              endContent={<Icon name="icon-arrow-right" />}
-              className="primary-gradient-btn px-3 py-1 sm:py-4.5 sm:w-40"
+              endContent={
+                <Icon name="icon-arrow-right" className="text-regular-xl" />
+              }
+              classNames={{
+                root: "[--btnColor1:#d7ab07] [--btnColor2:#e86555] px-3 py-2.5 sm:py-4.5 sm:px-8",
+                label: "text-medium-sm sm:text-semibold-sm",
+              }}
             >
               Get Started
             </Button>
