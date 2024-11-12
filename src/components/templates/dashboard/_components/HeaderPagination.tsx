@@ -38,6 +38,15 @@ const PAGE_LAYERS: {
     },
     { label: "New Article", id: 2 },
   ],
+  [ROUTES.FAQS]: [
+    {
+      label: "Knowledge base",
+      icon: "icon-layer",
+      link: ROUTES.KNOWLEDGE_BASE,
+      id: 1,
+    },
+    { label: "FAQs", id: 2 },
+  ],
 }
 
 const HeaderPagination: FC = () => {

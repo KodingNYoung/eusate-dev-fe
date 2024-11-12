@@ -9,7 +9,7 @@ const DashboardLayout: FC = ({ children }) => {
       <DashboardNavigation />
       <div className="flex-1 sm:px-5 sm:py-3.5">
         <Header />
-        <main>{children}</main>
+        <main className="sm:mt-2.5 bg-white sm:rounded-x20">{children}</main>
       </div>
     </div>
   )

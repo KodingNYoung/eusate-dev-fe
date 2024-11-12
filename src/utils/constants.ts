@@ -16,6 +16,7 @@ export const ROUTES = {
   SETTINGS: "/settings",
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
+  FAQS: "/knowledge-base/FAQs",
 }
 
 export const EMAIL_REGEX_PATTERNS =
