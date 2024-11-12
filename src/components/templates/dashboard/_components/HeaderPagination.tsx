@@ -29,6 +29,7 @@ const PAGE_LAYERS: {
   [ROUTES.HELP_AND_SUPPORT]: [
     { label: "Help & Support", icon: "icon-health", id: 6 },
   ],
+  [ROUTES.PLAYGROUND]: [{ label: "Playground", icon: "icon-eusate", id: 1 }],
   [ROUTES.NEW_ARTICLE]: [
     {
       label: "Knowledge base",

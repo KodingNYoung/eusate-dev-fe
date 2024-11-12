@@ -17,6 +17,7 @@ export const ROUTES = {
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
   FAQS: "/knowledge-base/FAQs",
+  PLAYGROUND: "/playground",
 }
 
 export const EMAIL_REGEX_PATTERNS =

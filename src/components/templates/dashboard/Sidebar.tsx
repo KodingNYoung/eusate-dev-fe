@@ -2,6 +2,7 @@ import React from "react"
 import SidebarUserInfo from "./_components/SidebarUserInfo"
 import SidebarNav from "./_components/SidebarNav"
 import Typography from "@/components/atoms/Typography"
+import Logo from "@/components/atoms/Logo"
 
 const Sidebar = () => {
   return (
@@ -20,6 +21,12 @@ const Sidebar = () => {
           </header>
           <SidebarNav />
         </section>
+        <div className="mt-auto bg-black py-6 px-1 group-hover:px-3 overflow-hidden">
+          <Logo
+            type="full-gradient-white"
+            className="h-7 min-w-[114px] w-fit"
+          />
+        </div>
       </div>
     </aside>
   )

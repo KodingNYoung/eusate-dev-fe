@@ -1,11 +1,8 @@
-"use client"
-
 import { FC } from "@/utils/types"
 import React from "react"
 import NavItem from "./NavItem"
 import { ROUTES } from "@/utils/constants"
 import { IconNames } from "@/utils/iconNames"
-import { usePathname } from "next/navigation"
 
 type Route = {
   icon: IconNames
@@ -39,14 +36,18 @@ const SIDEBAR_ROUTES: Route[] = [
 ]
 
 const SidebarNav: FC = () => {
-  const pathname = usePathname()
   return (
     <nav className="flex flex-col gap-2">
       {SIDEBAR_ROUTES.map(({ id, ...route }) => {
-        return (
-          <NavItem {...route} key={id} active={pathname.includes(route.link)} />
-        )
+        return <NavItem {...route} key={id} />
       })}
+      <div className="w-full h-px bg-gray-900 my-[22px]" />
+      <NavItem
+        icon="icon-eusate"
+        label="Playground"
+        link={ROUTES.PLAYGROUND}
+        classNames={{ root: "justify-center bg-white-10", label: "!w-fit" }}
+      />
     </nav>
   )
 }
