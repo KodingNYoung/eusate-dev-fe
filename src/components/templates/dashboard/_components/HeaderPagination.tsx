@@ -74,11 +74,12 @@ const HeaderPagination: FC = () => {
             {page.label}
           </Typography>
         )
+
         return (
-          <>
+          <div className="flex items-center gap-2" key={page.id}>
             {page.link ? <Link href={page.link}>{content}</Link> : content}
             {pages.length - 1 !== idx && <Icon name="icon-chevron-right" />}
-          </>
+          </div>
         )
       })}
     </section>

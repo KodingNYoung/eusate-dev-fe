@@ -16,6 +16,7 @@ type ButtonVariants =
   | "info"
   | "warning"
   | "error"
+type Slots = "root" | "label"
 export type ButtonProps = Omit<
   HTMLProps<HTMLButtonElement>,
   "type" | "size"
@@ -26,6 +27,7 @@ export type ButtonProps = Omit<
   variant?: ButtonVariants
   loading?: boolean
   type?: "submit" | "button" | "reset"
+  classNames?: { [slot in Slots]?: TWClassNames }
 }
 
 const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
@@ -110,10 +112,11 @@ const Button: FC<ButtonProps> = ({
   className,
   startContent,
   endContent,
-  size = "lg",
+  size,
   variant = "primary",
   loading,
   disabled,
+  classNames,
   ...props
 }) => {
   return (
@@ -121,14 +124,19 @@ const Button: FC<ButtonProps> = ({
       className={cls(
         "border rounded-[90px] cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap-1.5 outline-none whitespace-nowrap transition-all duration-300 ",
         variant && buttonVariant[variant],
-        buttonSize[size],
-        className
+        size && buttonSize[size],
+        className,
+        classNames?.root
       )}
       disabled={disabled || loading}
       {...props}
     >
       {loading ? <Spinner /> : startContent}
-      <Typography variant={textVariants[size]} as="span">
+      <Typography
+        variant={size && textVariants[size]}
+        as="span"
+        className={cls("leading-none", classNames?.label)}
+      >
         {children}
       </Typography>
       {endContent}
