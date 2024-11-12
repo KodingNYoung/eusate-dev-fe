@@ -21,7 +21,7 @@ const NavItem: FC<Props> = ({ icon, label, link, badge, active }) => {
     <Link
       href={link}
       data-active={active}
-      className="flex items-center justify-center group-hover:justify-start gap-0 group-hover:gap-3 p-3 rounded-[1000px] group/navitem text-gray-500 hover:text-white data-[active=true]:text-white data-[active=true]:bg-brand-gradient"
+      className="flex items-center justify-start gap-0 group-hover:gap-3 p-3 rounded-[1000px] group/navitem text-gray-500 hover:text-white data-[active=true]:text-white data-[active=true]:bg-brand-gradient"
     >
       <NotificationBadge
         className={cls("group-hover:after:scale-0", !badge && "after:!scale-0")}
