@@ -1,24 +1,16 @@
 "use client"
-import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import { cls } from "@/utils/helpers"
-import { FC, TWClassNames } from "@/utils/types"
+import { FC } from "@/utils/types"
 import React, { ClipboardEvent, HTMLProps, useRef, useState } from "react"
 import "./style.css"
 
-type Sizes = "lg" | "sm"
 type Props = Omit<HTMLProps<HTMLInputElement>, "size" | "onChange"> & {
   label?: string
   helperText?: string
   isError?: boolean
   isSuccess?: boolean
-  size?: Sizes
   onChange?: (key: string) => void
-}
-
-const inputSize: { [sizes in Sizes]: TWClassNames } = {
-  sm: "h-9",
-  lg: "h-14",
 }
 
 const OtpInput: FC<Props> = ({
@@ -26,7 +18,6 @@ const OtpInput: FC<Props> = ({
   helperText,
   isError,
   isSuccess,
-  size = "lg" as Sizes,
   onChange,
   ...props
 }) => {
@@ -74,24 +65,24 @@ const OtpInput: FC<Props> = ({
 
   return (
     <div className={"text-input-group"}>
-      <label>
-        <Typography variant="semibold-sm" className="text-gray-500 px-2">
-          {label}
-        </Typography>
-        <div
-          className={cls(
-            "text-input-container z-1 mt-1 mb-1.5flex items-center relative rounded-[100px] bg-white-100",
-            "before:absolute before:-inset-[1px] before:-z-1 before:size-[calc(100%_+_2px)] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[inherit] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-300",
-            inputSize[size]
-          )}
-          data-error={isError}
-          data-success={isSuccess}
-        >
-          <div className="flex items-center justify-start gap-1.5  px-4  bg-white-100 w-full h-full rounded-[inherit]">
-            {otp.map((_, idx) => {
-              return (
+      <Typography variant="semibold-sm" className="text-gray-500">
+        {label}
+      </Typography>
+      <div data-error={isError} data-success={isSuccess} className="mt-5">
+        <div className="flex items-center justify-start gap-2.5  bg-white-100 w-full h-full rounded-[inherit]">
+          {otp.map((_, idx) => {
+            return (
+              <label
+                htmlFor={`${idx}`}
+                className={cls(
+                  "aspect-square text-gray-900 text-semibold-xl rounded-xl placeholder:text-gray-400 outline-none relative",
+                  "before:absolute before:-inset-[1px] before:z-0 before:size-[calc(100%_+_2px)] has-[:focus]:before:[--inputColor1:#d7ab07] has-[:focus]:before:[--inputColor2:#e86555] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[inherit] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-400 "
+                )}
+                style={{ width: `${100 / otp.length}%` }}
+                key={idx}
+              >
                 <input
-                  key={idx}
+                  id={`${idx}`}
                   type="text"
                   maxLength={1}
                   value={otp[idx]}
@@ -103,31 +94,15 @@ const OtpInput: FC<Props> = ({
                     inputsRef.current[idx] = el
                   }}
                   className={cls(
-                    "transition-colors duration-200 outline-0 relative regular-sm font-app text-gray-900 bg-tranparent w-3",
-                    "placeholder:text-regular-sm placeholder:text-gray-400 text-center",
-                    idx === 2 && "mr-2"
+                    "relative w-full h-full text-center rounded-[inherit] outline-0"
                   )}
                   {...props}
                 />
-              )
-            })}
-          </div>
-
-          <span className="absolute top-1/2 -translate-y-1/2 right-3 -ml-7 flex h-5 w-5 items-center text-gray-900">
-            {isError ? (
-              <Icon
-                name="icon-info-circle"
-                className="text-error-500 text-regular-xl"
-              />
-            ) : isSuccess ? (
-              <Icon
-                name="icon-tick-circle"
-                className="text-success-600 text-regular-xl"
-              />
-            ) : null}
-          </span>
+              </label>
+            )
+          })}
         </div>
-      </label>
+      </div>
       {helperText && (
         <Typography
           as="span"

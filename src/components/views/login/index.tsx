@@ -18,7 +18,7 @@ const Login: FC = () => {
             <>
               Don&apos;t have an account?
               <Link href={ROUTES.SIGN_UP}>
-                <Button variant="tetiary" size="mini" className="px-3">
+                <Button variant="tetiary" size="mini" className="px-3 py-1.5">
                   Create an account
                 </Button>
               </Link>

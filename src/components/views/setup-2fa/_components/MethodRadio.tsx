@@ -52,7 +52,7 @@ const MethodRadio: FC<Props> = ({
           {...props}
         />
 
-        <div className="flex flex-col gap-10 w-full">
+        <div className="flex flex-col gap-5 w-full">
           <div className="flex justify-between items-center w-full">
             {value === TwoFAMethods.AUTHENTICATOR && <AuthAppIcon />}
             {value === TwoFAMethods.EMAIL && <EmailIcon />}
@@ -60,7 +60,7 @@ const MethodRadio: FC<Props> = ({
               <Icon
                 name="icon-tick-circle-bold"
                 className={cls(
-                  "radio-icon-outer-circle text-regular-3xl leading-none bg-[linear-gradient(90deg,_#d7ab07,_#e86555)] transition-opacity duration-300 bg-clip-text text-transparent opacity-0 group-has-[:checked]:opacity-100"
+                  "radio-icon-outer-circle !text-regular-3xl bg-[linear-gradient(90deg,_#d7ab07,_#e86555)] transition-opacity duration-300 bg-clip-text text-transparent opacity-0 group-has-[:checked]:opacity-100"
                 )}
               />
             </div>

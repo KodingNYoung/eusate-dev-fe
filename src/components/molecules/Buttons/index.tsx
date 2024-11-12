@@ -94,12 +94,12 @@ const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
     "focus:border-error-100 focus:bg-error-600" // active
   ),
 }
-const buttonSize: { [sizes in Sizes]: TWClassNames } = {
-  mini: "h-7",
-  sm: "h-10",
-  lg: "h-12",
-  xl: "h-14",
-}
+// const buttonSize: { [sizes in Sizes]: TWClassNames } = {
+//   mini: "h-7",
+//   sm: "h-10",
+//   lg: "h-12",
+//   xl: "h-14",
+// }
 const textVariants: { [size in Sizes]: TypographyVariants } = {
   mini: "medium-xs",
   sm: "medium-sm",
@@ -124,7 +124,7 @@ const Button: FC<ButtonProps> = ({
       className={cls(
         "border rounded-[90px] cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap-1.5 outline-none whitespace-nowrap transition-all duration-300 ",
         variant && buttonVariant[variant],
-        size && buttonSize[size],
+        // size && buttonSize[size],
         className,
         classNames?.root
       )}
@@ -135,7 +135,7 @@ const Button: FC<ButtonProps> = ({
       <Typography
         variant={size && textVariants[size]}
         as="span"
-        className={cls("leading-none", classNames?.label)}
+        className={cls("", classNames?.label)}
       >
         {children}
       </Typography>

@@ -29,7 +29,7 @@ const AuthHeader: FC<Props> = ({
         <Button
           variant="tetiary"
           size="mini"
-          className="px-3 w-fit mb-10"
+          className="px-3 py-1.5 w-fit mb-10"
           startContent={<Icon name="icon-arrow-left" />}
           onClick={() => router.back()}
         >
