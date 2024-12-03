@@ -14,7 +14,7 @@ const Buttons: FC = () => {
         <Button variant="outlined" size="lg" className="px-10">
           Outlined
         </Button>
-        <Button variant="text" size="lg" className="px-10" loading>
+        <Button variant="text" size="lg" className="px-10">
           Text
         </Button>
         <Button variant="tetiary" size="lg" className="px-10" autoFocus>

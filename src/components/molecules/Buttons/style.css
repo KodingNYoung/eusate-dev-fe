@@ -19,6 +19,9 @@
     --btnColor1 0.3s,
     --btnColor2 0.3s;
 }
+.primary-btn.sm-gradient {
+  @apply [--btnColor1:#d7ab07] [--btnColor2:#e86555] sm:[--btnColor1:#0a0a0a] sm:[--btnColor2:#0a0a0a];
+}
 .primary-btn:hover {
   --btnColor1: #d7ab07;
   --btnColor2: #e86555;

@@ -5,7 +5,7 @@ import { cls } from "@/utils/helpers"
 
 type BadgeType = "filled" | "outline" | "accent"
 type Sizes = "sm" | "md" | "lg"
-type Color =
+export type BadgeColor =
   | "primary"
   | "info"
   | "warning"
@@ -13,10 +13,10 @@ type Color =
   | "error"
   | "neutral"
   | "disabled"
-type Variants = `${BadgeType}-${Color}`
+type Variants = `${BadgeType}-${BadgeColor}`
 type Props = {
   type?: BadgeType
-  color?: Color
+  color?: BadgeColor
   size?: Sizes
 }
 

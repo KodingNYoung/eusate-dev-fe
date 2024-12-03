@@ -32,7 +32,7 @@ const SIDEBAR_ROUTES: Route[] = [
 
 const BottomNav: FC = () => {
   return (
-    <footer className="flex sm:hidden fixed bottom-0 left-0 w-full bg-black-100 text-gray-500 py-2 px-4  items-center justify-between">
+    <footer className="flex sm:hidden fixed bottom-0 left-0 w-screen bg-black-100 text-gray-500 py-2 px-4  items-center justify-between">
       {SIDEBAR_ROUTES.map(({ id, ...route }) => (
         <NavItem key={id} {...route} badge={id === 2 ? 2 : 0} />
       ))}

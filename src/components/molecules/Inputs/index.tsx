@@ -7,6 +7,14 @@ import Icon from "@/components/atoms/Icon"
 import HelperText from "@/components/atoms/HelperText"
 
 type Sizes = "lg" | "sm"
+type Slots =
+  | "root"
+  | "label"
+  | "inputContainer"
+  | "startContent"
+  | "input"
+  | "endContent"
+  | "helperText"
 type InputProps = Omit<HTMLProps<HTMLInputElement>, "size"> & {
   name: string
   label?: string
@@ -17,6 +25,7 @@ type InputProps = Omit<HTMLProps<HTMLInputElement>, "size"> & {
   isError?: boolean
   isSuccess?: boolean
   size?: Sizes
+  classNames?: { [slot in Slots]?: TWClassNames }
 }
 function getElement(
   element: keyof HTMLElementTagNameMap,
@@ -43,24 +52,34 @@ const Input: FC<InputProps> = ({
   isError,
   isSuccess,
   size = "lg" as Sizes,
+  classNames,
   ...props
 }) => {
   return (
-    <div className={cls("text-input-group")}>
+    <div className={cls("text-input-group", classNames?.root)}>
       <label htmlFor={id || name}>
-        <Typography variant="semibold-sm" className="text-gray-500 px-2">
+        <Typography
+          variant="semibold-sm"
+          className={cls("text-gray-500 px-2", classNames?.label)}
+        >
           {label}
         </Typography>
         <div
           className={cls(
             "text-input-container mt-1 mb-1.5 flex items-center relative",
-            "before:absolute before:-inset-[1px] before:z-0 before:size-[calc(100%_+_2px)] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[100px] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-300"
+            "before:absolute before:-inset-[1px] before:z-0 before:size-[calc(100%_+_2px)] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[100px] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-300",
+            classNames?.inputContainer
           )}
           data-error={isError}
           data-success={isSuccess}
         >
           {startComponent && (
-            <span className="absolute left-3 text-gray-900  flex h-5 w-5 items-center justify-center z-1">
+            <span
+              className={cls(
+                "absolute left-3 text-gray-900  flex h-5 w-5 items-center justify-center z-1",
+                classNames?.startContent
+              )}
+            >
               {startComponent}
             </span>
           )}
@@ -72,12 +91,18 @@ const Input: FC<InputProps> = ({
               inputSize[size],
               !!endComponent && "pr-10",
               !!startComponent && "pl-10",
-              className
+              className,
+              classNames?.input
             ),
             { ...props, id: id || name, name }
           )}
           {
-            <span className="absolute right-3 -ml-7 flex h-5 w-5 items-center text-gray-900">
+            <span
+              className={cls(
+                "absolute right-3 -ml-7 flex h-5 w-5 items-center text-gray-900",
+                classNames?.endContent
+              )}
+            >
               {isError ? (
                 <Icon
                   name="icon-info-circle"
@@ -96,7 +121,11 @@ const Input: FC<InputProps> = ({
         </div>
       </label>
       {helperText && (
-        <HelperText isError={isError} isSuccess={isSuccess}>
+        <HelperText
+          isError={isError}
+          isSuccess={isSuccess}
+          className={cls(classNames?.helperText)}
+        >
           {helperText}
         </HelperText>
       )}

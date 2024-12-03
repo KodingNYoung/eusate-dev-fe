@@ -4,7 +4,13 @@ import { FC, TWClassNames } from "@/utils/types"
 import React, { HTMLProps } from "react"
 import "./style.css"
 
-type Slots = "root" | "label" | "input" | "icon"
+type Slots =
+  | "root"
+  | "label"
+  | "input"
+  | "icon"
+  | "iconMidCircle"
+  | "iconInnerCircle"
 type Props = HTMLProps<HTMLInputElement> & {
   id: string
   name: string
@@ -21,7 +27,7 @@ const radioIconOuterStyle = cls(
   "radio-icon-outer-circle min-w-6 min-h-6 size-6 rounded-full flex justify-center items-center bg-[linear-gradient(90deg,_var(--radioColor1),_var(--radioColor2))] rounded-full transition-[all,_--radioColor1,_--radioColor2] duration-300 p-[1px]"
 )
 const radioIconMidStyle = cls(
-  "radio-icon-mid-circle size-full rounded-[inherit] transition-colors duration-300 bg-gray-100 group-has-[:checked]:bg-gold-50 flex justify-center items-center"
+  "radio-icon-mid-circle size-full rounded-[inherit] transition-colors duration-300 bg-gray-100 group-has-[input:checked]/radio:bg-gold-50 flex justify-center items-center"
 )
 const radioIconInnerStyle = cls(
   "radio-icon-inner-circle size-1/2 rounded-[inherit] bg-[linear-gradient(90deg,_var(--radioColor1),_var(--radioColor2))] transition-[all,_--radioColor1,_--radioColor2] duration-300"
@@ -34,7 +40,7 @@ const Radio: FC<Props> = ({ children, id, name, classNames, ...props }) => {
       <label
         htmlFor={id}
         className={cls(
-          "flex gap-2.5 group radio",
+          "flex items-center gap-2.5 group/radio radio",
           hasLabel && labelledRadioStyle,
           classNames?.root
         )}
@@ -43,18 +49,22 @@ const Radio: FC<Props> = ({ children, id, name, classNames, ...props }) => {
           type="radio"
           id={id}
           name={name}
-          className={cls("peer absolute opacity-0", classNames?.input)}
+          className={cls("peer absolute opacity-0 h-full w-full top-0 left-0", classNames?.input)}
           {...props}
         />
-        <span className={cls(radioIconOuterStyle, classNames?.icon)}>
-          <span className={cls(radioIconMidStyle)}>
-            <span className={radioIconInnerStyle}></span>
+        <span
+          className={cls("group/icon", radioIconOuterStyle, classNames?.icon)}
+        >
+          <span className={cls(radioIconMidStyle, classNames?.iconMidCircle)}>
+            <span
+              className={cls(radioIconInnerStyle, classNames?.iconInnerCircle)}
+            />
           </span>
         </span>
         {hasLabel && (
           <Typography
             className={cls(
-              "text-gray-500 peer-[:checked]:text-gray-900 peer-[:checked]:!text-medium-base",
+              "text-gray-500 peer-[:checked]:text-gray-900 peer-[:checked]:text-medium-base",
               classNames?.label
             )}
           >

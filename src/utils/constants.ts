@@ -31,3 +31,11 @@ export const COOKIES_KEYS = {
 export const ERROR_CAUSES = {
   SESSION_EXPIRED: "SESSION_EXPIRED",
 } as const
+
+export const TEXT_ALIGN_TO_FLEX_MAP = {
+  center: "justify-center",
+  left: "justify-start",
+  right: "justify-end",
+  char: "justify-start",
+  justify: "justify-start",
+} as const

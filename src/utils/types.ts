@@ -1,5 +1,6 @@
-import { HTMLProps, PropsWithChildren, ReactElement } from "react"
+import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
 import { TwoFAMethods } from "./enums"
+import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -124,4 +125,17 @@ export type SessionPayload = {
   twofaMethod?: TwoFAMethods | null
   expiresAt?: Date
   shouldOnboard?: boolean
+}
+
+export type TableColumn<T = unknown> = {
+  id: string | number
+  title: ReactNode
+  align?: "left" | "center" | "right" | "char" | "justify"
+  render: (row: T) => ReactNode | null
+  classNames?: {
+    cell?: TWClassNames
+    th?: TWClassNames
+    td?: TWClassNames
+  }
+  tooltip?: Omit<TableHeadTooltip, "icon">
 }

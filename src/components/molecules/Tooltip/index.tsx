@@ -4,17 +4,18 @@ import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"
 import React, { ReactNode, useMemo, useRef } from "react"
 
-type TooltipPosition = "top" | "bottom" | "left" | "right"
-type Alignment = "start" | "center" | "end"
-type PositionAlignment = `${TooltipPosition}-${Alignment}`
+export type TooltipPosition = "top" | "bottom" | "left" | "right"
+export type TooltipAlignment = "start" | "center" | "end"
+type PositionAlignment = `${TooltipPosition}-${TooltipAlignment}`
 type Slots = "root" | "reference" | "tooltip"
 
-type Props = {
+export type TooltipProps = {
   position?: TooltipPosition
-  alignment?: Alignment
+  alignment?: TooltipAlignment
   content?: ReactNode
   classNames?: { [slot in Slots]?: TWClassNames }
   visible: boolean
+  close?: () => void
 }
 
 const positionClassNames: {
@@ -107,7 +108,7 @@ const getValidPosition = (
   targetEl: Element | null,
   tooltipEl: Element | null,
   position: TooltipPosition,
-  alignment: Alignment
+  alignment: TooltipAlignment
 ) => {
   if (typeof window === "undefined" || !tooltipEl || !targetEl) return
 
@@ -126,13 +127,14 @@ const getValidPosition = (
   return validPosition
 }
 
-const Tooltip: FC<Props> = ({
+const Tooltip: FC<TooltipProps> = ({
   position = "top",
   alignment = "center",
   content,
   children,
   classNames,
   visible,
+  close,
 }) => {
   const targetRef = useRef<HTMLDivElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
@@ -159,20 +161,28 @@ const Tooltip: FC<Props> = ({
         {children}
       </div>
       {visible && (
-        <div
-          ref={tooltipRef}
-          role="tooltip"
-          className={cls(
-            "absolute z-2 bg-black-100 text-white-100 text-regular-sm",
-            "after:absolute",
-            visible ? "opacity-100" : "opacity-0 pointer-events-none",
-            validPosition && positionClassNames[validPosition],
-            validPosition && arrowClassNames[validPosition],
-
-            classNames?.tooltip
+        <div>
+          {close && (
+            <div
+              className="fixed z-3 top-0 left-0 w-screen h-screen"
+              onClick={close}
+            />
           )}
-        >
-          {content}
+          <div
+            ref={tooltipRef}
+            role="tooltip"
+            className={cls(
+              "absolute z-4 bg-black-100 text-white-100 text-regular-sm",
+              "after:absolute",
+              visible ? "opacity-100" : "opacity-0 pointer-events-none",
+              validPosition && positionClassNames[validPosition],
+              validPosition && arrowClassNames[validPosition],
+
+              classNames?.tooltip
+            )}
+          >
+            {content}
+          </div>
         </div>
       )}
     </div>

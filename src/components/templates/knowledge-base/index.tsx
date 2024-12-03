@@ -20,7 +20,7 @@ const KnowledgeBaseLayout: FC = ({ children }) => {
               />
             }
             classNames={{
-              root: "ml-12 sm:ml-0 py-1 sm:py-2.5 px-3 [--btnColor1:#d7ab07] [--btnColor2:#e86555] sm:[--btnColor1:#0a0a0a] sm:[--btnColor2:#0a0a0a]",
+              root: "ml-12 sm:ml-0 py-1 sm:py-2.5 px-3 sm-gradient",
               label: "text-medium-xs sm:text-medium-sm ",
             }}
           >
