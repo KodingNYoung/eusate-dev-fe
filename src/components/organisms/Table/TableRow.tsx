@@ -1,16 +1,31 @@
+"use client"
 import { cls } from "@/utils/helpers"
 import { FC, TableColumn } from "@/utils/types"
-import React from "react"
+import React, { useMemo, useState } from "react"
 import TableDataCell from "./TableDataCell"
+import { screensizeDisplayClasses } from "."
+import TableHeadCell from "./TableHeadCell"
+import RowAccordion from "./RowAccordion"
+import { SHOW_FOR } from "@/utils/constants"
 
 type Props = {
   idx: number
   columns: TableColumn[]
   onClick?: (row: unknown) => void
   row: unknown
+  isLast?: boolean
 }
 
-const TableRow: FC<Props> = ({ idx, onClick, columns, row }) => {
+const TableRow: FC<Props> = ({ idx, onClick, columns, row, isLast }) => {
+  const [openAccordion, setOpenAccordion] = useState(false)
+  const hasAccordion = useMemo(
+    () => columns.some((column) => column.showFor === SHOW_FOR.NOT_MOBILE),
+    [row]
+  )
+  const hasResult = useMemo(
+    () => "result" in (row as { result: unknown }),
+    [row]
+  )
   return (
     <React.Fragment>
       <tr
@@ -20,16 +35,55 @@ const TableRow: FC<Props> = ({ idx, onClick, columns, row }) => {
         )}
         onClick={() => onClick && onClick(row)}
       >
-        {columns.map(({ id, render, align, classNames }) => (
+        {columns.map(({ id, render, align, classNames, showFor }) => (
           <TableDataCell
             key={`table-row-${idx}-col-${id}`}
             align={align}
-            className={cls(classNames?.cell, classNames?.td)}
+            className={cls(
+              classNames?.cell,
+              showFor && screensizeDisplayClasses[showFor],
+              hasAccordion && "!border-0 sm:!border-b",
+              hasResult && "!border-0",
+              isLast &&
+                "group-[:not([data-pagination=true])]/table:!border-b-0",
+              classNames?.td
+            )}
           >
-            <span className="whitespace-nowrap">{render(row)}</span>
+            {id === "accordion-trigger" ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setOpenAccordion((curr) => !curr)
+                }}
+                className={cls(
+                  "whitespace-nowrap transition-transform duration-300",
+                  openAccordion ? "-rotate-180" : "rotate-0"
+                )}
+              >
+                {render(row)}
+              </button>
+            ) : (
+              <span className="whitespace-nowrap">{render(row)}</span>
+            )}
           </TableDataCell>
         ))}
       </tr>
+      {hasAccordion && (
+        <RowAccordion columns={columns} row={row} isOpen={openAccordion} />
+      )}
+      {hasResult && (
+        <tr>
+          <TableDataCell
+            className="!p-0"
+            colSpan={
+              columns.filter((column) => column.showFor !== "mobile-only")
+                .length
+            }
+          >
+            result
+          </TableDataCell>
+        </tr>
+      )}
     </React.Fragment>
   )
 }

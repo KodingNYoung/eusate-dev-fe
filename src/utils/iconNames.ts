@@ -9,6 +9,7 @@ export type IconNames =
   | "icon-arrow-up-down"
   | "icon-article-text"
   | "icon-chart"
+  | "icon-chevron-down"
   | "icon-chevron-right"
   | "icon-close"
   | "icon-copy"

@@ -11,7 +11,7 @@ type Slots =
   | "icon"
   | "iconMidCircle"
   | "iconInnerCircle"
-type Props = HTMLProps<HTMLInputElement> & {
+export type RadioProps = HTMLProps<HTMLInputElement> & {
   id: string
   name: string
   value: string
@@ -33,7 +33,7 @@ const radioIconInnerStyle = cls(
   "radio-icon-inner-circle size-1/2 rounded-[inherit] bg-[linear-gradient(90deg,_var(--radioColor1),_var(--radioColor2))] transition-[all,_--radioColor1,_--radioColor2] duration-300"
 )
 
-const Radio: FC<Props> = ({ children, id, name, classNames, ...props }) => {
+const Radio: FC<RadioProps> = ({ children, id, name, classNames, ...props }) => {
   const hasLabel = !!children
   return (
     <div className="relative z-1">

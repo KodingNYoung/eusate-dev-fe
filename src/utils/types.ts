@@ -1,6 +1,7 @@
 import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
-import { TwoFAMethods } from "./enums"
+import { KnowledgeSourceTags, TwoFAMethods } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
+import { SHOW_FOR } from "./constants"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -137,5 +138,27 @@ export type TableColumn<T = unknown> = {
     th?: TWClassNames
     td?: TWClassNames
   }
-  tooltip?: Omit<TableHeadTooltip, "icon">
+  tooltip?: Omit<TableHeadTooltip, "icon" | "content"> & {
+    title: string
+    subtitle: string
+  }
+  showFor?: (typeof SHOW_FOR)[keyof typeof SHOW_FOR]
+}
+
+export type KnowledgeSource = {
+  id: string
+  organisation_id: string
+  title: string
+  published: boolean
+  external: boolean
+  tag: KnowledgeSourceTags
+  file: string
+  language: string
+  date_created: string
+  date_updated: string
+  link: string | null
+  question: string
+  answer: string
+  origin: string | null
+  extension: string | null
 }

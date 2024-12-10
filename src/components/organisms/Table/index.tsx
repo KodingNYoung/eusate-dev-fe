@@ -1,10 +1,10 @@
 import { FC, TableColumn } from "@/utils/types"
 import React from "react"
 import TableHeadCell from "./TableHeadCell"
-import TableDataCell from "./TableDataCell"
 import { cls } from "@/utils/helpers"
 import Pagination from "./Pagination"
 import TableRow from "./TableRow"
+import Typography from "@/components/atoms/Typography"
 
 type Props = {
   pagination?: {}
@@ -12,6 +12,12 @@ type Props = {
   data: unknown[]
   onRowClick?: (row: unknown) => void
 }
+
+export const screensizeDisplayClasses = {
+  "mobile-only": "sm:hidden",
+  "not-mobile": "hidden sm:table-cell",
+  "all": "",
+} as const
 
 const Table: FC<Props> = ({ pagination, columns, data, onRowClick }) => {
   return (
@@ -22,29 +28,46 @@ const Table: FC<Props> = ({ pagination, columns, data, onRowClick }) => {
       >
         <thead className="hidden sm:table-header-group">
           <tr className="py-3 sm:px-6 group/tr">
-            {columns.map(({ title, id, classNames, align, tooltip }) => {
-              return (
-                <TableHeadCell
-                  key={id}
-                  className={cls(
-                    "whitespace-nowrap",
-                    classNames?.cell,
-                    classNames?.th
-                  )}
-                  align={align}
-                  {...(tooltip
-                    ? {
-                        tooltip: {
-                          ...tooltip,
-                          icon: "icon-help",
-                        },
-                      }
-                    : {})}
-                >
-                  {title}
-                </TableHeadCell>
-              )
-            })}
+            {columns.map(
+              ({ title, id, classNames, align, tooltip, showFor }) => {
+                return (
+                  <TableHeadCell
+                    key={id}
+                    className={cls(
+                      "whitespace-nowrap",
+                      showFor && screensizeDisplayClasses[showFor],
+                      classNames?.cell,
+                      classNames?.th
+                    )}
+                    align={align}
+                    {...(tooltip
+                      ? {
+                          tooltip: {
+                            ...tooltip,
+                            icon: "icon-help",
+                            content: (
+                              <main className="flex flex-col gap-1">
+                                <Typography as="h3" variant="semibold-base">
+                                  {tooltip.title}
+                                </Typography>
+                                <Typography
+                                  as="span"
+                                  variant="regular-sm"
+                                  className="text-gray-500"
+                                >
+                                  {tooltip.subtitle}
+                                </Typography>
+                              </main>
+                            ),
+                          },
+                        }
+                      : {})}
+                  >
+                    {title}
+                  </TableHeadCell>
+                )
+              }
+            )}
           </tr>
         </thead>
         <tbody>
@@ -55,6 +78,7 @@ const Table: FC<Props> = ({ pagination, columns, data, onRowClick }) => {
               onClick={onRowClick}
               columns={columns}
               idx={idx}
+              isLast={data.length - 1 === idx}
             />
           ))}
         </tbody>

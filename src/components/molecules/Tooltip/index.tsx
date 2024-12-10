@@ -172,7 +172,7 @@ const Tooltip: FC<TooltipProps> = ({
             ref={tooltipRef}
             role="tooltip"
             className={cls(
-              "absolute z-4 bg-black-100 text-white-100 text-regular-sm",
+              "absolute z-4 bg-black-100 text-white-100 text-regular-sm whitespace-normal",
               "after:absolute",
               visible ? "opacity-100" : "opacity-0 pointer-events-none",
               validPosition && positionClassNames[validPosition],

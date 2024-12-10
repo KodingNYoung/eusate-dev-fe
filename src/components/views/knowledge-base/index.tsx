@@ -1,14 +1,23 @@
 "use client"
 
-import { FC, TableColumn } from "@/utils/types"
+import { FC, KnowledgeSource, TableColumn } from "@/utils/types"
 import React from "react"
 import TableTop from "./_components/TableTop"
 import Table from "@/components/organisms/Table"
 import Checkbox from "@/components/molecules/Checkbox"
-import Typography from "@/components/atoms/Typography"
 import ResourceTypeTag from "./_components/ResourceTypeTag"
 import ResourceRowAction from "./_components/ResourceRowAction"
 import Icon from "@/components/atoms/Icon"
+import EmptyState from "./_components/EmptyState"
+import AddSourceModal from "./_components/AddSourceModal"
+
+type Props = {
+  hasFetchError?: boolean
+  data?: KnowledgeSource[]
+  isSearched: boolean
+  total: number
+  pageSize: number
+}
 
 const columns: TableColumn[] = [
   {
@@ -28,27 +37,30 @@ const columns: TableColumn[] = [
   {
     id: 3,
     title: "Content type",
+    showFor: "not-mobile",
     render: (row) => <ResourceTypeTag type="website" />,
   },
-  { id: 4, title: "Last updated", render: (row) => "12 Mar, 2024. 7:00PM" },
-  { id: 5, title: "Date added", render: (row) => "12 Mar, 2024. 7:00PM" },
+  {
+    id: 4,
+    title: "Last updated",
+    showFor: "not-mobile",
+    render: (row) => "12 Mar, 2024. 7:00PM",
+  },
+  {
+    id: 5,
+    title: "Date added",
+    showFor: "not-mobile",
+    render: (row) => "12 Mar, 2024. 7:00PM",
+  },
   {
     id: 6,
     title: "Internal only",
+    showFor: "not-mobile",
     align: "center",
     tooltip: {
-      content: (
-        <main className="flex flex-col gap-1">
-          <Typography as="h3" variant="semibold-base">
-            Internal source
-          </Typography>
-          <Typography as="span" variant="regular-sm" className="text-gray-500">
-            Confidential information for internal use only. AI uses this only
-            when interacting with customer representatives and business owners,
-            never with customers.
-          </Typography>
-        </main>
-      ),
+      title: "Internal source",
+      subtitle:
+        "Confidential information for internal use only. AI uses this only when interacting with customer representatives and business owners, never with customers.",
       classNames: { tooltip: "min-w-[210px]" },
     },
     render: (row) => (
@@ -56,9 +68,13 @@ const columns: TableColumn[] = [
     ),
   },
   {
-    id: "collapse-trigger",
+    id: "accordion-trigger",
     title: "",
-    render: (row) => <Icon name="icon-arrow-up-down" />,
+    showFor: "mobile-only",
+    align: "center",
+    render: (row) => (
+      <Icon name="icon-chevron-down" className="text-regular-xl" />
+    ),
   },
   {
     id: 7,
@@ -71,17 +87,33 @@ const columns: TableColumn[] = [
   },
 ]
 
-const KnowledgeBase: FC = () => {
+const KnowledgeBase: FC<Props> = ({
+  hasFetchError,
+  data,
+  isSearched,
+  total,
+  pageSize,
+}) => {
   return (
     <div className="grid gap-2">
-      <TableTop />
-      <Table
-        columns={columns}
-        data={[{}, {}, {}, {}, {}, {}, {}, {}, {}]}
-        onRowClick={(row) => {
-          console.log(row)
-        }}
-      />
+      {/* empty without search */}
+      {!total && <EmptyState />}
+      {/* empty with search */}
+      {/* has an error */}
+      {/* data available */}
+      {!!data && !!data.length && (
+        <>
+          <TableTop />
+          <Table
+            columns={columns}
+            data={data}
+            onRowClick={(row) => {
+              console.log(row)
+            }}
+          />
+        </>
+      )}
+      <AddSourceModal />
     </div>
   )
 }

@@ -38,7 +38,7 @@ const TableRowAction: FC<Props> = ({ row, items }) => {
         variant="tetiaryText"
         className="border-0 relative mx-auto w-6 h-6 flex items-center"
       />
-      <Dropdown
+      {/* <Dropdown
         isOpen={Boolean(anchor)}
         anchorEl={anchor}
         close={() => setAnchor(null)}
@@ -95,7 +95,7 @@ const TableRowAction: FC<Props> = ({ row, items }) => {
             </Button>
           )
         })}
-      </Dropdown>
+      </Dropdown> */}
     </div>
   )
 }

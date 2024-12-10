@@ -42,7 +42,7 @@ const requestHandler = cache(
     }
 
     try {
-      return await fetch(`${API_BASEURL}/${endpoint}`, requestOptions)
+      return await fetch(API_BASEURL + endpoint, requestOptions)
     } catch (error) {
       throw error
     }

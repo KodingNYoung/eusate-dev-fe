@@ -42,7 +42,6 @@ export const editOrganisation = async (
       { method: "PATCH" }
     )
 
-    console.log({ response })
 
     if ("shouldAuthenticate" in response) {
       throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

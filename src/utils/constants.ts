@@ -39,3 +39,8 @@ export const TEXT_ALIGN_TO_FLEX_MAP = {
   char: "justify-start",
   justify: "justify-start",
 } as const
+
+export const SHOW_FOR = {
+  MOBILE_ONLY: "mobile-only",
+  NOT_MOBILE: "not-mobile",
+} as const
