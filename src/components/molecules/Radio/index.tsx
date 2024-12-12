@@ -33,7 +33,13 @@ const radioIconInnerStyle = cls(
   "radio-icon-inner-circle size-1/2 rounded-[inherit] bg-[linear-gradient(90deg,_var(--radioColor1),_var(--radioColor2))] transition-[all,_--radioColor1,_--radioColor2] duration-300"
 )
 
-const Radio: FC<RadioProps> = ({ children, id, name, classNames, ...props }) => {
+const Radio: FC<RadioProps> = ({
+  children,
+  id,
+  name,
+  classNames,
+  ...props
+}) => {
   const hasLabel = !!children
   return (
     <div className="relative z-1">
@@ -49,7 +55,10 @@ const Radio: FC<RadioProps> = ({ children, id, name, classNames, ...props }) => 
           type="radio"
           id={id}
           name={name}
-          className={cls("peer absolute opacity-0 h-full w-full top-0 left-0", classNames?.input)}
+          className={cls(
+            "peer absolute opacity-0 h-full w-full top-0 left-0",
+            classNames?.input
+          )}
           {...props}
         />
         <span

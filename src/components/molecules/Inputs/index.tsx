@@ -67,7 +67,8 @@ const Input: FC<InputProps> = ({
         <div
           className={cls(
             "text-input-container mt-1 mb-1.5 flex items-center relative",
-            "before:absolute before:-inset-[1px] before:z-0 before:size-[calc(100%_+_2px)] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[100px] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-300",
+            multiline ? "rounded-x20" : "rounded-[100px]",
+            "before:absolute before:-inset-[1px] before:z-0 before:size-[calc(100%_+_2px)] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[inherit] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-300",
             classNames?.inputContainer
           )}
           data-error={isError}
@@ -86,9 +87,9 @@ const Input: FC<InputProps> = ({
           {getElement(
             multiline ? "textarea" : "input",
             cls(
-              "p-4 rounded-[100px] transition-colors duration-200 outline-0 w-full relative regular-sm font-app text-gray-900 bg-white-100",
-              "placeholder:text-regular-sm placeholder:text-gray-400",
-              inputSize[size],
+              "p-4  transition-colors duration-200 outline-0 w-full relative regular-sm font-app text-gray-900 bg-white-100",
+              "placeholder:text-regular-sm placeholder:text-gray-400 rounded-[inherit]",
+              !multiline && inputSize[size],
               !!endComponent && "pr-10",
               !!startComponent && "pl-10",
               className,

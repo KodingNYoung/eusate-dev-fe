@@ -25,7 +25,6 @@ const SortDrawer: FC<Props> = ({
   sortValue,
   setSortValue,
 }) => {
-
   const apply = (formdata: FormData) => {
     const data = Object.fromEntries(formdata)
     setSortValue(data.sortBy as string)

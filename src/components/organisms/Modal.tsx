@@ -62,7 +62,7 @@ const Modal: FC<Props> = ({ children, isOpen, close, classNames, header }) => {
                     variant="semibold-xl"
                     className="text-gray-900"
                   >
-                    Add content
+                    {header.title}
                   </Typography>
                 )}
                 {header.subtitle && (
@@ -71,7 +71,7 @@ const Modal: FC<Props> = ({ children, isOpen, close, classNames, header }) => {
                     variant="regular-xs"
                     className="text-gray-500"
                   >
-                    Empower your AI with curated knowledge
+                    {header.subtitle}
                   </Typography>
                 )}
               </div>

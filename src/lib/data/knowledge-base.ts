@@ -4,6 +4,7 @@ import { KnowledgeSource } from "@/utils/types"
 import { sendAuthRequest } from "../request"
 import { ERROR_CAUSES } from "@/utils/constants"
 import { getSession } from "../sessions"
+import { KnowledgeSourceTags } from "@/utils/enums"
 
 type GetKnowledgeSourcesResponse = {
   count: number
@@ -12,13 +13,13 @@ type GetKnowledgeSourcesResponse = {
   page_size: number
 }
 export type GetKnowledgeSourcesOptions = {
-  sort_by: string
-  tags: string
-  page: number
-  page_size: number
-  search: string
-  external: boolean
-  published: boolean
+  sort_by?: string
+  tags?: KnowledgeSourceTags
+  page?: number
+  page_size?: number
+  search?: string
+  external?: boolean
+  published?: boolean
 }
 
 export const getKnowledgeSources = async (
@@ -32,7 +33,6 @@ export const getKnowledgeSources = async (
     const response = await sendAuthRequest<GetKnowledgeSourcesResponse>(
       `/api/v1/library/${session.organisationId}`
     )
-    console.log(response)
 
     if ("shouldAuthenticate" in response)
       throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

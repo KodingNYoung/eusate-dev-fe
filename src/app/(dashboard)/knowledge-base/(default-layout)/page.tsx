@@ -1,5 +1,6 @@
 import KnowledgeBase from "@/components/views/knowledge-base"
 import { getKnowledgeSources } from "@/lib/data/knowledge-base"
+import { KnowledgeSourceTags } from "@/utils/enums"
 import { PageFC } from "@/utils/types"
 import { Metadata } from "next"
 import React from "react"
@@ -14,7 +15,7 @@ const KnowledgeBasePage: PageFC = async ({ searchParams }) => {
   const { q, page, sortby, tags, pub, ext } = searchParams || {}
   const data = await getKnowledgeSources({
     sort_by: String(sortby),
-    tags: String(tags),
+    tags: String(tags) as KnowledgeSourceTags,
     page: Number(page),
     page_size: PAGE_SIZE,
     search: String(q),

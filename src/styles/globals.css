@@ -13,7 +13,7 @@
     @apply min-h-screen;
   }
   :root {
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
 }
 
