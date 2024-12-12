@@ -3,9 +3,7 @@ import Button from "@/components/molecules/Buttons"
 import { FC } from "@/utils/types"
 import React from "react"
 
-type Props = {}
-
-const Pagination: FC<Props> = () => {
+const Pagination: FC = () => {
   return (
     <div className="px-6 pt-5 pb-4 flex justify-between">
       <Button

@@ -1,15 +1,12 @@
-import Icon from "@/components/atoms/Icon"
-import Button from "@/components/molecules/Buttons"
-import Input from "@/components/molecules/Inputs"
 import Modal from "@/components/organisms/Modal"
 import React from "react"
 import AddFAQForm from "./AddFAQForm"
+import { PopupKeys } from "@/utils/enums"
 
 const AddFAQ = () => {
   return (
     <Modal
-      isOpen
-      close={console.log}
+      id={PopupKeys.FAQS_MODAL}
       classNames={{ root: "px-2", main: "w-full max-w-[600px] rounded-x20" }}
       header={{ title: "Add FAQ" }}
     >

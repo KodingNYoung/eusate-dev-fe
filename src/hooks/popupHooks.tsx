@@ -1,5 +1,14 @@
+import ModalContext from "@/providers/modalProvider"
+import { PopupKeys } from "@/utils/enums"
 import { TWClassNames } from "@/utils/types"
-import { useCallback, useEffect, useRef, useState } from "react"
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 
 type PopupHookProps = {
   classNames?: { opened?: TWClassNames; closed?: TWClassNames }
@@ -29,7 +38,7 @@ export const usePopup = (
       classlist?.add(classNames?.opened || DEFAULT_OPENED_CLASS)
       classlist?.remove(classNames?.closed || DEFAULT_CLOSED_CLASS)
     }
-  }, [isOpen])
+  }, [isOpen, classNames, delay])
 
   return {
     isOpen,
@@ -49,5 +58,25 @@ export const useVisible = () => {
     close,
     toggle,
     visible,
+  }
+}
+
+export const useModal = (_key?: PopupKeys) => {
+  const { open, close, isOpen, key } = useContext(ModalContext)
+
+  const _isOpen = useMemo(() => isOpen && key === _key, [key, _key, isOpen])
+
+  const _open = useCallback(() => {
+    if (_key) {
+      open(_key)
+    } else {
+      throw "No key provider for this modal"
+    }
+  }, [_key, open])
+
+  return {
+    isOpen: _isOpen,
+    close,
+    open: _open,
   }
 }

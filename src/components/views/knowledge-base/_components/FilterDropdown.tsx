@@ -37,7 +37,7 @@ const FilterDropdown = () => {
 
     // process payload
     const payload: { [key: string]: string[] } = {}
-    for (let name in data) {
+    for (const name in data) {
       const [key, value] = name.split("-")
       if (key in payload) {
         payload[key].push(value)

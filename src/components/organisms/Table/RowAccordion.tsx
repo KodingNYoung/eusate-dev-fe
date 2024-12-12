@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react"
+import React, { useMemo } from "react"
 import TableDataCell from "./TableDataCell"
 import { FC, TableColumn } from "@/utils/types"
 import { cls } from "@/utils/helpers"
@@ -15,7 +15,7 @@ const RowAccordion: FC<Props> = ({ columns, isOpen, row }) => {
   const noOfMobileColumns = useMemo(
     () =>
       columns.filter((column) => column.showFor !== SHOW_FOR.NOT_MOBILE).length,
-    [row]
+    [columns]
   )
 
   return (

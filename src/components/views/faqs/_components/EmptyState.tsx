@@ -3,8 +3,9 @@ import { FC } from "@/utils/types"
 import Image from "next/image"
 import faqEmptyState from "@/assets/images/faq-empty-state.svg"
 import Typography from "@/components/atoms/Typography"
-import Button from "@/components/molecules/Buttons"
 import Icon from "@/components/atoms/Icon"
+import OpenModalButton from "@/components/molecules/Buttons/OpenModalButton"
+import { PopupKeys } from "@/utils/enums"
 
 const EmptyState: FC = () => {
   return (
@@ -26,7 +27,8 @@ const EmptyState: FC = () => {
             educated your AI.
           </Typography>
         </div>
-        <Button
+        <OpenModalButton
+          modalKey={PopupKeys.FAQS_MODAL}
           startContent={<Icon name="icon-plus" className="text-regular-xl" />}
           classNames={{
             root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 sm-gradient",
@@ -34,7 +36,7 @@ const EmptyState: FC = () => {
           }}
         >
           Add FAQ
-        </Button>
+        </OpenModalButton>
       </div>
     </section>
   )

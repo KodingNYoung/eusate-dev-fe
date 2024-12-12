@@ -57,7 +57,9 @@ const Tabs: FC<Props> = ({ tabs, variant = "line", onChange }) => {
                 active={idx === active}
                 onClick={() => {
                   setActive(idx)
-                  onChange && onChange({ key, ...tab })
+                  if (onChange) {
+                    onChange({ key, ...tab })
+                  }
                 }}
                 variant={variant}
                 {...tab}

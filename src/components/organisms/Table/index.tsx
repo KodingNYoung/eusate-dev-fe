@@ -7,7 +7,7 @@ import TableRow from "./TableRow"
 import Typography from "@/components/atoms/Typography"
 
 type Props = {
-  pagination?: {}
+  pagination?: unknown
   columns: TableColumn[]
   data: unknown[]
   onRowClick?: (row: unknown) => void
@@ -83,7 +83,7 @@ const Table: FC<Props> = ({ pagination, columns, data, onRowClick }) => {
           ))}
         </tbody>
       </table>
-      {pagination && <Pagination />}
+      {!!pagination && <Pagination />}
     </section>
   )
 }

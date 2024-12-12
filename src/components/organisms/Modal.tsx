@@ -1,5 +1,5 @@
 "use client"
-import { usePopup } from "@/hooks/popupHooks"
+import { useModal, usePopup } from "@/hooks/popupHooks"
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"
 import React from "react"
@@ -7,23 +7,24 @@ import Typography from "../atoms/Typography"
 import Button from "../molecules/Buttons"
 import Icon from "../atoms/Icon"
 import { IconNames } from "@/utils/iconNames"
+import { PopupKeys } from "@/utils/enums"
 
 type Slots = "root" | "backdrop" | "main"
 type Props = {
-  isOpen: boolean
-  close?: () => void
   classNames?: { [slot in Slots]?: TWClassNames }
   header?: {
     title?: string
     subtitle?: string
     closeIcon?: IconNames | false
   }
+  id: PopupKeys
 }
 
 const CLOSE_CLASS = "-top-[100vh]"
 const OPEN_CLASS = "top-0"
 
-const Modal: FC<Props> = ({ children, isOpen, close, classNames, header }) => {
+const Modal: FC<Props> = ({ children, classNames, header, id }) => {
+  const { isOpen, close } = useModal(id)
   const { ref } = usePopup(isOpen, {
     classNames: { opened: OPEN_CLASS, closed: CLOSE_CLASS },
   })
@@ -80,6 +81,7 @@ const Modal: FC<Props> = ({ children, isOpen, close, classNames, header }) => {
               <Button
                 variant="tetiary"
                 className="w-10 h-10 flex items-center"
+                onClick={close}
                 startContent={
                   <Icon
                     name="icon-close"

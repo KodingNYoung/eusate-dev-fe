@@ -1,6 +1,7 @@
 import Icon from "@/components/atoms/Icon"
-import Button from "@/components/molecules/Buttons"
+import OpenModalButton from "@/components/molecules/Buttons/OpenModalButton"
 import Banner from "@/components/organisms/Banner"
+import { PopupKeys } from "@/utils/enums"
 import { FC } from "@/utils/types"
 import React from "react"
 
@@ -12,7 +13,7 @@ const KnowledgeBaseLayout: FC = ({ children }) => {
         title="Knowledge Base"
         subtitle="Empower your AI with curated knowledge."
         actions={
-          <Button
+          <OpenModalButton
             startContent={
               <Icon
                 name="icon-plus"
@@ -23,9 +24,10 @@ const KnowledgeBaseLayout: FC = ({ children }) => {
               root: "ml-12 sm:ml-0 py-1 sm:py-2.5 px-3 sm-gradient",
               label: "text-medium-xs sm:text-medium-sm ",
             }}
+            modalKey={PopupKeys.ADD_SOURCE_MODAL}
           >
             Add resource
-          </Button>
+          </OpenModalButton>
         }
       />
       {children}

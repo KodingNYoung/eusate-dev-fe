@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 
 import { FC, KnowledgeSource, TableColumn } from "@/utils/types"
 import React from "react"
@@ -23,7 +23,7 @@ const columns: TableColumn[] = [
   {
     id: 1,
     title: <Checkbox name="select-all" />,
-    render: (row) => <Checkbox name="select-" />,
+    render: () => <Checkbox name="select-" />,
     classNames: {
       cell: "w-[1%] whitespace-nowrap",
     },
@@ -32,25 +32,25 @@ const columns: TableColumn[] = [
     id: 2,
     title: "Title",
     classNames: { td: "text-black-90 !text-medium-sm" },
-    render: (row) => "GTM Strategy for eusate",
+    render: () => "GTM Strategy for eusate",
   },
   {
     id: 3,
     title: "Content type",
     showFor: "not-mobile",
-    render: (row) => <ResourceTypeTag type="website" />,
+    render: () => <ResourceTypeTag type="website" />,
   },
   {
     id: 4,
     title: "Last updated",
     showFor: "not-mobile",
-    render: (row) => "12 Mar, 2024. 7:00PM",
+    render: () => "12 Mar, 2024. 7:00PM",
   },
   {
     id: 5,
     title: "Date added",
     showFor: "not-mobile",
-    render: (row) => "12 Mar, 2024. 7:00PM",
+    render: () => "12 Mar, 2024. 7:00PM",
   },
   {
     id: 6,
@@ -63,7 +63,7 @@ const columns: TableColumn[] = [
         "Confidential information for internal use only. AI uses this only when interacting with customer representatives and business owners, never with customers.",
       classNames: { tooltip: "min-w-[210px]" },
     },
-    render: (row) => (
+    render: () => (
       <Checkbox name="select-" classNames={{ root: "mx-auto w-fit" }} />
     ),
   },
@@ -72,9 +72,7 @@ const columns: TableColumn[] = [
     title: "",
     showFor: "mobile-only",
     align: "center",
-    render: (row) => (
-      <Icon name="icon-chevron-down" className="text-regular-xl" />
-    ),
+    render: () => <Icon name="icon-chevron-down" className="text-regular-xl" />,
   },
   {
     id: 7,
@@ -88,11 +86,11 @@ const columns: TableColumn[] = [
 ]
 
 const KnowledgeBase: FC<Props> = ({
-  hasFetchError,
+  //   hasFetchError,
   data,
-  isSearched,
+  //   isSearched,
   total,
-  pageSize,
+  //   pageSize,
 }) => {
   return (
     <div className="grid gap-2">

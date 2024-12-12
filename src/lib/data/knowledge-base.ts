@@ -25,6 +25,7 @@ export type GetKnowledgeSourcesOptions = {
 export const getKnowledgeSources = async (
   options?: GetKnowledgeSourcesOptions
 ) => {
+  console.log(options)
   try {
     const session = await getSession()
 

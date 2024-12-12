@@ -1,8 +1,9 @@
+"use client"
+
 import React, { ChangeEvent, useRef } from "react"
 import SourceModalRadio from "./SourceModalRadio"
 import Icon from "@/components/atoms/Icon"
 import { ROUTES } from "@/utils/constants"
-import { IconNames } from "@/utils/iconNames"
 import { useRouter } from "next/navigation"
 import { useValidation } from "@/hooks/formHooks"
 import { selectResourcesTagsSchema } from "@/lib/schemas/knowledge-base"

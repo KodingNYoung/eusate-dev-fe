@@ -2,12 +2,9 @@
 
 import Icon from "@/components/atoms/Icon"
 import Button, { ButtonProps } from "@/components/molecules/Buttons"
-import Dropdown from "@/components/molecules/Popups/Dropdown"
-import { cls } from "@/utils/helpers"
 import { IconNames } from "@/utils/iconNames"
 import { FC } from "@/utils/types"
-import Link from "next/link"
-import React, { useState } from "react"
+import React from "react"
 
 type Props = {
   row: unknown
@@ -28,12 +25,12 @@ export type ItemType = {
     }
 )
 
-const TableRowAction: FC<Props> = ({ row, items }) => {
-  const [anchor, setAnchor] = useState<HTMLElement | null>(null)
+const TableRowAction: FC<Props> = () => {
+  //   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <Button
-        onClick={(e) => setAnchor(e.currentTarget)}
+        // onClick={(e) => setAnchor(e.currentTarget)}
         startContent={<Icon name="icon-more" className="!text-regular-xl" />}
         variant="tetiaryText"
         className="border-0 relative mx-auto w-6 h-6 flex items-center"

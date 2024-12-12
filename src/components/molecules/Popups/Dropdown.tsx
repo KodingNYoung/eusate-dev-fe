@@ -4,6 +4,12 @@ import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"
 import React, { useEffect, useRef, useState } from "react"
 
+type AnchorPosition = {
+  left?: number
+  top?: number
+  width?: number
+  height?: number
+}
 type Slots = "root" | "triggerBtn" | "menu" | "menuContent" | "backdrop"
 type Props = {
   classNames?: { [slot in Slots]?: string }
@@ -22,8 +28,8 @@ const Dropdown: FC<Props> = ({
   close,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-  let timer = useRef<NodeJS.Timeout>()
-  const [anchorPos, setAnchorPos] = useState<{}>()
+  const timer = useRef<NodeJS.Timeout>()
+  const [anchorPos, setAnchorPos] = useState<AnchorPosition>()
 
   //   effects
   useEffect(() => {
@@ -44,7 +50,7 @@ const Dropdown: FC<Props> = ({
       ref.current?.classList.remove(menuClasses?.close || "-top-[100vh]")
       ref.current?.classList.add(menuClasses?.open || "top-full")
     }
-  }, [isOpen, anchorEl])
+  }, [isOpen, anchorEl, menuClasses])
 
   return (
     <div className={cls("fixed z-1", classNames?.root)} style={anchorPos}>

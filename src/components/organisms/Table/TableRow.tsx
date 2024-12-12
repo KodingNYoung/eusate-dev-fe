@@ -4,7 +4,6 @@ import { FC, TableColumn } from "@/utils/types"
 import React, { useMemo, useState } from "react"
 import TableDataCell from "./TableDataCell"
 import { screensizeDisplayClasses } from "."
-import TableHeadCell from "./TableHeadCell"
 import RowAccordion from "./RowAccordion"
 import { SHOW_FOR } from "@/utils/constants"
 
@@ -20,7 +19,7 @@ const TableRow: FC<Props> = ({ idx, onClick, columns, row, isLast }) => {
   const [openAccordion, setOpenAccordion] = useState(false)
   const hasAccordion = useMemo(
     () => columns.some((column) => column.showFor === SHOW_FOR.NOT_MOBILE),
-    [row]
+    [columns]
   )
   const hasResult = useMemo(
     () => "result" in (row as { result: unknown }),
