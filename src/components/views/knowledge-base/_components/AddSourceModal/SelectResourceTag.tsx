@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation"
 import { useValidation } from "@/hooks/formHooks"
 import { selectResourcesTagsSchema } from "@/lib/schemas/knowledge-base"
 import Button from "@/components/molecules/Buttons"
-import { KnowledgeSourceTags } from "@/utils/enums"
+import { KnowledgeSourceTags, PopupKeys } from "@/utils/enums"
 import { MODAL_RESOURCE_TAGS } from "../../utils"
+import { useModal } from "@/hooks/popupHooks"
 
 const SelectResourceTag = () => {
   const router = useRouter()
+  const { open, isOpen } = useModal()
   const formRef = useRef<HTMLFormElement>(null)
 
   const { touched, hasErrors, validate, markFieldTouched } = useValidation(
@@ -25,6 +27,8 @@ const SelectResourceTag = () => {
     switch (tag) {
       case KnowledgeSourceTags.FAQ:
         router.push(ROUTES.FAQS)
+      case KnowledgeSourceTags.WEBISTE:
+        open(PopupKeys.WEBSITE_MODAL)
     }
   }
   const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +36,8 @@ const SelectResourceTag = () => {
     markFieldTouched(name)
     validate(name)
   }
+
+  
 
   return (
     <form action={handleSubmit} ref={formRef}>

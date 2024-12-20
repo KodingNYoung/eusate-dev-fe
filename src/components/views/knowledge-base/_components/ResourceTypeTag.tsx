@@ -1,25 +1,25 @@
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
+import { KnowledgeSourceTags } from "@/utils/enums"
 import { IconNames } from "@/utils/iconNames"
 import { FC } from "@/utils/types"
 import React from "react"
 
-type ResourceType = "file" | "website" | "article" | "faqs"
 type Props = {
-  type: ResourceType
+  type: KnowledgeSourceTags
 }
 
-const resourceIcon: { [type in ResourceType]: IconNames } = {
-  file: "icon-document-text",
+const resourceIcon: { [type in KnowledgeSourceTags]: IconNames } = {
+  document: "icon-document-text",
   website: "icon-link",
   article: "icon-article-text",
-  faqs: "icon-message-question",
+  faq: "icon-message-question",
 }
-const resourceLabel: { [type in ResourceType]: string } = {
-  file: "File",
+const resourceLabel: { [type in KnowledgeSourceTags]: string } = {
+  document: "File",
   website: "Website",
   article: "Article",
-  faqs: "FAQs",
+  faq: "FAQs",
 }
 
 const ResourceTypeTag: FC<Props> = ({ type }) => {

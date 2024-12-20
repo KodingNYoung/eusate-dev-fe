@@ -33,7 +33,7 @@ const EmptyState: FC = () => {
             root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 sm-gradient",
             label: "text-medium-sm sm:text-semibold-sm ",
           }}
-          modalKey={PopupKeys.ADD_SOURCE_MODAL}
+          modalKey={PopupKeys.SOURCE_MODAL}
         >
           Add a resource
         </OpenModalButton>

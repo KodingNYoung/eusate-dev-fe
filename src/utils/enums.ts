@@ -12,5 +12,6 @@ export enum KnowledgeSourceTags {
 
 export enum PopupKeys {
   FAQS_MODAL = "faqs-modal",
-  ADD_SOURCE_MODAL = "add-source-modal",
+  SOURCE_MODAL = "source-modal",
+  WEBSITE_MODAL = "website-modal",
 }

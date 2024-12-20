@@ -1,20 +1,18 @@
 @font-face {
-  font-family: "icomoon";
-  src: url("fonts/icomoon.eot?drs32l");
-  src:
-    url("fonts/icomoon.eot?drs32l#iefix") format("embedded-opentype"),
-    url("fonts/icomoon.ttf?drs32l") format("truetype"),
-    url("fonts/icomoon.woff?drs32l") format("woff"),
-    url("fonts/icomoon.svg?drs32l#icomoon") format("svg");
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?txg5ao');
+  src:  url('fonts/icomoon.eot?txg5ao#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?txg5ao') format('truetype'),
+    url('fonts/icomoon.woff?txg5ao') format('woff'),
+    url('fonts/icomoon.svg?txg5ao#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "icomoon" !important;
+  font-family: 'icomoon' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -27,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-information-bold:before {
+  content: "\e929";
+}
 .icon-chevron-down:before {
   content: "\e928";
 }

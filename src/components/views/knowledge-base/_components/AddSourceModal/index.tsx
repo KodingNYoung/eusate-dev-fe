@@ -6,7 +6,7 @@ import { PopupKeys } from "@/utils/enums"
 const AddSourceModal = () => {
   return (
     <Modal
-      id={PopupKeys.ADD_SOURCE_MODAL}
+      id={PopupKeys.SOURCE_MODAL}
       classNames={{ root: "px-2", main: "w-full max-w-[600px] rounded-x20" }}
       header={{
         title: "Add content",

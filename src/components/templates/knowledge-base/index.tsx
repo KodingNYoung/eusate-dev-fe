@@ -24,7 +24,7 @@ const KnowledgeBaseLayout: FC = ({ children }) => {
               root: "ml-12 sm:ml-0 py-1 sm:py-2.5 px-3 sm-gradient",
               label: "text-medium-xs sm:text-medium-sm ",
             }}
-            modalKey={PopupKeys.ADD_SOURCE_MODAL}
+            modalKey={PopupKeys.SOURCE_MODAL}
           >
             Add resource
           </OpenModalButton>

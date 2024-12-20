@@ -6,12 +6,14 @@ import Button, { ButtonProps } from "."
 import { useFormStatus } from "react-dom"
 import { cls } from "@/utils/helpers"
 
-type Props = Omit<ButtonProps, "type">
+type Props = Omit<ButtonProps, "type"> & { hideLoader?: boolean }
 
 const SubmitButton: FC<Props> = ({
   children,
   loading,
   classNames,
+  hideLoader,
+  disabled,
   ...props
 }) => {
   const { pending } = useFormStatus()
@@ -19,7 +21,8 @@ const SubmitButton: FC<Props> = ({
     <Button
       type="submit"
       size="xl"
-      loading={pending || loading}
+      loading={(pending && !hideLoader) || loading}
+      disabled={pending || loading}
       classNames={{
         root: cls("py-4.5", classNames?.root),
         label: cls("", classNames?.label),

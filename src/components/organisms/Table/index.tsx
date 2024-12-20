@@ -8,7 +8,7 @@ import Typography from "@/components/atoms/Typography"
 
 type Props = {
   pagination?: unknown
-  columns: TableColumn[]
+  columns: TableColumn<any>[]
   data: unknown[]
   onRowClick?: (row: unknown) => void
 }

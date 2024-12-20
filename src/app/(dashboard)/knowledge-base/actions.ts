@@ -5,32 +5,31 @@ import { getSession } from "@/lib/sessions"
 import { formStateResponse } from "@/utils/helpers"
 import { FormState } from "@/utils/types"
 
-type AddFAQResponse = { success: true }
+export type ValidateUrlResponse = { valid: boolean }
 
-export const addFAQ = async (
-  state: FormState,
+export const validateUrl = async (
+  state: FormState<ValidateUrlResponse>,
   formdata: FormData
-): Promise<FormState> => {
+) => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const { question, answer } = Object.fromEntries(formdata)
+  const { url } = Object.fromEntries(formdata)
 
   try {
     const session = await getSession()
-    const response = await sendAuthRequest<AddFAQResponse>(
-      "/api/v1/library/faq/add/",
+    const response = await sendAuthRequest<ValidateUrlResponse>(
+      "/api/v1/library/validate-url/",
       {
         organisation_id: session?.organisationId,
-        question,
-        answer,
+        url,
       },
       { method: "POST" }
     )
-
     // handle auth check
     if ("shouldAuthenticate" in response) {
       throw new Error("Session expired, log in again")
     }
-    return successResponse("")
+
+    return successResponse("", "", response)
   } catch (err) {
     return errorResponse({
       type: "request",

@@ -66,13 +66,18 @@ export const useModal = (_key?: PopupKeys) => {
 
   const _isOpen = useMemo(() => isOpen && key === _key, [key, _key, isOpen])
 
-  const _open = useCallback(() => {
-    if (_key) {
-      open(_key)
-    } else {
-      throw "No key provider for this modal"
-    }
-  }, [_key, open])
+  const _open = useCallback(
+    (quickKey?: PopupKeys) => {
+      if (_key) {
+        open(_key)
+      } else if (quickKey) {
+        open(quickKey)
+      } else {
+        throw "No key provided for this modal"
+      }
+    },
+    [_key, open]
+  )
 
   return {
     isOpen: _isOpen,

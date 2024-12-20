@@ -15,7 +15,7 @@ type Slots =
   | "input"
   | "endContent"
   | "helperText"
-type InputProps = Omit<HTMLProps<HTMLInputElement>, "size"> & {
+export type InputProps = Omit<HTMLProps<HTMLInputElement>, "size"> & {
   name: string
   label?: string
   helperText?: string

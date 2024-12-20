@@ -85,7 +85,7 @@ const Toast: FC = () => {
         <Icon
           name={icon ?? toastIcon[type]}
           className={cls(
-            "text-regular-2xl !leading-none",
+            "!text-regular-2xl !leading-none",
             toastIconColor[`${type}-${variant}`]
           )}
         />
