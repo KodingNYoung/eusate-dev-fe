@@ -11,6 +11,8 @@ import EmptyState from "./_components/EmptyState"
 import AddSourceModal from "./_components/AddSourceModal"
 import AddwebsiteModal from "./_components/AddWebsiteModal"
 import dayjs from "dayjs"
+import ArticleModal from "./_components/ArticleModal"
+import DocumentModal from "./_components/DocumentModal"
 
 type Props = {
   hasFetchError?: boolean
@@ -117,6 +119,8 @@ const KnowledgeBase: FC<Props> = ({
       )}
       <AddSourceModal />
       <AddwebsiteModal />
+      <ArticleModal />
+      <DocumentModal />
     </div>
   )
 }

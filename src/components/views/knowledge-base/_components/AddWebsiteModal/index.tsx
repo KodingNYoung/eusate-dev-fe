@@ -1,10 +1,9 @@
 import Modal from "@/components/organisms/Modal"
 import { PopupKeys } from "@/utils/enums"
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
 import WebsiteModalForm from "./WebsiteModalForm"
 
 const AddwebsiteModal: FC = () => {
-  const [step, setStep] = useState()
   return (
     <Modal
       id={PopupKeys.WEBSITE_MODAL}

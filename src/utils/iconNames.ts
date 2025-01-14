@@ -24,6 +24,7 @@ export type IconNames =
   | "icon-information-bold"
   | "icon-layer"
   | "icon-link"
+  | "icon-link-4"
   | "icon-menu"
   | "icon-message-question"
   | "icon-minus-square-bold"

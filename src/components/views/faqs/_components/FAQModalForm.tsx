@@ -1,30 +1,54 @@
-import { addFAQ } from "@/app/(dashboard)/knowledge-base/FAQs/actions"
+"use client"
+
+import { addFAQ, editFAQ } from "@/app/(dashboard)/knowledge-base/FAQs/actions"
 import Icon from "@/components/atoms/Icon"
-import Button from "@/components/molecules/Buttons"
+import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Input from "@/components/molecules/Inputs"
-import { useValidation } from "@/hooks/formHooks"
+import Toast from "@/components/organisms/Toast"
+import { useFormToast, useValidation } from "@/hooks/formHooks"
+import { useModal } from "@/hooks/popupHooks"
 import { addFAQSchema } from "@/lib/schemas/knowledge-base"
-import { FC, FormState } from "@/utils/types"
+import { FC, FormState, KnowledgeSource } from "@/utils/types"
 import React, { useEffect, useRef } from "react"
 import { useFormState } from "react-dom"
 
-const AddFAQForm: FC = () => {
+type Props = {
+  isAdd: boolean
+  faq?: KnowledgeSource
+}
+
+const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
   const formRef = useRef<HTMLFormElement>(null)
+  const { close } = useModal()
 
   const { errors, touched, hasErrors, validate, markFieldTouched } =
     useValidation(addFAQSchema, formRef)
-  const [state, action] = useFormState<FormState, FormData>(addFAQ, {})
+
+  const [state, action] = useFormState<FormState, FormData>(
+    isAdd ? addFAQ : editFAQ,
+    {}
+  )
+
+  useFormToast(state, true)
 
   useEffect(() => {
-    console.log(state)
-  }, [state])
+    if ("success" in state) {
+      setTimeout(close, 1500)
+      formRef.current?.reset()
+    }
+  }, [state, close])
 
   return (
-    <form ref={formRef} action={action}>
+    <form ref={formRef} action={action} className="relative">
+      <div className="absolute top-0 left-0 w-full p-5 z-1">
+        <Toast />
+      </div>
       <main className="flex flex-col gap-5 p-5">
+        {!isAdd && <input hidden name="id" value={faq?.id} />}
         <Input
           name="question"
           label="Question"
+          defaultValue={faq?.question}
           placeholder="Type a question"
           isError={!!errors.question}
           helperText={errors.question}
@@ -34,6 +58,7 @@ const AddFAQForm: FC = () => {
         <Input
           name="answer"
           label="Answer"
+          defaultValue={faq?.answer}
           multiline
           rows={4}
           placeholder="Type an answer to the question above..."
@@ -44,8 +69,7 @@ const AddFAQForm: FC = () => {
         />
       </main>
       <footer className="flex items-center justify-end p-5 border-t border-gray-50">
-        <Button
-          type="submit"
+        <SubmitButton
           className="px-3.5 !py-2.5"
           endContent={
             <Icon name="icon-arrow-right" className="text-regular-xl" />
@@ -54,10 +78,10 @@ const AddFAQForm: FC = () => {
           disabled={!touched.question || !touched.answer || hasErrors}
         >
           Continue
-        </Button>
+        </SubmitButton>
       </footer>
     </form>
   )
 }
 
-export default AddFAQForm
+export default FAQModalForm

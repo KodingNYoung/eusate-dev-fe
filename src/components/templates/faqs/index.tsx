@@ -24,7 +24,7 @@ const FAQsLayout: FC = ({ children }) => {
               root: "ml-12 sm:ml-0 py-1 sm:py-2.5 px-3 sm-gradient",
               label: "text-medium-xs sm:text-medium-sm ",
             }}
-            modalKey={PopupKeys.FAQS_MODAL}
+            modalKey={PopupKeys.ADD_FAQS_MODAL}
           >
             Add FAQ
           </OpenModalButton>

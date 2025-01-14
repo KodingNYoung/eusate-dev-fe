@@ -2,7 +2,6 @@ import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
 import Info from "@/components/molecules/Info"
-import Toast from "@/components/organisms/Toast"
 import WebsiteInput from "@/components/organisms/WebsiteInput"
 import ToastContextProvider from "@/providers/toastProviders"
 import { FC } from "@/utils/types"
@@ -23,13 +22,11 @@ const WebsiteModalForm: FC = () => {
         }
 
         return hostname
-      } catch (error) {
+      } catch {
         return undefined
       }
     }
   }, [mainWebsite])
-
-  console.log(domain)
 
   const handleUrlVerify = (url: string, name: string) => {
     if (name === "main_website") {
@@ -47,9 +44,7 @@ const WebsiteModalForm: FC = () => {
   return (
     <ToastContextProvider>
       <div className="relative">
-        <div className="absolute w-full px-5">
-          {/* <Toast /> */}
-        </div>
+        <div className="absolute w-full px-5">{/* <Toast /> */}</div>
         <main className="p-5 flex flex-col gap-5">
           <Info
             title="NOTE"

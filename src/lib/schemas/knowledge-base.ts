@@ -1,8 +1,12 @@
 import { KnowledgeSourceTags } from "@/utils/enums"
-import { string, z } from "zod"
+import { z } from "zod"
 
 export const selectResourcesTagsSchema = z.object({
   tag: z.nativeEnum(KnowledgeSourceTags),
+})
+
+export const selectArticleMethodSchema = z.object({
+  method: z.enum(["text", "link"]),
 })
 
 export const addFAQSchema = z.object({

@@ -40,7 +40,7 @@ const Modal: FC<Props> = ({ children, classNames, header, id }) => {
     >
       <div
         className={cls(
-          "absolute top-0 left-0 z-10 w-full h-full bg-black-100 bg-opacity-50 hidden group-data-[open=true]/modal:block",
+          "absolute top-0 left-0 z-10 w-full h-full bg-black-100 bg-opacity-0 group-data-[open=true]/modal:bg-opacity-50 transition-colors duration-500",
           classNames?.backdrop
         )}
         onClick={close}

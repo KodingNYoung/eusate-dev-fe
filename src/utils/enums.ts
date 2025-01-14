@@ -11,7 +11,17 @@ export enum KnowledgeSourceTags {
 }
 
 export enum PopupKeys {
-  FAQS_MODAL = "faqs-modal",
+  ADD_FAQS_MODAL = "add-faqs-modal",
+  EDIT_FAQS_MODAL = "edit-faqs-modal",
+  DELETE_FAQS_MODAL = "delete-faqs-modal",
   SOURCE_MODAL = "source-modal",
   WEBSITE_MODAL = "website-modal",
+  ARTICLE_MODAL = "article-modal",
+  DOCUMENT_MODAL = "document-modal",
+}
+
+export enum PopupModes {
+  ADD = "add",
+  EDIT = "edit",
+  DELETE = "delete",
 }

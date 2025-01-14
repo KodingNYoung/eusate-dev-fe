@@ -22,7 +22,7 @@ const SubmitButton: FC<Props> = ({
       type="submit"
       size="xl"
       loading={(pending && !hideLoader) || loading}
-      disabled={pending || loading}
+      disabled={pending || disabled || loading}
       classNames={{
         root: cls("py-4.5", classNames?.root),
         label: cls("", classNames?.label),

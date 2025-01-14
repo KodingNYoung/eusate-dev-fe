@@ -12,6 +12,20 @@ import React, { useEffect, useRef } from "react"
 import Icon from "../atoms/Icon"
 import Typography from "../atoms/Typography"
 
+type Slots =
+  | "root"
+  | "container"
+  | "icon"
+  | "textContent"
+  | "title"
+  | "subtitle"
+  | "action"
+  | "close"
+
+type Props = {
+  classNames?: { [slot in Slots]?: TWClassNames }
+}
+
 type ToastVariant = `${ToastType}-${ToastVariantType}`
 
 const toastVariant: { [variant in ToastVariant]: TWClassNames } = {
@@ -58,7 +72,7 @@ const closeBtnColor: { [variant in ToastVariantType]: TWClassNames } = {
   outlined: "text-gray-500",
 }
 
-const Toast: FC = () => {
+const Toast: FC<Props> = ({ classNames }) => {
   const timer = useRef<NodeJS.Timeout>()
   const { visible, hide, type, variant, actions, title, subtitle, icon } =
     useToast()
@@ -76,41 +90,52 @@ const Toast: FC = () => {
       className={cls(
         "rounded-lg text-white-100 w-full transition-all duration-300 overflow-hidden",
         visible && "my-5 opacity-100",
-        visible && (subtitle ? "max-h-[62px]" : "max-h-[41px]"),
+        visible && (subtitle ? "max-h-[62px]" : "max-h-[82px]"),
         toastVariant[`${type}-${variant}`],
-        !visible && "max-h-0 opacity-0"
+        !visible && "max-h-0 opacity-0",
+        classNames?.root
       )}
     >
-      <div className="py-2 px-3 flex items-start gap-3">
+      <div
+        className={cls(
+          "py-2 px-3 flex items-start gap-3",
+          classNames?.container
+        )}
+      >
         <Icon
           name={icon ?? toastIcon[type]}
           className={cls(
             "!text-regular-2xl !leading-none",
-            toastIconColor[`${type}-${variant}`]
+            toastIconColor[`${type}-${variant}`],
+            classNames?.icon
           )}
         />
-        <div className="grid gap-1 flex-1">
+        <div className={cls("grid gap-1 flex-1", classNames?.textContent)}>
           <Typography
             variant={subtitle ? "medium-base" : "regular-base"}
-            className={cls(titleColor[variant])}
+            className={cls(titleColor[variant], classNames?.title)}
           >
             {title}
           </Typography>
           {subtitle && (
             <Typography
               variant="regular-sm"
-              className={cls(subtitleColor[variant])}
+              className={cls(subtitleColor[variant], classNames?.subtitle)}
             >
               {subtitle}
             </Typography>
           )}
         </div>
         {actions?.map((action, idx) => (
-          <button onClick={action.fn} key={idx}>
+          <button
+            onClick={action.fn}
+            key={idx}
+            className={cls(classNames?.action)}
+          >
             {action.label}
           </button>
         ))}
-        <button onClick={hide}>
+        <button onClick={hide} className={cls(classNames?.close)}>
           <Icon name="icon-close" className={cls(closeBtnColor[variant])} />
         </button>
       </div>

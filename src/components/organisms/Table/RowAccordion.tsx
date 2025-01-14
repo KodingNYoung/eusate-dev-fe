@@ -1,17 +1,17 @@
 import React, { useMemo } from "react"
 import TableDataCell from "./TableDataCell"
-import { FC, TableColumn } from "@/utils/types"
+import { TableColumn } from "@/utils/types"
 import { cls } from "@/utils/helpers"
 import { SHOW_FOR } from "@/utils/constants"
 import RowAccordionItem from "./RowAccordionItem"
 
-type Props = {
-  columns: TableColumn[]
+type Props<T> = {
+  columns: TableColumn<T>[]
   isOpen: boolean
-  row: unknown
+  row: T
 }
 
-const RowAccordion: FC<Props> = ({ columns, isOpen, row }) => {
+const RowAccordion = <T,>({ columns, isOpen, row }: Props<T>) => {
   const noOfMobileColumns = useMemo(
     () =>
       columns.filter((column) => column.showFor !== SHOW_FOR.NOT_MOBILE).length,

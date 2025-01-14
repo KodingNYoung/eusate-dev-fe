@@ -26,6 +26,7 @@ export const getKnowledgeSources = async (
   options?: GetKnowledgeSourcesOptions
 ) => {
   try {
+    console.log(options)
     const session = await getSession()
 
     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

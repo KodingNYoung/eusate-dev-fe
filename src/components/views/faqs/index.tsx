@@ -1,13 +1,27 @@
-"use client"
 import React from "react"
 import EmptyState from "./_components/EmptyState"
-import AddFAQ from "./_components/AddFAQ"
+import FAQModal from "./_components/FAQModal"
+import { FC, KnowledgeSource } from "@/utils/types"
+import FAQCardsList from "./_components/FAQCardsList"
+import Pagination from "@/components/organisms/Table/Pagination"
 
-const FAQs = () => {
+type Props = {
+  data?: KnowledgeSource[]
+  hasFetchError?: boolean
+  total: number
+}
+
+const FAQs: FC<Props> = ({ data, total }) => {
   return (
     <>
-      <EmptyState />
-      <AddFAQ />
+      {!total && <EmptyState />}
+      {!!data && !!total && (
+        <>
+          <FAQCardsList faqs={data} />
+          <Pagination />
+        </>
+      )}
+      <FAQModal />
     </>
   )
 }

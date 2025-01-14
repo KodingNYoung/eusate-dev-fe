@@ -1,4 +1,4 @@
-import { FC, TableColumn } from "@/utils/types"
+import { TableColumn } from "@/utils/types"
 import React from "react"
 import TableHeadCell from "./TableHeadCell"
 import { cls } from "@/utils/helpers"
@@ -6,10 +6,10 @@ import Pagination from "./Pagination"
 import TableRow from "./TableRow"
 import Typography from "@/components/atoms/Typography"
 
-type Props = {
+type Props<T> = {
   pagination?: unknown
-  columns: TableColumn<any>[]
-  data: unknown[]
+  columns: TableColumn<T>[]
+  data: T[]
   onRowClick?: (row: unknown) => void
 }
 
@@ -19,7 +19,12 @@ export const screensizeDisplayClasses = {
   "all": "",
 } as const
 
-const Table: FC<Props> = ({ pagination, columns, data, onRowClick }) => {
+const Table = <T = "unknown",>({
+  pagination,
+  columns,
+  data,
+  onRowClick,
+}: Props<T>) => {
   return (
     <section className="sm:rounded-x20 sm:border border-gray-50 overflow-x-auto overflow-visible w-full">
       <table

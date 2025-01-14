@@ -12,7 +12,7 @@ type Props = Omit<ButtonProps, "onClick"> & {
 
 const OpenModalButton: FC<Props> = ({ modalKey, ...props }) => {
   const { open } = useModal(modalKey)
-  return <Button {...props} onClick={open} />
+  return <Button {...props} onClick={() => open()} />
 }
 
 export default OpenModalButton

@@ -1,11 +1,11 @@
 import { FC, FormState } from "@/utils/types"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import Input, { InputProps } from "../molecules/Inputs"
 import Icon from "../atoms/Icon"
 import Spinner from "../atoms/Spinner"
 import SubmitButton from "../molecules/Buttons/SubmitButton"
 import { cls } from "@/utils/helpers"
-import { useFormToast, useValidation } from "@/hooks/formHooks"
+import { useValidation } from "@/hooks/formHooks"
 import {
   validateSubdomainUrlSchema,
   validateUrlSchema,
@@ -40,16 +40,16 @@ const WebsiteInput: FC<Props> = ({
     FormData
   >(validateUrl, {})
 
-//   useFormToast(
-//     (state || errors.url ? { error: { message: errors.url } } : {}) as FormState
-//   )
+  //   useFormToast(
+  //     (state || errors.url ? { error: { message: errors.url } } : {}) as FormState
+  //   )
 
   useEffect(() => {
     if ("success" in state && state.payload?.valid && formRef.current) {
       const formdata = new FormData(formRef.current)
       onVerify(formdata.get("url") as string, name)
     }
-  }, [state])
+  }, [state, name])
 
   return (
     <form className="flex items-end gap-5" action={action} ref={formRef}>

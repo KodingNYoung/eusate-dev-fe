@@ -28,7 +28,7 @@ const EmptyState: FC = () => {
           </Typography>
         </div>
         <OpenModalButton
-          modalKey={PopupKeys.FAQS_MODAL}
+          modalKey={PopupKeys.ADD_FAQS_MODAL}
           startContent={<Icon name="icon-plus" className="text-regular-xl" />}
           classNames={{
             root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 sm-gradient",

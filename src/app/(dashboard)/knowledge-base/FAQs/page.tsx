@@ -9,8 +9,7 @@ const FAQsPage: PageFC = async () => {
     tags: KnowledgeSourceTags.FAQ,
   })
 
-  console.log({ data })
-  return <FAQs />
+  return <FAQs data={data.data?.results} total={data.data?.count || 0} />
 }
 
 export default FAQsPage

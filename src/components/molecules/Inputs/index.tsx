@@ -97,10 +97,10 @@ const Input: FC<InputProps> = ({
             ),
             { ...props, id: id || name, name }
           )}
-          {
+          {(isError || isSuccess || endComponent) && (
             <span
               className={cls(
-                "absolute right-3 -ml-7 flex h-5 w-5 items-center text-gray-900",
+                "absolute right-3 -ml-7 flex h-5 w-5 items-center text-gray-900 bg-white",
                 classNames?.endContent
               )}
             >
@@ -118,7 +118,7 @@ const Input: FC<InputProps> = ({
                 endComponent && endComponent
               )}
             </span>
-          }
+          )}
         </div>
       </label>
       {helperText && (

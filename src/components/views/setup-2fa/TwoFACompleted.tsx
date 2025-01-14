@@ -22,7 +22,10 @@ const TwoFACompleted: FC = () => {
           You have successfully registered a 2FA method for authentication.
         </Typography>
       </header>
-      <Button className="w-full" onClick={() => router.push(ROUTES.LOGIN)}>
+      <Button
+        className="w-full py-4.5"
+        onClick={() => router.push(ROUTES.LOGIN)}
+      >
         Proceed to Login
       </Button>
     </main>

@@ -3,6 +3,7 @@ import { IconNames } from "@/utils/iconNames"
 
 // TYPES
 export type SortOrder = "" | "-"
+export type ArticleMethodType = "text" | "link"
 
 // CONSTANTS
 export const KNOWLEDGE_BASE_SORT_COLUMNS = [
@@ -55,5 +56,26 @@ export const MODAL_RESOURCE_TAGS: {
     icon: "icon-message-question",
     title: "Create FAQs",
     subtitle: "Build a repository of common questions and expert answers.",
+  },
+]
+export const ARTICLE_METHODS: {
+  value: ArticleMethodType
+  icon: IconNames
+  title: string
+  subtitle: string
+}[] = [
+  {
+    value: "text",
+    icon: "icon-edit-2",
+    title: "Write an article",
+    subtitle:
+      "Create custom content directly in our built-in text editor or import using links.",
+  },
+  {
+    value: "link",
+    icon: "icon-link-4",
+    title: "Import using links",
+    subtitle:
+      "Import your article contents from other online resources directly in our built-in text editor.",
   },
 ]

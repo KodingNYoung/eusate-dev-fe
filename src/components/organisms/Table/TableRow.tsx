@@ -1,21 +1,21 @@
 "use client"
 import { cls } from "@/utils/helpers"
-import { FC, TableColumn } from "@/utils/types"
+import { TableColumn } from "@/utils/types"
 import React, { useMemo, useState } from "react"
 import TableDataCell from "./TableDataCell"
 import { screensizeDisplayClasses } from "."
 import RowAccordion from "./RowAccordion"
 import { SHOW_FOR } from "@/utils/constants"
 
-type Props = {
+type Props<T> = {
   idx: number
-  columns: TableColumn[]
-  onClick?: (row: unknown) => void
-  row: unknown
+  columns: TableColumn<T>[]
+  onClick?: (row: T) => void
+  row: T
   isLast?: boolean
 }
 
-const TableRow: FC<Props> = ({ idx, onClick, columns, row, isLast }) => {
+const TableRow = <T,>({ idx, onClick, columns, row, isLast }: Props<T>) => {
   const [openAccordion, setOpenAccordion] = useState(false)
   const hasAccordion = useMemo(
     () => columns.some((column) => column.showFor === SHOW_FOR.NOT_MOBILE),

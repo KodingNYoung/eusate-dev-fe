@@ -1,9 +1,9 @@
 "use server"
 
+// import { refreshAccessToken } from "@/app/(auth)/actions"
 import { getSession } from "@/lib/sessions"
 import { API_BASEURL } from "@/utils/constants"
 import { cache } from "react"
-import { refreshAccessToken } from "./data/auth"
 
 type FetcherOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
@@ -93,10 +93,17 @@ export const sendAuthRequest = cache(
 
       if (response.status === 401) {
         // refresh access token
-        const refresh = await refreshAccessToken()
+        // const refresh = await refreshAccessToken()
+        const refreshResponse = await fetch(
+          "http://localhost:3000/api/auth/refresh-token",
+          {
+            method: "POST",
+          }
+        )
+        const refreshData = await refreshResponse.json()
 
         // if success resend request
-        if (refresh.success) {
+        if (refreshData.success) {
           return sendAuthRequest<T>(endpoint, payload, options)
         } else {
           return { shouldAuthenticate: true }
