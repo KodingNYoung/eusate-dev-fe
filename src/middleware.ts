@@ -10,8 +10,6 @@ const PUBLIC_ROUTES: string[] = [
   ROUTES.TWOFA_SETUP,
   ROUTES.TWOFA_METHOD,
   ROUTES.TWOFA_COMPLETED,
-  ROUTES.ONOBOARDING_SETUP,
-  "/component-test",
 ]
 
 const middleware = async (request: NextRequest) => {
