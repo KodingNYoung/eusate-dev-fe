@@ -29,7 +29,8 @@ export const getKnowledgeSources = async (
     const query = new URLSearchParams()
     Object.keys(options).forEach((key) => {
       const value = options[key as keyof typeof options]
-      if (value) {
+      console.log({ value })
+      if (value !== undefined && value !== "") {
         query.set(key, value.toString())
       }
     })

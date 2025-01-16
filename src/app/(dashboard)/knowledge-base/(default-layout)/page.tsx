@@ -14,13 +14,13 @@ const PAGE_SIZE = 6
 const KnowledgeBasePage: PageFC = async ({ searchParams }) => {
   const { q, page, sortby, tags, pub, ext } = searchParams || {}
   const data = await getKnowledgeSources({
-    sort_by: String(sortby),
-    tags: String(tags) as KnowledgeSourceTags,
-    page: Number(page),
+    sort_by: String(sortby ?? ""),
+    tags: tags as KnowledgeSourceTags,
+    page: Number(page ?? 0),
     page_size: PAGE_SIZE,
-    search: String(q),
-    external: Boolean(ext),
-    published: Boolean(pub),
+    search: String(q ?? ""),
+    external: ext ? Boolean(ext) : undefined,
+    published: pub ? Boolean(pub) : undefined,
   })
 
   return (
