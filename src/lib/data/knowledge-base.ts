@@ -23,16 +23,23 @@ export type GetKnowledgeSourcesOptions = {
 }
 
 export const getKnowledgeSources = async (
-  options?: GetKnowledgeSourcesOptions
+  options: GetKnowledgeSourcesOptions = {}
 ) => {
   try {
-    console.log(options)
+    const query = new URLSearchParams()
+    Object.keys(options).forEach((key) => {
+      const value = options[key as keyof typeof options]
+      if (value) {
+        query.set(key, value.toString())
+      }
+    })
+    console.log(query.toString())
     const session = await getSession()
 
     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
     const response = await sendAuthRequest<GetKnowledgeSourcesResponse>(
-      `/api/v1/library/${session.organisationId}`
+      `/api/v1/library/${session.organisationId}/?${query}`
     )
 
     if ("shouldAuthenticate" in response)

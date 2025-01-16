@@ -2,7 +2,7 @@ import { TableColumn } from "@/utils/types"
 import React from "react"
 import TableHeadCell from "./TableHeadCell"
 import { cls } from "@/utils/helpers"
-import Pagination from "./Pagination"
+// import Pagination from "../AppPagination"
 import TableRow from "./TableRow"
 import Typography from "@/components/atoms/Typography"
 
@@ -88,7 +88,7 @@ const Table = <T = "unknown",>({
           ))}
         </tbody>
       </table>
-      {!!pagination && <Pagination />}
+      {/* {!!pagination && <Pagination />} */}
     </section>
   )
 }

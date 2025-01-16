@@ -22,19 +22,21 @@ const FAQCardsList: FC<Props> = ({ faqs }) => {
   }
 
   return (
-    <section className="grid gap-5 grid-cols-[repeat(auto-fit,_minmax(380px,_1fr))]">
-      {faqs.map((faq) => {
-        return (
-          <FAQCard
-            key={faq.id}
-            faq={faq}
-            onEdit={() => openModal(PopupKeys.EDIT_FAQS_MODAL, faq)}
-            onDelete={() => openModal(PopupKeys.DELETE_FAQS_MODAL, faq)}
-          />
-        )
-      })}
-      <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={faq} />
-      <DeleteFAQModal faq={faq as KnowledgeSource} />
+    <section className="flex-1">
+      <div className="grid gap-5 grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))]">
+        {faqs.map((faq) => {
+          return (
+            <FAQCard
+              key={faq.id}
+              faq={faq}
+              onEdit={() => openModal(PopupKeys.EDIT_FAQS_MODAL, faq)}
+              onDelete={() => openModal(PopupKeys.DELETE_FAQS_MODAL, faq)}
+            />
+          )
+        })}
+        <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={faq} />
+        <DeleteFAQModal faq={faq as KnowledgeSource} />
+      </div>
     </section>
   )
 }
