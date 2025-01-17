@@ -27,7 +27,7 @@ const DeleteFAQModal: FC<Props> = ({ faq }) => {
     <Modal
       id={PopupKeys.DELETE_FAQS_MODAL}
       header={{ title: "Delete FAQ" }}
-      classNames={{ root: "px-2", main: "w-full max-w-[600px] rounded-x20" }}
+      classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
     >
       <main className="flex flex-col items-center p-5 gap-5">
         <div className="w-10 h-10 border border-error-500 bg-error-50 flex items-center justify-center rounded-full">

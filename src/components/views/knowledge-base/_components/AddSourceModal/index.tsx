@@ -7,7 +7,7 @@ const AddSourceModal = () => {
   return (
     <Modal
       id={PopupKeys.SOURCE_MODAL}
-      classNames={{ root: "px-2", main: "w-full max-w-[600px] rounded-x20" }}
+      classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
       header={{
         title: "Add content",
         subtitle: "Empower your AI with curated knowledge.",

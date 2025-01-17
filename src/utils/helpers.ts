@@ -66,3 +66,27 @@ export const getFormdataFromFormRef = (formRef: RefObject<HTMLFormElement>) => {
 export const copy = (text: string) => {
   navigator.clipboard.writeText(text)
 }
+
+export const byteToKb = (bytes: number) => {
+  return bytes / 1024
+}
+
+export const byteToMb = (bytes: number) => {
+  return bytes / (1024 * 1024)
+}
+
+export const byteToGb = (bytes: number) => {
+  return bytes / (1024 * 1024 * 1024)
+}
+
+export const formatFileSize = (bytes: number) => {
+  if (bytes < 1024) {
+    return `${bytes}B`
+  } else if (bytes < 1024 * 1024) {
+    return `${byteToKb(bytes).toFixed(2)}KB`
+  } else if (bytes < 1024 * 1024 * 1024) {
+    return `${byteToMb(bytes).toFixed(2)}MB`
+  } else {
+    return `${byteToGb(bytes).toFixed(2)}GB`
+  }
+}

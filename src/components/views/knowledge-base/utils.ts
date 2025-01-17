@@ -79,3 +79,9 @@ export const ARTICLE_METHODS: {
       "Import your article contents from other online resources directly in our built-in text editor.",
   },
 ]
+export const ACCEPTABLE_DOCUMENT_EXTENSIONS = new Set([
+  "docx",
+  "doc",
+  "pdf",
+  "txt",
+])

@@ -14,6 +14,7 @@ export type IconNames =
   | "icon-close"
   | "icon-copy"
   | "icon-danger-bold"
+  | "icon-document-cloud"
   | "icon-document-text"
   | "icon-edit-2"
   | "icon-eusate"

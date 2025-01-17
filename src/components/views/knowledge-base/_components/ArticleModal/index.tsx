@@ -13,7 +13,7 @@ const ArticleModal: FC = () => {
   return (
     <Modal
       id={PopupKeys.ARTICLE_MODAL}
-      classNames={{ root: "px-2", main: "w-full max-w-[600px] rounded-x20" }}
+      classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
       header={{ title: step ? "Import using links" : "Add an article" }}
     >
       <ToastContextProvider>
