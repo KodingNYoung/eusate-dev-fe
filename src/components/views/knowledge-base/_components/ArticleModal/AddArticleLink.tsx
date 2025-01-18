@@ -5,22 +5,20 @@ import Toast from "@/components/organisms/Toast"
 import WebsiteInput from "@/components/organisms/WebsiteInput"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
-import { PopupKeys } from "@/utils/enums"
 import { FC, FormState } from "@/utils/types"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useFormState } from "react-dom"
 
 const AddArticleLink: FC = () => {
-  const formRef = useRef<HTMLFormElement>(null)
   const [url, setUrl] = useState("")
-  const { close } = useModal(PopupKeys.ARTICLE_MODAL)
+  const { close } = useModal()
 
   const [state, action] = useFormState<FormState, FormData>(
     createArticleByLink,
     {}
   )
 
-  useFormToast(state)
+  useFormToast(state, true)
 
   const handleUrlVerify = (url: string) => {
     setUrl(url)
@@ -28,17 +26,16 @@ const AddArticleLink: FC = () => {
 
   useEffect(() => {
     if ("success" in state) {
-      close()
-      if (formRef.current) {
-        formRef.current.reset()
-      }
-      // TODO: open processes modal
+      // TODO: open the processes modal
+      setTimeout(close, 1000)
     }
-  }, [state, formRef, close])
+  }, [state, close])
 
   return (
     <div className="relative">
-      <Toast />
+      <div className="absolute top-0 left-0 w-full p-5 py-4 z-1">
+        <Toast />
+      </div>
       <main className="flex flex-col gap-5">
         <div className="px-5 pt-5 grid gap-5">
           <Info

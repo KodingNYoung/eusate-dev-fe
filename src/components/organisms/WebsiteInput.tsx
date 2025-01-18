@@ -1,5 +1,7 @@
-import { FC, FormState } from "@/utils/types"
-import React, { useEffect, useRef } from "react"
+"use client"
+
+import { FC } from "@/utils/types"
+import React, { useRef, useState } from "react"
 import Input, { InputProps } from "../molecules/Inputs"
 import Icon from "../atoms/Icon"
 import Spinner from "../atoms/Spinner"
@@ -10,11 +12,9 @@ import {
   validateSubdomainUrlSchema,
   validateUrlSchema,
 } from "@/lib/schemas/knowledge-base"
-import { useFormState, useFormStatus } from "react-dom"
-import {
-  validateUrl,
-  ValidateUrlResponse,
-} from "@/app/(dashboard)/knowledge-base/actions"
+import { useFormStatus } from "react-dom"
+import { validateUrl } from "@/app/(dashboard)/knowledge-base/actions"
+import { useToast } from "@/providers/toastProviders"
 
 type Props = InputProps & {
   onVerify: (url: string, name: string) => void
@@ -29,43 +29,49 @@ const WebsiteInput: FC<Props> = ({
   ...props
 }) => {
   const formRef = useRef<HTMLFormElement>(null)
+  const toast = useToast()
+  const [inputState, setInputState] = useState<"error" | "success">()
 
   const { errors, validate, markFieldTouched } = useValidation(
     domain ? validateSubdomainUrlSchema(domain) : validateUrlSchema,
     formRef
   )
 
-  const [state, action] = useFormState<
-    FormState<ValidateUrlResponse>,
-    FormData
-  >(validateUrl, {})
+  const handleFormAction = async (formdata: FormData) => {
+    const response = await validateUrl(formdata)
 
-  //   useFormToast(
-  //     (state || errors.url ? { error: { message: errors.url } } : {}) as FormState
-  //   )
-
-  useEffect(() => {
-    if ("success" in state && state.payload?.valid && formRef.current) {
-      const formdata = new FormData(formRef.current)
-      onVerify(formdata.get("url") as string, name)
+    if ("success" in response) {
+      if (response.payload?.valid) {
+        onVerify(formdata.get("url") as string, name)
+        setInputState("success")
+      } else {
+        setInputState("error")
+      }
     }
-  }, [state, name])
+
+    if ("error" in response) {
+      // Request error, not url validation error, so show error toast
+      toast.show(response.error.message, { type: "error" })
+    }
+  }
 
   return (
-    <form className="flex items-end gap-5" action={action} ref={formRef}>
+    <form
+      className="flex items-end gap-5"
+      action={handleFormAction}
+      ref={formRef}
+    >
       <WebsiteCustomInput
         name="url"
         startComponent={<Icon name="icon-link" className="!text-regular-xl" />}
         placeholder="https://"
         classNames={{ ...classNames, root: cls("flex-1", classNames?.root) }}
-        isError={
-          !!errors?.url ||
-          "error" in state ||
-          ("success" in state && !state.payload?.valid)
-        }
-        isSuccess={"success" in state && state.payload?.valid}
+        isError={!!errors?.url || inputState === "error"}
+        isSuccess={inputState === "success"}
         onChange={(e) => {
           validate(e.currentTarget.name)
+          onVerify("", name)
+          setInputState(undefined)
         }}
         onBlur={(e) => markFieldTouched(e.currentTarget.name)}
         {...props}

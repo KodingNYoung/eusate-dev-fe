@@ -10,10 +10,9 @@ import { revalidatePath } from "next/cache"
 export type ValidateUrlResponse = { valid: boolean }
 
 export const validateUrl = async (
-  state: FormState<ValidateUrlResponse>,
   formdata: FormData
-) => {
-  const { successResponse, errorResponse } = formStateResponse(state)
+): Promise<FormState<ValidateUrlResponse>> => {
+  const { successResponse, errorResponse } = formStateResponse()
   const { url } = Object.fromEntries(formdata)
 
   try {

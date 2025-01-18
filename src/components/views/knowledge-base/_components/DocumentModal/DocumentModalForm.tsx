@@ -40,8 +40,8 @@ const DocumentModalForm: FC = () => {
 
   useEffect(() => {
     if ("success" in state) {
-      // TODO: Open the process modal
-      close()
+      // TODO: Open the processes modal
+      setTimeout(close, 1000)
     }
   }, [state, close])
 
