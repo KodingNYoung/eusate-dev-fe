@@ -29,12 +29,10 @@ export const getKnowledgeSources = async (
     const query = new URLSearchParams()
     Object.keys(options).forEach((key) => {
       const value = options[key as keyof typeof options]
-      console.log({ value })
       if (value !== undefined && value !== "") {
         query.set(key, value.toString())
       }
     })
-    console.log(query.toString())
     const session = await getSession()
 
     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

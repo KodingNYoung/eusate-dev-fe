@@ -47,13 +47,15 @@ const columns: TableColumn<KnowledgeSource>[] = [
     id: 4,
     title: "Last updated",
     showFor: "not-mobile",
-    render: (row) => dayjs(row.date_created).format("DD MMM, YYYY. H:MMA"),
+    render: (row) => {
+      return dayjs(row.date_updated).format("DD MMM, YYYY. HH:mmA")
+    },
   },
   {
     id: 5,
     title: "Date added",
     showFor: "not-mobile",
-    render: (row) => dayjs(row.date_created).format("DD MMM, YYYY. H:MMA"),
+    render: (row) => dayjs(row.date_created).format("DD MMM, YYYY. HH:mmA"),
   },
   {
     id: 6,

@@ -14,7 +14,7 @@ import { useModal } from "@/hooks/popupHooks"
 
 const SelectResourceTag = () => {
   const router = useRouter()
-  const { open } = useModal()
+  const { open, close } = useModal()
   const formRef = useRef<HTMLFormElement>(null)
 
   const { touched, hasErrors, validate, markFieldTouched } = useValidation(
@@ -26,19 +26,21 @@ const SelectResourceTag = () => {
     const tag = Object.fromEntries(formdata).tag as KnowledgeSourceTags
     switch (tag) {
       case KnowledgeSourceTags.FAQ:
+        close()
         router.push(ROUTES.FAQS)
+        break
       case KnowledgeSourceTags.WEBISTE:
+        close()
         open(PopupKeys.WEBSITE_MODAL)
         break
       case KnowledgeSourceTags.ARTICLE:
+        close()
         open(PopupKeys.ARTICLE_MODAL)
         break
       case KnowledgeSourceTags.DOCUMENT:
+        close()
         open(PopupKeys.DOCUMENT_MODAL)
         break
-    }
-    if (formRef.current) {
-      formRef.current.reset()
     }
   }
   const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {

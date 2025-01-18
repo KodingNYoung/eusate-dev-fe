@@ -1,18 +1,29 @@
+"use client"
+
 import Badge from "@/components/atoms/Badge"
 import Typography from "@/components/atoms/Typography"
 import FileDragAndDrop from "@/components/molecules/Inputs/FileDragAndDrop"
 import { FC } from "@/utils/types"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import FileList from "./FileList"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { ACCEPTABLE_DOCUMENT_EXTENSIONS } from "../../utils"
 import { useToast } from "@/providers/toastProviders"
 import Toast from "@/components/organisms/Toast"
 import FileInputContent from "./FileInputContent"
+import { useFormState } from "react-dom"
+import { uploadDocuments } from "@/app/(dashboard)/knowledge-base/actions"
+import { useFormToast } from "@/hooks/formHooks"
+import { useModal } from "@/hooks/popupHooks"
 
 const DocumentModalForm: FC = () => {
   const toast = useToast()
+  const { close } = useModal()
   const [files, setFiles] = useState<File[]>([])
+
+  const [state, action] = useFormState(uploadDocuments, {})
+
+  useFormToast(state, true)
 
   const onFileChange = (files: FileList) => {
     const validFiles = Array.from(files).filter((file) => {
@@ -27,8 +38,18 @@ const DocumentModalForm: FC = () => {
     setFiles((curr) => [...validFiles, ...curr])
   }
 
+  useEffect(() => {
+    if ("success" in state) {
+      // TODO: Open the process modal
+      close()
+    }
+  }, [state, close])
+
   return (
-    <form className="pt-8 max-h-[60vh] overflow-y-auto custom-scrollbar relative">
+    <form
+      className="pt-8 max-h-[60vh] overflow-y-auto custom-scrollbar relative"
+      action={action}
+    >
       <div className="absolute top-0 left-0 w-full p-5 z-1">
         <Toast />
       </div>
@@ -37,7 +58,7 @@ const DocumentModalForm: FC = () => {
         accept="application/pdf, .txt, .doc, .docx"
         className="mx-5 mb-8"
         files={files}
-        name="document"
+        name="documents"
       >
         <FileInputContent />
       </FileDragAndDrop>

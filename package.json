@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.6.11",
+    "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "framer-motion": "^11.18.0",
     "jose": "^5.9.6",

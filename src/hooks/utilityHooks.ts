@@ -27,7 +27,7 @@ export const useQueryParams = () => {
       }
       router.push(pathname + "?" + url.toString())
     },
-    [searchParams]
+    [searchParams, pathname, router]
   )
 
   return useMemo(
@@ -36,6 +36,6 @@ export const useQueryParams = () => {
       set,
       searchParams: searchParams.toString(),
     }),
-    [searchParams.get, set, searchParams]
+    [get, set, searchParams]
   )
 }

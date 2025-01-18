@@ -34,7 +34,6 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
   useEffect(() => {
     if ("success" in state) {
       setTimeout(close, 1500)
-      formRef.current?.reset()
     }
   }, [state, close])
 

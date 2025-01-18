@@ -50,7 +50,9 @@ const FileItem: FC<Props> = ({ file, onRemove }) => {
         alt="file type"
       />
       <div className="grid gap-1 flex-1">
-        <Typography className="text-semibold-base">{file.name}</Typography>
+        <Typography className="text-semibold-base truncate">
+          {file.name}
+        </Typography>
         <Typography className="text-gray-300 text-medium-sm">
           {lastFormatted.format("DD MMM, YYYY")}{" "}
           <span className="text-gray-50">|</span>{" "}
