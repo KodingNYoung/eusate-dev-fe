@@ -1,39 +1,40 @@
 import Typography from "@/components/atoms/Typography"
 import Dropdown from "@/components/molecules/Popups/Dropdown"
-import React from "react"
+import React, { useState } from "react"
 import OrderBtn from "./OrderBtn"
 import { FC } from "@/utils/types"
 import { KNOWLEDGE_BASE_SORT_COLUMNS, SORT_ORDERS, SortOrder } from "../utils"
 import Radio from "@/components/molecules/Radio"
+import Icon from "@/components/atoms/Icon"
+import Button from "@/components/molecules/Buttons"
 
-type Props = {
-  anchor: HTMLElement | null
-  close: () => void
-  order: SortOrder
-  setOrder: (order: SortOrder) => void
-  sortValue: string
-  setSortValue: (value: string) => void
-}
+const SortDropdown: FC = () => {
+  const [order, setOrder] = useState<SortOrder>(SORT_ORDERS[0].value)
+  const [sortValue, setSortValue] = useState<string>(
+    KNOWLEDGE_BASE_SORT_COLUMNS[0].value
+  )
 
-const SortDropdown: FC<Props> = ({
-  anchor,
-  close,
-  order,
-  setOrder,
-  sortValue,
-  setSortValue,
-}) => {
   return (
     <Dropdown
-      anchorEl={anchor}
-      isOpen={Boolean(anchor)}
-      close={close}
+      trigger={
+        <Button
+          variant="tetiary"
+          endContent={
+            <Icon name="icon-arrow-swap" className="text-regular-xl" />
+          }
+          classNames={{
+            label: "text-medium-sm hidden sm:inline",
+            root: "p-2 sm:px-3 sm:py-2 border-0 sm:border",
+          }}
+        >
+          Sort by
+        </Button>
+      }
       classNames={{
-        root: "hidden sm:block",
-        menuContent: "mr-3 mt-2 min-w-[193px] bg-white",
+        content: "mr-3 mt-2 min-w-[193px] bg-white",
       }}
     >
-      <header className="flex items-center justify-between border-b border-gray-50 p-3">
+      <header className="flex items-center justify-between border-b border-gray-50 p-3 w-full">
         <Typography variant="semibold-xs" className="text-gray-700">
           Sort by
         </Typography>
@@ -48,7 +49,7 @@ const SortDropdown: FC<Props> = ({
           ))}
         </div>
       </header>
-      <section className="p-1">
+      <section className="p-1 w-full">
         {KNOWLEDGE_BASE_SORT_COLUMNS.map((sorter) => (
           <Radio
             name="sortBy"

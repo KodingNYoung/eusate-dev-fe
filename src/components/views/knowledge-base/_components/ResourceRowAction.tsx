@@ -1,6 +1,5 @@
-import TableRowAction, {
-  ItemType,
-} from "@/components/organisms/Table/TableRowAction"
+import { ItemType } from "@/components/organisms/Table/TableActionItem"
+import TableRowAction from "@/components/organisms/Table/TableRowAction"
 import { FC } from "@/utils/types"
 import React from "react"
 
@@ -8,7 +7,7 @@ type Props = {
   row: unknown
 }
 
-const items: ItemType[] = [
+const items: (ItemType & { action?: (row: unknown) => void })[] = [
   {
     key: 0,
     label: "Open",

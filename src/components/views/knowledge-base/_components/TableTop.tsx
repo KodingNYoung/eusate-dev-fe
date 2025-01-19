@@ -3,9 +3,9 @@
 import Tabs from "@/components/molecules/Tabs"
 import { FC } from "@/utils/types"
 import React from "react"
-import SortAction from "./SortAction"
 import FilterDropdown from "./FilterDropdown"
 import SearchInput from "./SearchInput"
+import SortDropdown from "./SortDropdown"
 
 const TableTop: FC = () => {
   return (
@@ -19,7 +19,7 @@ const TableTop: FC = () => {
       />
       <div className="flex-1" />
       <SearchInput />
-      <SortAction />
+      <SortDropdown />
       <FilterDropdown />
     </header>
   )
