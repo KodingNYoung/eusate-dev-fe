@@ -182,3 +182,47 @@ const initiateDocumentStream = async (noOfChunks: number) => {
 
   return response.init_stream_key
 }
+
+/**
+ *
+ */
+export const addWebsites = async (state: FormState, formdata: FormData) => {
+  const { successResponse, errorResponse } = formStateResponse(state)
+  const message = "Websites added successfully."
+  const domain = formdata.get("main_website") as string
+  const subdomains = formdata.getAll("subdomains") as string[]
+
+  try {
+    await Promise.all(
+      [domain, ...subdomains].map(async (url, idx) => {
+        // upload the url
+        // if it's the first url, then it's the domain - origin param: true .
+        return await addWebsite(url, idx === 0)
+      })
+    )
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
+}
+// TODO: add an appropriate type. Check response type manually and fill it up.
+type AddWebsiteResponseType = { success: true }
+const addWebsite = async (url: string, origin: boolean) => {
+  const session = await getSession()
+
+  const response = await sendAuthRequest<AddWebsiteResponseType>(
+    "/api/v1/library/website/add/",
+    { organisation_id: session?.organisationId, url, origin },
+    { method: "POST" }
+  )
+
+  if ("shouldAuthenticate" in response)
+    throw new Error("Session expired, log in again")
+  console.log({ response })
+  return response
+}

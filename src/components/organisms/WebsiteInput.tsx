@@ -39,7 +39,7 @@ const WebsiteInput: FC<Props> = ({
 
   const handleFormAction = async (formdata: FormData) => {
     const response = await validateUrl(formdata)
-
+    console.log({ response })
     if ("success" in response) {
       if (response.payload?.valid) {
         onVerify(formdata.get("url") as string, name)
@@ -81,6 +81,7 @@ const WebsiteInput: FC<Props> = ({
         classNames={{ label: "!text-semibold-sm" }}
         variant="tetiary"
         hideLoader
+        disabled={!!errors.url}
       >
         Validate
       </SubmitButton>
