@@ -1,12 +1,8 @@
 import { PageFC } from "@/utils/types"
-import React, { Suspense } from "react"
+import React from "react"
 
 const Overview: PageFC = () => {
-  return (
-    <Suspense fallback={<>loading overview fallback...</>}>
-      <div>Overview</div>
-    </Suspense>
-  )
+  return <div>Overview</div>
 }
 
 export default Overview

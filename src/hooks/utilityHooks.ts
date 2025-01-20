@@ -25,7 +25,7 @@ export const useQueryParams = () => {
       } else {
         url.set(key, value.toString())
       }
-      router.push(pathname + "?" + url.toString())
+      router.replace(pathname + "?" + url.toString())
     },
     [searchParams, pathname, router]
   )

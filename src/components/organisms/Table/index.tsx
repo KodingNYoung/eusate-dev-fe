@@ -2,11 +2,11 @@ import { TableColumn } from "@/utils/types"
 import React from "react"
 import TableHeadCell from "./TableHeadCell"
 import { cls } from "@/utils/helpers"
-// import Pagination from "../AppPagination"
+import AppPagination, { AppPaginationProps } from "../AppPagination"
 import TableRow from "./TableRow"
 
 type Props<T> = {
-  pagination?: unknown
+  pagination?: AppPaginationProps
   columns: TableColumn<T>[]
   data: T[]
   onRowClick?: (row: unknown) => void
@@ -25,7 +25,7 @@ const Table = <T = "unknown",>({
   onRowClick,
 }: Props<T>) => {
   return (
-    <section className="sm:rounded-x20 sm:border border-gray-50 overflow-x-auto overflow-visible w-full">
+    <section className="sm:rounded-x20 sm:border border-gray-50 overflow-x-auto overflow-visible w-full custom-scrollbar">
       <table
         data-pagination={Boolean(pagination)}
         className="group/table rounded-[inherit] w-full"
@@ -74,7 +74,15 @@ const Table = <T = "unknown",>({
           ))}
         </tbody>
       </table>
-      {/* {!!pagination && <Pagination />} */}
+      {pagination ? (
+        <div className="py-3 sm:py-4 md:px-6 sticky left-0">
+          <AppPagination
+            total={pagination.total}
+            page={pagination.page}
+            onChange={pagination.onChange}
+          />
+        </div>
+      ) : null}
     </section>
   )
 }

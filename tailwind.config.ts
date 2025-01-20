@@ -187,6 +187,7 @@ const config: Config = {
     },
 
     boxShadow: {
+      "none": "0 0 #0000",
       "soft-xxsmall": "0px 1.5px 4px -1px rgba(16, 25, 40, 0.07)",
       "soft-xsmall":
         "0px 5px 13px -5px rgba(16, 25, 40, 0.05), 0px 2px 4px -1px rgba(16, 25, 40, 0.02)",

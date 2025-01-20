@@ -14,6 +14,7 @@ import dayjs from "dayjs"
 import ArticleModal from "./_components/ArticleModal"
 import DocumentModal from "./_components/DocumentModal"
 import Typography from "@/components/atoms/Typography"
+import { useQueryParams } from "@/hooks/utilityHooks"
 
 type Props = {
   hasFetchError?: boolean
@@ -21,6 +22,7 @@ type Props = {
   isSearched: boolean
   total: number
   pageSize: number
+  page: number
 }
 
 const columns: TableColumn<KnowledgeSource>[] = [
@@ -29,14 +31,16 @@ const columns: TableColumn<KnowledgeSource>[] = [
     title: <Checkbox name="select-all" />,
     render: () => <Checkbox name="select-" />,
     classNames: {
-      cell: "w-[1%] whitespace-nowrap",
+      cell: "w-[1%] whitespace-nowrap sm:sticky sm:left-0 sm:z-[11] bg-white",
     },
   },
   {
     id: 2,
     title: "Title",
-    classNames: { td: "text-black-90 !text-medium-sm" },
-    render: (row) => row.title,
+    classNames: {
+      td: "text-black-90 !text-medium-sm max-w-[300px] min-w-[250px]",
+    },
+    render: (row) => <span className="truncate w-full">{row.title}</span>,
   },
   {
     id: 3,
@@ -97,22 +101,22 @@ const columns: TableColumn<KnowledgeSource>[] = [
     id: 7,
     title: "Action",
     classNames: {
-      cell: "w-[1%] whitespace-nowrap bg-white",
+      cell: "w-[1%] whitespace-nowrap bg-white sm:sticky sm:right-0 bg-white z-[11]",
     },
     align: "center",
     render: (row) => <ResourceRowAction row={row} />,
   },
 ]
 
-const KnowledgeBase: FC<Props> = ({
-  //   hasFetchError,
-  data,
-  //   isSearched,
-  total,
-  //   pageSize,
-}) => {
+const QUERY_KEYS = {
+  PAGE: "page",
+} as const
+
+const KnowledgeBase: FC<Props> = ({ data, total, pageSize, page }) => {
+  const { set } = useQueryParams()
+
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-2 content-start flex-1">
       {/* empty without search */}
       {!total && <EmptyState />}
       {/* empty with search */}
@@ -126,6 +130,11 @@ const KnowledgeBase: FC<Props> = ({
             data={data}
             onRowClick={(row) => {
               console.log(row)
+            }}
+            pagination={{
+              total: Math.ceil(total / pageSize),
+              page,
+              onChange: (page) => set(QUERY_KEYS.PAGE, page),
             }}
           />
         </>

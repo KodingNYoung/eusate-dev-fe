@@ -62,7 +62,7 @@ const TableRow = <T,>({ idx, onClick, columns, row, isLast }: Props<T>) => {
                 {render(row)}
               </button>
             ) : (
-              <span className="whitespace-nowrap">{render(row)}</span>
+              <span className="whitespace-nowrap flex">{render(row)}</span>
             )}
           </TableDataCell>
         ))}

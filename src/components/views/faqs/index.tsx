@@ -30,7 +30,7 @@ const FAQs: FC<Props> = ({ data, total, page, pageSize }) => {
           <FAQCardsList faqs={data} />
           <AppPagination
             total={Math.ceil(total / pageSize)}
-            page={Number(page)}
+            page={page}
             onChange={(page) => set(QUERY_KEYS.PAGE, page)}
           />
         </>

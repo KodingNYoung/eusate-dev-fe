@@ -30,6 +30,7 @@ const KnowledgeBasePage: PageFC = async ({ searchParams }) => {
       isSearched={Boolean(q)}
       total={data.data?.count || 0}
       pageSize={data.data?.page_size || 0}
+      page={data.data?.page || 1}
     />
   )
 }

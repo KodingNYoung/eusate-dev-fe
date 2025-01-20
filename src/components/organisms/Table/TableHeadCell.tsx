@@ -28,7 +28,7 @@ const TableHeadCell: FC<TableHeadProps> = ({
     <th
       align={align || "left"}
       className={cls(
-        "text-gray-600 text-medium-xs py-3 sm:first-of-type:pl-6 sm:last-of-type:pr-6 border-b border-gray-50 px-1",
+        "text-gray-600 text-medium-xs py-3 sm:first-of-type:pl-6 sm:last-of-type:pr-6 border-b border-gray-50 px-4",
         className
       )}
       {...props}
