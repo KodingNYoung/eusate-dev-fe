@@ -53,7 +53,7 @@ export const extractZodErrors = (err: ZodError) => {
       const field = curr.path[0]
       return { ...err, [field]: curr.message }
     },
-    {} as { [field: string]: string }
+    {} as Record<string, string>
   )
 }
 

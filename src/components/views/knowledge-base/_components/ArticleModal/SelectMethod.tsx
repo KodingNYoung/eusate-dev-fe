@@ -14,7 +14,7 @@ type Props = {
 const SelectMethod: FC<Props> = ({ onOptionSelect }) => {
   const formRef = useRef<HTMLFormElement>(null)
 
-  const { touched, hasErrors, validate, markFieldTouched } = useValidation(
+  const { hasErrors, markFieldTouched } = useValidation(
     selectArticleMethodSchema,
     formRef
   )
@@ -33,7 +33,6 @@ const SelectMethod: FC<Props> = ({ onOptionSelect }) => {
   const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     markFieldTouched(name)
-    validate(name)
   }
 
   return (
@@ -59,7 +58,7 @@ const SelectMethod: FC<Props> = ({ onOptionSelect }) => {
             <Icon name="icon-arrow-right" className="text-regular-xl" />
           }
           classNames={{ label: "text-medium-sm" }}
-          disabled={!touched.method || hasErrors}
+          disabled={hasErrors}
         >
           Continue
         </Button>

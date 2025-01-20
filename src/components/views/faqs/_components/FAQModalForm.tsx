@@ -21,8 +21,10 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
   const formRef = useRef<HTMLFormElement>(null)
   const { close } = useModal()
 
-  const { errors, touched, hasErrors, validate, markFieldTouched } =
-    useValidation(addFAQSchema, formRef)
+  const { errors, touched, hasErrors, markFieldTouched } = useValidation(
+    addFAQSchema,
+    formRef
+  )
 
   const [state, action] = useFormState<FormState, FormData>(
     isAdd ? addFAQ : editFAQ,
@@ -49,10 +51,9 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
           label="Question"
           defaultValue={faq?.question}
           placeholder="Type a question"
-          isError={!!errors.question}
-          helperText={errors.question}
-          onChange={(e) => validate(e.currentTarget.name)}
-          onBlur={(e) => markFieldTouched(e.currentTarget.name)}
+          isError={touched.question && !!errors.question}
+          helperText={touched.question ? errors.question : ""}
+          onChange={(e) => markFieldTouched(e.currentTarget.name)}
         />
         <Input
           name="answer"
@@ -61,10 +62,9 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
           multiline
           rows={4}
           placeholder="Type an answer to the question above..."
-          isError={!!errors.answer}
-          helperText={errors.answer}
-          onChange={(e) => validate(e.currentTarget.name)}
-          onBlur={(e) => markFieldTouched(e.currentTarget.name)}
+          isError={touched.answer && !!errors.answer}
+          helperText={touched.answer ? errors.answer : ""}
+          onChange={(e) => markFieldTouched(e.currentTarget.name)}
         />
       </main>
       <footer className="flex items-center justify-end p-5 border-t border-gray-50">
@@ -74,7 +74,7 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
             <Icon name="icon-arrow-right" className="text-regular-xl" />
           }
           classNames={{ label: "text-medium-sm" }}
-          disabled={!touched.question || !touched.answer || hasErrors}
+          disabled={hasErrors}
         >
           Continue
         </SubmitButton>

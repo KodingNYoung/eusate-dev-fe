@@ -21,7 +21,7 @@ export async function POST() {
 
     return NextResponse.json({ success: true })
   } catch (err) {
-    console.log("couldn't refresh access token", err)
+    console.error("couldn't refresh access token", err)
     return NextResponse.json({ success: false }, { status: 500 })
   }
 }

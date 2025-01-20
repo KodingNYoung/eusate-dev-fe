@@ -32,14 +32,13 @@ const WebsiteInput: FC<Props> = ({
   const toast = useToast()
   const [inputState, setInputState] = useState<"error" | "success">()
 
-  const { errors, validate, markFieldTouched } = useValidation(
+  const { errors, markFieldTouched } = useValidation(
     domain ? validateSubdomainUrlSchema(domain) : validateUrlSchema,
     formRef
   )
 
   const handleFormAction = async (formdata: FormData) => {
     const response = await validateUrl(formdata)
-    console.log({ response })
     if ("success" in response) {
       if (response.payload?.valid) {
         onVerify(formdata.get("url") as string, name)
@@ -69,11 +68,10 @@ const WebsiteInput: FC<Props> = ({
         isError={!!errors?.url || inputState === "error"}
         isSuccess={inputState === "success"}
         onChange={(e) => {
-          validate(e.currentTarget.name)
+          markFieldTouched(e.currentTarget.name)
           onVerify("", name)
           setInputState(undefined)
         }}
-        onBlur={(e) => markFieldTouched(e.currentTarget.name)}
         {...props}
       />
       <SubmitButton
