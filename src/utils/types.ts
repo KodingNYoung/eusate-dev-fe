@@ -138,10 +138,7 @@ export type TableColumn<T = unknown> = {
     th?: TWClassNames
     td?: TWClassNames
   }
-  tooltip?: Omit<TableHeadTooltip, "icon" | "content"> & {
-    title: string
-    subtitle: string
-  }
+  tooltip?: Omit<TableHeadTooltip, "icon">
   showFor?: (typeof SHOW_FOR)[keyof typeof SHOW_FOR]
 }
 

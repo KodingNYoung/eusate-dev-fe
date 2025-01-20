@@ -4,7 +4,6 @@ import TableHeadCell from "./TableHeadCell"
 import { cls } from "@/utils/helpers"
 // import Pagination from "../AppPagination"
 import TableRow from "./TableRow"
-import Typography from "@/components/atoms/Typography"
 
 type Props<T> = {
   pagination?: unknown
@@ -50,20 +49,7 @@ const Table = <T = "unknown",>({
                           tooltip: {
                             ...tooltip,
                             icon: "icon-help",
-                            content: (
-                              <main className="flex flex-col gap-1">
-                                <Typography as="h3" variant="semibold-base">
-                                  {tooltip.title}
-                                </Typography>
-                                <Typography
-                                  as="span"
-                                  variant="regular-sm"
-                                  className="text-gray-500"
-                                >
-                                  {tooltip.subtitle}
-                                </Typography>
-                              </main>
-                            ),
+                            content: tooltip.content,
                           },
                         }
                       : {})}

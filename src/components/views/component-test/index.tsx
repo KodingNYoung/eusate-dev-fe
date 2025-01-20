@@ -17,8 +17,7 @@ const ComponentTest: FC = () => {
       <OtpInput />
       <div className="flex items-center justify-center">
         <Tooltip
-          position="bottom"
-          alignment="end"
+          placement="bottom"
           content={
             <>
               I am the tooltip. Lorem, ipsum dolor sit amet consectetur
@@ -26,8 +25,8 @@ const ComponentTest: FC = () => {
               ducimus est deserunt voluptas ipsum, nesciunt ut
             </>
           }
-          classNames={{ tooltip: "w-96 p-2.5 rounded-xl" }}
-          visible
+          classNames={{ content: "w-96 p-2.5 rounded-xl" }}
+          isOpen
         >
           I have tooltip nulla quia suscipit consequatur soluta fuga vitae
           impedit.

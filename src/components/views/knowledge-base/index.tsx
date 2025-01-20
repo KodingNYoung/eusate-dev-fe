@@ -13,6 +13,7 @@ import AddwebsiteModal from "./_components/AddWebsiteModal"
 import dayjs from "dayjs"
 import ArticleModal from "./_components/ArticleModal"
 import DocumentModal from "./_components/DocumentModal"
+import Typography from "@/components/atoms/Typography"
 
 type Props = {
   hasFetchError?: boolean
@@ -63,10 +64,20 @@ const columns: TableColumn<KnowledgeSource>[] = [
     showFor: "not-mobile",
     align: "center",
     tooltip: {
-      title: "Internal source",
-      subtitle:
-        "Confidential information for internal use only. AI uses this only when interacting with customer representatives and business owners, never with customers.",
-      classNames: { tooltip: "min-w-[210px]" },
+      content: (
+        <main className="flex flex-col gap-1 text-white max-w-[210px]">
+          <Typography as="h3" variant="semibold-base">
+            Internal source
+          </Typography>
+          <Typography as="span" variant="regular-sm" className="text-gray-500">
+            Confidential information for internal use only. AI uses this only
+            when interacting with customer representatives and business owners,
+            never with customers.
+          </Typography>
+        </main>
+      ),
+
+      classNames: { content: "min-w-[210px]" },
     },
     render: () => (
       <Checkbox name="select-" classNames={{ root: "mx-auto w-fit" }} />
