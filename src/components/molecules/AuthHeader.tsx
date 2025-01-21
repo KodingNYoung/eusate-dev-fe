@@ -7,6 +7,7 @@ import Icon from "../atoms/Icon"
 import Typography from "../atoms/Typography"
 import { useRouter } from "next/navigation"
 import Toast from "../organisms/Toast"
+import { cls } from "@/utils/helpers"
 
 type Props = Omit<HTMLProps<HTMLDivElement>, "title"> & {
   hasBackBtn?: boolean
@@ -20,11 +21,12 @@ const AuthHeader: FC<Props> = ({
   title,
   subtitle,
   toast,
+  className,
   ...props
 }) => {
   const router = useRouter()
   return (
-    <header {...props}>
+    <header className={cls("relative", className)} {...props}>
       {hasBackBtn && (
         <Button
           variant="tetiary"
@@ -36,7 +38,7 @@ const AuthHeader: FC<Props> = ({
           Back
         </Button>
       )}
-      {toast && <Toast />}
+      {toast && <Toast classNames={{ base: "top-2" }} />}
       <Typography as="h2" className="text-bold-2xl sm:text-bold-4xl mb-3">
         {title}
       </Typography>

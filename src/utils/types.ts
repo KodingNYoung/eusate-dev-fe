@@ -114,6 +114,13 @@ export type FormState<SP = unknown, EP = unknown> =
           payload?: EP
         }
     )
+export type JSONValue =
+  | null
+  | boolean
+  | number
+  | string
+  | JSONValue[]
+  | { [key: string]: JSONValue }
 
 export type SessionPayload = {
   refreshToken?: string

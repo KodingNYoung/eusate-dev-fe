@@ -33,9 +33,7 @@ const AddArticleLink: FC = () => {
 
   return (
     <div className="relative">
-      <div className="absolute top-0 left-0 w-full p-5 py-4 z-1">
-        <Toast />
-      </div>
+      <Toast classNames={{ base: "py-0" }} />
       <main className="flex flex-col gap-5">
         <div className="px-5 pt-5 grid gap-5">
           <Info

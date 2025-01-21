@@ -54,21 +54,13 @@ const FileDragAndDrop: FC<Props> = ({
       htmlFor={id || name}
       className={cls(
         "rounded-2xl border border-dashed border-gray-100 transition-colors duration-200 block",
-        isDraaggingOver && "border-black bg-gray-25",
+        isDraaggingOver && "!border-black !bg-gray-25",
         "hover:border-black hover:bg-gray-25",
         classNames?.root,
         className
       )}
     >
-      <div
-        className="w-full px-6 py-8 relative"
-        onDragOver={(e) => {
-          e.preventDefault()
-          setIsdraggingOver(true)
-        }}
-        onDragLeave={() => setIsdraggingOver(false)}
-        onDragEnd={() => setIsdraggingOver(false)}
-      >
+      <div className="w-full px-6 py-8 relative">
         <input
           type="file"
           ref={inputRef}
@@ -78,6 +70,12 @@ const FileDragAndDrop: FC<Props> = ({
           onChange={handlefileChange}
           id={id || name}
           name={name}
+          onDragOver={(e) => {
+            e.preventDefault()
+            setIsdraggingOver(true)
+          }}
+          onDragLeave={() => setIsdraggingOver(false)}
+          onDragEnd={() => setIsdraggingOver(false)}
           {...props}
         />
         <>{children}</>

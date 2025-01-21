@@ -12,7 +12,7 @@ import Typography from "@/components/atoms/Typography"
 const TwoFACompleted: FC = () => {
   const router = useRouter()
   return (
-    <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col items-center gap-10">
+    <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col items-center gap-10">
       <Image src={check} height={120} width={120} alt="completed checl icon" />
       <header className="text-center">
         <Typography as="h2" className="text-bold-2xl sm:text-bold-4xl mb-3">

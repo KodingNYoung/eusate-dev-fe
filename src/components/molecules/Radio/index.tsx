@@ -21,7 +21,9 @@ export type RadioProps = HTMLProps<HTMLInputElement> & {
 const labelledRadioStyle = cls(
   "px-2.5 py-2 radio-with-label relative rounded-lg bg-white-100 transition-all duration-300", //default
   "before:content-[''] before:absolute before:-inset-[1px] before:-z-1 before:size-[calc(100%_+_2px)] before:bg-[linear-gradient(90deg,_var(--radioColor1),_var(--radioColor2))] before:rounded-[9px] before:transition-[all,_--radioColor1,_--radioColor2] before:duration-300", // default - before pseudo
-  "has-[:checked]:bg-gold-50"
+  "has-[:checked]:bg-gold-50", // checked
+  "hover:bg-gray-25", //hover
+  "hover:before:[--radioColor1:#667085] hover:before:[--radioColor2:#667085]" //hover -before
 )
 const radioIconOuterStyle = cls(
   "radio-icon-outer-circle min-w-6 min-h-6 size-6 rounded-full flex justify-center items-center bg-[linear-gradient(90deg,_var(--radioColor1),_var(--radioColor2))] rounded-full transition-[all,_--radioColor1,_--radioColor2] duration-300 p-[1px]"
@@ -56,7 +58,7 @@ const Radio: FC<RadioProps> = ({
           id={id}
           name={name}
           className={cls(
-            "peer absolute opacity-0 h-full w-full top-0 left-0",
+            "peer absolute opacity-0 h-full w-full top-0 left-0 cursor-pointer",
             classNames?.input
           )}
           {...props}

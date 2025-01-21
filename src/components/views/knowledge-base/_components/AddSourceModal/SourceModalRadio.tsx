@@ -34,7 +34,13 @@ const SourceModalRadio: FC<Props> = ({
       }}
       {...props}
     >
-      <span className="size-10 min-w-10 min-h-10 rounded-full border border-gray-50 bg-gray-25 group-has-[:checked]/radio:border-0 group-has-[:checked]/radio:bg-brand-gradient group-has-[:checked]/radio:text-white flex justify-center items-center">
+      <span
+        className={cls(
+          "size-10 min-w-10 min-h-10 rounded-full border border-gray-50 bg-gray-25  flex justify-center items-center text-gray-700",
+          "group-has-[:checked]/radio:border-0 group-has-[:checked]/radio:bg-brand-gradient group-has-[:checked]/radio:text-white", //checked
+          "group-hover/radio:border-gray-700 group-hover/radio:text-gray-900" // hover
+        )}
+      >
         <Icon name={icon} className="text-regular-xl" />
       </span>
       <div className="grid gap-3">

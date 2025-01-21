@@ -1,40 +1,32 @@
 import Badge, { BadgeColor } from "@/components/atoms/Badge"
 import Typography from "@/components/atoms/Typography"
 import { cls } from "@/utils/helpers"
-import { FC, TWClassNames } from "@/utils/types"
+import { FC } from "@/utils/types"
 import React, { HTMLProps, ReactNode } from "react"
-import { TabVariant } from "."
 
-type Props = Omit<HTMLProps<HTMLButtonElement>, "type"> & {
+type Props = Omit<HTMLProps<HTMLDivElement>, "type"> & {
   label: string
   startContent?: ReactNode
   endContent?: ReactNode
   badge?: number
   badgeColor?: BadgeColor
-  variant?: TabVariant
   active?: boolean
 }
 
-const variantStyle: { [variant in TabVariant]: TWClassNames } = {
-  line: "text-gray-400 py-1 data-[active=true]:text-gray-900",
-}
-
-const Tab: FC<Props> = ({
+const AppTab: FC<Props> = ({
   label,
   startContent,
   endContent,
   badge,
   badgeColor,
-  variant = "line",
   active,
   ...props
 }) => {
   return (
-    <button
+    <div
       data-active={active}
       className={cls(
-        "transition-all duration-500 relative z-1 ",
-        variantStyle[variant]
+        "transition-all duration-500 relative z-1 text-gray-400 group-data-[selected=true]:text-gray-900"
       )}
       {...props}
     >
@@ -53,8 +45,8 @@ const Tab: FC<Props> = ({
           {badge}
         </Badge>
       )}
-    </button>
+    </div>
   )
 }
 
-export default Tab
+export default AppTab

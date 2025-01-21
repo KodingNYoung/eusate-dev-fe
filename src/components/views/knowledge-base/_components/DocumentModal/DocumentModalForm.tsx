@@ -50,9 +50,7 @@ const DocumentModalForm: FC = () => {
       className="pt-8 max-h-[60vh] overflow-y-auto custom-scrollbar relative"
       action={action}
     >
-      <div className="absolute top-0 left-0 w-full p-5 z-1">
-        <Toast />
-      </div>
+      <Toast classNames={{ base: "py-3.5" }} />
       <FileDragAndDrop
         onFileChange={onFileChange}
         accept="application/pdf, .txt, .doc, .docx"

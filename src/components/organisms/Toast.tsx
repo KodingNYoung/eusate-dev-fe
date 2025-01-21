@@ -13,6 +13,7 @@ import Icon from "../atoms/Icon"
 import Typography from "../atoms/Typography"
 
 type Slots =
+  | "base"
   | "root"
   | "container"
   | "icon"
@@ -86,58 +87,66 @@ const Toast: FC<Props> = ({ classNames }) => {
   }, [visible, hide])
   return (
     <div
-      role="toast"
-      className={cls(
-        "rounded-lg text-white-100 w-full transition-all duration-300 overflow-hidden",
-        visible && "my-5 opacity-100",
-        visible && (subtitle ? "max-h-[62px]" : "max-h-[82px]"),
-        toastVariant[`${type}-${variant}`],
-        !visible && "max-h-0 opacity-0",
-        classNames?.root
-      )}
+      className={cls("w-full p-5 z-1 top-0 left-0 absolute", classNames?.base)}
     >
       <div
+        role="toast"
         className={cls(
-          "py-2 px-3 flex items-start gap-3",
-          classNames?.container
+          "rounded-lg text-white-100 w-full transition-all duration-300 overflow-hidden",
+          visible && "my-5 opacity-100",
+          visible && (subtitle ? "max-h-[62px]" : "max-h-[82px]"),
+          toastVariant[`${type}-${variant}`],
+          !visible && "max-h-0 opacity-0",
+          classNames?.root
         )}
       >
-        <Icon
-          name={icon ?? toastIcon[type]}
+        <div
           className={cls(
-            "!text-regular-2xl !leading-none",
-            toastIconColor[`${type}-${variant}`],
-            classNames?.icon
+            "py-2 px-3 flex items-start gap-3",
+            classNames?.container
           )}
-        />
-        <div className={cls("grid gap-1 flex-1", classNames?.textContent)}>
-          <Typography
-            variant={subtitle ? "medium-base" : "regular-base"}
-            className={cls(titleColor[variant], classNames?.title)}
-          >
-            {title}
-          </Typography>
-          {subtitle && (
+        >
+          <Icon
+            name={icon ?? toastIcon[type]}
+            className={cls(
+              "!text-regular-2xl !leading-none",
+              toastIconColor[`${type}-${variant}`],
+              classNames?.icon
+            )}
+          />
+          <div className={cls("grid gap-1 flex-1", classNames?.textContent)}>
             <Typography
-              variant="regular-sm"
-              className={cls(subtitleColor[variant], classNames?.subtitle)}
+              variant={subtitle ? "medium-base" : "regular-base"}
+              className={cls(titleColor[variant], classNames?.title)}
             >
-              {subtitle}
+              {title}
             </Typography>
-          )}
-        </div>
-        {actions?.map((action, idx) => (
-          <button
-            onClick={action.fn}
-            key={idx}
-            className={cls(classNames?.action)}
-          >
-            {action.label}
+            {subtitle && (
+              <Typography
+                variant="regular-sm"
+                className={cls(subtitleColor[variant], classNames?.subtitle)}
+              >
+                {subtitle}
+              </Typography>
+            )}
+          </div>
+          {actions?.map((action, idx) => (
+            <button
+              onClick={action.fn}
+              key={idx}
+              className={cls(classNames?.action)}
+            >
+              {action.label}
+            </button>
+          ))}
+          <button onClick={hide} className={cls(classNames?.close)}>
+            <Icon
+              name="icon-close"
+              size={16}
+              className={cls(closeBtnColor[variant])}
+            />
           </button>
-        ))}
-        <button onClick={hide} className={cls(classNames?.close)}>
-          <Icon name="icon-close" className={cls(closeBtnColor[variant])} />
-        </button>
+        </div>
       </div>
     </div>
   )

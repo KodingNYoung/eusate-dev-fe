@@ -52,9 +52,7 @@ const WebsiteModalForm: FC = () => {
 
   return (
     <div className="relative max-h-[60vh] overflow-y-auto custom-scrollbar ">
-      <div className="absolute w-full px-5">
-        <Toast />
-      </div>
+      <Toast classNames={{ base: "py-0" }} />
       <main className="p-5 flex flex-col gap-5">
         <Info
           title="NOTE"

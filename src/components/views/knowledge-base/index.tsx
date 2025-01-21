@@ -15,6 +15,7 @@ import ArticleModal from "./_components/ArticleModal"
 import DocumentModal from "./_components/DocumentModal"
 import Typography from "@/components/atoms/Typography"
 import { useQueryParams } from "@/hooks/utilityHooks"
+import { KNOWLEDGE_BASE_QUERY_KEYS } from "./utils"
 
 type Props = {
   hasFetchError?: boolean
@@ -108,10 +109,6 @@ const columns: TableColumn<KnowledgeSource>[] = [
   },
 ]
 
-const QUERY_KEYS = {
-  PAGE: "page",
-} as const
-
 const KnowledgeBase: FC<Props> = ({ data, total, pageSize, page }) => {
   const { set } = useQueryParams()
 
@@ -134,7 +131,7 @@ const KnowledgeBase: FC<Props> = ({ data, total, pageSize, page }) => {
             pagination={{
               total: Math.ceil(total / pageSize),
               page,
-              onChange: (page) => set(QUERY_KEYS.PAGE, page),
+              onChange: (page) => set(KNOWLEDGE_BASE_QUERY_KEYS.PAGE, page),
             }}
           />
         </>

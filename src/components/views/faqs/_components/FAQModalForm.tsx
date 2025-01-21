@@ -1,7 +1,6 @@
 "use client"
 
 import { addFAQ, editFAQ } from "@/app/(dashboard)/knowledge-base/FAQs/actions"
-import Icon from "@/components/atoms/Icon"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Input from "@/components/molecules/Inputs"
 import Toast from "@/components/organisms/Toast"
@@ -41,9 +40,7 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
 
   return (
     <form ref={formRef} action={action} className="relative">
-      <div className="absolute top-0 left-0 w-full p-5 z-1">
-        <Toast />
-      </div>
+      <Toast />
       <main className="flex flex-col gap-5 p-5">
         {!isAdd && <input hidden name="id" value={faq?.id} />}
         <Input
@@ -70,13 +67,10 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
       <footer className="flex items-center justify-end p-5 border-t border-gray-50">
         <SubmitButton
           className="px-3.5 !py-2.5"
-          endContent={
-            <Icon name="icon-arrow-right" className="text-regular-xl" />
-          }
           classNames={{ label: "text-medium-sm" }}
           disabled={hasErrors}
         >
-          Continue
+          {isAdd ? "Add to knowledge base" : "Edit FAQ"}
         </SubmitButton>
       </footer>
     </form>

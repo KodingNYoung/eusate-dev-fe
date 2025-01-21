@@ -2,23 +2,36 @@ import { KnowledgeSourceTags } from "@/utils/enums"
 import { IconNames } from "@/utils/iconNames"
 
 // TYPES
-export type SortOrder = "" | "-"
+export type SortOrder = "asc" | "desc"
 export type ArticleMethodType = "text" | "link"
 
 // CONSTANTS
+export const KNOWLEDGE_BASE_QUERY_KEYS = {
+  SORT_BY: "sortby",
+  TAGS: "tags",
+  PAGE: "page",
+  SEARCH: "q",
+  EXTERNAL: "ext",
+  TAB: "tab",
+} as const
+export const KNOWLEDGE_BASE_TABS = {
+  All: "all",
+  Draft: "draft",
+} as const
+
 export const KNOWLEDGE_BASE_SORT_COLUMNS = [
   { value: "title", label: "Title" },
   { value: "date", label: "Date" },
 ] as const
 export const SORT_ORDERS = [
   {
-    value: "",
+    value: "asc",
     key: "ascending",
     label: "Ascending",
     icon: "icon-arrow-circle-up",
   },
   {
-    value: "-",
+    value: "desc",
     key: "descending",
     label: "Descending",
     icon: "icon-arrow-circle-down",

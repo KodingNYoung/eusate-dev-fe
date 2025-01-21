@@ -10,7 +10,7 @@ import ToastContextProvider from "@/providers/toastProviders"
 const SignUp: FC = () => {
   return (
     <ToastContextProvider>
-      <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col">
+      <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col">
         <AuthHeader
           title="Create an Account"
           toast

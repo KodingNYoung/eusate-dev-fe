@@ -1,3 +1,4 @@
+import { JSONValue } from "@/utils/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useMemo } from "react"
 
@@ -38,4 +39,17 @@ export const useQueryParams = () => {
     }),
     [get, set, searchParams]
   )
+}
+
+type Fn<T, K> = (...args: T[]) => K | void
+// a custom debounce hook for functions
+export const useDebounceCallback = <T = JSONValue, K = JSONValue>(
+  fn: Fn<T, K>,
+  delay: number
+) => {
+  let timer: NodeJS.Timeout
+  return function (...args: T[]) {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), delay)
+  }
 }
