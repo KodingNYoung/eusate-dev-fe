@@ -1,7 +1,7 @@
 "use client"
 
 import Typography from "@/components/atoms/Typography"
-import Dropdown from "@/components/molecules/Popups/Dropdown"
+import AppPopover from "@/components/molecules/Popups/AppPopover"
 import React, { useMemo } from "react"
 import OrderBtn from "./OrderBtn"
 import { FC } from "@/utils/types"
@@ -23,7 +23,7 @@ const SortDropdown: FC<Props> = ({ value, onSort }) => {
   }, [value])
 
   return (
-    <Dropdown
+    <AppPopover
       trigger={
         <Button
           variant="tetiary"
@@ -85,7 +85,7 @@ const SortDropdown: FC<Props> = ({ value, onSort }) => {
           </Radio>
         ))}
       </section>
-    </Dropdown>
+    </AppPopover>
   )
 }
 

@@ -4,7 +4,7 @@ import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
 import Checkbox from "@/components/molecules/Checkbox"
-import Dropdown from "@/components/molecules/Popups/Dropdown"
+import AppPopover from "@/components/molecules/Popups/AppPopover"
 import { useQueryParams } from "@/hooks/utilityHooks"
 import React from "react"
 import { INIT_PAGE_PARAMS, KB_QUERY_KEYS } from "../utils"
@@ -32,7 +32,7 @@ const FilterDropdown = () => {
   const { batchSet, get } = useQueryParams()
 
   return (
-    <Dropdown
+    <AppPopover
       trigger={
         <Button
           variant="tetiary"
@@ -99,7 +99,7 @@ const FilterDropdown = () => {
           )
         })}
       </div>
-    </Dropdown>
+    </AppPopover>
   )
 }
 

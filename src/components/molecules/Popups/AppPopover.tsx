@@ -9,21 +9,19 @@ import {
   PopoverSlots,
   PopoverTrigger,
 } from "@nextui-org/react"
-import React, { ReactElement, useState } from "react"
+import React, { ReactElement } from "react"
 
 type Props = Omit<PopoverProps, "children"> & {
   classNames?: { [slot in PopoverSlots | "triggerContainer"]?: string }
   trigger: ReactElement
 }
 
-const Dropdown: FC<Props> = ({
+const AppPopover: FC<Props> = ({
   children,
   trigger,
   classNames: { triggerContainer, ...classNames } = {},
   ...props
 }) => {
-  const [open, setOpen] = useState(false)
-
   return (
     <Popover
       placement="bottom-end"
@@ -34,18 +32,14 @@ const Dropdown: FC<Props> = ({
           classNames?.content
         ),
       }}
-      isOpen={open}
-      onOpenChange={(open) => setOpen(open)}
       {...props}
     >
       <PopoverTrigger>
         <div className={triggerContainer}>{trigger}</div>
       </PopoverTrigger>
-      <PopoverContent onClickCapture={() => setOpen(false)}>
-        {children}
-      </PopoverContent>
+      <PopoverContent>{children}</PopoverContent>
     </Popover>
   )
 }
 
-export default Dropdown
+export default AppPopover

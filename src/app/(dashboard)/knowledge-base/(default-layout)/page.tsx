@@ -51,6 +51,8 @@ const KnowledgeBasePage: PageFC = async ({ searchParams }) => {
           page > 1
       )}
       total={data.data?.count || 0}
+      publishedTotal={0}
+      unpublishedTotal={0}
       pageSize={data.data?.page_size || 0}
       page={data.data?.page || 1}
     />

@@ -8,6 +8,8 @@ import { KnowledgeSourceTags } from "@/utils/enums"
 
 type GetKnowledgeSourcesResponse = {
   count: number
+  published_count: number
+  unpublished_count: number
   results: KnowledgeSource[]
   page: number
   page_size: number

@@ -30,6 +30,8 @@ type Props = {
   data?: KnowledgeSource[]
   isSearched: boolean
   total: number
+  publishedTotal: number
+  unpublishedTotal: number
   pageSize: number
   page: number
 }
@@ -38,6 +40,8 @@ const KnowledgeBase: FC<Props> = ({
   data,
   isSearched,
   total,
+  publishedTotal,
+  unpublishedTotal,
   pageSize,
   page,
 }) => {
@@ -211,7 +215,15 @@ const KnowledgeBase: FC<Props> = ({
       {!total && !isSearched && <EmptyState />}
       {/* has an error */}
       {/* data available  or empty with search */}
-      {((!!data && !!data.length) || isSearched) && <TableTop />}
+      {((!!data && !!data.length) || isSearched) && (
+        <TableTop
+          counts={{
+            all: publishedTotal + unpublishedTotal,
+            published: publishedTotal,
+            drafts: unpublishedTotal,
+          }}
+        />
+      )}
       {/* empty with search */}
       {!total && isSearched && <EmptySearchState />}
       {/* data available */}

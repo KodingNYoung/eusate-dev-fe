@@ -18,7 +18,7 @@ export const KB_QUERY_KEYS = {
 export const KNOWLEDGE_BASE_TABS = {
   All: "all",
   Published: "published",
-  Draft: "draft",
+  Draft: "drafts",
 } as const
 
 export const KNOWLEDGE_BASE_SORT_COLUMNS = [
