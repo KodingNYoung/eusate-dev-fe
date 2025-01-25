@@ -147,6 +147,7 @@ export type TableColumn<T = unknown> = {
   }
   tooltip?: Omit<TableHeadTooltip, "icon">
   showFor?: (typeof SHOW_FOR)[keyof typeof SHOW_FOR]
+  clickable?: boolean
 }
 
 export type KnowledgeSource = {

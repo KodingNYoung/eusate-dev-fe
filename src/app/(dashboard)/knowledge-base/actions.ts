@@ -1,10 +1,18 @@
 "use server"
 
 import { sendAuthRequest } from "@/lib/request"
+import {
+  addWebsite,
+  deleteSource,
+  editSource,
+  initiateDocumentStream,
+  uploadChunk,
+} from "@/lib/services/knowledge-base"
 import { getSession } from "@/lib/sessions"
 import { ROUTES } from "@/utils/constants"
+import { KnowledgeSourceTags } from "@/utils/enums"
 import { chunkFile, formStateResponse, mbToByte } from "@/utils/helpers"
-import { FormState } from "@/utils/types"
+import { FormState, KnowledgeSource } from "@/utils/types"
 import { revalidatePath } from "next/cache"
 
 export type ValidateUrlResponse = { valid: boolean }
@@ -130,59 +138,6 @@ export const uploadDocuments = async (state: FormState, formdata: FormData) => {
   return successResponse(message)
 }
 
-type UploadChunkResponseType = { process_id: string } | { success: boolean }
-const uploadChunk = async (
-  chunk: Blob,
-  streamOptions?: { streamKey: string; idx: number }
-) => {
-  const session = await getSession()
-  const formdata = new FormData()
-
-  formdata.append("organisation_id", session?.organisationId || "")
-  if (streamOptions) {
-    formdata.append("init_stream_key", streamOptions.streamKey)
-    formdata.append("chunk_index", streamOptions.idx.toString())
-    formdata.append("chunk", chunk)
-  } else {
-    formdata.append("file", chunk)
-  }
-
-  const response = await sendAuthRequest<UploadChunkResponseType>(
-    `/api/v1/library/document/${streamOptions ? "stream" : "add"}/`,
-    formdata,
-    {
-      method: "POST",
-      headers: { "Content-Type": "multipart/form-data" },
-    }
-  )
-
-  if ("shouldAuthenticate" in response) {
-    throw new Error("Session expired, log in again")
-  }
-
-  return response
-}
-
-type InitiateDocumentStreamResponseType = { init_stream_key: string }
-const initiateDocumentStream = async (noOfChunks: number) => {
-  const session = await getSession()
-
-  const response = await sendAuthRequest<InitiateDocumentStreamResponseType>(
-    "/api/v1/library/document/init-stream/",
-    {
-      organisation_id: session?.organisationId,
-      num_chunks: noOfChunks,
-    },
-    { method: "POST" }
-  )
-
-  if ("shouldAuthenticate" in response) {
-    throw new Error("Session expired, log in again")
-  }
-
-  return response.init_stream_key
-}
-
 /**
  *
  */
@@ -210,19 +165,146 @@ export const addWebsites = async (state: FormState, formdata: FormData) => {
   revalidatePath(ROUTES.KNOWLEDGE_BASE)
   return successResponse(message)
 }
-// TODO: add an appropriate type. Check response type manually and fill it up.
-type AddWebsiteResponseType = { success: true }
-const addWebsite = async (url: string, origin: boolean) => {
-  const session = await getSession()
 
-  const response = await sendAuthRequest<AddWebsiteResponseType>(
-    "/api/v1/library/website/add/",
-    { organisation_id: session?.organisationId, url, origin },
-    { method: "POST" }
-  )
+// TABLE ACTIONS -------
 
-  if ("shouldAuthenticate" in response)
-    throw new Error("Session expired, log in again")
-  console.log({ response })
-  return response
+export const toggleSourcePrivacy = async (
+  state: FormState,
+  formdata: FormData
+) => {
+  const { successResponse, errorResponse } = formStateResponse(state)
+  const message = "You have successfully changed the privacy of a resource."
+  const { privacy, id, tag } = Object.fromEntries(formdata)
+
+  try {
+    await editSource(
+      { external: privacy !== "internal" },
+      id as string,
+      tag as KnowledgeSourceTags
+    )
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
+}
+export const bulkToggleSourcePrivacy = async (
+  sources: KnowledgeSource[],
+  external: boolean
+) => {
+  const { successResponse, errorResponse } = formStateResponse()
+  const message =
+    "You have successfully changed the privacy of the selected resources."
+
+  try {
+    await Promise.all(
+      sources.map(async (source) => {
+        return await editSource({ external }, source.id, source.tag)
+      })
+    )
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message:
+        err instanceof Error
+          ? err.message
+          : "Something went wrong, some resources were not updated",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
+}
+
+export const toggleSourcePublished = async (
+  state: FormState,
+  formdata: FormData
+) => {
+  const { successResponse, errorResponse } = formStateResponse(state)
+  const { published, id, tag } = Object.fromEntries(formdata)
+  const message =
+    published === "true"
+      ? "You have successfully published a content to the knowledge base"
+      : "You have successfully unpublished a content."
+
+  try {
+    await editSource(
+      { published: published === "true" },
+      id as string,
+      tag as KnowledgeSourceTags
+    )
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
+}
+export const bulkToggleSourcePublished = async (
+  sources: KnowledgeSource[],
+  published: boolean
+) => {
+  const { successResponse, errorResponse } = formStateResponse()
+  const message = `You have successfully ${published ? "published" : "unpublished"}  the selected resources.`
+
+  try {
+    await Promise.all(
+      sources.map(async (source) => {
+        return await editSource({ published }, source.id, source.tag)
+      })
+    )
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
+}
+
+export const removeSource = async (state: FormState, formdata: FormData) => {
+  const { successResponse, errorResponse } = formStateResponse(state)
+  const message = "You have successfully deleted a source."
+  const { id, tag } = Object.fromEntries(formdata)
+
+  try {
+    await deleteSource(id as string, tag as KnowledgeSourceTags)
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
+}
+export const bulkRemoveSourcePublished = async (sources: KnowledgeSource[]) => {
+  const { successResponse, errorResponse } = formStateResponse()
+  const message = `You have successfully deleted the selected resources.`
+
+  try {
+    await Promise.all(
+      sources.map(async (source) => {
+        return await deleteSource(source.id, source.tag)
+      })
+    )
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return successResponse(message)
 }

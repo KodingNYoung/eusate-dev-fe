@@ -68,11 +68,15 @@ export const useModal = (_key?: PopupKeys) => {
 
   const _open = useCallback(
     (quickKey?: PopupKeys) => {
+      console.log("Hello")
       if (_key) {
+        console.log("Hello, _key", _key)
         open(_key)
       } else if (quickKey) {
+        console.log("Hello, quickKey", quickKey)
         open(quickKey)
       } else {
+        console.log("Hello, no key")
         throw "No key provided for this modal"
       }
     },

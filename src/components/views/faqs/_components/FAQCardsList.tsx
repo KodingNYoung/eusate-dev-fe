@@ -6,7 +6,7 @@ import FAQCard from "./FAQCard"
 import { PopupKeys } from "@/utils/enums"
 import FAQModal from "./FAQModal"
 import { useModal } from "@/hooks/popupHooks"
-import DeleteFAQModal from "./DeleteFAQModal"
+import DeleteSourceModal from "../../knowledge-base/_components/DeleteSourceModal"
 
 type Props = {
   faqs: KnowledgeSource[]
@@ -30,12 +30,12 @@ const FAQCardsList: FC<Props> = ({ faqs }) => {
               key={faq.id}
               faq={faq}
               onEdit={() => openModal(PopupKeys.EDIT_FAQS_MODAL, faq)}
-              onDelete={() => openModal(PopupKeys.DELETE_FAQS_MODAL, faq)}
+              onDelete={() => openModal(PopupKeys.DELETE_SOURCE_MODAL, faq)}
             />
           )
         })}
         <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={faq} />
-        <DeleteFAQModal faq={faq as KnowledgeSource} />
+        <DeleteSourceModal source={faq as KnowledgeSource} />
       </div>
     </section>
   )

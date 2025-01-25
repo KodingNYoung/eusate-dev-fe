@@ -23,7 +23,7 @@ const AppTabs: FC<Props> = ({ tabs, variant, ...props }) => {
     <Tabs
       classNames={{
         base: "",
-        tabList: "items-end gap-5",
+        tabList: "items-end gap-2.5 sm:gap-5",
         tab: "px-1 h-[unset]",
         tabContent: "",
         cursor: "",

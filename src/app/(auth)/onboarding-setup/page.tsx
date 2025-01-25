@@ -6,7 +6,6 @@ import React from "react"
 const OnboardingSetupPage: PageFC = async () => {
   const organization = await getOrganisation()
 
-  console.log(organization)
   return <OnboardingSetup orgName={organization.data?.name} />
 }
 

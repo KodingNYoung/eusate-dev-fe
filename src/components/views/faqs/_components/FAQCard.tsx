@@ -16,7 +16,7 @@ const FAQCard: FC<Props> = ({ faq, onEdit, onDelete }) => {
     <div className="border border-gray-100 rounded-xl p-4 sm:p-4 grid gap-6">
       <div className="flex gap-5">
         <div className="flex-1">
-          <Typography className="text-medium-base text-black">
+          <Typography className="text-medium-base text-black line-clamp-2">
             {faq.title}
           </Typography>
         </div>

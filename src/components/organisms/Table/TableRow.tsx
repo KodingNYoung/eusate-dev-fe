@@ -5,7 +5,7 @@ import React, { useMemo, useState } from "react"
 import TableDataCell from "./TableDataCell"
 import { screensizeDisplayClasses } from "."
 import RowAccordion from "./RowAccordion"
-import { SHOW_FOR } from "@/utils/constants"
+import { SHOW_FOR, TEXT_ALIGN_TO_FLEX_MAP } from "@/utils/constants"
 
 type Props<T> = {
   idx: number
@@ -34,38 +34,48 @@ const TableRow = <T,>({ idx, onClick, columns, row, isLast }: Props<T>) => {
         )}
         onClick={() => onClick && onClick(row)}
       >
-        {columns.map(({ id, render, align, classNames, showFor }) => (
-          <TableDataCell
-            key={`table-row-${idx}-col-${id}`}
-            align={align}
-            className={cls(
-              classNames?.cell,
-              showFor && screensizeDisplayClasses[showFor],
-              hasAccordion && "!border-0 sm:!border-b",
-              hasResult && "!border-0",
-              isLast &&
-                "group-[:not([data-pagination=true])]/table:!border-b-0",
-              classNames?.td
-            )}
-          >
-            {id === "accordion-trigger" ? (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setOpenAccordion((curr) => !curr)
-                }}
-                className={cls(
-                  "whitespace-nowrap transition-transform duration-300",
-                  openAccordion ? "-rotate-180" : "rotate-0"
-                )}
-              >
-                {render(row)}
-              </button>
-            ) : (
-              <span className="whitespace-nowrap flex">{render(row)}</span>
-            )}
-          </TableDataCell>
-        ))}
+        {columns.map(
+          ({ id, render, align, classNames, showFor, clickable }) => (
+            <TableDataCell
+              key={`table-row-${idx}-col-${id}`}
+              align={align}
+              className={cls(
+                classNames?.cell,
+                showFor && screensizeDisplayClasses[showFor],
+                hasAccordion && "!border-0 sm:!border-b",
+                hasResult && "!border-0",
+                isLast &&
+                  "group-[:not([data-pagination=true])]/table:!border-b-0",
+                classNames?.td
+              )}
+              clickable={clickable}
+            >
+              {id === "accordion-trigger" ? (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setOpenAccordion((curr) => !curr)
+                  }}
+                  className={cls(
+                    "whitespace-nowrap transition-transform duration-300",
+                    openAccordion ? "-rotate-180" : "rotate-0"
+                  )}
+                >
+                  {render(row)}
+                </button>
+              ) : (
+                <span
+                  className={cls(
+                    "whitespace-nowrap flex",
+                    TEXT_ALIGN_TO_FLEX_MAP[align || "left"]
+                  )}
+                >
+                  {render(row)}
+                </span>
+              )}
+            </TableDataCell>
+          )
+        )}
       </tr>
       {hasAccordion && (
         <RowAccordion columns={columns} row={row} isOpen={openAccordion} />

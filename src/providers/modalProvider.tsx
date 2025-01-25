@@ -20,7 +20,10 @@ const ModalContext = createContext<ModalContextType>({
 export const ModalProvider: FC = ({ children }) => {
   const [key, setKey] = useState<PopupKeys>()
 
-  const open = (key: PopupKeys) => setKey(key)
+  const open = (key: PopupKeys) => {
+    console.log("Open Key", key)
+    setKey(key)
+  }
 
   const close = () => setKey(undefined)
 

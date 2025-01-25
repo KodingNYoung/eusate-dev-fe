@@ -29,7 +29,7 @@ const AddArticleLink: FC = () => {
       // TODO: open the processes modal
       setTimeout(close, 1000)
     }
-  }, [state, close])
+  }, [state])
 
   return (
     <div className="relative">

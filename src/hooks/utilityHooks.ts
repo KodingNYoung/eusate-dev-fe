@@ -2,6 +2,11 @@ import { JSONValue } from "@/utils/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useMemo } from "react"
 
+type BatchParams = {
+  key: string
+  value: string | null
+}[]
+
 // Custom hook that builds on the useSearchParams to add the a `set` method
 export const useQueryParams = () => {
   // hooks
@@ -31,13 +36,30 @@ export const useQueryParams = () => {
     [searchParams, pathname, router]
   )
 
+  //   set the values for a batch of search params
+  const batchSet = useCallback(
+    (batch: BatchParams) => {
+      const url = new URLSearchParams(searchParams)
+      batch.forEach((entry) => {
+        if (entry.value === null) {
+          url.delete(entry.key)
+        } else {
+          url.set(entry.key, entry.value)
+        }
+      })
+      router.replace("?" + url.toString())
+    },
+    [searchParams]
+  )
+
   return useMemo(
     () => ({
       get,
       set,
+      batchSet,
       searchParams: searchParams.toString(),
     }),
-    [get, set, searchParams]
+    [get, set, batchSet, searchParams]
   )
 }
 

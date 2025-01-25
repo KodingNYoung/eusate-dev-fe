@@ -29,7 +29,7 @@ const SelectResourceTag = () => {
         close()
         router.push(ROUTES.FAQS)
         break
-      case KnowledgeSourceTags.WEBISTE:
+      case KnowledgeSourceTags.WEBSITE:
         close()
         open(PopupKeys.WEBSITE_MODAL)
         break

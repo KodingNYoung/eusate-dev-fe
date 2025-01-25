@@ -6,22 +6,24 @@ export type SortOrder = "asc" | "desc"
 export type ArticleMethodType = "text" | "link"
 
 // CONSTANTS
-export const KNOWLEDGE_BASE_QUERY_KEYS = {
+export const KB_QUERY_KEYS = {
   SORT_BY: "sortby",
   TAGS: "tags",
   PAGE: "page",
   SEARCH: "q",
-  EXTERNAL: "ext",
+  PRIVACY: "prv",
   TAB: "tab",
+  SELECTED_ROWS: "sr",
 } as const
 export const KNOWLEDGE_BASE_TABS = {
   All: "all",
+  Published: "published",
   Draft: "draft",
 } as const
 
 export const KNOWLEDGE_BASE_SORT_COLUMNS = [
   { value: "title", label: "Title" },
-  { value: "date", label: "Date" },
+  { value: "date_created", label: "Date" },
 ] as const
 export const SORT_ORDERS = [
   {
@@ -58,7 +60,7 @@ export const MODAL_RESOURCE_TAGS: {
       "Create custom content directly in our built-in text editor or import using links.",
   },
   {
-    value: KnowledgeSourceTags.WEBISTE,
+    value: KnowledgeSourceTags.WEBSITE,
     icon: "icon-link",
     title: "Add website",
     subtitle:
@@ -98,3 +100,12 @@ export const ACCEPTABLE_DOCUMENT_EXTENSIONS = new Set([
   "pdf",
   "txt",
 ])
+
+export const INIT_PAGE_PARAMS = { key: KB_QUERY_KEYS.PAGE, value: null }
+export const INIT_PARAMS = {
+  PAGE: { key: KB_QUERY_KEYS.PAGE, value: null },
+  SEARCH: { key: KB_QUERY_KEYS.SEARCH, value: null },
+  TAGS: { key: KB_QUERY_KEYS.TAGS, value: null },
+  PUBLISHED: { key: KB_QUERY_KEYS.TAB, value: KNOWLEDGE_BASE_TABS.All },
+  PRIVACY: { key: KB_QUERY_KEYS.PRIVACY, value: null },
+} as const

@@ -5,7 +5,7 @@ import { FC, TWClassNames } from "@/utils/types"
 import React, { HTMLProps } from "react"
 
 type Slots = "root" | "input" | "box" | "icon" | "label"
-type Props = HTMLProps<HTMLInputElement> & {
+export type CheckboxProps = HTMLProps<HTMLInputElement> & {
   id?: string
   name: string
   value?: string
@@ -13,7 +13,7 @@ type Props = HTMLProps<HTMLInputElement> & {
   classNames?: { [slot in Slots]?: TWClassNames }
 }
 
-const Checkbox: FC<Props> = ({
+const Checkbox: FC<CheckboxProps> = ({
   name,
   id,
   children,
@@ -38,7 +38,11 @@ const Checkbox: FC<Props> = ({
         type="checkbox"
         id={id}
         name={name}
-        className={cls("absolute opacity-0 peer", className, classNames?.input)}
+        className={cls(
+          "absolute opacity-0 peer cursor-pointer",
+          className,
+          classNames?.input
+        )}
         {...props}
       />
       <div

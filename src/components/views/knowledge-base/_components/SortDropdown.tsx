@@ -1,18 +1,26 @@
+"use client"
+
 import Typography from "@/components/atoms/Typography"
 import Dropdown from "@/components/molecules/Popups/Dropdown"
-import React, { useState } from "react"
+import React, { useMemo } from "react"
 import OrderBtn from "./OrderBtn"
 import { FC } from "@/utils/types"
-import { KNOWLEDGE_BASE_SORT_COLUMNS, SORT_ORDERS, SortOrder } from "../utils"
+import { KNOWLEDGE_BASE_SORT_COLUMNS, SORT_ORDERS } from "../utils"
 import Radio from "@/components/molecules/Radio"
 import Icon from "@/components/atoms/Icon"
 import Button from "@/components/molecules/Buttons"
 
-const SortDropdown: FC = () => {
-  const [order, setOrder] = useState<SortOrder>(SORT_ORDERS[0].value)
-  const [sortValue, setSortValue] = useState<string>(
-    KNOWLEDGE_BASE_SORT_COLUMNS[0].value
-  )
+type Props = {
+  value: string
+  onSort: (value: string) => void
+}
+
+const SortDropdown: FC<Props> = ({ value, onSort }) => {
+  const [sortValue, order] = useMemo(() => {
+    return value
+      ? value.split(" ")
+      : [KNOWLEDGE_BASE_SORT_COLUMNS[1].value, SORT_ORDERS[1].value]
+  }, [value])
 
   return (
     <Dropdown
@@ -44,7 +52,9 @@ const SortDropdown: FC = () => {
               key={sortOrder.key}
               icon={sortOrder.icon}
               data-active={order === sortOrder.value}
-              onClick={() => setOrder(sortOrder.value)}
+              onClick={() => {
+                onSort(`${sortValue} ${sortOrder.value}`)
+              }}
             />
           ))}
         </div>
@@ -65,7 +75,10 @@ const SortDropdown: FC = () => {
               iconInnerCircle:
                 "size-3 opacity-0 group-has-[:checked]/radio:opacity-100",
             }}
-            onChange={(e) => setSortValue(e.currentTarget.value)}
+            onChange={(e) => {
+              const value = e.currentTarget.value
+              onSort(`${value} ${order}`)
+            }}
             checked={sortValue === sorter.value}
           >
             {sorter.label}

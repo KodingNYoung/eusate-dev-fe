@@ -5,51 +5,31 @@ import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
 import Checkbox from "@/components/molecules/Checkbox"
 import Dropdown from "@/components/molecules/Popups/Dropdown"
+import { useQueryParams } from "@/hooks/utilityHooks"
 import React from "react"
+import { INIT_PAGE_PARAMS, KB_QUERY_KEYS } from "../utils"
+import { KnowledgeSourceTags } from "@/utils/enums"
 
 const filters = [
   {
     label: "Source",
-    key: "source",
-    options: [{ value: "internal", label: "Internal only" }],
+    key: KB_QUERY_KEYS.PRIVACY,
+    options: [{ value: "internal", label: "Internal only", default: false }],
   },
   {
     label: "Content type",
-    key: "tag",
+    key: KB_QUERY_KEYS.TAGS,
     options: [
-      { value: "pdf", label: "PDF" },
-      { value: "website", label: "Website" },
-      { value: "article", label: "Article" },
-      { value: "faqs", label: "FAQs" },
+      { value: KnowledgeSourceTags.DOCUMENT, label: "File", default: true },
+      { value: KnowledgeSourceTags.WEBSITE, label: "Website", default: true },
+      { value: KnowledgeSourceTags.ARTICLE, label: "Article", default: true },
+      { value: KnowledgeSourceTags.FAQ, label: "FAQs", default: true },
     ],
   },
 ]
 
 const FilterDropdown = () => {
-  // const apply = (formdata: FormData) => {
-  //   const data = Object.fromEntries(formdata)
-
-  //   // process payload
-  //   const payload: { [key: string]: string[] } = {}
-  //   for (const name in data) {
-  //     const [key, value] = name.split("-")
-  //     if (key in payload) {
-  //       payload[key].push(value)
-  //     } else {
-  //       payload[key] = [value]
-  //     }
-  //   }
-
-  //   // set to url
-
-  //   // close drawer
-  //   close()
-  // }
-  // const reset = () => {
-  //   // set url to empty
-  //   // close drawer
-  //   close()
-  // }
+  const { batchSet, get } = useQueryParams()
 
   return (
     <Dropdown
@@ -77,9 +57,18 @@ const FilterDropdown = () => {
       <div className="p-2 flex flex-col gap-3 w-full">
         {filters.map((section) => {
           return (
-            <section
+            <form
               className="border border-gray-50 rounded-lg p-2 flex flex-col"
               key={section.key}
+              action={(formdata) =>
+                batchSet([
+                  {
+                    key: section.key,
+                    value: formdata.getAll(section.key).join(",") || null,
+                  },
+                  INIT_PAGE_PARAMS,
+                ])
+              }
             >
               <Typography variant="semibold-xxs" className="text-gray-700 mb-3">
                 {section.label}
@@ -91,16 +80,22 @@ const FilterDropdown = () => {
                       root: "flex-row-reverse justify-between p-3",
                     }}
                     name={section.key}
-                    id={option.value}
                     value={option.value}
                     key={option.value}
-                    onChange={(e) => console.log(e.currentTarget.value)}
+                    onChange={(e) => e.currentTarget.form?.requestSubmit()}
+                    checked={
+                      get(section.key)
+                        ? Boolean(
+                            get(section.key)?.split(",").includes(option.value)
+                          )
+                        : option.default
+                    }
                   >
                     {option.label}
                   </Checkbox>
                 )
               })}
-            </section>
+            </form>
           )
         })}
       </div>

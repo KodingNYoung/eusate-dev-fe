@@ -36,13 +36,13 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
     if ("success" in state) {
       setTimeout(close, 1500)
     }
-  }, [state, close])
+  }, [state])
 
   return (
     <form ref={formRef} action={action} className="relative">
       <Toast />
       <main className="flex flex-col gap-5 p-5">
-        {!isAdd && <input hidden name="id" value={faq?.id} />}
+        {!isAdd && <input type="hidden" name="id" readOnly value={faq?.id} />}
         <Input
           name="question"
           label="Question"
@@ -62,6 +62,7 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
           isError={touched.answer && !!errors.answer}
           helperText={touched.answer ? errors.answer : ""}
           onChange={(e) => markFieldTouched(e.currentTarget.name)}
+          classNames={{ input: "max-h-32 min-h-24" }}
         />
       </main>
       <footer className="flex items-center justify-end p-5 border-t border-gray-50">

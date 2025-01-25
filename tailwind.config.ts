@@ -1,7 +1,8 @@
 import { nextui } from "@nextui-org/react"
 import type { Config } from "tailwindcss"
+import defaultTheme from "tailwindcss/defaultTheme"
 
-const config: Config = {
+const config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,6 +11,7 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    ...defaultTheme,
     fontFamily: {
       app: ["var(--font-app)"],
     },
@@ -185,7 +187,6 @@ const config: Config = {
       },
       transparent: "transparent",
     },
-
     boxShadow: {
       "none": "0 0 #0000",
       "soft-xxsmall": "0px 1.5px 4px -1px rgba(16, 25, 40, 0.07)",
@@ -216,6 +217,14 @@ const config: Config = {
       medium: "4px",
       large: "8px",
       xlarge: "10px",
+    },
+    screens: {
+      "xs": { max: "639px" },
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px",
     },
     extend: {
       padding: {
@@ -365,87 +374,8 @@ const config: Config = {
       addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
       defaultTheme: "light", // default theme from the themes object
       themes: {
-        brand: {
+        light: {
           colors: {
-            // red: {
-            //   50: "#FDF0EE",
-            //   100: "#F8CFCA",
-            //   200: "#F4B8B1",
-            //   300: "#F0988D",
-            //   400: "#ED8477",
-            //   500: "#E86555",
-            //   600: "#D35C4D",
-            //   700: "#A5483C",
-            //   800: "#80382F",
-            //   900: "#612A24",
-            // },
-            // gold: {
-            //   50: "#FBF7E6",
-            //   100: "#F3E5B2",
-            //   200: "#EDD88D",
-            //   300: "#E4C759",
-            //   400: "#DFBC39",
-            //   500: "#D7AB07",
-            //   600: "#C49C06",
-            //   700: "#997905",
-            //   800: "#765E04",
-            //   900: "#5A4803",
-            // },
-            // white: {
-            //   DEFAULT: "#FFFFFF",
-            //   5: "#FFFFFF0D",
-            //   10: "#FFFFFF1A",
-            //   15: "#FFFFFF26",
-            //   20: "#FFFFFF33",
-            //   30: "#FFFFFF4D",
-            //   40: "#FFFFFF66",
-            //   50: "#FFFFFF80",
-            //   60: "#FFFFFF99",
-            //   70: "#FFFFFFB2",
-            //   80: "#FFFFFFCC",
-            //   90: "#FFFFFFE5",
-            //   100: "#FFFFFF",
-            // },
-            // black: {
-            //   DEFAULT: "#0A0A0A",
-            //   5: "#0A0A0A0D",
-            //   10: "#0A0A0A1A",
-            //   15: "#0A0A0A26",
-            //   20: "#0A0A0A33",
-            //   30: "#0A0A0A4D",
-            //   40: "#0A0A0A66",
-            //   50: "#0A0A0A80",
-            //   60: "#0A0A0A99",
-            //   70: "#0A0A0AB2",
-            //   80: "#0A0A0ACC",
-            //   90: "#0A0A0AE5",
-            //   100: "#0A0A0A",
-            // },
-            // gray: {
-            //   25: "#FAFBFC",
-            //   50: "#F0F1F3",
-            //   100: "#D0D3D9",
-            //   200: "#B9BDC7",
-            //   300: "#989FAD",
-            //   400: "#858D9D",
-            //   500: "#667085",
-            //   600: "#5D6679",
-            //   700: "#48505E",
-            //   800: "#383E49",
-            //   900: "#2B2F38",
-            // },
-            // info: {
-            //   50: "#EAF4FF",
-            //   100: "#BEDDFD",
-            //   200: "#9FCCFD",
-            //   300: "#73B5FC",
-            //   400: "#58A6FB",
-            //   500: "#2E90FA",
-            //   600: "#2A83E4",
-            //   700: "#2166B2",
-            //   800: "#194F8A",
-            //   900: "#133C69",
-            // },
             danger: {
               50: "#FEECEB",
               100: "#FAC5C1",
@@ -482,12 +412,18 @@ const config: Config = {
               800: "#0A653A",
               900: "#084D2D",
             },
-
-            // transparent: "transparent",
           },
         },
       },
     }),
   ],
+} satisfies Config & {
+  theme: Omit<typeof defaultTheme, "screens"> & {
+    screens: Record<
+      "xs" | "sm" | "md" | "lg" | "xl" | "2xl",
+      { min?: string; max?: string } | string
+    >
+  }
 }
+
 export default config

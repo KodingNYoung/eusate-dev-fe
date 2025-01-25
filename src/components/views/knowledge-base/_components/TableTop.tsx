@@ -7,10 +7,10 @@ import FilterDropdown from "./FilterDropdown"
 import SearchInput from "./SearchInput"
 import SortDropdown from "./SortDropdown"
 import { useQueryParams } from "@/hooks/utilityHooks"
-import { KNOWLEDGE_BASE_QUERY_KEYS, KNOWLEDGE_BASE_TABS } from "../utils"
+import { INIT_PAGE_PARAMS, KB_QUERY_KEYS, KNOWLEDGE_BASE_TABS } from "../utils"
 
 const TableTop: FC = () => {
-  const { set, get } = useQueryParams()
+  const { batchSet, get } = useQueryParams()
 
   return (
     <header className="p-2 flex justify-between items-center gap-1 sm:gap-2.5">
@@ -19,22 +19,33 @@ const TableTop: FC = () => {
           label: key,
           key: KNOWLEDGE_BASE_TABS[key as keyof typeof KNOWLEDGE_BASE_TABS],
         }))}
-        onSelectionChange={(tab) => {
-          set(KNOWLEDGE_BASE_QUERY_KEYS.TAB, tab)
-        }}
-        selectedKey={get(KNOWLEDGE_BASE_QUERY_KEYS.TAB)}
+        onSelectionChange={(tab) =>
+          batchSet([
+            { key: KB_QUERY_KEYS.TAB, value: tab as string },
+            INIT_PAGE_PARAMS,
+          ])
+        }
+        selectedKey={get(KB_QUERY_KEYS.TAB)}
       />
 
       <div className="flex-1" />
 
       <SearchInput
-        value={get(KNOWLEDGE_BASE_QUERY_KEYS.SEARCH) || ""}
+        value={get(KB_QUERY_KEYS.SEARCH) || ""}
         onSearch={(value) =>
-          set(KNOWLEDGE_BASE_QUERY_KEYS.SEARCH || null, value)
+          batchSet([
+            { key: KB_QUERY_KEYS.SEARCH, value: value || null },
+            INIT_PAGE_PARAMS,
+          ])
         }
       />
 
-      <SortDropdown />
+      <SortDropdown
+        value={get(KB_QUERY_KEYS.SORT_BY) || ""}
+        onSort={(value) =>
+          batchSet([{ key: KB_QUERY_KEYS.SORT_BY, value }, INIT_PAGE_PARAMS])
+        }
+      />
 
       <FilterDropdown />
     </header>

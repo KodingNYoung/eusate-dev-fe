@@ -2,7 +2,7 @@
 
 import { getSession } from "@/lib/sessions"
 import { API_BASEURL } from "@/utils/constants"
-import axios, { AxiosRequestConfig } from "axios"
+import axios, { AxiosError, AxiosRequestConfig } from "axios"
 import { cache } from "react"
 
 type FetcherOptions = {
@@ -37,8 +37,8 @@ const requestHandler = cache(
 
     try {
       return await axios(requestOptions)
-    } catch (error) {
-      throw error
+    } catch (err) {
+      throw err
     }
   }
 )
@@ -57,8 +57,10 @@ export const sendRequest = cache(
       }
 
       return response.data as T
-    } catch (error) {
-      throw error
+    } catch (err) {
+      throw err instanceof AxiosError && err.isAxiosError
+        ? new Error(err.response?.data.detail)
+        : err
     }
   }
 )
@@ -101,7 +103,9 @@ export const sendAuthRequest = cache(
 
       return response.data as T
     } catch (err) {
-      throw err
+      throw err instanceof AxiosError && err.isAxiosError
+        ? new Error(err.response?.data.detail)
+        : err
     }
   }
 )
