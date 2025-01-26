@@ -2,6 +2,7 @@ import Icon from "@/components/atoms/Icon"
 import AppDropdown, {
   SectionsType,
 } from "@/components/molecules/Popups/AppDropdown"
+import { ROUTES } from "@/utils/constants"
 import { FC, KnowledgeSource } from "@/utils/types"
 import React from "react"
 
@@ -23,11 +24,13 @@ const ResourceRowAction: FC<Props> = ({
           key: 0,
           label: "Open",
           icon: "icon-arrow-right",
+          link: `${ROUTES.VIEW_RESOURCE}/?id=${row.id}`,
         },
         {
           key: 1,
           label: "Edit",
           icon: "icon-edit-2",
+          link: `${ROUTES.EDIT_RESOURCE}/?id=${row.id}`,
         },
         {
           key: 2,

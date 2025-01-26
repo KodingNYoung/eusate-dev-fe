@@ -2,8 +2,8 @@ import TextEditor from "@/components/organisms/TextEditor"
 import { PageFC } from "@/utils/types"
 import React from "react"
 
-const NewArticlesPage: PageFC = () => {
+const EditResourcePage: PageFC = () => {
   return <TextEditor />
 }
 
-export default NewArticlesPage
+export default EditResourcePage

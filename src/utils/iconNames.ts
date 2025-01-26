@@ -29,6 +29,7 @@ export type IconNames =
   | "icon-link-4"
   | "icon-menu"
   | "icon-message-question"
+  | "icon-minus-circle"
   | "icon-minus-square-bold"
   | "icon-more"
   | "icon-notification"
