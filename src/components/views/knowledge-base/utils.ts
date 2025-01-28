@@ -14,6 +14,7 @@ export const KB_QUERY_KEYS = {
   PRIVACY: "prv",
   TAB: "tab",
   SELECTED_ROWS: "sr",
+  ID: "id",
 } as const
 export const KNOWLEDGE_BASE_TABS = {
   All: "all",

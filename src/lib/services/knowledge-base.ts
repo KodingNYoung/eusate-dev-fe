@@ -9,7 +9,7 @@ type EditSourcePayloadType = Partial<
   Pick<
     KnowledgeSource,
     "organisation_id" | "title" | "published" | "external" | "question"
-  > & { content: string }
+  >
 >
 type EditSourceResponseType = { success: true }
 export const editSource = async (

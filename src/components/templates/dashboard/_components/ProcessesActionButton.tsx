@@ -6,12 +6,12 @@ import Button from "@/components/molecules/Buttons"
 import Icon from "@/components/atoms/Icon"
 import AppPopover from "@/components/molecules/Popups/AppPopover"
 import Typography from "@/components/atoms/Typography"
-// import { useSourceProcesses } from "@/hooks/processesHooks"
+import { useSourceProcesses } from "@/hooks/processesHooks"
 
 const ProcessesActionButton: FC = () => {
   const [open, setOpen] = useState(false)
 
-  //   useSourceProcesses()
+  useSourceProcesses()
   return (
     <AppPopover
       trigger={

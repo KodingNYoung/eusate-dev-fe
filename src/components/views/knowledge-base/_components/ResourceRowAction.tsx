@@ -5,6 +5,7 @@ import AppDropdown, {
 import { ROUTES } from "@/utils/constants"
 import { FC, KnowledgeSource } from "@/utils/types"
 import React from "react"
+import { KB_QUERY_KEYS } from "../utils"
 
 type Props = {
   row: KnowledgeSource
@@ -24,13 +25,13 @@ const ResourceRowAction: FC<Props> = ({
           key: 0,
           label: "Open",
           icon: "icon-arrow-right",
-          link: `${ROUTES.VIEW_RESOURCE}/?id=${row.id}`,
+          link: `${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${row.id}&${KB_QUERY_KEYS.TAGS}=${row.tag}`,
         },
         {
           key: 1,
           label: "Edit",
           icon: "icon-edit-2",
-          link: `${ROUTES.EDIT_RESOURCE}/?id=${row.id}`,
+          link: `${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${row.id}&${KB_QUERY_KEYS.TAGS}=${row.tag}`,
         },
         {
           key: 2,

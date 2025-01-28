@@ -5,6 +5,7 @@ import { sendAuthRequest } from "../request"
 import { ERROR_CAUSES } from "@/utils/constants"
 import { getSession } from "../sessions"
 import { KnowledgeSourceTags } from "@/utils/enums"
+import axios from "axios"
 
 type GetKnowledgeSourcesResponse = {
   count: number
@@ -56,6 +57,40 @@ export const getKnowledgeSources = async (
         err instanceof Error && err.cause === ERROR_CAUSES.SESSION_EXPIRED,
     }
   }
+}
+
+export const getKnowledgeSource = async (
+  id: string,
+  tag: KnowledgeSourceTags
+) => {
+  try {
+    const response = await sendAuthRequest<KnowledgeSource>(
+      `/api/v1/library/${tag}/${id}`
+    )
+
+    if ("shouldAuthenticate" in response)
+      throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+
+    const content = await getFileContent(response.file)
+
+    return { success: { message: "" }, data: { ...response, content } }
+  } catch (err) {
+    return {
+      error: {
+        message: err instanceof Error ? err.message : "Something went wrong",
+      },
+      shouldAuthenticate:
+        err instanceof Error && err.cause === ERROR_CAUSES.SESSION_EXPIRED,
+    }
+  }
+}
+
+export const getFileContent = async (url?: string) => {
+  if (!url) throw new Error("No URL for file")
+
+  const response = await axios.get(url)
+
+  return response.data as string
 }
 
 type GetProcessResponse = {

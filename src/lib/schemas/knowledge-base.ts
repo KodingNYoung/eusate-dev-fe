@@ -35,3 +35,26 @@ export const validateSubdomainUrlSchema = (domain: string) =>
       .url({ message: "Enter a valid url" })
       .min(1, "This field is required"),
   })
+
+export const createArticleSchema = z.object({
+  title: z
+    .string()
+    .min(2, "Field should not be less than 2 characters")
+    .min(1, "This field is required"),
+  content: z
+    .string()
+    .min(2, "Field should not be less than 2 characters")
+    .min(1, "This field is required"),
+})
+export const editResourceContentSchema = z.object({
+  title: z
+    .string()
+    .min(2, "Field should not be less than 2 characters")
+    .min(1, "This field is required"),
+  content: z
+    .string()
+    .min(2, "Field should not be less than 2 characters")
+    .min(1, "This field is required"),
+  id: z.string().min(1, "This field is required"),
+  tag: z.nativeEnum(KnowledgeSourceTags),
+})

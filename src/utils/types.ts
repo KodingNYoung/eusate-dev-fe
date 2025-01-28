@@ -166,4 +166,5 @@ export type KnowledgeSource = {
   answer: string
   origin: string | null
   extension: string | null
+  content?: string
 }

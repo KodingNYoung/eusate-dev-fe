@@ -16,8 +16,7 @@ export const ROUTES = {
   SETTINGS: "/settings",
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
-  EDIT_RESOURCE: "/knowledge-base/edit-resource",
-  VIEW_RESOURCE: "/knowledge-base/view-resource",
+  RESOURCE: "/knowledge-base/resource",
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
 }

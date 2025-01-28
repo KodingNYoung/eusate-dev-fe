@@ -6,6 +6,9 @@ import { FC } from "@/utils/types"
 import React, { ChangeEvent, useRef } from "react"
 import { ARTICLE_METHODS, ArticleMethodType } from "../../utils"
 import SourceModalRadio from "../AddSourceModal/SourceModalRadio"
+import { useRouter } from "next/navigation"
+import { ROUTES } from "@/utils/constants"
+import { useModal } from "@/hooks/popupHooks"
 
 type Props = {
   onOptionSelect: () => void
@@ -13,6 +16,8 @@ type Props = {
 
 const SelectMethod: FC<Props> = ({ onOptionSelect }) => {
   const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter()
+  const { close } = useModal()
 
   const { hasErrors, markFieldTouched } = useValidation(
     selectArticleMethodSchema,
@@ -27,6 +32,8 @@ const SelectMethod: FC<Props> = ({ onOptionSelect }) => {
         onOptionSelect()
         break
       case "text":
+        router.push(ROUTES.NEW_ARTICLE)
+        close()
         break
     }
   }

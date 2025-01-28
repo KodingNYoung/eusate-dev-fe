@@ -39,23 +39,14 @@ const PAGE_LAYERS: {
     },
     { label: "New Article", id: 2 },
   ],
-  [ROUTES.VIEW_RESOURCE]: [
+  [ROUTES.RESOURCE]: [
     {
       label: "Knowledge base",
       icon: "icon-layer",
       link: ROUTES.KNOWLEDGE_BASE,
       id: 1,
     },
-    { label: "View resource", id: 2 },
-  ],
-  [ROUTES.EDIT_RESOURCE]: [
-    {
-      label: "Knowledge base",
-      icon: "icon-layer",
-      link: ROUTES.KNOWLEDGE_BASE,
-      id: 1,
-    },
-    { label: "Edit resource", id: 2 },
+    { label: "Resource", id: 2 },
   ],
   [ROUTES.FAQS]: [
     {

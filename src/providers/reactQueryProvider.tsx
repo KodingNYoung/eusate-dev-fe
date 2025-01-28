@@ -2,7 +2,7 @@
 
 import { FC } from "@/utils/types"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import React, { useState } from "react"
 
 const ReactQueryProvider: FC = ({ children }) => {
@@ -15,7 +15,7 @@ const ReactQueryProvider: FC = ({ children }) => {
   return (
     <QueryClientProvider client={client}>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   )
 }

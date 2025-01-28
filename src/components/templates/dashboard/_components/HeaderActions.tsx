@@ -1,11 +1,16 @@
+"use client"
 import Icon from "@/components/atoms/Icon"
 import Button from "@/components/molecules/Buttons"
 import { FC } from "@/utils/types"
 import React from "react"
 import ProcessesActionButton from "./ProcessesActionButton"
+import { usePathname } from "next/navigation"
+import { ROUTES } from "@/utils/constants"
 
 const HeaderActions: FC = () => {
-  return (
+  const pathname = usePathname()
+
+  return [ROUTES.NEW_ARTICLE, ROUTES.RESOURCE].includes(pathname) ? null : (
     <>
       <ProcessesActionButton />
       <Button

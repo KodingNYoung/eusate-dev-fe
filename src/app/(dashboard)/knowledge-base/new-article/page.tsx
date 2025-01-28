@@ -1,4 +1,4 @@
-import TextEditor from "@/components/organisms/TextEditor"
+import TextEditor from "@/components/templates/text-editor"
 import { PageFC } from "@/utils/types"
 import React from "react"
 
