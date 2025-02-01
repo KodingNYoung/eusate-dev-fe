@@ -2,7 +2,6 @@ import {
   createArticle,
   updateResourceContent,
 } from "@/app/(dashboard)/knowledge-base/resource/actions"
-import Button from "@/components/molecules/Buttons"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import {
@@ -15,6 +14,7 @@ import { useFormState } from "react-dom"
 import Editor from "./Editor"
 import Toast from "@/components/organisms/Toast"
 import { useRouter } from "next/navigation"
+import { getFormdataFromFormRef } from "@/utils/helpers"
 
 type Props = {
   resource?: KnowledgeSource
@@ -42,6 +42,7 @@ const TextEditorForm: FC<Props> = ({ resource }) => {
       console.log(state)
     }
   }, [state])
+
   return (
     <form
       ref={formRef}
@@ -68,15 +69,16 @@ const TextEditorForm: FC<Props> = ({ resource }) => {
         <div className="justify-end flex items-center gap-3">
           {resource ? (
             <>
-              <Button
+              <SubmitButton
                 variant="tetiary"
                 classNames={{
-                  root: "py-2.5 px-4.5",
+                  root: "!py-2.5 px-4.5",
                   label: "text-medium-sm",
                 }}
+                formAction={(e) => console.log(Object.fromEntries(e))}
               >
-                Publish
-              </Button>
+                {resource.published ? "Unpublish" : "Publish"}
+              </SubmitButton>
               <SubmitButton
                 classNames={{
                   root: "!py-2.5 px-4.5",
@@ -88,15 +90,23 @@ const TextEditorForm: FC<Props> = ({ resource }) => {
             </>
           ) : (
             <>
-              <Button
+              <SubmitButton
+                formAction={() => {
+                  const form = getFormdataFromFormRef(formRef)
+                  if (form) {
+                    form?.append("unpublished", "true")
+                    const createDraft = action.bind(null, form)
+                    createDraft()
+                  }
+                }}
                 variant="tetiary"
                 classNames={{
-                  root: "py-2.5 px-4.5",
+                  root: "!py-2.5 px-4.5",
                   label: "text-medium-sm",
                 }}
               >
                 Save as draft
-              </Button>
+              </SubmitButton>
               <SubmitButton
                 classNames={{
                   root: "!py-2.5 px-4.5",

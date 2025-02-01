@@ -18,15 +18,21 @@ export const createArticle = async (
   formdata: FormData
 ): Promise<FormState> => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const { title, content } = Object.fromEntries(formdata)
+  const { title, content, unpublished } = Object.fromEntries(formdata)
   const message = "Article record creation in progress"
   const route = ROUTES.KNOWLEDGE_BASE
 
   try {
+    console.log(title, content, unpublished)
     const session = await getSession()
     const response = await sendAuthRequest<CreateArticleResponse>(
       "/api/v1/library/article/add/",
-      { title, content, organisation_id: session?.organisationId },
+      {
+        title,
+        content,
+        published: !unpublished,
+        organisation_id: session?.organisationId,
+      },
       { method: "POST" }
     )
 
@@ -40,7 +46,7 @@ export const createArticle = async (
       message: err instanceof Error ? err.message : "Something went wrong",
     })
   }
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  //   revalidatePath(ROUTES.KNOWLEDGE_BASE)
   return successResponse(message, route)
 }
 // create article and revalidate the knowledge base url
@@ -59,7 +65,6 @@ export const updateResourceContent = async (
       id as string,
       tag as KnowledgeSourceTags
     )
-
     // handle auth check
     if ("shouldAuthenticate" in response) {
       throw new Error("Session expired, log in again")

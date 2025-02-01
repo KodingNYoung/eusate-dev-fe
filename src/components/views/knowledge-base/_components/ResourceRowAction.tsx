@@ -27,12 +27,12 @@ const ResourceRowAction: FC<Props> = ({
           icon: "icon-arrow-right",
           link: `${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${row.id}&${KB_QUERY_KEYS.TAGS}=${row.tag}`,
         },
-        {
-          key: 1,
-          label: "Edit",
-          icon: "icon-edit-2",
-          link: `${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${row.id}&${KB_QUERY_KEYS.TAGS}=${row.tag}`,
-        },
+        // {
+        //   key: 1,
+        //   label: "Edit",
+        //   icon: "icon-edit-2",
+        //   link: `${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${row.id}&${KB_QUERY_KEYS.TAGS}=${row.tag}`,
+        // },
         {
           key: 2,
           label: row.published ? "Unpublish" : "Publish",
