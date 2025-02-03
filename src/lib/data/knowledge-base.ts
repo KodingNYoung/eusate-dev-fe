@@ -2,10 +2,11 @@
 
 import { KnowledgeSource } from "@/utils/types"
 import { sendAuthRequest } from "../request"
-import { ERROR_CAUSES } from "@/utils/constants"
+import { ERROR_CAUSES, ROUTES } from "@/utils/constants"
 import { getSession } from "../sessions"
 import { KnowledgeSourceTags } from "@/utils/enums"
 import axios from "axios"
+import { revalidatePath } from "next/cache"
 
 type GetKnowledgeSourcesResponse = {
   count: number
@@ -101,25 +102,28 @@ type GetProcessResponse = {
 }
 
 export const getProcesses = async () => {
+  let response: GetProcessResponse
+
   try {
     const session = await getSession()
 
     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
-    const response = await sendAuthRequest<GetProcessResponse>(
+    const _response = await sendAuthRequest<GetProcessResponse>(
       `/api/v1/library/${session.organisationId}/processing-resources/?status=ingesting,updating`
     )
 
-    // console.log({ response })
-
-    if ("shouldAuthenticate" in response)
+    if ("shouldAuthenticate" in _response)
       throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
-    return response
+    response = _response
   } catch (err) {
     console.log("gp", { err })
     throw err
   }
+
+  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  return response
 }
 
 export const getClientSession = async () => await getSession()

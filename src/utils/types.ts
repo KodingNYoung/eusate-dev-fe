@@ -1,7 +1,7 @@
 import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
 import { KnowledgeSourceTags, TwoFAMethods } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
-import { SHOW_FOR } from "./constants"
+import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -121,6 +121,9 @@ export type JSONValue =
   | string
   | JSONValue[]
   | { [key: string]: JSONValue }
+
+export type StorageKeys = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS]
+export type CookieKeys = (typeof COOKIES_KEYS)[keyof typeof COOKIES_KEYS]
 
 export type SessionPayload = {
   refreshToken?: string

@@ -6,19 +6,19 @@ import Button from "@/components/molecules/Buttons"
 import Icon from "@/components/atoms/Icon"
 import AppPopover from "@/components/molecules/Popups/AppPopover"
 import Typography from "@/components/atoms/Typography"
-import { useSourceProcesses } from "@/hooks/processesHooks"
+import { useProcessWithSocket } from "@/hooks/processesHooks"
 
 const ProcessesActionButton: FC = () => {
   const [open, setOpen] = useState(false)
 
-  useSourceProcesses()
+  const processes = useProcessWithSocket()
   return (
     <AppPopover
       trigger={
         <Button
           variant="primary"
           classNames={{
-            root: "px-3 py-1.5 gap-2",
+            root: "px-2.5 py-1.5 gap-2 h-10",
             label: "text-semibold-base",
           }}
           startContent={
@@ -28,7 +28,7 @@ const ProcessesActionButton: FC = () => {
             />
           }
         >
-          5
+          {processes.data?.count || null}
         </Button>
       }
       classNames={{
@@ -50,6 +50,7 @@ const ProcessesActionButton: FC = () => {
           <Icon name="icon-minus-circle" size={16} className="!leading-none" />
         </button>
       </header>
+      <section className="flex flex-col "></section>
     </AppPopover>
   )
 }

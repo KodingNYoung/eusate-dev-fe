@@ -29,6 +29,8 @@ export const COOKIES_KEYS = {
   TWOFA_AUTH_CRED: "@2fa-auth-credentials",
 } as const
 
+export const STORAGE_KEYS = {} as const
+
 export const ERROR_CAUSES = {
   SESSION_EXPIRED: "SESSION_EXPIRED",
 } as const
