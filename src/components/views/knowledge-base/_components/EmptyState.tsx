@@ -3,8 +3,9 @@ import Image from "next/image"
 import React from "react"
 import knowledgeBaseEmptyState from "@/assets/images/knowledge-base-empty-state.svg"
 import Typography from "@/components/atoms/Typography"
-import Button from "@/components/molecules/Buttons"
 import Icon from "@/components/atoms/Icon"
+import { PopupKeys } from "@/utils/enums"
+import OpenModalButton from "@/components/molecules/Buttons/OpenModalButton"
 
 const EmptyState: FC = () => {
   return (
@@ -26,15 +27,16 @@ const EmptyState: FC = () => {
             educated your AI.
           </Typography>
         </div>
-        <Button
+        <OpenModalButton
           startContent={<Icon name="icon-plus" className="text-regular-xl" />}
           classNames={{
-            root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 [--btnColor1:#d7ab07] [--btnColor2:#e86555] sm:[--btnColor1:#0a0a0a] sm:[--btnColor2:#0a0a0a]",
+            root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 sm-gradient",
             label: "text-medium-sm sm:text-semibold-sm ",
           }}
+          modalKey={PopupKeys.SOURCE_MODAL}
         >
           Add a resource
-        </Button>
+        </OpenModalButton>
       </div>
     </section>
   )

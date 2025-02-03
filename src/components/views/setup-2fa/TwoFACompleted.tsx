@@ -12,7 +12,7 @@ import Typography from "@/components/atoms/Typography"
 const TwoFACompleted: FC = () => {
   const router = useRouter()
   return (
-    <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col items-center gap-10">
+    <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col items-center gap-10">
       <Image src={check} height={120} width={120} alt="completed checl icon" />
       <header className="text-center">
         <Typography as="h2" className="text-bold-2xl sm:text-bold-4xl mb-3">
@@ -22,7 +22,10 @@ const TwoFACompleted: FC = () => {
           You have successfully registered a 2FA method for authentication.
         </Typography>
       </header>
-      <Button className="w-full" onClick={() => router.push(ROUTES.LOGIN)}>
+      <Button
+        className="w-full py-4.5"
+        onClick={() => router.push(ROUTES.LOGIN)}
+      >
         Proceed to Login
       </Button>
     </main>

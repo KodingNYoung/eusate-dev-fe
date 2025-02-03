@@ -16,6 +16,7 @@ export const ROUTES = {
   SETTINGS: "/settings",
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
+  RESOURCE: "/knowledge-base/resource",
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
 }
@@ -28,6 +29,21 @@ export const COOKIES_KEYS = {
   TWOFA_AUTH_CRED: "@2fa-auth-credentials",
 } as const
 
+export const STORAGE_KEYS = {} as const
+
 export const ERROR_CAUSES = {
   SESSION_EXPIRED: "SESSION_EXPIRED",
+} as const
+
+export const TEXT_ALIGN_TO_FLEX_MAP = {
+  center: "justify-center",
+  left: "justify-start",
+  right: "justify-end",
+  char: "justify-start",
+  justify: "justify-start",
+} as const
+
+export const SHOW_FOR = {
+  MOBILE_ONLY: "mobile-only",
+  NOT_MOBILE: "not-mobile",
 } as const

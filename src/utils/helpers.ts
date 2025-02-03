@@ -53,7 +53,7 @@ export const extractZodErrors = (err: ZodError) => {
       const field = curr.path[0]
       return { ...err, [field]: curr.message }
     },
-    {} as { [field: string]: string }
+    {} as Record<string, string>
   )
 }
 
@@ -65,4 +65,55 @@ export const getFormdataFromFormRef = (formRef: RefObject<HTMLFormElement>) => {
 
 export const copy = (text: string) => {
   navigator.clipboard.writeText(text)
+}
+
+export const byteToKb = (bytes: number) => {
+  return bytes / 1024
+}
+
+export const byteToMb = (bytes: number) => {
+  return bytes / (1024 * 1024)
+}
+
+export const byteToGb = (bytes: number) => {
+  return bytes / (1024 * 1024 * 1024)
+}
+
+export const kbToByte = (mb: number) => {
+  return mb * 1024
+}
+export const mbToByte = (mb: number) => {
+  return mb * 1024 * 1024
+}
+export const gbToByte = (mb: number) => {
+  return mb * 1024 * 1024 * 1024
+}
+
+export const formatFileSize = (bytes: number) => {
+  if (bytes < 1024) {
+    return `${bytes}B`
+  } else if (bytes < 1024 * 1024) {
+    return `${byteToKb(bytes).toFixed(2)}KB`
+  } else if (bytes < 1024 * 1024 * 1024) {
+    return `${byteToMb(bytes).toFixed(2)}MB`
+  } else {
+    return `${byteToGb(bytes).toFixed(2)}GB`
+  }
+}
+
+export const chunkFile = (file: File, chunkSizeInByte: number) => {
+  const chunks = []
+  let offset = 0
+
+  while (offset < file.size) {
+    const chunk = file.slice(offset, offset + chunkSizeInByte)
+    const chunkFile = new File([chunk], file.name, {
+      type: file.type,
+      lastModified: file.lastModified,
+    })
+    chunks.push(chunkFile)
+    offset += chunkSizeInByte
+  }
+
+  return chunks
 }

@@ -14,17 +14,17 @@ import MethodRadio from "./_components/MethodRadio"
 const Setup2FAForm: FC = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
-  const { errors, touched, hasErrors, validate, markFieldTouched } =
-    useValidation(setup2faPayloadSchema, formRef)
+  const { errors, hasErrors, markFieldTouched } = useValidation(
+    setup2faPayloadSchema,
+    formRef
+  )
   const [state, action] = useFormState<FormState, FormData>(setup2fa, {})
 
   useFormToast(state)
 
   //   functions
   const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name
-    markFieldTouched(name)
-    validate(name)
+    markFieldTouched(e.target.name)
   }
 
   return (
@@ -50,7 +50,7 @@ const Setup2FAForm: FC = () => {
       {hasErrors && (
         <HelperText isError={hasErrors}>{errors.method}</HelperText>
       )}
-      <SubmitButton className="mt-5" disabled={!touched.method || hasErrors}>
+      <SubmitButton className="mt-5" disabled={hasErrors}>
         Proceed
       </SubmitButton>
     </form>

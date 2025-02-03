@@ -47,7 +47,6 @@ export const setupAccount = async (
 
     return successResponse("Company info saved.", route)
   } catch (err) {
-    console.log(err)
     return errorResponse(
       {
         type: "request",

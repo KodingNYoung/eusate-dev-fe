@@ -24,7 +24,7 @@ export const signupPayloadSchema = z.object({
 // 2FA SETUP
 export const setup2faPayloadSchema = z.object({
   method: z.nativeEnum(TwoFAMethods),
-  email: z.string().email("Invalid email").min(1, "This is a required field"),
+  //   email: z.string().email("Invalid email").min(1, "This is a required field"),
 })
 
 // SEND CODE

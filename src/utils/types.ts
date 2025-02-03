@@ -1,5 +1,7 @@
-import { HTMLProps, PropsWithChildren, ReactElement } from "react"
-import { TwoFAMethods } from "./enums"
+import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
+import { KnowledgeSourceTags, TwoFAMethods } from "./enums"
+import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
+import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -112,6 +114,16 @@ export type FormState<SP = unknown, EP = unknown> =
           payload?: EP
         }
     )
+export type JSONValue =
+  | null
+  | boolean
+  | number
+  | string
+  | JSONValue[]
+  | { [key: string]: JSONValue }
+
+export type StorageKeys = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS]
+export type CookieKeys = (typeof COOKIES_KEYS)[keyof typeof COOKIES_KEYS]
 
 export type SessionPayload = {
   refreshToken?: string
@@ -124,4 +136,38 @@ export type SessionPayload = {
   twofaMethod?: TwoFAMethods | null
   expiresAt?: Date
   shouldOnboard?: boolean
+}
+
+export type TableColumn<T = unknown> = {
+  id: string | number
+  title: ReactNode
+  align?: "left" | "center" | "right" | "char" | "justify"
+  render: (row: T) => ReactNode | null
+  classNames?: {
+    cell?: TWClassNames
+    th?: TWClassNames
+    td?: TWClassNames
+  }
+  tooltip?: Omit<TableHeadTooltip, "icon">
+  showFor?: (typeof SHOW_FOR)[keyof typeof SHOW_FOR]
+  clickable?: boolean
+}
+
+export type KnowledgeSource = {
+  id: string
+  organisation_id: string
+  title: string
+  published: boolean
+  external: boolean
+  tag: KnowledgeSourceTags
+  file: string
+  language: string
+  date_created: string
+  date_updated: string
+  link: string | null
+  question: string
+  answer: string
+  origin: string | null
+  extension: string | null
+  content?: string
 }

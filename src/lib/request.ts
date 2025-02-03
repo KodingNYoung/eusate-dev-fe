@@ -2,8 +2,8 @@
 
 import { getSession } from "@/lib/sessions"
 import { API_BASEURL } from "@/utils/constants"
+import axios, { AxiosError, AxiosRequestConfig } from "axios"
 import { cache } from "react"
-import { refreshAccessToken } from "./data/auth"
 
 type FetcherOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
@@ -18,33 +18,27 @@ type NextFetchRequestConfig = {
 }
 
 const requestHandler = cache(
-  async (
-    endpoint: string,
-    payload?: unknown,
-    options: FetcherOptions = {}
-  ): Promise<Response> => {
+  async (endpoint: string, payload?: unknown, options: FetcherOptions = {}) => {
     if (!API_BASEURL) {
       throw new Error("API URL is not defined")
     }
 
     const { method = "GET", headers = {} } = options
 
-    const requestOptions: RequestInit & { next?: NextFetchRequestConfig } = {
+    const requestOptions: AxiosRequestConfig = {
+      url: API_BASEURL + endpoint,
       method,
       headers: {
         "Content-Type": "application/json",
         ...headers,
       },
-    }
-
-    if (payload) {
-      requestOptions.body = JSON.stringify(payload)
+      data: payload,
     }
 
     try {
-      return await fetch(`${API_BASEURL}/${endpoint}`, requestOptions)
-    } catch (error) {
-      throw error
+      return await axios(requestOptions)
+    } catch (err) {
+      throw err
     }
   }
 )
@@ -57,15 +51,19 @@ export const sendRequest = cache(
   ): Promise<T> => {
     try {
       const response = await requestHandler(endpoint, payload, options)
-      const result = await response.json()
 
-      if (!response.ok) {
-        throw new Error(result.detail)
+      if (response.status < 200 && response.status >= 300) {
+        throw new Error(response.data.detail)
       }
 
-      return result as T
-    } catch (error) {
-      throw error
+      return response.data as T
+    } catch (err) {
+      console.log({ err })
+      throw err instanceof AxiosError && err.isAxiosError
+        ? new Error(
+            err.response?.data.detail || "An unexpected error occurred."
+          )
+        : err
     }
   }
 )
@@ -90,29 +88,30 @@ export const sendAuthRequest = cache(
           Authorization: `Bearer ${session?.accessToken}`,
         },
       })
-
       if (response.status === 401) {
         // refresh access token
-        const refresh = await refreshAccessToken()
+        // const refresh = await refreshAccessToken()
+        const refreshResponse = await axios.post("/api/auth/refresh-token")
+        const refreshData = await refreshResponse.data
 
         // if success resend request
-        if (refresh.success) {
+        if (refreshData.success) {
           return sendAuthRequest<T>(endpoint, payload, options)
         } else {
           return { shouldAuthenticate: true }
         }
       } else if (response.status === 500) {
         throw new Error("Something went wrong.")
-      } else {
-        const result = await response.json()
-
-        if (!response.ok) {
-          throw new Error(result.detail)
-        }
-
-        return result as T
       }
+
+      return response.data as T
     } catch (err) {
+      console.log(err)
+      if (err instanceof AxiosError) {
+        const message =
+          err?.response?.data?.detail || "An unexpected error occurred."
+        throw Error(message)
+      }
       throw err
     }
   }

@@ -5,7 +5,7 @@ import { cls } from "@/utils/helpers"
 
 type BadgeType = "filled" | "outline" | "accent"
 type Sizes = "sm" | "md" | "lg"
-type Color =
+export type BadgeColor =
   | "primary"
   | "info"
   | "warning"
@@ -13,10 +13,10 @@ type Color =
   | "error"
   | "neutral"
   | "disabled"
-type Variants = `${BadgeType}-${Color}`
+type Variants = `${BadgeType}-${BadgeColor}`
 type Props = {
   type?: BadgeType
-  color?: Color
+  color?: BadgeColor
   size?: Sizes
 }
 
@@ -26,20 +26,22 @@ const typoVariants: { [size in Sizes]: TypographyVariants } = {
   lg: "medium-sm",
 }
 const badgeVariants: { [variant in Variants]?: TWClassNames } = {
-  "filled-primary": "text-white-100 bg-gold-500",
-  "filled-info": "text-white-100 bg-info-700",
-  "filled-success": "text-white-100 bg-success-500",
-  "filled-warning": "text-white-100 bg-warning-500",
-  "filled-error": "text-white-100 bg-error-500",
-  "filled-neutral": "text-white-100 bg-gray-900",
+  "filled-primary": "text-white bg-gold-500",
+  "filled-info": "text-white bg-info-700",
+  "filled-success": "text-white bg-success-500",
+  "filled-warning": "text-white bg-warning-500",
+  "filled-error": "text-white bg-error-500",
+  "filled-neutral": "text-white bg-gray-900",
   "filled-disabled": "text-gray-100 bg-gray-400",
-  "accent-primary": "text-gold-700 bg-gold-50",
-  "accent-info": "text-info-700 bg-info-100",
-  "accent-success": "text-success-700 bg-success-100",
-  "accent-warning": "text-warning-700 bg-warning-100",
-  "accent-error": "text-error-700 bg-error-100",
-  "accent-neutral": "text-gray-700 bg-gray-100",
-  "accent-disabled": "text-gray-700 bg-gray-200",
+
+  "accent-primary": "text-gold-700 bg-gold-50 border border-gold-700",
+  "accent-info": "text-info-700 bg-info-50 border border-info-500",
+  "accent-success": "text-success-700 bg-success-50 border border-success-700",
+  "accent-warning": "text-warning-700 bg-warning-50 border border-warning-500",
+  "accent-error": "text-error-700 bg-error-50 border border-error-700",
+  "accent-neutral": "text-gray-700 bg-gray-50 border border-gray-700",
+  "accent-disabled": "text-gray-400 bg-gray-100 border border-gray-400",
+
   "outline-primary": "text-gold-700 border border-gold-700",
   "outline-info": "text-info-700 border border-info-700",
   "outline-success": "text-success-700 border border-success-700",
