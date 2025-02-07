@@ -27,7 +27,13 @@ export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
   id: PopupKeys
 }
 
-const AppModal: FC<AppModalProps> = ({ children, classNames, header, id }) => {
+const AppModal: FC<AppModalProps> = ({
+  children,
+  classNames,
+  header,
+  id,
+  ...props
+}) => {
   const { isOpen, close } = useModal(id)
 
   return (
@@ -38,7 +44,7 @@ const AppModal: FC<AppModalProps> = ({ children, classNames, header, id }) => {
       classNames={{
         backdrop: cls("bg-black-50", classNames?.backdrop),
         base: cls("shadow-none", classNames?.base),
-        closeButton: cls("mt-5 mr-6", classNames?.closeButton),
+        closeButton: cls("mt-5 mr-5 top-0 end-0", classNames?.closeButton),
         header: cls(
           "flex items-center justify-between p-5 border-b border-gray-50",
           classNames?.backdrop
@@ -58,6 +64,7 @@ const AppModal: FC<AppModalProps> = ({ children, classNames, header, id }) => {
           }
         />
       }
+      {...props}
     >
       <ModalContent>
         {header && (

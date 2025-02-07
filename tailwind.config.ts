@@ -209,6 +209,7 @@ const config = {
         "0px 6px 16px 0px rgba(16, 25, 40, 0.08), 0px 0px 0px 1px rgba(16, 25, 40, 0.05)",
       "hard-medium":
         "0px 16px 24px -6px rgba(16, 25, 40, 0.08), 0px 0px 3px -1px rgba(16, 25, 40, 0.04), 0px 0px 0px 1px rgba(16, 25, 40, 0.05)",
+      "chat": "inset 0px -76px 33px -39px rgba(255,255,255,1)",
     },
     blur: {
       none: "",

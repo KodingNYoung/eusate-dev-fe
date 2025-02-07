@@ -26,7 +26,7 @@ export const useStorage = <T = unknown>(
         options.storage.removeItem(key)
       }
     },
-    [_value, key]
+    [_value, key, options.fallback, options.storage]
   )
 
   const refetch = useCallback(() => {
@@ -45,7 +45,7 @@ export const useStorage = <T = unknown>(
 
   useEffect(() => {
     refetch()
-  }, [key, options.fallback])
+  }, [key, options.fallback, refetch])
 
   return useMemo(
     () => ({
@@ -73,7 +73,7 @@ export function useCookie<T>(key: CookieKeys, fallback?: T) {
         CookieStorage.unset(key)
       }
     },
-    [key]
+    [key, fallback, _data]
   )
 
   const refetch = useCallback(() => {
@@ -93,7 +93,7 @@ export function useCookie<T>(key: CookieKeys, fallback?: T) {
 
   useEffect(() => {
     refetch()
-  }, [fallback, key])
+  }, [fallback, key, refetch])
 
   return useMemo(() => ({ data: _data, set, refetch }), [_data, set, refetch])
 }

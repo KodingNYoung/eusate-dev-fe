@@ -19,12 +19,13 @@ type Props = Omit<PopoverProps, "children"> & {
 const AppPopover: FC<Props> = ({
   children,
   trigger,
+  placement,
   classNames: { triggerContainer, ...classNames } = {},
   ...props
 }) => {
   return (
     <Popover
-      placement="bottom-end"
+      placement={placement || "bottom-end"}
       classNames={{
         ...classNames,
         content: cls(

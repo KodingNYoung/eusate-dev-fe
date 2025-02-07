@@ -25,7 +25,7 @@ const SubmitButton: FC<Props> = ({
       disabled={pending || disabled || loading}
       classNames={{
         root: cls("py-4.5", classNames?.root),
-        label: cls("", classNames?.label),
+        label: cls(classNames?.label),
       }}
       {...props}
     >

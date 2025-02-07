@@ -7,7 +7,7 @@
   html {
     /*noinspection CssUnresolvedCustomProperty*/
     font-size: 16px;
-    @apply scroll-smooth antialiased text-black-100;
+    @apply scroll-smooth antialiased text-black-100 !bg-black;
   }
   body {
     @apply min-h-screen;

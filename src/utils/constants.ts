@@ -1,3 +1,5 @@
+import { AiTones, ResourceSources } from "./enums"
+
 export const API_BASEURL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT_URL
 
 export const ROUTES = {
@@ -47,3 +49,15 @@ export const SHOW_FOR = {
   MOBILE_ONLY: "mobile-only",
   NOT_MOBILE: "not-mobile",
 } as const
+
+export const RESOURCE_SOURCES = [
+  { key: ResourceSources.ALL, label: "All sources" },
+  { key: ResourceSources.INTERNAL, label: "Internal only" },
+  { key: ResourceSources.EXTERNAL, label: "External only" },
+]
+
+export const AI_TONES = [
+  { key: AiTones.NORMAL, label: "Normal tone" },
+  { key: AiTones.PROFESSIONAL, label: "Professional tone" },
+  { key: AiTones.FRIENDLY, label: "Friendly tone" },
+]
