@@ -9,12 +9,12 @@ type Props = Omit<HTMLProps<HTMLButtonElement>, "type"> & {
 
 const CopyButton: FC<Props> = ({ children, className, text, ...props }) => {
   const [tooltip, setTooltip] = useState(false)
-
   return (
     <Tooltip
+      isOpen={tooltip}
       content="Copied"
-      classNames={{ tooltip: "rounded-lg p-1.5 text-gray-100" }}
-      visible={tooltip}
+      trigger="click"
+      classNames={{ content: "rounded-lg p-1.5 text-gray-100" }}
     >
       <button
         className={className}

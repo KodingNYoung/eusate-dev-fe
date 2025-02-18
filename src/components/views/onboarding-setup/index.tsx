@@ -4,12 +4,16 @@ import React from "react"
 import SetupForm from "./SetupForm"
 import ToastContextProvider from "@/providers/toastProviders"
 
-const OnboardingSetup: FC = () => {
+type Props = {
+  orgName?: string
+}
+
+const OnboardingSetup: FC<Props> = ({ orgName }) => {
   return (
     <ToastContextProvider>
-      <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col">
+      <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col">
         <AuthHeader
-          title="Let know more about Eusate"
+          title={`Let's know more about ${orgName}`}
           subtitle="Tell us more about your business to help us personalize your experience."
           toast
         />

@@ -10,8 +10,6 @@ const PUBLIC_ROUTES: string[] = [
   ROUTES.TWOFA_SETUP,
   ROUTES.TWOFA_METHOD,
   ROUTES.TWOFA_COMPLETED,
-  ROUTES.ONOBOARDING_SETUP,
-  "/component-test",
 ]
 
 const middleware = async (request: NextRequest) => {
@@ -24,6 +22,7 @@ const middleware = async (request: NextRequest) => {
 
   // if route is protected && refresh token is invalid || token is not verified, redirect to login
   if (isPrivateRoute && (!session?.refreshToken || !session.tokenVerified)) {
+    // TODO: This should redirect to the url for the session expired modal
     return NextResponse.redirect(new URL(ROUTES.LOGIN, request.nextUrl))
   }
 

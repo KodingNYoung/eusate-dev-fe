@@ -7,7 +7,7 @@ import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { onboardingSetupPayloadSchema } from "@/lib/schemas/auth"
 import { FC, FormState } from "@/utils/types"
 import { useRouter } from "next/navigation"
-import React, { ChangeEvent, FocusEvent, useEffect, useRef } from "react"
+import React, { ChangeEvent, useEffect, useRef } from "react"
 import { useFormState } from "react-dom"
 
 const SetupForm: FC = () => {
@@ -15,17 +15,17 @@ const SetupForm: FC = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
   const [state, action] = useFormState<FormState, FormData>(setupAccount, {})
-  const { errors, touched, hasErrors, validate, markFieldTouched } =
-    useValidation(onboardingSetupPayloadSchema, formRef)
+  const { errors, hasErrors, markFieldTouched } = useValidation(
+    onboardingSetupPayloadSchema,
+    formRef
+  )
 
   useFormToast(state, true)
 
   //   functions
   const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (touched[e.target.name]) validate(e.target.name)
-  }
-  const onBlur = (e: FocusEvent<HTMLInputElement>) =>
     markFieldTouched(e.target.name)
+  }
 
   useEffect(() => {
     if ("success" in state) {
@@ -42,7 +42,6 @@ const SetupForm: FC = () => {
         isError={!!errors?.company_size}
         helperText={errors?.company_size}
         onChange={onFieldChange}
-        onBlur={onBlur}
       />
       <Input
         name="sector"
@@ -51,7 +50,6 @@ const SetupForm: FC = () => {
         isError={!!errors?.sector}
         helperText={errors?.sector}
         onChange={onFieldChange}
-        onBlur={onBlur}
       />
       <Input
         name="use_case"
@@ -60,17 +58,8 @@ const SetupForm: FC = () => {
         isError={!!errors?.use_case}
         helperText={errors?.use_case}
         onChange={onFieldChange}
-        onBlur={onBlur}
       />
-      <SubmitButton
-        className="mt-5"
-        disabled={
-          !touched.company_size ||
-          !touched.sector ||
-          !touched.use_case ||
-          hasErrors
-        }
-      >
+      <SubmitButton className="mt-5" disabled={hasErrors}>
         Proceed
       </SubmitButton>
     </form>

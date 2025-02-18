@@ -2,7 +2,7 @@
 
 import { SessionPayload } from "@/utils/types"
 import { sendRequest } from "../request"
-import { createSession, getSession } from "../sessions"
+import { getSession, updateSession } from "../sessions"
 
 type RefreshAccessTokenResponse = {
   access: string
@@ -16,7 +16,7 @@ export const refreshAccessToken = async () => {
       { refresh: session?.refreshToken },
       { method: "POST" }
     )
-    await createSession({
+    await updateSession({
       ...session,
       accessToken: res.access,
     } as SessionPayload)

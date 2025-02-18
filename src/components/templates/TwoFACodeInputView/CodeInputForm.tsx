@@ -19,7 +19,7 @@ const CodeInputForm: FC<Props> = ({ submitAction }) => {
 
   const formRef = useRef<HTMLFormElement>(null)
 
-  const { touched, hasErrors, markFieldTouched } = useValidation(
+  const { hasErrors, markFieldTouched } = useValidation(
     sendCodePayloadSchema,
     formRef
   )
@@ -30,7 +30,7 @@ const CodeInputForm: FC<Props> = ({ submitAction }) => {
   //   functions
   const onCodeChange = (code: string) => {
     setOtp(code)
-    setTimeout(() => markFieldTouched("code"), 10)
+    markFieldTouched("code")
   }
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const CodeInputForm: FC<Props> = ({ submitAction }) => {
     <form className="py-10 flex flex-col gap-10" action={action} ref={formRef}>
       <input name="code" value={otp} readOnly hidden />
       <OtpInput label="Enter 2FA code" onChange={onCodeChange} />
-      <SubmitButton size="xl" disabled={!touched.code || hasErrors}>
+      <SubmitButton size="xl" disabled={hasErrors}>
         Verify 2FA code
       </SubmitButton>
     </form>

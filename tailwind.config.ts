@@ -1,13 +1,17 @@
+import { nextui } from "@nextui-org/react"
 import type { Config } from "tailwindcss"
+import defaultTheme from "tailwindcss/defaultTheme"
 
-const config: Config = {
+const config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/providers/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    ...defaultTheme,
     fontFamily: {
       app: ["var(--font-app)"],
     },
@@ -183,8 +187,8 @@ const config: Config = {
       },
       transparent: "transparent",
     },
-
     boxShadow: {
+      "none": "0 0 #0000",
       "soft-xxsmall": "0px 1.5px 4px -1px rgba(16, 25, 40, 0.07)",
       "soft-xsmall":
         "0px 5px 13px -5px rgba(16, 25, 40, 0.05), 0px 2px 4px -1px rgba(16, 25, 40, 0.02)",
@@ -205,6 +209,7 @@ const config: Config = {
         "0px 6px 16px 0px rgba(16, 25, 40, 0.08), 0px 0px 0px 1px rgba(16, 25, 40, 0.05)",
       "hard-medium":
         "0px 16px 24px -6px rgba(16, 25, 40, 0.08), 0px 0px 3px -1px rgba(16, 25, 40, 0.04), 0px 0px 0px 1px rgba(16, 25, 40, 0.05)",
+      "chat": "inset 0px -76px 33px -39px rgba(255,255,255,1)",
     },
     blur: {
       none: "",
@@ -213,6 +218,14 @@ const config: Config = {
       medium: "4px",
       large: "8px",
       xlarge: "10px",
+    },
+    screens: {
+      "xs": { max: "639px" },
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px",
     },
     extend: {
       padding: {
@@ -356,6 +369,62 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [
+    nextui({
+      addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
+      defaultTheme: "light", // default theme from the themes object
+      themes: {
+        light: {
+          colors: {
+            danger: {
+              50: "#FEECEB",
+              100: "#FAC5C1",
+              200: "#F8A9A3",
+              300: "#F5827A",
+              400: "#F36960",
+              500: "#F04438",
+              600: "#DA3E33",
+              700: "#AA3028",
+              800: "#84251F",
+              900: "#651D18",
+            },
+            warning: {
+              50: "#FEF4E6",
+              100: "#FDDDB3",
+              200: "#FBCC8E",
+              300: "#FAB55A",
+              400: "#F9A63A",
+              500: "#F79009",
+              600: "#E18308",
+              700: "#AF6606",
+              800: "#884F05",
+              900: "#683C04",
+            },
+            success: {
+              50: "#E7F8F0",
+              100: "#B6E9D1",
+              200: "#92DEBA",
+              300: "#60CF9B",
+              400: "#41C588",
+              500: "#12B76A",
+              600: "#10A760",
+              700: "#0D824B",
+              800: "#0A653A",
+              900: "#084D2D",
+            },
+          },
+        },
+      },
+    }),
+  ],
+} satisfies Config & {
+  theme: Omit<typeof defaultTheme, "screens"> & {
+    screens: Record<
+      "xs" | "sm" | "md" | "lg" | "xl" | "2xl",
+      { min?: string; max?: string } | string
+    >
+  }
 }
+
 export default config

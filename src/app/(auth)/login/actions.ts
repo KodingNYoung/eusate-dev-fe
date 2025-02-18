@@ -72,9 +72,9 @@ export const finalizeLogin = async (
   const { code } = Object.fromEntries(formdata)
   let route,
     message = "Login successful"
-  const session = await getSession()
 
   try {
+    const session = await getSession()
     const response = await sendAuthRequest<FinalizeLoginResponse>(
       "/api/v1/auth/twofa/verify/",
       { code },

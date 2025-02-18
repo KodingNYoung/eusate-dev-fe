@@ -7,7 +7,7 @@ import ToastContextProvider from "@/providers/toastProviders"
 const Setup2FA: FC = () => {
   return (
     <ToastContextProvider>
-      <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col">
+      <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col">
         <AuthHeader
           toast
           title="Set up 2FA"

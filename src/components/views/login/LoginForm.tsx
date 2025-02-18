@@ -12,8 +12,10 @@ import { useFormState } from "react-dom"
 const LoginForm = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
-  const { errors, touched, hasErrors, validate, markFieldTouched } =
-    useValidation(initiateLoginPayloadSchema, formRef)
+  const { errors, hasErrors, markFieldTouched } = useValidation(
+    initiateLoginPayloadSchema,
+    formRef
+  )
   const [state, action] = useFormState<FormState, FormData>(initiateLogin, {})
 
   useFormToast(state)
@@ -27,11 +29,10 @@ const LoginForm = () => {
         isError={!!errors?.email}
         helperText={errors?.email}
         onChange={(e) => {
-          validate(e.currentTarget.name)
+          markFieldTouched(e.currentTarget.name)
         }}
-        onBlur={(e) => markFieldTouched(e.currentTarget.name)}
       />
-      <SubmitButton className="mt-5" disabled={hasErrors || !touched.email}>
+      <SubmitButton className="mt-5" disabled={hasErrors}>
         Proceed
       </SubmitButton>
     </form>
