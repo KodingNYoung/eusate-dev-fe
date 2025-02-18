@@ -49,7 +49,7 @@ export const useQueryParams = () => {
       })
       router.replace("?" + url.toString())
     },
-    [searchParams]
+    [searchParams, router]
   )
 
   return useMemo(

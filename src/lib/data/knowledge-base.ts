@@ -124,5 +124,3 @@ export const getProcesses = async () => {
   //   revalidatePath(ROUTES.KNOWLEDGE_BASE)
   return response
 }
-
-export const getClientSession = async () => await getSession()

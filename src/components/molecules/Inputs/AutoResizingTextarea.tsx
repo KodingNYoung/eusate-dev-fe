@@ -16,7 +16,7 @@ const AutoResizingTextarea: FC<Props> = ({
       classNames={{
         ...classNames,
         inputWrapper: [
-          "bg-transparent data-[hover=true]:bg-transparent group-data-[focus=true]:bg-transparent p-0",
+          "bg-white data-[hover=true]:bg-white group-data-[focus=true]:bg-white rounded-x20 transition-colors duration-500",
           classNames?.inputWrapper,
         ],
         input: [

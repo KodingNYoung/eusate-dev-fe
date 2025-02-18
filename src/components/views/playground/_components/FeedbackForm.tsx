@@ -1,38 +1,74 @@
+"use client"
 import { FC } from "@/utils/types"
-import React from "react"
-import { FEEDBACK_SUGGESTIONS, FeedbackType } from "../utils"
+import React, { useEffect, useState } from "react"
+import { FEEDBACK_SUGGESTIONS, FeedbackKind } from "../utils"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
+import { useFormState } from "react-dom"
+import { sendResponseFeedback } from "@/app/(dashboard)/playground/actions"
+import Toast from "@/components/organisms/Toast"
+import { useFormToast } from "@/hooks/formHooks"
+import { useModal } from "@/hooks/popupHooks"
+import { usePlayground } from "@/hooks/playground"
 
 type Props = {
-  feedbackType: FeedbackType
+  kind: FeedbackKind
 }
 
-const FeedbackForm: FC<Props> = ({ feedbackType }) => {
-  const isLike = feedbackType === FeedbackType.LIKE
+const FeedbackForm: FC<Props> = ({ kind }) => {
+  const liked = kind === FeedbackKind.LIKE
+
+  const { close } = useModal()
+  const { selectedResponseId } = usePlayground()
+  const [state, action] = useFormState(sendResponseFeedback, {})
+
+  const [feedback, setFeedback] = useState("")
+
+  useFormToast(state)
+
+  useEffect(() => {
+    if ("success" in state) {
+      close()
+    }
+  }, [state])
+
   return (
-    <form>
+    <form action={action}>
+      <Toast />
+      <input
+        hidden
+        type="checkbox"
+        readOnly
+        name="liked"
+        value="true"
+        checked={liked}
+      />
+      <input name="responseId" value={selectedResponseId} hidden readOnly />
       <main className="p-5 grid gap-5">
         <div className="grid gap-8">
           <Typography className="text-bold-xl text-gray-900">
-            What led you to give us a thumbs {isLike ? "up" : "down"}
+            What led you to give us a thumbs {liked ? "up" : "down"}
           </Typography>
           <div className="flex flex-wrap gap-4 items-center">
-            {FEEDBACK_SUGGESTIONS[feedbackType].map((suggestion, idx) => (
+            {FEEDBACK_SUGGESTIONS[kind].map((suggestion, idx) => (
               <Button
                 variant="tetiary"
                 size="sm"
                 classNames={{ root: "px-3 py-1.5 rounded-lg" }}
                 key={idx}
+                onClick={() => setFeedback(suggestion)}
               >
                 {suggestion}
               </Button>
             ))}
           </div>
           <input
+            name="feedback"
             className="border border-gray-50 bg-gray-25 rounded-x20 px-6 py-4 outline-none text-medium-lg placeholder:text-gray-300"
             placeholder="Leave additional feedback..."
+            value={feedback}
+            onChange={(e) => setFeedback(e.currentTarget.value)}
           />
         </div>
         <Typography className="text-gray-400 text-medium-xs">

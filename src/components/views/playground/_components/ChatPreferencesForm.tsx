@@ -5,10 +5,11 @@ import { AI_TONES, RESOURCE_SOURCES } from "@/utils/constants"
 import { FC, PlaygroundSettings } from "@/utils/types"
 import React, { useState } from "react"
 import { PREFERENCES_DEFAULT_VALUES } from "../utils"
-import { SettingsKey, usePlayground } from "@/providers/playgroundProvider"
+import { SettingsKey } from "@/providers/playgroundProvider"
 import { AiTones, ResourceSources } from "@/utils/enums"
 import { useModal } from "@/hooks/popupHooks"
 import AppSelect from "@/components/molecules/AppSelect"
+import { usePlayground } from "@/hooks/playground"
 
 const ChatPreferencesForm: FC = () => {
   const { settings, setPreferences: setPreferencesState } = usePlayground()
@@ -81,12 +82,12 @@ const ChatPreferencesForm: FC = () => {
             minValue={0}
             maxValue={1}
             step={0.01}
-            defaultValue={settings.topP}
-            value={preferences.topP}
+            defaultValue={settings.top_p}
+            value={preferences.top_p}
             onChange={(value) =>
-              handlePreferencesChange("topP", value as number)
+              handlePreferencesChange("top_p", value as number)
             }
-            name="topP"
+            name="top_p"
           />
         </div>
       </main>
@@ -111,7 +112,7 @@ const ChatPreferencesForm: FC = () => {
               source: formdata.get("source") as ResourceSources,
               tone: formdata.get("tone") as AiTones,
               temperature: Number(formdata.get("temperature")) as number,
-              topP: Number(formdata.get("topP")) as number,
+              top_p: Number(formdata.get("top_p")) as number,
             })
             close()
           }}

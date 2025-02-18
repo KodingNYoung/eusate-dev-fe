@@ -35,7 +35,6 @@ export enum PopupModes {
 }
 
 export enum ResourceSources {
-  ALL = "all",
   EXTERNAL = "external",
   INTERNAL = "internal",
 }

@@ -1,9 +1,6 @@
 "use client"
 
-import {
-  //  getClientSession,
-  getProcesses,
-} from "@/lib/data/knowledge-base"
+import { getProcesses } from "@/lib/data/knowledge-base"
 import { useToast } from "@/providers/toastProviders"
 import { useQuery } from "@tanstack/react-query"
 // import { useEffect, useRef } from "react"
@@ -33,7 +30,6 @@ export const useProcessWithSocket = () => {
   //     fetchSession()
   //     ;(async () => {
   //       if (socket.current) return
-  //       const session = await getClientSession()
   //       console.log(data)
   //       const _socket = io("http://0.0.0.0:8000/library", {
   //         autoConnect: true,

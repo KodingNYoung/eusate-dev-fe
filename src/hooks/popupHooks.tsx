@@ -81,7 +81,7 @@ export const useModal = (_key?: PopupKeys) => {
 
   return {
     isOpen: _isOpen,
-    close,
+    close: useCallback(close, []),
     open: _open,
   }
 }

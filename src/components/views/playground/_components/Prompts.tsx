@@ -3,7 +3,7 @@
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
-import { usePlayground } from "@/providers/playgroundProvider"
+import { usePlayground } from "@/hooks/playground"
 import { PROMPTS } from "@/utils/dummy"
 import { FC } from "@/utils/types"
 import React from "react"

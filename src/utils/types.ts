@@ -191,7 +191,7 @@ export type UserMessage = DBResource & {
 export type SateMessage = DBResource & {
   liked: null | boolean
   response: string
-  user_feedback: string
+  user_feedback?: string
   user: string
   organisation: string
   playground_chat: string
@@ -203,7 +203,7 @@ export type SateMessage = DBResource & {
 export type PlaygroundSettings = {
   source: ResourceSources
   tone: AiTones
-  topP: number
+  top_p: number
   temperature: number
 }
 

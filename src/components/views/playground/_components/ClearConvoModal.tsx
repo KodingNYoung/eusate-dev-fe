@@ -1,10 +1,21 @@
+import { clearChatWall } from "@/app/(dashboard)/playground/actions"
 import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
+import { useModal } from "@/hooks/popupHooks"
 import { PopupKeys } from "@/utils/enums"
 import { FC } from "@/utils/types"
-import React from "react"
+import React, { useEffect } from "react"
+import { useFormState } from "react-dom"
 
 const ClearConvoModal: FC = () => {
+  const { close } = useModal()
+
+  const [state, action] = useFormState(clearChatWall, {})
+
+  useEffect(() => {
+    if ("success" in state) close()
+  }, [state, close])
+
   return (
     <ConfirmationModal
       modalId={PopupKeys.PLAYGROUND_CLEAR_CONVO_MODAL}
@@ -18,7 +29,7 @@ const ClearConvoModal: FC = () => {
           className="text-warning-500"
         />
       }
-      okAction={() => console.log("hello")}
+      okAction={action}
       okBtnVariant="primary"
       hasCloseBtn={false}
       hideCloseButton

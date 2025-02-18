@@ -1,5 +1,5 @@
 import { Conversation, FC } from "@/utils/types"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import SateResponseBox from "./SateResponseBox"
 import UserMessageBox from "./UserMessageBox"
 
@@ -9,7 +9,15 @@ type Props = {
 }
 
 const MsgPair: FC<Props> = ({ msgs, msgHistoryCode }) => {
-  const [currMsgIdx, setCurrMsgIdx] = useState(() => msgs.length - 1)
+  const [currMsgIdx, setCurrMsgIdx] = useState(msgs.length - 1)
+  const [canGoToLast, setCanGoToLast] = useState(true) // this boolean flag is used to determine if the msg can automatically go to the last one.
+
+  useEffect(() => {
+    if (canGoToLast) {
+      setCurrMsgIdx(msgs.length - 1)
+    }
+  }, [msgs])
+
   return (
     <section className="grid gap-6">
       <UserMessageBox
@@ -22,6 +30,8 @@ const MsgPair: FC<Props> = ({ msgs, msgHistoryCode }) => {
       <SateResponseBox
         responses={msgs[currMsgIdx].sate_responses}
         msgHistoryCode={msgHistoryCode}
+        userMessageText={msgs[currMsgIdx].user_message.message}
+        setCanGoToLast={setCanGoToLast}
       />
     </section>
   )

@@ -1,8 +1,12 @@
-import { FC, UserMessage } from "@/utils/types"
-import React, { useState } from "react"
+import { FC, FormState, UserMessage } from "@/utils/types"
+import React, { useEffect, useState } from "react"
 import EditMsgForm from "./EditMsgForm"
 import UserTextBox from "./UserTextBox"
-import { usePlayground } from "@/providers/playgroundProvider"
+import { usePlayground } from "@/hooks/playground"
+import { useFormState } from "react-dom"
+import { SendMessageResponse } from "@/lib/services/playground"
+import { createMessage } from "@/app/(dashboard)/playground/actions"
+import { EditMessageReturnType } from "@/providers/playgroundProvider"
 
 type Props = {
   msg: UserMessage
@@ -20,7 +24,33 @@ const UserMessageBox: FC<Props> = ({
   msgHistoryCode,
 }) => {
   const [editMode, setEditMode] = useState(false)
-  const { editMessage } = usePlayground()
+  const [ids, setIds] = useState<EditMessageReturnType>()
+
+  const { updateResponse, settings } = usePlayground()
+
+  const [state, action] = useFormState<
+    FormState<SendMessageResponse>,
+    FormData
+  >(async (state, formdata) => {
+    const message = formdata.get("message") as string
+    return await createMessage(state, {
+      message,
+      userMessageId: msg.id,
+      msgHistoryCode: msgHistoryCode,
+      ...settings,
+    })
+  }, {})
+
+  useEffect(() => {
+    if ("success" in state) {
+      updateResponse(
+        state.payload as SendMessageResponse,
+        msgHistoryCode,
+        ids?.userMessage || "",
+        ids?.sateResponse || ""
+      )
+    }
+  }, [state, ids, msgHistoryCode, updateResponse])
 
   return (
     <div className="ml-auto">
@@ -31,10 +61,8 @@ const UserMessageBox: FC<Props> = ({
           closeEdit={() => {
             setEditMode(false)
           }}
-          formAction={(formdata) => {
-            editMessage(formdata)
-            return setEditMode(false)
-          }}
+          formAction={action}
+          setIds={setIds}
         />
       ) : (
         <UserTextBox
