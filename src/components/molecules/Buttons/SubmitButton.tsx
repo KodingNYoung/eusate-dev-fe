@@ -23,9 +23,10 @@ const SubmitButton: FC<Props> = ({
       size="xl"
       loading={(pending && !hideLoader) || loading}
       disabled={pending || disabled || loading}
+      data-loading={loading || pending}
       classNames={{
-        root: cls("py-4.5", classNames?.root),
-        label: cls("", classNames?.label),
+        root: cls("py-4.5 group/button", classNames?.root),
+        label: cls(classNames?.label),
       }}
       {...props}
     >

@@ -22,10 +22,25 @@ export enum PopupKeys {
   TOGGLE_PUBLISH_SOURCE_MODAL = "toggle-publish-source-modal",
   BULK_TOGGLE_PUBLISH_SOURCE_MODAL = "bulk-toggle-publish-source-modal",
   BULK_DELETE_SOURCE_MODAL = "bulk-delete-source-modal",
+  PLAYGROUND_PREFERENCES_MODAL = "playground-preferences-modal",
+  PLAYGROUND_LIKE_MODAL = "playground-like-modal",
+  PLAYGROUND_DISLIKE_MODAL = "playground-dislike-modal",
+  PLAYGROUND_CLEAR_CONVO_MODAL = "playground-clear-convo-modal",
 }
 
 export enum PopupModes {
   ADD = "add",
   EDIT = "edit",
   DELETE = "delete",
+}
+
+export enum ResourceSources {
+  EXTERNAL = "external",
+  INTERNAL = "internal",
+}
+
+export enum AiTones {
+  NORMAL = "normal",
+  PROFESSIONAL = "professional",
+  FRIENDLY = "friendly",
 }

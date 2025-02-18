@@ -1,5 +1,10 @@
 import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
-import { KnowledgeSourceTags, TwoFAMethods } from "./enums"
+import {
+  AiTones,
+  KnowledgeSourceTags,
+  ResourceSources,
+  TwoFAMethods,
+} from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
 import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
 
@@ -153,8 +158,13 @@ export type TableColumn<T = unknown> = {
   clickable?: boolean
 }
 
-export type KnowledgeSource = {
+export type DBResource = {
   id: string
+  date_created: string
+  date_updated: string
+}
+
+export type KnowledgeSource = DBResource & {
   organisation_id: string
   title: string
   published: boolean
@@ -162,12 +172,42 @@ export type KnowledgeSource = {
   tag: KnowledgeSourceTags
   file: string
   language: string
-  date_created: string
-  date_updated: string
   link: string | null
   question: string
   answer: string
   origin: string | null
   extension: string | null
   content?: string
+}
+
+export type UserMessage = DBResource & {
+  message: string
+  message_history_code: string
+  user: string
+  organisation: string
+  playground_chat: string
+}
+
+export type SateMessage = DBResource & {
+  liked: null | boolean
+  response: string
+  user_feedback?: string
+  user: string
+  organisation: string
+  playground_chat: string
+  playground_user_message: string
+  shouldAnimate?: boolean
+  isLoading?: boolean
+}
+
+export type PlaygroundSettings = {
+  source: ResourceSources
+  tone: AiTones
+  top_p: number
+  temperature: number
+}
+
+export type Conversation = {
+  message_history_code: UserMessage["message_history_code"]
+  messages: { user_message: UserMessage; sate_responses: SateMessage[] }[]
 }

@@ -67,6 +67,10 @@ export const copy = (text: string) => {
   navigator.clipboard.writeText(text)
 }
 
+export const copyObject = <T = unknown>(obj: T) => {
+  return JSON.parse(JSON.stringify(obj)) as T
+}
+
 export const byteToKb = (bytes: number) => {
   return bytes / 1024
 }
