@@ -57,11 +57,12 @@ const PAGE_LAYERS: {
     },
     { label: "FAQs", id: 2 },
   ],
+  [ROUTES.DEV_SPACE]: [{ label: "Developer Space", icon: "icon-code", id: 1 }],
 }
 
 const HeaderPagination: FC = () => {
   const pathname = usePathname()
-  const pages = PAGE_LAYERS[pathname]
+  const pages = PAGE_LAYERS[pathname] || []
 
   return (
     <section className="flex items-center gap-2 text-gray-400">

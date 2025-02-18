@@ -21,6 +21,7 @@ export const ROUTES = {
   RESOURCE: "/knowledge-base/resource",
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
+  DEV_SPACE: "/dev-space",
 }
 
 export const EMAIL_REGEX_PATTERNS =
