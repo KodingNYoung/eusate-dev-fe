@@ -50,9 +50,10 @@ const SateResponseBox: FC<Props> = ({
           {response.isLoading ? (
             <ChatLoader className="w-8" />
           ) : (
-            <Typography className="text-medium-base whitespace-break-spaces">
-              {response.response}
-            </Typography>
+            <Typography
+              className="text-medium-base leading-8 [&_ol]:list-decimal [&_ol]:list-inside [&_ul]:list-inside"
+              dangerouslySetInnerHTML={{ __html: response.response }}
+            />
           )}
         </div>
       </div>
