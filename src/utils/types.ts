@@ -7,6 +7,7 @@ import {
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
 import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
+import { AuthLocation, AuthType } from "@/components/views/dev-space/utils"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -210,4 +211,20 @@ export type PlaygroundSettings = {
 export type Conversation = {
   message_history_code: UserMessage["message_history_code"]
   messages: { user_message: UserMessage; sate_responses: SateMessage[] }[]
+}
+
+export type AuthConfig = {
+  login_url: string
+  auth_location: AuthLocation
+  auth_type: AuthType
+  organisation_id?: string
+  /**
+   * "X-API-KEY"| "Authorization" | string
+   */
+  header_name?: string
+  /**
+   * `${string}{token}${string}`| 'Bearer {token}'| 'Basic {token}'| 'ApiKey {token}'
+   */
+  header_value?: string
+  query_name?: string
 }

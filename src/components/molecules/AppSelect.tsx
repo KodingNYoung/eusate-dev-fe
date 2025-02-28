@@ -19,19 +19,23 @@ const AppSelect: FC<Props> = ({ itemProps, items, classNames, ...props }) => {
       listboxProps={{ variant: "light" }}
       classNames={{
         ...classNames,
-        base: ["data-[has-label=true]:mt-0 gap-4", classNames?.base],
         trigger: [
-          "border border-gray-50 data-[hover=true]:border-gray-500",
+          "border border-gray-50 data data-[hover=true]:border-gray-500 px-4",
           classNames?.trigger,
         ],
-        selectorIcon: ["text-black", classNames?.selectorIcon],
-        value: ["!text-semibold-xs", classNames?.value],
+        selectorIcon: ["text-black w-5 h-5", classNames?.selectorIcon],
+        value: [
+          "text-[14px] font-[400] text-gray-900 group-data-[has-value=true]:text-gray-900",
+          classNames?.value,
+        ],
         label: [
-          "text-[14px] font-semibold !text-gray-700 static group-data-[filled=true]:translate-y-0",
+          "text-[14px] font-[500] text-gray-500",
+          "group-data-[filled=true]:text-gray-500",
           classNames?.label,
         ],
       }}
       labelPlacement="outside"
+      //   disallowEmptySelection
       {...props}
     >
       {items.map((item) => {

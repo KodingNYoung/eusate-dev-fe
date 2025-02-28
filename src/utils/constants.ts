@@ -61,3 +61,7 @@ export const AI_TONES = [
   { key: AiTones.PROFESSIONAL, label: "Professional tone" },
   { key: AiTones.FRIENDLY, label: "Friendly tone" },
 ]
+
+export const QUERY_FN_KEYS = {
+  AUTH_CONFIG: ["auth-config"],
+}

@@ -30,7 +30,7 @@ const CodeInputForm: FC<Props> = ({ submitAction }) => {
   //   functions
   const onCodeChange = (code: string) => {
     setOtp(code)
-    markFieldTouched("code")
+    setTimeout(() => markFieldTouched("code"), 50)
   }
 
   useEffect(() => {

@@ -1,32 +1,47 @@
 import { useToast } from "@/providers/toastProviders"
 import { extractZodErrors, getFormdataFromFormRef } from "@/utils/helpers"
 import { FormState } from "@/utils/types"
-import { RefObject, useCallback, useEffect, useState } from "react"
+import { RefObject, useCallback, useEffect, useRef, useState } from "react"
 import { ZodObject, ZodTypeAny } from "zod"
 
 export const useValidation = (
   schema: ZodTypeAny,
   formRef: RefObject<HTMLFormElement>
 ) => {
+  const schemaRef = useRef(schema)
+
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [hasErrors, setHasErrors] = useState(true)
 
+  // TODO: re-evaluate this function and know why it runs twice if used as dependency in useCallbacks and useEffects
   const validate = useCallback(
     (field?: string) => {
+      const schema = schemaRef.current
+
       const formdata = getFormdataFromFormRef(formRef)
 
-      if (!formdata) throw new Error("No form found, pass a form's ref object")
-      if (!(schema instanceof ZodObject))
-        throw new Error("Invalid schema, must be object")
+      if (!formdata) return
+      if (!(schema instanceof ZodObject)) return
 
       const payload = Object.fromEntries(formdata)
 
       const partialSchema = field ? schema.pick({ [field]: true }) : schema
+
       const result = partialSchema.safeParse(payload)
 
-      let newErrors = { ...errors }
+      //   let newErrors = { ...errors }
+      // filter the errors to keep only current field in the schema.
+      let newErrors = Object.keys(errors).reduce(
+        (acc, field) => {
+          if (schema.shape?.[field]) {
+            return { ...acc, [field]: errors[field] }
+          }
+          return acc
+        },
+        {} as typeof errors
+      )
       if (result.success) {
         newErrors = field ? { ...newErrors, [field]: "" } : {}
       } else {
@@ -47,13 +62,14 @@ export const useValidation = (
       setFieldErrors(fieldErrors)
       setErrors(newErrors)
     },
-    [formRef, schema, touched]
+    [formRef, touched, errors, fieldErrors]
   )
 
   const markFieldTouched = useCallback(
     (field: string) => {
       setTouched((curr) => ({ ...curr, [field]: true }))
-      validate(field)
+      //to delay the validation for slow library fields
+      setTimeout(() => validate(field), 1)
     },
     [validate]
   )
@@ -68,15 +84,18 @@ export const useValidation = (
 
     setTouched(fields)
     validate()
-  }, [formRef, validate])
+  }, [formRef.current])
 
+  useEffect(() => {
+    schemaRef.current = schema
+  }, [schema])
   useEffect(() => {
     const form = formRef?.current
     if (!form) return
     form.addEventListener("submit", onSubmit)
     validate()
     return () => form?.removeEventListener("submit", onSubmit)
-  }, [formRef, onSubmit, validate])
+  }, [formRef.current, onSubmit])
 
   return {
     touched,

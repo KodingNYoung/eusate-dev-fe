@@ -9,7 +9,7 @@ import Button, { ButtonProps } from "../molecules/Buttons"
 import SubmitButton from "../molecules/Buttons/SubmitButton"
 import { useModal } from "@/hooks/popupHooks"
 
-type Props = Omit<AppModalProps, "id" | "children"> & {
+type Props = Omit<AppModalProps, "id" | "children" | "content"> & {
   modalId: PopupKeys
   content: ReactNode
   icon?: ReactNode

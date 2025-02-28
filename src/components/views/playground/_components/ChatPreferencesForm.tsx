@@ -42,6 +42,11 @@ const ChatPreferencesForm: FC = () => {
               aria-label="Select a source"
               name="source"
               items={RESOURCE_SOURCES}
+              classNames={{
+                label: "!text-gray-700 group-data-[filled:true]:!text-gray-700",
+                selectorIcon: "w-4 h-4",
+                value: "text-[12px] font-[600]",
+              }}
             />
           </div>
           <div className="border border-gray-50 rounded-lg p-3 flex-1 min-w-[200px] flex flex-col gap-4">
@@ -55,6 +60,11 @@ const ChatPreferencesForm: FC = () => {
               aria-label="Select a tone for the AI"
               name="tone"
               items={AI_TONES}
+              classNames={{
+                label: "!text-gray-700 group-data-[filled:true]:!text-gray-700",
+                selectorIcon: "w-4 h-4",
+                value: "text-[12px] font-[600]",
+              }}
             />
           </div>
         </div>

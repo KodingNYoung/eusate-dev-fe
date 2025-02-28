@@ -22,10 +22,16 @@ export enum PopupKeys {
   TOGGLE_PUBLISH_SOURCE_MODAL = "toggle-publish-source-modal",
   BULK_TOGGLE_PUBLISH_SOURCE_MODAL = "bulk-toggle-publish-source-modal",
   BULK_DELETE_SOURCE_MODAL = "bulk-delete-source-modal",
+  //   PLAYGROUND
   PLAYGROUND_PREFERENCES_MODAL = "playground-preferences-modal",
   PLAYGROUND_LIKE_MODAL = "playground-like-modal",
   PLAYGROUND_DISLIKE_MODAL = "playground-dislike-modal",
   PLAYGROUND_CLEAR_CONVO_MODAL = "playground-clear-convo-modal",
+  //   DEV_SPACE
+  ADD_FUNCTION_MODAL = "add-function-modal",
+  ADD_AUTH_CONFIG_MODAL = "add-auth-config-modal",
+  EDIT_AUTH_CONFIG_MODAL = "edit-auth-config-modal",
+  DELETE_AUTH_CONFIG_MODAL = "delete-auth-config-modal",
 }
 
 export enum PopupModes {
