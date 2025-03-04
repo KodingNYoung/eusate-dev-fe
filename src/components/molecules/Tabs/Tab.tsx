@@ -36,7 +36,9 @@ const AppTab: FC<Props> = ({
       {...props}
     >
       {startContent}
-      <Typography className={cls("text-medium-sm", classNames?.label)}>
+      <Typography
+        className={cls("text-medium-sm !leading-none", classNames?.label)}
+      >
         {label}
       </Typography>
       {endContent}

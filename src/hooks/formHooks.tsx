@@ -31,7 +31,6 @@ export const useValidation = (
 
       const result = partialSchema.safeParse(payload)
 
-      //   let newErrors = { ...errors }
       // filter the errors to keep only current field in the schema.
       let newErrors = Object.keys(errors).reduce(
         (acc, field) => {
@@ -46,6 +45,7 @@ export const useValidation = (
         newErrors = field ? { ...newErrors, [field]: "" } : {}
       } else {
         const errors = extractZodErrors(result.error)
+        console.log(errors)
         newErrors = { ...newErrors, ...errors }
       }
 
@@ -122,4 +122,42 @@ export const useFormToast = (state: FormState, showSuccess?: boolean) => {
   }, [state, showSuccess])
 
   return null
+}
+
+export const useFormSteps = (steps: unknown[], initialStep: number = 0) => {
+  const [activeStep, setActiveStep] = useState(initialStep)
+  const [lastDoneStep, setLastDoneStep] = useState(-1)
+
+  const updateLastDone = useCallback(() => {
+    if (lastDoneStep < activeStep) {
+      setLastDoneStep(activeStep)
+    }
+  }, [lastDoneStep, activeStep])
+
+  const goToStep = (step: number) => setActiveStep(step)
+
+  const goToNextStep = () =>
+    setActiveStep((curr) => (curr < steps.length - 1 ? curr + 1 : curr))
+
+  const goToPrevStep = () =>
+    setActiveStep((curr) => (curr > 0 ? curr - 1 : curr))
+
+  return {
+    activeStep,
+    lastDoneStep,
+    goToStep,
+    goToNextStep,
+    goToPrevStep,
+    updateLastDone,
+  }
+}
+
+export const useFormData = <T = unknown,>(initialData: T) => {
+  const [data, setData] = useState(initialData)
+
+  const handleFieldChange = (name: string, value: unknown) => {
+    setData((curr = {} as T) => ({ ...curr, [name]: value }))
+  }
+
+  return { data, handleFieldChange }
 }

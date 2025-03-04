@@ -17,47 +17,43 @@ const DevSpaceModalStep: FC<Props> = ({
   isDone,
   isActive,
   isLast,
-  children,
   onSelect,
 }) => {
   return (
-    <button
-      type="button"
+    <div
       className={cls(
-        "flex items-center gap-4.5 border  border-gray-100 p-1 pr-4.5 rounded-[100px] relative min-w-[220px]",
-        isActive
-          ? "border-opacity-100 bg-gray-25"
-          : "border-opacity-0 bg-white",
-        !isLast && "mb-8"
+        !isLast &&
+          cls(
+            "max-w-[151px] flex-1 relative after:absolute after:left-1 after:right-0 after:top-1/2 after:h-px",
+            isDone ? "after:bg-black" : "after:bg-gray-50"
+          )
       )}
-      onClick={onSelect}
     >
-      <div
+      <button
         className={cls(
-          "size-10 flex justify-center items-center rounded-full",
-          isActive ? "bg-black" : isDone ? "bg-brand-gradient" : "bg-gray-50"
+          "size-8 flex justify-center items-center rounded-full relative z-1 border",
+          isDone ? "bg-black" : "bg-white ",
+          isActive || isDone
+            ? "border-black"
+            : "border-gray-50 cursor-not-allowed"
         )}
+        onClick={onSelect}
       >
         <Typography
           variant="medium-base"
           className={cls(
             "!leading-none",
-            isActive || isDone ? "text-white" : "text-gray-600"
+            isDone ? "text-white" : isActive ? "text-black" : "text-gray-500"
           )}
         >
-          {isDone ? <Icon name="icon-tick-circle-bold" size={24} /> : sn}
+          {isDone && !isActive ? (
+            <Icon name="icon-tick-circle-bold" size={24} />
+          ) : (
+            sn
+          )}
         </Typography>
-      </div>
-      <Typography
-        variant="semibold-sm"
-        className={cls(isActive || isDone ? "text-gray-900" : "text-gray-300")}
-      >
-        {children}
-      </Typography>
-      {!isLast && (
-        <span className="absolute top-full left-[22px] h-12 border-l border-dashed border-gray-100" />
-      )}
-    </button>
+      </button>
+    </div>
   )
 }
 

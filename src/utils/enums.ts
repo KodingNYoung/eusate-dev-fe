@@ -29,6 +29,8 @@ export enum PopupKeys {
   PLAYGROUND_CLEAR_CONVO_MODAL = "playground-clear-convo-modal",
   //   DEV_SPACE
   ADD_FUNCTION_MODAL = "add-function-modal",
+  EDIT_FUNCTION_MODAL = "edit-function-modal",
+  DELETE_FUNCTION_MODAL = "delete-function-modal",
   ADD_AUTH_CONFIG_MODAL = "add-auth-config-modal",
   EDIT_AUTH_CONFIG_MODAL = "edit-auth-config-modal",
   DELETE_AUTH_CONFIG_MODAL = "delete-auth-config-modal",

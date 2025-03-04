@@ -1,22 +1,22 @@
 "use client"
+
 import { useModal } from "@/hooks/popupHooks"
+import { PopupKeys } from "@/utils/enums"
+import { IconNames } from "@/utils/iconNames"
 import { FC } from "@/utils/types"
+import {
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerProps,
+} from "@nextui-org/react"
 import React from "react"
-import Typography from "../atoms/Typography"
 import Button from "../molecules/Buttons"
 import Icon from "../atoms/Icon"
-import { IconNames } from "@/utils/iconNames"
-import { PopupKeys } from "@/utils/enums"
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalProps,
-} from "@nextui-org/react"
+import Typography from "../atoms/Typography"
 
-export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
-  //   classNames?: { [slot in ModalSlots]?: TWClassNames }
+type Props = Omit<DrawerProps, "isOpen" | "onClose"> & {
   header?: {
     title?: string
     subtitle?: string
@@ -25,7 +25,7 @@ export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
   id: PopupKeys
 }
 
-const AppModal: FC<AppModalProps> = ({
+const AppDrawer: FC<Props> = ({
   children,
   classNames,
   header,
@@ -35,20 +35,20 @@ const AppModal: FC<AppModalProps> = ({
   const { isOpen, close } = useModal(id)
 
   return (
-    <Modal
+    <Drawer
       isOpen={isOpen}
-      placement="center"
+      placement="right"
       onClose={close}
       classNames={{
         ...classNames,
+        base: ["!m-5 rounded-r-x20 rounded-l-x20", classNames?.base],
+        body: ["p-0 gap-5", classNames?.body],
         backdrop: ["bg-black-50", classNames?.backdrop],
-        base: ["shadow-none", classNames?.base],
-        closeButton: ["mt-5 mr-5 top-0 end-0", classNames?.closeButton],
+        closeButton: ["mt-5 mr-8 top-0 end-0", classNames?.closeButton],
         header: [
-          "flex items-center justify-between p-5 border-b border-gray-50",
+          "flex items-center justify-between px-8 py-[27px] border-b border-gray-50",
           classNames?.backdrop,
         ],
-        body: ["p-0", classNames?.body],
       }}
       closeButton={
         <Button
@@ -65,16 +65,16 @@ const AppModal: FC<AppModalProps> = ({
       }
       {...props}
     >
-      <ModalContent>
+      <DrawerContent>
         {header && (
-          <ModalHeader>
+          <DrawerHeader>
             <header className="">
               {(header?.title || header.subtitle) && (
                 <div className="grid gap-1.5">
                   {header.title && (
                     <Typography
                       as="h2"
-                      variant="semibold-xl"
+                      variant="regular-lg"
                       className="text-gray-900"
                     >
                       {header.title}
@@ -92,12 +92,12 @@ const AppModal: FC<AppModalProps> = ({
                 </div>
               )}
             </header>
-          </ModalHeader>
+          </DrawerHeader>
         )}
-        <ModalBody>{children}</ModalBody>
-      </ModalContent>
-    </Modal>
+        <DrawerBody>{children}</DrawerBody>
+      </DrawerContent>
+    </Drawer>
   )
 }
 
-export default AppModal
+export default AppDrawer

@@ -7,12 +7,18 @@ import {
 } from "@nextui-org/react"
 import React, { ReactNode } from "react"
 
-type Props = Omit<SelectProps, "children" | "items"> & {
+export type AppSelectProps = Omit<SelectProps, "children" | "items"> & {
   itemProps?: SelectItemProps
   items: { key: string; label: ReactNode; props?: SelectItemProps }[]
 }
 
-const AppSelect: FC<Props> = ({ itemProps, items, classNames, ...props }) => {
+const AppSelect: FC<AppSelectProps> = ({
+  itemProps,
+  items,
+  classNames,
+  size,
+  ...props
+}) => {
   return (
     <Select
       variant="bordered"
@@ -21,6 +27,8 @@ const AppSelect: FC<Props> = ({ itemProps, items, classNames, ...props }) => {
         ...classNames,
         trigger: [
           "border border-gray-50 data data-[hover=true]:border-gray-500 px-4",
+          size === "lg" && "h-14 min-h-14",
+          size === "sm" && "h-9 min-h-9",
           classNames?.trigger,
         ],
         selectorIcon: ["text-black w-5 h-5", classNames?.selectorIcon],
@@ -30,12 +38,13 @@ const AppSelect: FC<Props> = ({ itemProps, items, classNames, ...props }) => {
         ],
         label: [
           "text-[14px] font-[500] text-gray-500",
-          "group-data-[filled=true]:text-gray-500",
+          "group-data-[filled=true]:text-gray-500 px-2 pb-1",
           classNames?.label,
         ],
+        mainWrapper: ["mt-1 mb-1.5", classNames?.mainWrapper],
       }}
       labelPlacement="outside"
-      //   disallowEmptySelection
+      disallowEmptySelection
       {...props}
     >
       {items.map((item) => {

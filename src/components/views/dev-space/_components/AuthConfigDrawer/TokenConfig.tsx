@@ -75,8 +75,8 @@ const TokenConfig: FC<Props> = ({
   }, [state, close, queryClient, updateLastDone])
 
   return (
-    <form ref={formRef} action={action}>
-      <main className="py-10 px-5 grid gap-5 w-full">
+    <form ref={formRef} action={action} className="h-full flex flex-col">
+      <main className="px-5 grid gap-5 pb-8">
         {!isAdd && <input hidden readOnly name="id" value={id} />}
         <input
           hidden
@@ -223,12 +223,8 @@ const TokenConfig: FC<Props> = ({
           </>
         )}
       </main>
-      <footer className="flex items-center justify-end p-5 border-t border-gray-50 absolute left-0 right-0 z-1 bg-white bottom-0">
-        <SubmitButton
-          className="px-3.5 !py-2.5"
-          classNames={{ label: "text-medium-sm" }}
-          disabled={hasErrors}
-        >
+      <footer className="flex items-center p-5 border-t border-gray-50 sticky left-0 right-0 z-1 bg-white bottom-0 mt-auto">
+        <SubmitButton size="xl" className="p-5 w-full" disabled={hasErrors}>
           {isAdd ? `Save & finish` : "Update"}
         </SubmitButton>
       </footer>

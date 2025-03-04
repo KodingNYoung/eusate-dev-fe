@@ -36,8 +36,8 @@ const LoginUrlConfig: FC<Props> = ({
   }, undefined)
 
   return (
-    <form ref={formRef} action={formState[1]}>
-      <main className="py-10 px-5 grid gap-5">
+    <form ref={formRef} action={formState[1]} className="h-full flex flex-col">
+      <main className="px-5 grid gap-5 pb-8">
         <ToastContent
           type="info"
           variant="outlined"
@@ -63,11 +63,11 @@ const LoginUrlConfig: FC<Props> = ({
           classNames={{ label: "mb-2 mx-2" }}
         />
       </main>
-      <footer className="flex items-center justify-end p-5 border-t border-gray-50 absolute left-0 right-0 z-1 bg-white bottom-0">
+      <footer className="flex items-center justify-end p-5 border-t border-gray-50 sticky left-0 right-0 z-1 bg-white bottom-0 mt-auto">
         <Button
           type="submit"
-          className="px-3.5 !py-2.5"
-          classNames={{ label: "text-medium-sm" }}
+          size="xl"
+          className="p-5 w-full"
           disabled={hasErrors}
         >
           Save & continue

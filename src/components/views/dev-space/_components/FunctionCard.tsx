@@ -2,16 +2,21 @@ import Badge from "@/components/atoms/Badge"
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
+import { DevSpaceFunctionsResponse } from "@/lib/data/dev-space"
 import { cls } from "@/utils/helpers"
 import { FC } from "@/utils/types"
 import dayjs from "dayjs"
-import React from "react"
+import React, { useMemo } from "react"
+import { FunctionStatus } from "../utils"
 
 type Props = {
-  isLive?: boolean
+  func: DevSpaceFunctionsResponse
+  onEdit: () => void
+  onDelete: () => void
 }
 
-const FunctionCard: FC<Props> = ({ isLive }) => {
+const FunctionCard: FC<Props> = ({ func, onEdit, onDelete }) => {
+  const isLive = useMemo(() => func.status === FunctionStatus.LIVE, [func])
   return (
     <div
       className={cls(
@@ -27,7 +32,7 @@ const FunctionCard: FC<Props> = ({ isLive }) => {
             size="md"
             className="text-regular-xs border-opacity-50"
           >
-            GET
+            {func.method}
           </Badge>
           <div className="flex items-center gap-4">
             <Button
@@ -36,6 +41,7 @@ const FunctionCard: FC<Props> = ({ isLive }) => {
                 root: "!border-0 focus:border-0",
                 label: "!leading-none",
               }}
+              onClick={onEdit}
             >
               <Icon name="icon-edit-2" size={20} />
             </Button>
@@ -45,6 +51,7 @@ const FunctionCard: FC<Props> = ({ isLive }) => {
                 root: "!border-0 focus:border-0",
                 label: "!leading-none",
               }}
+              onClick={onDelete}
             >
               <Icon name="icon-trash" size={20} />
             </Button>
@@ -52,20 +59,17 @@ const FunctionCard: FC<Props> = ({ isLive }) => {
         </header>
         <section className="grid gap-3">
           <Typography variant="medium-base" className="text-black">
-            Function name
+            {func.name}
           </Typography>
           <Typography
             variant="medium-sm"
             className="line-clamp-2 text-gray-500"
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Reprehenderit, assumenda voluptatum et impedit non molestias, a
-            ratione minima similique esse accusantium illum perspiciatis omnis
-            nesciunt quos quis aperiam voluptates ducimus?
+            {func.description}
           </Typography>
         </section>
         <Typography as="span" variant="regular-sm" className="text-gray-400">
-          {dayjs().format("MMM DD, YYYY. h:MMA")}
+          {dayjs(func.date_created).format("MMM DD, YYYY. h:MMA")}
         </Typography>
       </main>
       <span className="flex justify-center p-1.5">

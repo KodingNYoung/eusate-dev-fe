@@ -7,7 +7,14 @@ import {
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
 import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
-import { AuthLocation, AuthType } from "@/components/views/dev-space/utils"
+import {
+  AuthLocation,
+  AuthType,
+  FunctionMethods,
+  FunctionParamType,
+  FunctionStatus,
+  ParamsProvidedBy,
+} from "@/components/views/dev-space/utils"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -227,4 +234,25 @@ export type AuthConfig = {
    */
   header_value?: string
   query_name?: string
+}
+
+export type DevSpaceFunctionParam = {
+  param: string
+  description: string
+  provided_by: ParamsProvidedBy
+  type: FunctionParamType
+  function_arg?: true
+  value?: string
+  code_name?: string
+}
+export type DSFunction = {
+  name: string
+  description: string
+  method: FunctionMethods
+  endpoint_url: string
+  url_params?: DevSpaceFunctionParam[]
+  query_params?: DevSpaceFunctionParam[]
+  status: FunctionStatus
+  organisation_id?: string
+  auth_config_id?: string
 }
