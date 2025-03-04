@@ -8,8 +8,9 @@ import Typography from "../atoms/Typography"
 import Button, { ButtonProps } from "../molecules/Buttons"
 import SubmitButton from "../molecules/Buttons/SubmitButton"
 import { useModal } from "@/hooks/popupHooks"
+import Icon from "../atoms/Icon"
 
-type Props = Omit<AppModalProps, "id" | "children"> & {
+type Props = Omit<AppModalProps, "id" | "children" | "content"> & {
   modalId: PopupKeys
   content: ReactNode
   icon?: ReactNode
@@ -25,7 +26,11 @@ const ConfirmationModal: FC<Props> = ({
   title,
   okAction,
   content,
-  icon,
+  icon = (
+    <div className="w-10 h-10 border border-error-500 bg-error-50 flex items-center justify-center rounded-full">
+      <Icon name="icon-trash" size={20} className="text-error-500" />
+    </div>
+  ),
   hasCloseBtn = true,
   closeBtnText,
   okBtnText,

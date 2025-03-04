@@ -7,7 +7,7 @@ import Typography from "../atoms/Typography"
 type Props = {
   icon: IconNames
   title: string
-  subtitle: string
+  subtitle: ReactNode
   actions?: ReactNode
 }
 

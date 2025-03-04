@@ -11,7 +11,7 @@ import {
 
 export type ToastType = "success" | "error" | "info" | "warning" | "default"
 export type ToastVariantType = "filled" | "outlined"
-type SnackbarActionType = { label: string; fn: () => void }
+export type SnackbarActionType = { label: string; fn: () => void }
 
 type ToastContextType = {
   visible: boolean

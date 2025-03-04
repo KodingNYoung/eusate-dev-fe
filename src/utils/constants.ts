@@ -21,6 +21,7 @@ export const ROUTES = {
   RESOURCE: "/knowledge-base/resource",
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
+  DEV_SPACE: "/dev-space",
 }
 
 export const EMAIL_REGEX_PATTERNS =
@@ -60,3 +61,9 @@ export const AI_TONES = [
   { key: AiTones.PROFESSIONAL, label: "Professional tone" },
   { key: AiTones.FRIENDLY, label: "Friendly tone" },
 ]
+
+export const QUERY_FN_KEYS = {
+  AUTH_CONFIG: ["auth-config"],
+  DEV_SPACE_FUNCTIONS: ["dev-space-fuctions"],
+  CODENAMES: ["codenames"],
+}

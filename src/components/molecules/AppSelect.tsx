@@ -7,31 +7,44 @@ import {
 } from "@nextui-org/react"
 import React, { ReactNode } from "react"
 
-type Props = Omit<SelectProps, "children" | "items"> & {
+export type AppSelectProps = Omit<SelectProps, "children" | "items"> & {
   itemProps?: SelectItemProps
   items: { key: string; label: ReactNode; props?: SelectItemProps }[]
 }
 
-const AppSelect: FC<Props> = ({ itemProps, items, classNames, ...props }) => {
+const AppSelect: FC<AppSelectProps> = ({
+  itemProps,
+  items,
+  classNames,
+  size,
+  ...props
+}) => {
   return (
     <Select
       variant="bordered"
       listboxProps={{ variant: "light" }}
       classNames={{
         ...classNames,
-        base: ["data-[has-label=true]:mt-0 gap-4", classNames?.base],
         trigger: [
-          "border border-gray-50 data-[hover=true]:border-gray-500",
+          "border border-gray-50 data data-[hover=true]:border-gray-500 px-4",
+          size === "lg" && "h-14 min-h-14",
+          size === "sm" && "h-9 min-h-9",
           classNames?.trigger,
         ],
-        selectorIcon: ["text-black", classNames?.selectorIcon],
-        value: ["!text-semibold-xs", classNames?.value],
+        selectorIcon: ["text-black w-5 h-5", classNames?.selectorIcon],
+        value: [
+          "text-[14px] font-[400] text-gray-900 group-data-[has-value=true]:text-gray-900",
+          classNames?.value,
+        ],
         label: [
-          "text-[14px] font-semibold !text-gray-700 static group-data-[filled=true]:translate-y-0",
+          "text-[14px] font-[500] text-gray-500",
+          "group-data-[filled=true]:text-gray-500 px-2 pb-1",
           classNames?.label,
         ],
+        mainWrapper: ["mt-1 mb-1.5", classNames?.mainWrapper],
       }}
       labelPlacement="outside"
+      disallowEmptySelection
       {...props}
     >
       {items.map((item) => {

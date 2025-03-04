@@ -33,6 +33,12 @@ const SIDEBAR_ROUTES: Route[] = [
     link: ROUTES.HELP_AND_SUPPORT,
     id: 6,
   },
+  {
+    icon: "icon-code",
+    label: "Developer Space",
+    link: ROUTES.DEV_SPACE,
+    id: 7,
+  },
 ]
 
 const SidebarNav: FC = () => {

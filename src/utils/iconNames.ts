@@ -15,6 +15,7 @@ export type IconNames =
   | "icon-chevron-left"
   | "icon-chevron-right"
   | "icon-close"
+  | "icon-code"
   | "icon-copy"
   | "icon-danger-bold"
   | "icon-dislike"
