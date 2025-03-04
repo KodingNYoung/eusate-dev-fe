@@ -1,7 +1,6 @@
 "use client"
 import { useModal } from "@/hooks/popupHooks"
-import { cls } from "@/utils/helpers"
-import { FC, TWClassNames } from "@/utils/types"
+import { FC } from "@/utils/types"
 import React from "react"
 import Typography from "../atoms/Typography"
 import Button from "../molecules/Buttons"
@@ -14,11 +13,10 @@ import {
   ModalContent,
   ModalHeader,
   ModalProps,
-  ModalSlots,
 } from "@nextui-org/react"
 
 export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
-  classNames?: { [slot in ModalSlots]?: TWClassNames }
+  //   classNames?: { [slot in ModalSlots]?: TWClassNames }
   header?: {
     title?: string
     subtitle?: string
@@ -42,14 +40,15 @@ const AppModal: FC<AppModalProps> = ({
       placement="center"
       onClose={close}
       classNames={{
-        backdrop: cls("bg-black-50", classNames?.backdrop),
-        base: cls("shadow-none", classNames?.base),
-        closeButton: cls("mt-5 mr-5 top-0 end-0", classNames?.closeButton),
-        header: cls(
+        ...classNames,
+        backdrop: ["bg-black-50", classNames?.backdrop],
+        base: ["shadow-none", classNames?.base],
+        closeButton: ["mt-5 mr-5 top-0 end-0", classNames?.closeButton],
+        header: [
           "flex items-center justify-between p-5 border-b border-gray-50",
-          classNames?.backdrop
-        ),
-        body: cls("p-0", classNames?.body),
+          classNames?.backdrop,
+        ],
+        body: ["p-0", classNames?.body],
       }}
       closeButton={
         <Button

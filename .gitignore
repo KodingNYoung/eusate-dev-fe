@@ -32,6 +32,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# code editor
+.vscode
+/**/.idea
+/**/.idea/*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
