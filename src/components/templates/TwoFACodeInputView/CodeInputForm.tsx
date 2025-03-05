@@ -34,12 +34,8 @@ const CodeInputForm: FC<Props> = ({ submitAction }) => {
   }
 
   useEffect(() => {
-    if ("success" in state) {
+    if ("success" in state || "redirectTo" in state) {
       router.push(state?.redirectTo || "")
-    } else {
-      if (state?.redirectTo) {
-        router.push(state?.redirectTo || "")
-      }
     }
   }, [state, router])
 

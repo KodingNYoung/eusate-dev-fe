@@ -2,7 +2,7 @@
 
 import Button from "@/components/molecules/Buttons"
 import Input from "@/components/molecules/Inputs"
-import ToastContent from "@/components/molecules/ToastContent"
+import AppToastContent from "@/components/molecules/Toast/ToastContent"
 import { useValidation } from "@/hooks/formHooks"
 import { authConfigStep1 } from "@/lib/schemas/dev-space"
 import { AuthConfig, FC } from "@/utils/types"
@@ -38,16 +38,17 @@ const LoginUrlConfig: FC<Props> = ({
   return (
     <form ref={formRef} action={formState[1]} className="h-full flex flex-col">
       <main className="px-5 grid gap-5 pb-8">
-        <ToastContent
-          type="info"
-          variant="outlined"
-          icon="icon-warning-2-bold"
-          title="Read our documentation"
-          subtitle="Explore our documentation to learn how to add your login endpoint URL to the authentication settings for secure user access! Learn more"
-          visible={infoVisible}
-          hide={() => setInfoVisible(false)}
-          classNames={{ root: "!my-0" }}
-        />
+        {infoVisible && (
+          <AppToastContent
+            type="info"
+            variant="outlined"
+            icon="icon-warning-2-bold"
+            title="Read our documentation"
+            subtitle="Explore our documentation to learn how to add your login endpoint URL to the authentication settings for secure user access! Learn more"
+            hide={() => setInfoVisible(false)}
+            classNames={{ root: "!my-0" }}
+          />
+        )}
         <Input
           name="login_url"
           label="Login Endpoint URL"

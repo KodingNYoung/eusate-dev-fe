@@ -4,6 +4,7 @@ import { plusJakartaSans } from "@/assets/font"
 import { LayoutFC } from "@/utils/types"
 import { NextUIProvider } from "@nextui-org/react"
 import ReactQueryProvider from "@/providers/reactQueryProvider"
+import { Slide, ToastContainer } from "react-toastify"
 
 export const metadata: Metadata = {
   title: {
@@ -20,6 +21,21 @@ const RootLayout: LayoutFC = ({ children }) => {
         <ReactQueryProvider>
           <NextUIProvider>{children}</NextUIProvider>
         </ReactQueryProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          closeButton={false}
+          icon={false}
+          limit={1}
+          hideProgressBar
+          newestOnTop
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+          transition={Slide}
+        />
       </body>
     </html>
   )

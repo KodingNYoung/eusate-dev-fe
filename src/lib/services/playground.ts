@@ -54,8 +54,6 @@ export const clearMessages = async () => {
     { method: "DELETE" }
   )
 
-  console.log({ response })
-
   if ("shouldAuthenticate" in response)
     throw new Error("Session expired, log in again")
 

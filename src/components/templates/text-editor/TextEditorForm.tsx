@@ -12,7 +12,6 @@ import { FC, KnowledgeSource } from "@/utils/types"
 import React, { useEffect, useRef } from "react"
 import { useFormState } from "react-dom"
 import Editor from "./Editor"
-import Toast from "@/components/organisms/Toast"
 import { useRouter } from "next/navigation"
 import { getFormdataFromFormRef } from "@/utils/helpers"
 
@@ -38,8 +37,7 @@ const TextEditorForm: FC<Props> = ({ resource }) => {
 
   useEffect(() => {
     if ("success" in state) {
-      setTimeout(() => router.push(state?.redirectTo || ""), 1500)
-      console.log(state)
+      router.push(state?.redirectTo || "")
     }
   }, [state])
 
@@ -50,7 +48,6 @@ const TextEditorForm: FC<Props> = ({ resource }) => {
       id="text-editor-form"
       action={action}
     >
-      <Toast />
       {!!resource && (
         <>
           <input type="hidden" value={resource.id} name="id" readOnly />
@@ -75,7 +72,7 @@ const TextEditorForm: FC<Props> = ({ resource }) => {
                   root: "!py-2.5 px-4.5",
                   label: "text-medium-sm",
                 }}
-                formAction={(e) => console.log(Object.fromEntries(e))}
+                // formAction={(e) => console.log(Object.fromEntries(e))}
               >
                 {resource.published ? "Unpublish" : "Publish"}
               </SubmitButton>

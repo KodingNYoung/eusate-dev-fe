@@ -35,17 +35,17 @@ describe("CopyButton", () => {
     mockClipboard.mockRestore()
   })
 
-  it("Should show toast with copied text on click", async () => {
+  it("Should show tooltip with copied text on click", async () => {
     render(
-      <CopyButton data-testid="show-toast" text={textToCopy}>
+      <CopyButton data-testid="show-tooltip" text={textToCopy}>
         Click me
       </CopyButton>
     )
 
-    const button = screen.getByTestId("show-toast")
+    const button = screen.getByTestId("show-tooltip")
     fireEvent.click(button)
 
-    const toast = screen.getByText("Copied")
-    expect(toast).toBeInTheDocument()
+    const tooltip = screen.getByText("Copied")
+    expect(tooltip).toBeInTheDocument()
   })
 })
