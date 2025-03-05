@@ -2,7 +2,6 @@
 
 import { FC, KnowledgeSource } from "@/utils/types"
 import React from "react"
-import ToastContextProvider from "@/providers/toastProviders"
 import TextEditorForm from "./TextEditorForm"
 
 type Props = {
@@ -10,11 +9,7 @@ type Props = {
 }
 
 const TextEditor: FC<Props> = ({ resource }) => {
-  return (
-    <ToastContextProvider>
-      <TextEditorForm resource={resource} />
-    </ToastContextProvider>
-  )
+  return <TextEditorForm resource={resource} />
 }
 
 export default TextEditor

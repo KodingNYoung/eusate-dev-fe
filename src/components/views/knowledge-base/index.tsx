@@ -195,7 +195,6 @@ const KnowledgeBase: FC<Props> = ({
             openModal(PopupKeys.TOGGLE_PUBLISH_SOURCE_MODAL, row)
           }
           onDelete={() => {
-            console.log("Hello")
             openModal(PopupKeys.DELETE_SOURCE_MODAL, row)
           }}
         />

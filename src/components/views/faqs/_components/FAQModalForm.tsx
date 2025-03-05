@@ -3,7 +3,6 @@
 import { addFAQ, editFAQ } from "@/app/(dashboard)/knowledge-base/FAQs/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Input from "@/components/molecules/Inputs"
-import Toast from "@/components/organisms/Toast"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
 import { addFAQSchema } from "@/lib/schemas/knowledge-base"
@@ -34,13 +33,12 @@ const FAQModalForm: FC<Props> = ({ isAdd, faq }) => {
 
   useEffect(() => {
     if ("success" in state) {
-      setTimeout(close, 1500)
+      close()
     }
   }, [state])
 
   return (
     <form ref={formRef} action={action} className="relative">
-      <Toast />
       <main className="flex flex-col gap-5 p-5">
         {!isAdd && <input type="hidden" name="id" readOnly value={faq?.id} />}
         <Input

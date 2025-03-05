@@ -78,7 +78,6 @@ export function useCookie<T>(key: CookieKeys, fallback?: T) {
 
   const refetch = useCallback(() => {
     const inStorageValue = CookieStorage.get(key)
-    console.log({ inStorageValue })
     try {
       if (inStorageValue) {
         const parsedValue = JSON.parse(inStorageValue) as T

@@ -1,7 +1,6 @@
 import { createArticleByLink } from "@/app/(dashboard)/knowledge-base/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Info from "@/components/molecules/Info"
-import Toast from "@/components/organisms/Toast"
 import WebsiteInput from "@/components/organisms/WebsiteInput"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
@@ -27,13 +26,12 @@ const AddArticleLink: FC = () => {
   useEffect(() => {
     if ("success" in state) {
       // TODO: open the processes modal
-      setTimeout(close, 1000)
+      close()
     }
   }, [state])
 
   return (
     <div className="relative">
-      <Toast classNames={{ base: "py-0" }} />
       <main className="flex flex-col gap-5">
         <div className="px-5 pt-5 grid gap-5">
           <Info

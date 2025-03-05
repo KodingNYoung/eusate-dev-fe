@@ -1,4 +1,4 @@
-import { useToast } from "@/providers/toastProviders"
+import { toaster } from "@/components/molecules/Toast"
 import { extractZodErrors, getFormdataFromFormRef } from "@/utils/helpers"
 import { FormState } from "@/utils/types"
 import { RefObject, useCallback, useEffect, useRef, useState } from "react"
@@ -45,7 +45,6 @@ export const useValidation = (
         newErrors = field ? { ...newErrors, [field]: "" } : {}
       } else {
         const errors = extractZodErrors(result.error)
-        console.log(errors)
         newErrors = { ...newErrors, ...errors }
       }
 
@@ -107,17 +106,12 @@ export const useValidation = (
 }
 
 export const useFormToast = (state: FormState, showSuccess?: boolean) => {
-  const toast = useToast()
-
   useEffect(() => {
     if (!state) return
     if ("error" in state) {
-      toast.show(state.error.message, { type: "error", variant: "outlined" })
+      toaster.error(state.error.message)
     } else if (showSuccess && "success" in state) {
-      toast.show(state.success.message, {
-        type: "success",
-        variant: "outlined",
-      })
+      toaster.success(state.success.message)
     }
   }, [state, showSuccess])
 

@@ -2,7 +2,7 @@
 
 import { PopupKeys } from "@/utils/enums"
 import { FC } from "@/utils/types"
-import { createContext, useState } from "react"
+import { createContext, useCallback, useState } from "react"
 
 type ModalContextType = {
   isOpen: boolean
@@ -20,11 +20,9 @@ const ModalContext = createContext<ModalContextType>({
 export const ModalProvider: FC = ({ children }) => {
   const [key, setKey] = useState<PopupKeys>()
 
-  const open = (key: PopupKeys) => {
-    setKey(key)
-  }
+  const open = useCallback((key: PopupKeys) => setKey(key), [])
 
-  const close = () => setKey(undefined)
+  const close = useCallback(() => setKey(undefined), [])
 
   return (
     <ModalContext.Provider value={{ isOpen: Boolean(key), key, close, open }}>

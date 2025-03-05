@@ -58,7 +58,6 @@ export const sendRequest = cache(
 
       return response.data as T
     } catch (err) {
-      console.log({ err })
       throw err instanceof AxiosError && err.isAxiosError
         ? new Error(
             err.response?.data.detail || "An unexpected error occurred."
@@ -106,7 +105,6 @@ export const sendAuthRequest = cache(
 
       return response.data as T
     } catch (err) {
-      console.log(err)
       if (err instanceof AxiosError) {
         const message =
           err?.response?.data?.detail || "An unexpected error occurred."

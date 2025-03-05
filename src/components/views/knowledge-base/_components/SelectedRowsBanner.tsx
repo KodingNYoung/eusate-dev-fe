@@ -7,11 +7,11 @@ import Button from "@/components/molecules/Buttons"
 import Checkbox from "@/components/molecules/Checkbox"
 import { useIsMobile } from "@/hooks/breakpointHooks"
 import { bulkToggleSourcePrivacy } from "@/app/(dashboard)/knowledge-base/actions"
-import { useToast } from "@/providers/toastProviders"
 import BulkTogglePublishedModal from "./BulkTogglePublishedModal"
 import { useModal } from "@/hooks/popupHooks"
 import { PopupKeys } from "@/utils/enums"
 import BulkDeleteSourceModal from "./BulkDeleteSourceModal"
+import { toaster } from "@/components/molecules/Toast"
 
 type Props = {
   rows: KnowledgeSource[]
@@ -20,7 +20,6 @@ type Props = {
 const SelectedRowsBanner: FC<Props> = ({ rows }) => {
   const ref = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile()
-  const toast = useToast()
   const { open } = useModal()
 
   const internalOnlySources = rows.filter((source) => !source.external)
@@ -32,10 +31,9 @@ const SelectedRowsBanner: FC<Props> = ({ rows }) => {
     )
 
     if ("success" in response) {
-      console.log(response)
-      toast.show(response.success.message, { type: "success" })
+      toaster.success(response.success.message)
     } else if ("error" in response) {
-      toast.show(response.error.message, { type: "error" })
+      toaster.error(response.error.message)
     }
   }
 

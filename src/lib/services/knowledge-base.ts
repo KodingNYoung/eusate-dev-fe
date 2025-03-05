@@ -112,6 +112,6 @@ export const addWebsite = async (url: string, origin: boolean) => {
 
   if ("shouldAuthenticate" in response)
     throw new Error("Session expired, log in again")
-  console.log({ response })
+
   return response
 }

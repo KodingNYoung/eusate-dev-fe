@@ -3,7 +3,6 @@ import { PopupKeys } from "@/utils/enums"
 import { FC } from "@/utils/types"
 import React from "react"
 import DocumentModalForm from "./DocumentModalForm"
-import ToastContextProvider from "@/providers/toastProviders"
 
 const DocumentModal: FC = () => {
   return (
@@ -12,9 +11,7 @@ const DocumentModal: FC = () => {
       classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
       header={{ title: "Upload a document" }}
     >
-      <ToastContextProvider>
-        <DocumentModalForm />
-      </ToastContextProvider>
+      <DocumentModalForm />
     </Modal>
   )
 }

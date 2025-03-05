@@ -4,7 +4,6 @@ import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Info from "@/components/molecules/Info"
-import Toast from "@/components/organisms/Toast"
 import WebsiteInput from "@/components/organisms/WebsiteInput"
 import { useFormToast } from "@/hooks/formHooks"
 import { FC } from "@/utils/types"
@@ -52,7 +51,6 @@ const WebsiteModalForm: FC = () => {
 
   return (
     <div className="relative max-h-[60vh] overflow-y-auto custom-scrollbar ">
-      <Toast classNames={{ base: "py-0" }} />
       <main className="p-5 flex flex-col gap-5">
         <Info
           title="NOTE"
