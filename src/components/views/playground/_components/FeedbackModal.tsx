@@ -4,7 +4,6 @@ import { FC } from "@/utils/types"
 import React from "react"
 import FeedbackForm from "./FeedbackForm"
 import { FeedbackKind } from "../utils"
-import ToastContextProvider from "@/providers/toastProviders"
 
 type Props = {
   kind: FeedbackKind
@@ -16,18 +15,16 @@ const feedbackIdMap = {
 
 const FeedbackModal: FC<Props> = ({ kind }) => {
   return (
-    <ToastContextProvider>
-      <AppModal
-        id={feedbackIdMap[kind]}
-        classNames={{
-          wrapper: "px-2",
-          base: "w-full max-w-[600px] rounded-x20",
-        }}
-        header={{ title: "Share your thoughts" }}
-      >
-        <FeedbackForm kind={kind} />
-      </AppModal>
-    </ToastContextProvider>
+    <AppModal
+      id={feedbackIdMap[kind]}
+      classNames={{
+        wrapper: "px-2",
+        base: "w-full max-w-[600px] rounded-x20",
+      }}
+      header={{ title: "Share your thoughts" }}
+    >
+      <FeedbackForm kind={kind} />
+    </AppModal>
   )
 }
 

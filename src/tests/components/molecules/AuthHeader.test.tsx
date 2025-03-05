@@ -74,37 +74,4 @@ describe("AuthHeader", () => {
     fireEvent.click(btn)
     expect(mockBack).toHaveBeenCalled()
   })
-
-  it("shows the toast element if the toast prop is passed", () => {
-    render(
-      <AuthHeader
-        data-testid="toast-show"
-        toast
-        title="Testing toast visibility"
-        subtitle=""
-      />
-    )
-
-    const header = screen.getByTestId("toast-show")
-    const toast = screen.queryByRole("toast")
-
-    expect(toast).toBeInTheDocument()
-    expect(header).toContainElement(toast)
-  })
-
-  it("hide the toast element if the toast prop is not passed", () => {
-    render(
-      <AuthHeader
-        data-testid="toast-hide"
-        title="Testing toast visibility"
-        subtitle=""
-      />
-    )
-
-    const header = screen.getByTestId("toast-hide")
-    const toast = screen.queryByRole("toast")
-
-    expect(toast).not.toBeInTheDocument()
-    expect(header).not.toContainElement(toast)
-  })
 })

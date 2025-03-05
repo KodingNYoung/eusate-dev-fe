@@ -53,7 +53,6 @@ export const createFunction = async (payload: DSFunction) => {
 export const editFunction = async (id: string, payload: DSFunction) => {
   const session = await getSession()
 
-  console.log({ payload })
   const response = await sendAuthRequest<DevSpaceFunctionsResponse>(
     `/api/v1/lab/function/${id}/edit/`,
     { ...payload, organisation_id: session?.organisationId },

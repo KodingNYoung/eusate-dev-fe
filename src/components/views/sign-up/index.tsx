@@ -5,29 +5,25 @@ import Link from "next/link"
 import React from "react"
 import SignUpForm from "./SignUpForm"
 import AuthHeader from "@/components/molecules/AuthHeader"
-import ToastContextProvider from "@/providers/toastProviders"
 
 const SignUp: FC = () => {
   return (
-    <ToastContextProvider>
-      <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col">
-        <AuthHeader
-          title="Create an Account"
-          toast
-          subtitle={
-            <>
-              Already have an account?{" "}
-              <Link href={ROUTES.LOGIN}>
-                <Button variant="tetiary" size="mini" className="px-3 py-1.5">
-                  Login
-                </Button>
-              </Link>
-            </>
-          }
-        />
-        <SignUpForm />
-      </main>
-    </ToastContextProvider>
+    <main className="mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col">
+      <AuthHeader
+        title="Create an Account"
+        subtitle={
+          <>
+            Already have an account?{" "}
+            <Link href={ROUTES.LOGIN}>
+              <Button variant="tetiary" size="mini" className="px-3 py-1.5">
+                Login
+              </Button>
+            </Link>
+          </>
+        }
+      />
+      <SignUpForm />
+    </main>
   )
 }
 

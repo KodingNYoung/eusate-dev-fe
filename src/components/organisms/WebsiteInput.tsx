@@ -14,7 +14,7 @@ import {
 } from "@/lib/schemas/knowledge-base"
 import { useFormStatus } from "react-dom"
 import { validateUrl } from "@/app/(dashboard)/knowledge-base/actions"
-import { useToast } from "@/providers/toastProviders"
+import { toaster } from "../molecules/Toast"
 
 type Props = InputProps & {
   onVerify: (url: string, name: string) => void
@@ -29,7 +29,6 @@ const WebsiteInput: FC<Props> = ({
   ...props
 }) => {
   const formRef = useRef<HTMLFormElement>(null)
-  const toast = useToast()
   const [inputState, setInputState] = useState<"error" | "success">()
 
   const { errors, markFieldTouched } = useValidation(
@@ -49,8 +48,8 @@ const WebsiteInput: FC<Props> = ({
     }
 
     if ("error" in response) {
-      // Request error, not url validation error, so show error toast
-      toast.show(response.error.message, { type: "error" })
+      // Request error, not url validation error, so show error
+      toaster.error(response.error.message)
     }
   }
 

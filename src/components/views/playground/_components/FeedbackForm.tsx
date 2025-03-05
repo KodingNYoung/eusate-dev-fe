@@ -7,7 +7,6 @@ import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"
 import { useFormState } from "react-dom"
 import { sendResponseFeedback } from "@/app/(dashboard)/playground/actions"
-import Toast from "@/components/organisms/Toast"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
 import { usePlayground } from "@/hooks/playground"
@@ -35,7 +34,6 @@ const FeedbackForm: FC<Props> = ({ kind }) => {
 
   return (
     <form action={action}>
-      <Toast />
       <input
         hidden
         type="checkbox"

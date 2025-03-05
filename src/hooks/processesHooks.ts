@@ -1,7 +1,7 @@
 "use client"
 
+import { toaster } from "@/components/molecules/Toast"
 import { getProcesses } from "@/lib/data/knowledge-base"
-import { useToast } from "@/providers/toastProviders"
 import { useQuery } from "@tanstack/react-query"
 // import { useEffect, useRef } from "react"
 // import { io, Socket } from "socket.io-client"
@@ -9,14 +9,13 @@ import { useQuery } from "@tanstack/react-query"
 // import { COOKIES_KEYS } from "@/utils/constants"
 
 export const useSourceProcesses = () => {
-  const toast = useToast()
   const result = useQuery({
     queryKey: ["processes"],
     queryFn: async () => await getProcesses(),
   })
 
   if (result.isError) {
-    toast.show(result.error.message)
+    toaster.error(result.error.message)
   }
 
   return result

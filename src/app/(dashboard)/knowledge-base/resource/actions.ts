@@ -23,7 +23,6 @@ export const createArticle = async (
   const route = ROUTES.KNOWLEDGE_BASE
 
   try {
-    console.log(title, content, unpublished)
     const session = await getSession()
     const response = await sendAuthRequest<CreateArticleResponse>(
       "/api/v1/library/article/add/",

@@ -8,16 +8,14 @@ import React, { useEffect, useState } from "react"
 import FileList from "./FileList"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { ACCEPTABLE_DOCUMENT_EXTENSIONS } from "../../utils"
-import { useToast } from "@/providers/toastProviders"
-import Toast from "@/components/organisms/Toast"
 import FileInputContent from "./FileInputContent"
 import { useFormState } from "react-dom"
 import { uploadDocuments } from "@/app/(dashboard)/knowledge-base/actions"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
+import { toaster } from "@/components/molecules/Toast"
 
 const DocumentModalForm: FC = () => {
-  const toast = useToast()
   const { close } = useModal()
   const [files, setFiles] = useState<File[]>([])
 
@@ -31,9 +29,7 @@ const DocumentModalForm: FC = () => {
       return ACCEPTABLE_DOCUMENT_EXTENSIONS.has(ext)
     })
     if (files.length !== validFiles.length) {
-      toast.show("Some files are not supported so they were removed.", {
-        type: "error",
-      })
+      toaster.error("Some files are not supported so they were removed.")
     }
     setFiles((curr) => [...validFiles, ...curr])
   }
@@ -41,7 +37,7 @@ const DocumentModalForm: FC = () => {
   useEffect(() => {
     if ("success" in state) {
       // TODO: Open the processes modal
-      setTimeout(close, 1000)
+      close()
     }
   }, [state])
 
@@ -50,7 +46,6 @@ const DocumentModalForm: FC = () => {
       className="pt-8 max-h-[60vh] overflow-y-auto custom-scrollbar relative"
       action={action}
     >
-      <Toast classNames={{ base: "py-3.5" }} />
       <FileDragAndDrop
         onFileChange={onFileChange}
         accept="application/pdf, .txt, .doc, .docx"
