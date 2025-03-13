@@ -14,7 +14,7 @@ const SignUp: FC = () => {
         subtitle={
           <>
             Already have an account?{" "}
-            <Link href={ROUTES.LOGIN}>
+            <Link href={ROUTES.LOGIN} prefetch>
               <Button variant="tetiary" size="mini" className="px-3 py-1.5">
                 Login
               </Button>

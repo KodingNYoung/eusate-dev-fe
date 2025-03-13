@@ -87,7 +87,13 @@ const HeaderPagination: FC = () => {
 
         return (
           <div className="flex items-center gap-2" key={page.id}>
-            {page.link ? <Link href={page.link}>{content}</Link> : content}
+            {page.link ? (
+              <Link href={page.link} prefetch>
+                {content}
+              </Link>
+            ) : (
+              content
+            )}
             {pages.length - 1 !== idx && <Icon name="icon-chevron-right" />}
           </div>
         )
