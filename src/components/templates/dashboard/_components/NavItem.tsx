@@ -26,6 +26,7 @@ const NavItem: FC<Props> = ({ icon, label, link, badge, classNames }) => {
   return (
     <Link
       href={link}
+      prefetch
       data-active={link && pathname.includes(link)}
       className={cls(
         "flex items-center justify-start gap-0 group-hover:gap-3 p-3 rounded-[1000px] group/navitem text-gray-500 hover:text-white data-[active=true]:text-white data-[active=true]:bg-brand-gradient",

@@ -25,7 +25,7 @@ const SplashScreen: FC = () => {
           Welcome to Eusate!
         </Typography>
         <div className="flex gap-3 justify-center items-center">
-          <Link href={ROUTES.LOGIN}>
+          <Link href={ROUTES.LOGIN} prefetch>
             <Button
               variant="tetiaryText"
               classNames={{
@@ -36,7 +36,7 @@ const SplashScreen: FC = () => {
               Login
             </Button>
           </Link>
-          <Link href={ROUTES.SIGN_UP}>
+          <Link href={ROUTES.SIGN_UP} prefetch>
             <Button
               endContent={
                 <Icon name="icon-arrow-right" className="text-regular-xl" />
