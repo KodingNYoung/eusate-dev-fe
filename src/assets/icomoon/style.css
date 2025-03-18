@@ -1,11 +1,11 @@
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?f1po4v");
+  src: url("fonts/icomoon.eot?hb03wr");
   src:
-    url("fonts/icomoon.eot?f1po4v#iefix") format("embedded-opentype"),
-    url("fonts/icomoon.ttf?f1po4v") format("truetype"),
-    url("fonts/icomoon.woff?f1po4v") format("woff"),
-    url("fonts/icomoon.svg?f1po4v#icomoon") format("svg");
+    url("fonts/icomoon.eot?hb03wr#iefix") format("embedded-opentype"),
+    url("fonts/icomoon.ttf?hb03wr") format("truetype"),
+    url("fonts/icomoon.woff?hb03wr") format("woff"),
+    url("fonts/icomoon.svg?hb03wr#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,6 +27,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-attach-square:before {
+  content: "\e93c";
+}
+.icon-calendar-2:before {
+  content: "\e93d";
+}
+.icon-download:before {
+  content: "\e93e";
+}
+.icon-message-text:before {
+  content: "\e93f";
+}
+.icon-messages-2:before {
+  content: "\e940";
+}
+.icon-notification-status:before {
+  content: "\e941";
+}
+.icon-pin:before {
+  content: "\e942";
+}
+.icon-point:before {
+  content: "\e943";
+}
+.icon-refresh-2:before {
+  content: "\e944";
+}
+.icon-share:before {
+  content: "\e945";
+}
+.icon-user-square:before {
+  content: "\e946";
+}
+.icon-user:before {
+  content: "\e947";
+}
+.icon-warning-circle:before {
+  content: "\e948";
+}
+.icon-chart-2:before {
+  content: "\e93b";
+}
 .icon-code:before {
   content: "\e93a";
 }

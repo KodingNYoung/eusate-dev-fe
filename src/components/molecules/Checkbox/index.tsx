@@ -27,7 +27,7 @@ const Checkbox: FC<CheckboxProps> = ({
       htmlFor={id}
       className={cls(
         "font-mono flex items-center cursor-pointer relative",
-        !!children && "grap-3.5",
+        !!children && "gap-3.5",
         classNames?.root
       )}
       onClick={(e) => {

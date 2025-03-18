@@ -9,10 +9,10 @@ import { PopupKeys } from "@/utils/enums"
 
 type Props = {
   img: StaticImport
-  modalKey: PopupKeys
+  modalKey?: PopupKeys
   title: string
   subtitle: string
-  buttonLabel: string
+  buttonLabel?: string
 }
 
 const EmptyState: FC<Props> = ({
@@ -41,17 +41,19 @@ const EmptyState: FC<Props> = ({
             {subtitle}
           </Typography>
         </div>
-        <OpenModalButton
-          startContent={<Icon name="icon-plus" className="text-regular-xl" />}
-          classNames={{
-            root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 sm-gradient",
-            label: "text-medium-sm sm:text-semibold-sm ",
-          }}
-          modalKey={modalKey}
-          variant="tetiary"
-        >
-          {buttonLabel}
-        </OpenModalButton>
+        {modalKey && (
+          <OpenModalButton
+            startContent={<Icon name="icon-plus" className="text-regular-xl" />}
+            classNames={{
+              root: "sm:w-full px-3 py-2.5 sm:py-3 mt-2 sm-gradient",
+              label: "text-medium-sm sm:text-semibold-sm ",
+            }}
+            modalKey={modalKey}
+            variant="tetiary"
+          >
+            {buttonLabel}
+          </OpenModalButton>
+        )}
       </div>
     </section>
   )

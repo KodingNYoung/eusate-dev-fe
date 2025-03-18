@@ -15,6 +15,10 @@ import {
   FunctionStatus,
   ParamsProvidedBy,
 } from "@/components/views/dev-space/utils"
+import {
+  TicketPriority,
+  TicketStatus,
+} from "@/components/views/help-desk/utils"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -255,4 +259,9 @@ export type DSFunction = {
   status: FunctionStatus
   organisation_id?: string
   auth_config_id?: string
+}
+
+export type Ticket = {
+  status: TicketStatus
+  priority: TicketPriority
 }
