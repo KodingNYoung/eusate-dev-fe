@@ -1,3 +1,4 @@
+import { BadgeColor } from "@/components/atoms/Badge"
 import { IconNames } from "@/utils/iconNames"
 
 export enum HelpDeskTabs {
@@ -18,6 +19,12 @@ export enum TicketPriority {
   HIGH = "high",
   MEDIUM = "medium",
   LOW = "low",
+}
+export enum UserTemperament {
+  CALM = "calm",
+  NEUTRAL = "neutral",
+  IMPATIENT = "impatient",
+  UPSET = "upset",
 }
 export enum TicketFilters {
   PRIORITY = "priority",
@@ -55,3 +62,16 @@ export const HD_TABS: { icon: IconNames; key: HelpDeskTabs; label: string }[] =
       label: "AI tickets",
     },
   ]
+export const BADGE_COLOR_MAP = {
+  [TicketPriority.CRITICAL]: "error",
+  [TicketPriority.HIGH]: "warning",
+  [TicketPriority.MEDIUM]: "info",
+  [TicketPriority.LOW]: "neutral",
+} as const
+
+export const TEMPERAMENT_COLOR_MAP: { [key in UserTemperament]: BadgeColor } = {
+  [UserTemperament.CALM]: "info",
+  [UserTemperament.NEUTRAL]: "neutral",
+  [UserTemperament.IMPATIENT]: "warning",
+  [UserTemperament.UPSET]: "error",
+}

@@ -1,17 +1,27 @@
 "use client"
 import Icon from "@/components/atoms/Icon"
 import AppDropdown from "@/components/molecules/Popups/AppDropdown"
+import { useModal } from "@/hooks/popupHooks"
+import { PopupKeys } from "@/utils/enums"
 import { FC } from "@/utils/types"
 import React from "react"
 
-const TicketCardActions: FC = () => {
+type Props = {
+  onView: () => void
+}
+
+const TicketCardActions: FC<Props> = ({ onView }) => {
+  const { open } = useModal()
   const sections = [
     {
       items: [
         {
           key: 0,
           label: "View details",
-          // action: () => console.log("view"),
+          action: () => {
+            open(PopupKeys.VIEW_TICKET_DRAWER)
+            onView()
+          },
         },
         {
           key: 1,
@@ -27,11 +37,6 @@ const TicketCardActions: FC = () => {
           key: 3,
           label: "Send a reply",
           // action: () => console.log("send reply"),
-        },
-        {
-          key: 4,
-          label: "Join call",
-          // action: () => console.log("join call"),
         },
       ],
     },

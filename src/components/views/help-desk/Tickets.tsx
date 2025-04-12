@@ -1,15 +1,20 @@
-import { FC } from "@/utils/types"
-import React from "react"
+"use client"
+
+import { FC, Ticket } from "@/utils/types"
+import React, { useState } from "react"
 import { HelpDeskTabs, TicketPriority, TicketStatus } from "./utils"
 import TicketsActions from "./_components/TicketsActions"
 import TicketsEmptyState from "./_components/TicketsEmptyState"
 import TicketCard from "./_components/TicketCard"
+import TicketViewDrawer from "./_components/ViewTicketDrawer"
 
 type Props = {
   tab: HelpDeskTabs
 }
 
 const Tickets: FC<Props> = () => {
+  const [ticket, setTicket] = useState<Ticket>()
+
   return (
     <div className="grid gap-5 content-start flex-1">
       <TicketsActions />
@@ -30,9 +35,16 @@ const Tickets: FC<Props> = () => {
           { status: TicketStatus.OPEN, priority: TicketPriority.HIGH },
           { status: TicketStatus.CLOSED, priority: TicketPriority.LOW },
         ].map((ticket, idx) => {
-          return <TicketCard key={idx} ticket={ticket} />
+          return (
+            <TicketCard
+              key={idx}
+              ticket={ticket}
+              onView={() => setTicket(ticket)}
+            />
+          )
         })}
       </div>
+      <TicketViewDrawer ticket={ticket} />
     </div>
   )
 }

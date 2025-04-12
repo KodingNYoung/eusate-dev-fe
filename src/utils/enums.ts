@@ -34,6 +34,8 @@ export enum PopupKeys {
   ADD_AUTH_CONFIG_MODAL = "add-auth-config-modal",
   EDIT_AUTH_CONFIG_MODAL = "edit-auth-config-modal",
   DELETE_AUTH_CONFIG_MODAL = "delete-auth-config-modal",
+  // HELPDESK
+  VIEW_TICKET_DRAWER = "view-ticket-drawer",
 }
 
 export enum PopupModes {

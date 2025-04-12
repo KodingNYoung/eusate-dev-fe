@@ -13,10 +13,10 @@ const TickerFilterDropdown: FC = () => {
   return (
     <AppPopover
       placement="bottom-start"
-      offset={0}
+      offset={-10}
       classNames={{
         content:
-          "min-w-[160px] shadow-soft-medium border border-gray-50 rounded-xl",
+          "min-w-[160px] shadow-soft-medium border border-gray-50 rounded-xl font-app",
       }}
       trigger={
         <Button
@@ -34,12 +34,12 @@ const TickerFilterDropdown: FC = () => {
     >
       <AppPopover
         placement="right-start"
-        offset={20}
+        offset={10}
         isOpen={Boolean(openedFilter)}
         onClose={() => setOpenedFilter(null)}
         triggerScaleOnOpen={false}
         trigger={<div className="w-full h-0" />}
-        classNames={{ content: "p-1" }}
+        classNames={{ content: "p-1 min-w-[150px] items-start" }}
       >
         {openedFilter === TicketFilters.PRIORITY && <PriorityFilter />}
         {openedFilter === TicketFilters.ASSIGNEE && <PriorityFilter />}
@@ -53,12 +53,12 @@ const TickerFilterDropdown: FC = () => {
       >
         Priority
       </button>
-      <button
+      {/* <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
         onClick={() => setOpenedFilter(TicketFilters.ASSIGNEE)}
       >
         Assignee
-      </button>
+      </button> */}
       <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
         onClick={() => setOpenedFilter(TicketFilters.DATE_CREATED)}

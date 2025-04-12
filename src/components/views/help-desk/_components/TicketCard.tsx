@@ -1,7 +1,7 @@
 import { cls } from "@/utils/helpers"
 import { FC, Ticket } from "@/utils/types"
 import React from "react"
-import { TicketPriority, TicketStatus } from "../utils"
+import { BADGE_COLOR_MAP, TicketStatus } from "../utils"
 import Typography from "@/components/atoms/Typography"
 import Icon from "@/components/atoms/Icon"
 import Badge from "@/components/atoms/Badge"
@@ -28,18 +28,13 @@ const tagMap = {
   [TicketStatus.RESOLVED_AND_CLOSED]: "Resolved & Closed",
   [TicketStatus.CLOSED]: "Closed",
 }
-const badgeColorMap = {
-  [TicketPriority.CRITICAL]: "error",
-  [TicketPriority.HIGH]: "warning",
-  [TicketPriority.MEDIUM]: "info",
-  [TicketPriority.LOW]: "neutral",
-} as const
 
 type Props = {
   ticket: Ticket
+  onView: () => void
 }
 
-const TicketCard: FC<Props> = ({ ticket }) => {
+const TicketCard: FC<Props> = ({ ticket, onView }) => {
   return (
     <div
       className={cls(
@@ -57,13 +52,13 @@ const TicketCard: FC<Props> = ({ ticket }) => {
           </div>
           <Badge
             type="filled"
-            color={badgeColorMap[ticket.priority]}
+            color={BADGE_COLOR_MAP[ticket.priority]}
             size="sm"
             className="capitalize"
           >
             {ticket.priority}
           </Badge>
-          <TicketCardActions />
+          <TicketCardActions onView={onView} />
         </header>
         <section className="grid gap-2">
           <Typography as="h4" className="text-gray-900 text-medium-lg truncate">
