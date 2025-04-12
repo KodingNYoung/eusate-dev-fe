@@ -36,6 +36,10 @@ export enum PopupKeys {
   DELETE_AUTH_CONFIG_MODAL = "delete-auth-config-modal",
   // HELPDESK
   VIEW_TICKET_DRAWER = "view-ticket-drawer",
+  // SETTINGS
+  GENERATE_API_KEY = "generate-api-keys",
+  DELETE_API_KEY = "delete-api-keys",
+  REVOKE_API_KEY = "revoke-api-keys",
 }
 
 export enum PopupModes {

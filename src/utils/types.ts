@@ -19,6 +19,7 @@ import {
   TicketPriority,
   TicketStatus,
 } from "@/components/views/help-desk/utils"
+import { ApiKeyStatus } from "@/components/views/settings/utlis"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -264,4 +265,17 @@ export type DSFunction = {
 export type Ticket = {
   status: TicketStatus
   priority: TicketPriority
+}
+
+export type ApiKeysType = {
+  token: string
+  name: string
+  expires_at: string | null
+  status: ApiKeyStatus
+  organisation: string
+  user: {
+    id: string
+    username: string
+    email: string
+  }
 }

@@ -66,4 +66,5 @@ export const QUERY_FN_KEYS = {
   AUTH_CONFIG: ["auth-config"],
   DEV_SPACE_FUNCTIONS: ["dev-space-fuctions"],
   CODENAMES: ["codenames"],
+  API_KEYS: ["api-keys"],
 }
