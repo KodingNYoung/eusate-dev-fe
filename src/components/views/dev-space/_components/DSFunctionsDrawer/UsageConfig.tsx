@@ -15,7 +15,7 @@ import {
   updateFunction,
 } from "@/app/(dashboard)/dev-space/actions"
 import Typography from "@/components/atoms/Typography"
-import { useAuthConfig } from "@/hooks/devSpaceHooks"
+import { useAuthConfig } from "@/hooks/apiHooks/devSpaceHooks"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import Spinner from "@/components/atoms/Spinner"
 

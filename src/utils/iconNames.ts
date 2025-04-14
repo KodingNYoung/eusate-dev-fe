@@ -53,6 +53,7 @@ export type IconNames =
   | "icon-plus"
   | "icon-pin"
   | "icon-point"
+  | "icon-quill-pen"
   | "icon-refresh-2"
   | "icon-refresh"
   | "icon-search-normal"
