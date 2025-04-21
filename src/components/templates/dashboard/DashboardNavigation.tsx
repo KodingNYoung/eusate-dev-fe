@@ -5,7 +5,7 @@ import BottomNav from "./BottomNav"
 
 /**
  * This component should house something like a provider for the current navigation state or something.
- * @returns Naviagtion component for the dashboard for both laptop and mobile view
+ * @returns Navigation component for the dashboard for both laptop and mobile view
  */
 
 const DashboardNavigation: FC = () => {

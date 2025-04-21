@@ -1,6 +1,13 @@
 import { ZodError } from "zod"
-import { ErrorObjectType, FormState, TWClassNames } from "./types"
+import {
+  ErrorObjectType,
+  FormState,
+  PageLayers,
+  PageLayersPath,
+  TWClassNames,
+} from "./types"
 import { RefObject } from "react"
+import { ROUTES } from "./constants"
 
 export function cls(
   ...classNames: (TWClassNames | string | null | undefined | false)[]
@@ -120,4 +127,26 @@ export const chunkFile = (file: File, chunkSizeInByte: number) => {
   }
 
   return chunks
+}
+
+export const pageLayerAdapter = (
+  pathname: string,
+  PAGE_LAYERS: PageLayers
+): PageLayersPath[] => {
+  const lastPathSegment = pathname.split("/").slice(-1)[0]
+  const firstThreeChar = lastPathSegment.slice(0, 3)
+
+  if (firstThreeChar === "TIC") {
+    return [
+      {
+        label: "Helpdesk",
+        icon: "icon-ticket",
+        link: ROUTES.HELP_DESK,
+        id: 1,
+      },
+      { label: "#" + lastPathSegment, id: 2 },
+    ]
+  }
+
+  return PAGE_LAYERS[pathname] || []
 }

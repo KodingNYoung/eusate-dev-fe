@@ -71,7 +71,7 @@ const TicketCard: FC<Props> = ({ ticket, onView }) => {
             Lorem ipsum, dolor sit amet consectetur adi pisi cing elit. Fugiat
             deserunt odio repudiandae voluptates consectetur est, quod tempore
             veniam reprehenderit asperiores eaque eligendi cupiditate assumenda
-            nam quisquam nisi aperiam ipsa. Quaerat enim ex provident quae
+            name quisquam nisi aperiam ipsa. Quaerat enim ex provident quae
             perspiciatis deleniti eaque omnis tempore, commodi earum quod rem
             consequuntur illum cumque, quam molestias id. Necessitatibus.
           </Typography>
