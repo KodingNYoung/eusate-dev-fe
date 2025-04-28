@@ -7,7 +7,7 @@ const TicketActionBtns: FC = () => {
   const router = useRouter()
 
   const viewFullTicketDetails = () => {
-    router.push(ROUTES.TICKET + "/TIC-230")
+    router.push(ROUTES.TICKET + "/TIC-394")
   }
 
   return (

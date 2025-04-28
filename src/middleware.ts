@@ -35,9 +35,9 @@
 // }
 //
 // // Routes Middleware should not run on
-// // export const config = {
-// //   matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
-// // }
+// export const config = {
+//   matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+// }
 //
 // export default middleware
 

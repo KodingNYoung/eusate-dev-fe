@@ -36,6 +36,8 @@ export enum PopupKeys {
   DELETE_AUTH_CONFIG_MODAL = "delete-auth-config-modal",
   // HELPDESK
   VIEW_TICKET_DRAWER = "view-ticket-drawer",
+  // TICKET CHAT
+  OPEN_CHAT_WITH_AI = "open-chat-with-ai",
   // SETTINGS
   GENERATE_API_KEY = "generate-api-keys",
   DELETE_API_KEY = "delete-api-keys",

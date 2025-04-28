@@ -8,7 +8,7 @@ type Slots = "root" | "avatar" | "info" | "title" | "subtitle"
 type Props = {
   src?: string
   title?: string
-  subtitle?: string
+  subtitle?: string | React.ReactNode
   classNames?: { [slot in Slots]?: TWClassNames }
 }
 
@@ -24,13 +24,18 @@ const Userinfo: FC<Props> = ({ src, title, subtitle, classNames }) => {
         >
           {title}
         </Typography>
-        <Typography
-          variant="regular-sm"
-          as="span"
-          className={cls("truncate", classNames?.subtitle)}
-        >
-          {subtitle}
-        </Typography>
+
+        {typeof subtitle === "string" ? (
+          <Typography
+            variant="regular-sm"
+            as="span"
+            className={cls("truncate", classNames?.subtitle)}
+          >
+            {subtitle}
+          </Typography>
+        ) : (
+          <div>{subtitle}</div>
+        )}
       </div>
     </div>
   )

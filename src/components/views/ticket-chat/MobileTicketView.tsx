@@ -1,19 +1,23 @@
 "use client"
 
+import React, { FC } from "react"
+import Details from "./details"
+import CustomerChat from "./customer-chat"
 import AppTabs from "@/components/molecules/Tabs"
 import { useQueryParams } from "@/hooks/utilityHooks"
-import React, { FC } from "react"
-import { MOBILE_TICKET_CHAT_HB_TABS } from "./utils"
+import { MOBILE_TICKET_CHAT_HB_TABS, TicketDetails } from "./utils"
 
 type Props = {
   tab: string
+  ticketDetails: TicketDetails
 }
 
-const MobileTicketView: FC<Props> = ({ tab }) => {
+const MobileTicketView: FC<Props> = ({ tab, ticketDetails }) => {
+  const { customerId, temperament } = ticketDetails
   const { set, get } = useQueryParams()
 
   return (
-    <div className="md:hidden w-full h-full grid border-black border">
+    <div className="md:hidden w-full h-full border-black border">
       <AppTabs
         tabs={MOBILE_TICKET_CHAT_HB_TABS.map(({ ...tab }) => ({
           ...tab,
@@ -29,7 +33,11 @@ const MobileTicketView: FC<Props> = ({ tab }) => {
         selectedKey={get("tab") || MOBILE_TICKET_CHAT_HB_TABS[0].key} // default to first tab
       />
 
-      {tab === "CONVERSATION" ? "Conversation" : "Details"}
+      {tab === "conversation" ? (
+        <CustomerChat customerId={customerId} temperament={temperament} />
+      ) : (
+        <Details tab={tab} ticketDetails={ticketDetails} />
+      )}
     </div>
   )
 }

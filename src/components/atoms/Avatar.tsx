@@ -11,8 +11,12 @@ type Props = {
 const Avatar: FC<Props> = ({ src, name, className }) => {
   const initials = useMemo(() => {
     if (!name) return ""
-    const names = name?.split(" ")
-    return names[0][0] + (names[1][0] ?? "")
+    const clean = name.replace(/[^a-zA-Z ]/g, "") // removes symbols like #
+    const names = clean.trim().split(" ")
+
+    const first = names[0]?.[0] ?? ""
+    const second = names[1]?.[0] ?? ""
+    return (first + second).toUpperCase()
   }, [name])
 
   return (

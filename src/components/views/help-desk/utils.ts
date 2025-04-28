@@ -75,3 +75,13 @@ export const TEMPERAMENT_COLOR_MAP: { [key in UserTemperament]: BadgeColor } = {
   [UserTemperament.IMPATIENT]: "warning",
   [UserTemperament.UPSET]: "error",
 }
+
+export const STATUS_COLOR_MAP: {
+  [key in TicketStatus]: BadgeColor
+} = {
+  [TicketStatus.OPEN]: "warning",
+  [TicketStatus.CLOSED]: "neutral",
+  [TicketStatus.TAKEN]: "success",
+  [TicketStatus.RESOLVED_AND_CLOSED]: "primary",
+  [TicketStatus.RELEASED_AND_OPEN]: "success",
+}

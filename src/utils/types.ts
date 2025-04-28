@@ -293,3 +293,15 @@ export type PageLayersPath = {
 export type PageLayers = {
   [path: string]: PageLayersPath[]
 }
+
+export type AllowedFileExt =
+  | "doc"
+  | "docx"
+  | "png"
+  | "jpeg"
+  | "xls"
+  | "mp3"
+  | "txt"
+  | "gif"
+  | "pdf"
+  | "jpg"
