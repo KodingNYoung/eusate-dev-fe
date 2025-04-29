@@ -36,7 +36,7 @@ const MobileTicketView: FC<Props> = ({ tab, ticketDetails }) => {
       {tab === "conversation" ? (
         <CustomerChat customerId={customerId} temperament={temperament} />
       ) : (
-        <Details tab={tab} ticketDetails={ticketDetails} />
+        <Details ticketId="" tab={tab} ticketDetails={ticketDetails} />
       )}
     </div>
   )

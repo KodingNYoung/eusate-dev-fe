@@ -39,7 +39,7 @@ const Attachments = () => {
   }, [localAttachments])
 
   return (
-    <div className="custom-scrollbar w-full p-6 h-[30vh] flex flex-col overflow-y-auto">
+    <div className="custom-scrollbar w-full p-6 flex flex-col overflow-y-auto">
       {resolvedAttachments.length ? (
         resolvedAttachments.map((file, idx) => (
           <AttachmentCard key={idx} file={file} />

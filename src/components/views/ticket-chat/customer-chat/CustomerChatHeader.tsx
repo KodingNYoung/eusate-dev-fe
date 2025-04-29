@@ -12,7 +12,7 @@ type Props = {
 
 const Header: FC<Props> = ({ avatarUrl, temperament, customerId }) => {
   return (
-    <div className="sticky top-0 flex z-1 fixed bg-white items-center justify-between w-full px-4 sm:px-6 py sm:py-2 border-gray-50 border-b-2">
+    <div className="sticky top-0 left-0 flex z-1 bg-white items-center justify-between w-full px-4 sm:px-6 py sm:py-2 border-gray-50 border-b min-h-[68px]">
       <div className="flex items-center gap-x-8 my-3 sm:my-0">
         <Icon
           name="icon-arrow-left"

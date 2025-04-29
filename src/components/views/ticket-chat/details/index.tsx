@@ -7,7 +7,7 @@ import { TicketChatDetailsProvider } from "@/providers/ticketChatProvider"
 
 type Props = {
   tab: string
-  ticketId?: string | undefined
+  ticketId: string
   ticketDetails: ITicketDetails
 }
 
@@ -15,8 +15,8 @@ const Details: FC<Props> = ({ tab, ticketId, ticketDetails }) => {
   const { customerId, temperament } = ticketDetails
   return (
     <TicketChatDetailsProvider>
-      <div className="border-r border-r-gray-50">
-        {ticketId && <Header ticketId={ticketId} />}
+      <div className="border-r border-r-gray-50 overflow-y-auto">
+        <Header ticketId={ticketId} />
         <TicketDetails ticketDetails={ticketDetails} />
         <TicketDetailsTab
           tab={tab}

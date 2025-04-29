@@ -6,7 +6,7 @@ import AIChat from "./aichat"
 
 type Props = {
   tab: string
-  ticketId: string | undefined
+  ticketId: string
   ticketDetails: TicketDetails
 }
 

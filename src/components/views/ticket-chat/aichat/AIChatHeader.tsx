@@ -8,7 +8,7 @@ import { useModal } from "@/hooks/popupHooks"
 const Header: FC = () => {
   const { close } = useModal()
   return (
-    <div className="sticky top-0 flex z-1 fixed bg-white items-center justify-between w-full px-6 py-2  border-gray-50 border-b-2">
+    <div className="sticky top-0 left-0 flex z-1 bg-white items-center justify-between w-full px-6 py-2  border-gray-50 border-b min-h-[68px]">
       <div className="flex items-center gap-x-4">
         <Icon
           onClick={() => close()}

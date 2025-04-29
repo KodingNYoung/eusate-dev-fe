@@ -82,8 +82,7 @@ const TicketDetailsTab: FC<Props> = ({ customerId, temperament }) => {
         onSelectionChange={(tab) => setTab(tab)}
         selectedKey={tab}
       />
-
-      {currentTabContent}
+      <div className="min-h-[30vh]">{currentTabContent}</div>
     </div>
   )
 }

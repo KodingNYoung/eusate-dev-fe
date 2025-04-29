@@ -81,7 +81,7 @@ const TicketDetails: FC<Props> = ({
   ]
 
   return (
-    <section className="relative grid grid-rows-[auto_1fr_auto] py-5 px-6">
+    <section className="relative grid grid-rows-[auto_1fr_auto] py-5 px-4">
       <Header title={title} description={description} />
       <DetailsSection
         status={status}

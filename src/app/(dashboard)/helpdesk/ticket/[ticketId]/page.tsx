@@ -15,7 +15,7 @@ const TicketChatPage: PageFC<{ ticketId: string }> = ({
   params,
   searchParams,
 }) => {
-  const ticketId = params?.ticketId
+  const ticketId = params?.ticketId as string
   const tab =
     (searchParams?.[HD_QUERY_KEYS.TAB] as MobileTicketChatTabs) ||
     MOBILE_TICKET_CHAT_HB_TABS[0].key

@@ -7,7 +7,7 @@ const ViewAISummary = () => {
   const [, setOpen] = useState<boolean>(true)
 
   return (
-    <section className="w-full flex mt-8">
+    <section className="w-full flex mt-5">
       <AppPopover
         placement="top"
         offset={10}

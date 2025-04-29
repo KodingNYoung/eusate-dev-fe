@@ -5,7 +5,6 @@ import { formatDate } from "@/utils/helpers"
 import { IconNames } from "@/utils/iconNames"
 import Status from "../../_components/status"
 import { ChannelList, Channels } from "../../utils"
-import Typography from "@/components/atoms/Typography"
 import Userinfo from "@/components/molecules/Userinfo"
 import AppDropdown from "@/components/molecules/Popups/AppDropdown"
 import {
@@ -109,9 +108,6 @@ const DetailsSection: FC<Props> = ({
                 title: "!text-medium-sm !text-gray-900",
               }}
             />
-            <Typography className="underline text-regular-sm">
-              Change
-            </Typography>
           </div>
         }
       />

@@ -12,7 +12,7 @@ import {
 } from "../help-desk/utils"
 
 type Props = {
-  ticketId: string | undefined
+  ticketId: string
   tab: string
 }
 
@@ -42,10 +42,12 @@ const TicketChat: FC<Props> = ({ ticketId, tab }) => {
 
   return (
     <TicketChatProvider>
-      <div className="bg-white w-full h-full rounded-xl sm:rounded-x20 ">
+      <div className="bg-white w-full rounded-xl sm:rounded-x20 h-[calc(100vh_-_94px)] overflow-hidden">
         {!ticketDetails.length ? (
-          <div className="h-full w-full flex justify-center items-center text-gray-300">
-            I no say you go try am. Go and get married bro
+          <div className="h-full w-full">
+            <div className="h-screen w-full flex justify-center items-center text-gray-300">
+              I no say you go try am. Go and get married bro
+            </div>
           </div>
         ) : (
           <div className="w-full h-full">
