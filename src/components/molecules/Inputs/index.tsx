@@ -87,7 +87,7 @@ const Input: FC<InputProps> = ({
           {getElement(
             multiline ? "textarea" : "input",
             cls(
-              "p-4  transition-colors duration-200 outline-0 w-full relative regular-sm font-app text-gray-900 bg-white-100",
+              "p-4 transition-colors duration-200 outline-0 w-full relative regular-sm font-app text-gray-900 bg-white-100",
               "placeholder:text-regular-sm placeholder:text-gray-400 rounded-[inherit] resize-none",
               !multiline && inputSize[size],
               !!endComponent && "pr-10",

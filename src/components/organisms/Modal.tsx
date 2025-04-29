@@ -22,14 +22,18 @@ export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
     subtitle?: string
     closeIcon?: IconNames | false
   }
+  size?: Sizes
   id: PopupKeys
 }
+
+type Sizes = "full"
 
 const AppModal: FC<AppModalProps> = ({
   children,
   classNames,
   header,
   id,
+  size,
   ...props
 }) => {
   const { isOpen, close } = useModal(id)
@@ -38,6 +42,7 @@ const AppModal: FC<AppModalProps> = ({
     <Modal
       isOpen={isOpen}
       placement="center"
+      size={size}
       onClose={close}
       classNames={{
         ...classNames,

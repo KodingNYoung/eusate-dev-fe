@@ -20,6 +20,7 @@ import {
   TicketStatus,
 } from "@/components/views/help-desk/utils"
 import { ApiKeyStatus } from "@/components/views/settings/utlis"
+import { IconNames } from "./iconNames"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -85,6 +86,7 @@ export type FC<PropsType = unknown> = {
   ): ReactElement | null
   displayName?: string
 }
+
 export type LayoutFC<
   ParamsType = { [paramsKey: string]: string | string[] | undefined },
 > = {
@@ -110,6 +112,7 @@ export type PageFC<
   ): ReactElement | null | Promise<ReactElement | null>
   displayName?: string
 }
+
 export type ErrorObjectType = {
   type: "request" | "validation"
   message?: string
@@ -279,3 +282,26 @@ export type ApiKeysType = {
     email: string
   }
 }
+
+export type PageLayersPath = {
+  label: string
+  icon?: IconNames
+  link?: string
+  id: number
+}
+
+export type PageLayers = {
+  [path: string]: PageLayersPath[]
+}
+
+export type AllowedFileExt =
+  | "doc"
+  | "docx"
+  | "png"
+  | "jpeg"
+  | "xls"
+  | "mp3"
+  | "txt"
+  | "gif"
+  | "pdf"
+  | "jpg"

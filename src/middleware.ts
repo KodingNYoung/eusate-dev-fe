@@ -40,3 +40,11 @@ export const config = {
 }
 
 export default middleware
+
+// import { NextResponse } from "next/server"
+
+// const middleware = async () => {
+//   return NextResponse.next()
+// }
+
+// export default middleware

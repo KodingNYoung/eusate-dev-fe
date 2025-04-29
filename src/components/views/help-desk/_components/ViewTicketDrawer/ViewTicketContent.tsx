@@ -3,6 +3,7 @@ import React from "react"
 import TicketDetails from "./TicketDetails"
 import Attachments from "./Attachments"
 import CustomerInfo from "./CustomerInfo"
+import TicketActionBtns from "./TicketActionButtons"
 
 type Props = {
   ticket?: Ticket
@@ -15,6 +16,7 @@ const ViewTicketContent: FC<Props> = ({ ticket }) => {
       <TicketDetails />
       <Attachments />
       <CustomerInfo />
+      <TicketActionBtns />
     </main>
   )
 }

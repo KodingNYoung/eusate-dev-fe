@@ -1,0 +1,19 @@
+import Typography from "@/components/atoms/Typography"
+import React, { FC } from "react"
+
+type Props = {
+  msg: string
+}
+
+const NoContentFound: FC<Props> = ({ msg }) => {
+  return (
+    <Typography
+      as="p"
+      className="text-medium-xs text-gray-400 text-center mt-8"
+    >
+      {msg}
+    </Typography>
+  )
+}
+
+export default NoContentFound

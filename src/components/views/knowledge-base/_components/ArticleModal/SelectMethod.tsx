@@ -45,17 +45,15 @@ const SelectMethod: FC<Props> = ({ onOptionSelect }) => {
   return (
     <form ref={formRef} action={handleSubmit}>
       <main className="grid gap-5 py-10 px-5">
-        {ARTICLE_METHODS.map((method) => {
-          return (
-            <SourceModalRadio
-              key={method.value}
-              name="method"
-              onChange={onFieldChange}
-              classNames={{ label: "!flex-row" }}
-              {...method}
-            />
-          )
-        })}
+        {ARTICLE_METHODS.map((method) => (
+          <SourceModalRadio
+            key={method.value}
+            name="method"
+            onChange={onFieldChange}
+            classNames={{ label: "!flex-row" }}
+            {...method}
+          />
+        ))}
       </main>
       <footer className="flex items-center justify-end p-5 border-t border-gray-50">
         <Button
