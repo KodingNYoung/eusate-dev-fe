@@ -12,15 +12,15 @@ import {
 import React, { ReactElement } from "react"
 
 type Props = Omit<PopoverProps, "children"> & {
-  classNames?: { [slot in PopoverSlots | "triggerContainer"]?: string }
-  trigger: ReactElement
+  classNames?: { [slot in PopoverSlots]?: string }
+  trigger?: ReactElement
 }
 
 const AppPopover: FC<Props> = ({
   children,
   trigger,
   placement,
-  classNames: { triggerContainer, ...classNames } = {},
+  classNames,
   ...props
 }) => {
   return (
@@ -35,9 +35,7 @@ const AppPopover: FC<Props> = ({
       }}
       {...props}
     >
-      <PopoverTrigger>
-        <div className={triggerContainer}>{trigger}</div>
-      </PopoverTrigger>
+      <PopoverTrigger>{trigger}</PopoverTrigger>
       <PopoverContent>{children}</PopoverContent>
     </Popover>
   )

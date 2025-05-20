@@ -2,7 +2,7 @@
 
 import { FC } from "@/utils/types"
 import React from "react"
-import { useAuthConfig } from "@/hooks/devSpaceHooks"
+import { useAuthConfig } from "@/hooks/api/devSpaceHooks"
 import DevSpaceEmptyState from "./_components/DevSpaceEmptyState"
 import { DevspaceTabs } from "./utils"
 import AuthConfigDrawer from "./_components/AuthConfigDrawer"

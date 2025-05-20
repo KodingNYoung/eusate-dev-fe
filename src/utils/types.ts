@@ -2,6 +2,7 @@ import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
 import {
   AiTones,
   KnowledgeSourceTags,
+  MessageSenders,
   ResourceSources,
   TwoFAMethods,
 } from "./enums"
@@ -15,6 +16,13 @@ import {
   FunctionStatus,
   ParamsProvidedBy,
 } from "@/components/views/dev-space/utils"
+import {
+  TicketPriority,
+  TicketStatus,
+  UserTemperament,
+} from "@/components/views/help-desk/utils"
+import { ApiKeyStatus } from "@/components/views/settings/utlis"
+import { IconNames } from "./iconNames"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
@@ -80,6 +88,7 @@ export type FC<PropsType = unknown> = {
   ): ReactElement | null
   displayName?: string
 }
+
 export type LayoutFC<
   ParamsType = { [paramsKey: string]: string | string[] | undefined },
 > = {
@@ -105,6 +114,7 @@ export type PageFC<
   ): ReactElement | null | Promise<ReactElement | null>
   displayName?: string
 }
+
 export type ErrorObjectType = {
   type: "request" | "validation"
   message?: string
@@ -256,3 +266,86 @@ export type DSFunction = {
   organisation_id?: string
   auth_config_id?: string
 }
+
+export type TicketCustomer = {
+  id: string
+  current_temperament: UserTemperament
+  temperaments: UserTemperament[]
+}
+export type TicketChannel = DBResource & {
+  name: string
+  logo: string
+}
+export type Ticket = DBResource & {
+  organisation: string
+  id_slug: string
+  title: string
+  description: string
+  status: TicketStatus
+  priority: TicketPriority
+  pinned: boolean
+  customer: TicketCustomer
+  attachments: string[]
+  assignee: string | null
+  channel: TicketChannel
+}
+export type TicketCommentAgent = {
+  id: string
+  name: string
+  email: string
+}
+export type TicketComment = DBResource & {
+  message: string
+  ticket: string
+  agent: TicketCommentAgent
+}
+export type AttachmentMetadata = {
+  url: string
+  name: string
+  size_kb: number
+  extension: string
+}
+
+export type MessageType = DBResource & {
+  message: string
+  sender: MessageSenders
+  is_attachment: boolean
+  attachment_metadata: AttachmentMetadata | null
+  ticket_chat: string
+}
+
+export type ApiKeysType = {
+  token: string
+  name: string
+  expires_at: string | null
+  status: ApiKeyStatus
+  organisation: string
+  user: {
+    id: string
+    username: string
+    email: string
+  }
+}
+
+export type PageLayersPath = {
+  label: string
+  icon?: IconNames
+  link?: string
+  id: number
+}
+
+export type PageLayers = {
+  [path: string]: PageLayersPath[]
+}
+
+export type AllowedFileExt =
+  | "doc"
+  | "docx"
+  | "png"
+  | "jpeg"
+  | "xls"
+  | "mp3"
+  | "txt"
+  | "gif"
+  | "pdf"
+  | "jpg"

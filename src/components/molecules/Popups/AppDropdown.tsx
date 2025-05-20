@@ -34,11 +34,11 @@ export type SectionsType = {
 
 type Props = Omit<DropdownProps, "children"> & {
   triggerEl: ReactElement
+  sections?: SectionsType
   triggerProps?: DropdownTriggerProps
   triggerBtnProps?: ButtonProps
   menuProps?: Omit<DropdownMenuProps, "children">
   sectionProps?: Omit<DropdownSectionProps, "children">
-  sections?: SectionsType
 }
 
 const AppDropdown: FC<Props> = ({
@@ -48,6 +48,7 @@ const AppDropdown: FC<Props> = ({
   menuProps,
   sectionProps,
   sections,
+  classNames,
   ...props
 }) => {
   return (
@@ -55,7 +56,11 @@ const AppDropdown: FC<Props> = ({
       placement="bottom-end"
       className="min-w-[154px] "
       classNames={{
-        content: "p-0 shadow-soft-medium border border-gray-50 rounded-xl",
+        ...classNames,
+        content: [
+          "p-0 shadow-soft-medium border border-gray-50 rounded-xl",
+          classNames?.content,
+        ],
       }}
       {...props}
     >
@@ -91,10 +96,12 @@ const AppDropdown: FC<Props> = ({
                         href={item.link}
                         className={cls("p-3 gap-3 group/item", item.className)}
                         classNames={{
-                          title: cls(
+                          ...menuProps?.itemClasses,
+                          title: [
                             "text-[12px] text-gray-600",
-                            item.className
-                          ),
+                            item.className,
+                            menuProps?.itemClasses?.title,
+                          ],
                         }}
                         textValue={item.label}
                       >

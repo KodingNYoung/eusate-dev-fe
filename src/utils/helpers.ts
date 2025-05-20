@@ -1,6 +1,17 @@
 import { ZodError } from "zod"
-import { ErrorObjectType, FormState, TWClassNames } from "./types"
+import {
+  ErrorObjectType,
+  FormState,
+  PageLayers,
+  PageLayersPath,
+  TWClassNames,
+} from "./types"
 import { RefObject } from "react"
+import { ROUTES } from "./constants"
+import dayjs from "dayjs"
+import calendar from "dayjs/plugin/calendar"
+
+dayjs.extend(calendar)
 
 export function cls(
   ...classNames: (TWClassNames | string | null | undefined | false)[]
@@ -120,4 +131,70 @@ export const chunkFile = (file: File, chunkSizeInByte: number) => {
   }
 
   return chunks
+}
+
+export const objToQuery = (obj: Record<string, string | number | boolean>) => {
+  const query = new URLSearchParams()
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key as keyof typeof obj]
+    if (value !== undefined && value !== "") {
+      query.set(key, value.toString())
+    }
+  })
+
+  return query.toString()
+}
+
+export const pageLayerAdapter = (
+  pathname: string,
+  PAGE_LAYERS: PageLayers
+): PageLayersPath[] => {
+  const lastPathSegment = pathname.split("/").slice(-1)[0]
+  const firstThreeChar = lastPathSegment.slice(0, 3)
+
+  if (firstThreeChar === "TIC") {
+    return [
+      {
+        label: "Helpdesk",
+        icon: "icon-ticket",
+        link: ROUTES.HELP_DESK,
+        id: 1,
+      },
+      { label: "#" + lastPathSegment, id: 2 },
+    ]
+  }
+
+  return PAGE_LAYERS[pathname] || []
+}
+
+export const capitalizeFirstLetter = (str: string): string => {
+  if (!str) return ""
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+export const truncateWord = (str: string, maxLength: number): string => {
+  if (str.length <= maxLength) return str
+  return str.slice(0, maxLength) + "..."
+}
+
+export const getFileExtension = (
+  file: File,
+  method: "name" | "type" = "name"
+): string => {
+  if (method === "type" && file.type) {
+    const mimeParts = file.type.split("/")
+    return mimeParts.length > 1 ? mimeParts[1].toLowerCase() : ""
+  } else {
+    const nameParts = file.name.split(".")
+    return nameParts.length > 1 ? nameParts.pop()!.toLowerCase() : ""
+  }
+}
+
+export const formatToMessageTime = (date: string) => {
+  return dayjs(date).calendar(null, {
+    sameDay: "h:mmA", // The same day ( Today at 2:30 AM )
+    lastDay: "[Yesterday], h:mmA", // The day before ( Yesterday at 2:30 AM )
+    lastWeek: "dddd, h:mmA", // Last week ( Last Monday at 2:30 AM )
+    sameElse: "DD/MM/YYYY, h:mmA ", // Everything else ( 7/10/2011 )
+  })
 }

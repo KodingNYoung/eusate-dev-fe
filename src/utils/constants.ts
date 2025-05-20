@@ -14,6 +14,7 @@ export const ROUTES = {
   OVERVIEW: "/overview",
   KNOWLEDGE_BASE: "/knowledge-base",
   HELP_DESK: "/helpdesk",
+  TICKET: "/helpdesk/ticket",
   REPORTS: "/reports",
   SETTINGS: "/settings",
   HELP_AND_SUPPORT: "/help-and-support",
@@ -66,4 +67,9 @@ export const QUERY_FN_KEYS = {
   AUTH_CONFIG: ["auth-config"],
   DEV_SPACE_FUNCTIONS: ["dev-space-fuctions"],
   CODENAMES: ["codenames"],
+  API_KEYS: ["api-keys"],
+  TICKETS: ["tickets"],
+  TICKET: ["ticket"],
+  TICKET_COMMENTS: ["ticket-comments"],
+  TICKET_CHAT: ["ticket-chat"],
 }

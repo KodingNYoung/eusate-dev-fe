@@ -14,10 +14,7 @@ const FAQModal: FC<Props> = ({ id = PopupKeys.ADD_FAQS_MODAL, faq }) => {
   return (
     <Modal
       id={id}
-      classNames={{
-        wrapper: "px-2",
-        base: "w-full max-w-[600px] rounded-x20",
-      }}
+      classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
       header={{ title: isAdd ? "Add FAQ" : "Edit FAQ" }}
     >
       <FAQModalForm isAdd={isAdd} faq={faq} />

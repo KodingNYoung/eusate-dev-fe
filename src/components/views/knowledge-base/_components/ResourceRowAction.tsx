@@ -1,3 +1,5 @@
+"use client"
+
 import Icon from "@/components/atoms/Icon"
 import AppDropdown, {
   SectionsType,
