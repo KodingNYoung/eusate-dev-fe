@@ -1,18 +1,13 @@
 "use client"
 
-import SearchInput from "@/components/molecules/Inputs/SearchInput"
-import { useQueryParams } from "@/hooks/utilityHooks"
 import { FC } from "@/utils/types"
 import React from "react"
-import { HD_QUERY_KEYS } from "../utils"
 import TicketFilters from "./TicketFilters"
 
 const TicketsActions: FC = () => {
-  const { set, get } = useQueryParams()
-
   return (
     <div className="flex items-center flex-wrap gap-2.5">
-      <SearchInput
+      {/* <SearchInput
         value={get(HD_QUERY_KEYS.SEARCH) || ""}
         onSearch={(value) => {
           set(HD_QUERY_KEYS.SEARCH, value || null)
@@ -24,7 +19,7 @@ const TicketsActions: FC = () => {
           input: "placeholder:text-gray-300 w-full ",
           startContent: "!text-gray-500",
         }}
-      />
+      /> */}
       <TicketFilters />
     </div>
   )

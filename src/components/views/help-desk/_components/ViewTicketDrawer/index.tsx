@@ -5,7 +5,7 @@ import React from "react"
 import ViewTicketContent from "./ViewTicketContent"
 
 type Props = {
-  ticket?: Ticket
+  ticket: Ticket
 }
 
 const TicketViewDrawer: FC<Props> = ({ ticket }) => {

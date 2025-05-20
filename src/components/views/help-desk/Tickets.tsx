@@ -1,49 +1,65 @@
 "use client"
 
 import { FC, Ticket } from "@/utils/types"
-import React, { useState } from "react"
-import { HelpDeskTabs, TicketPriority, TicketStatus } from "./utils"
+import React, { useMemo, useState } from "react"
+import {
+  HelpDeskTabs,
+  TicketPriority,
+  TicketStatus,
+  UserTemperament,
+} from "./utils"
 import TicketsActions from "./_components/TicketsActions"
 import TicketsEmptyState from "./_components/TicketsEmptyState"
 import TicketCard from "./_components/TicketCard"
 import TicketViewDrawer from "./_components/ViewTicketDrawer"
+import { useTickets } from "@/hooks/api/helpdeskHooks"
+import { useQueryParams } from "@/hooks/utilityHooks"
 
 type Props = {
   tab: HelpDeskTabs
 }
 
 const Tickets: FC<Props> = () => {
-  const [ticket, setTicket] = useState<Ticket>()
+  const { get, searchParams } = useQueryParams()
+
+  const [ticket, setTicket] = useState<Ticket>({} as Ticket)
+
+  const filters = useMemo(
+    () => ({
+      priority: (get("priority") as TicketPriority) || undefined,
+      status: (get("status") as TicketStatus) || undefined,
+      date_created: (get("date_created") as string) || undefined,
+      date_updated: (get("date_updated") as string) || undefined,
+      assigned_to_me: get("tab") === HelpDeskTabs.ASSIGNED_TO_ME || undefined,
+      ai_tickets: get("tab") === HelpDeskTabs.AI_TICKETS || undefined,
+      temperament: (get("temperament") as UserTemperament) || undefined,
+    }),
+    [searchParams]
+  )
+
+  const { data, isFetching } = useTickets(filters)
 
   return (
     <div className="grid gap-5 content-start flex-1">
       <TicketsActions />
-      {false && <TicketsEmptyState />}
-      <div className="grid grid-cols-[repeat(auto-fit,_minmax(270px,1fr))] gap-5">
-        {[
-          { status: TicketStatus.OPEN, priority: TicketPriority.CRITICAL },
-          { status: TicketStatus.TAKEN, priority: TicketPriority.LOW },
-          {
-            status: TicketStatus.RELEASED_AND_OPEN,
-            priority: TicketPriority.LOW,
-          },
-          { status: TicketStatus.CLOSED, priority: TicketPriority.MEDIUM },
-          {
-            status: TicketStatus.RESOLVED_AND_CLOSED,
-            priority: TicketPriority.LOW,
-          },
-          { status: TicketStatus.OPEN, priority: TicketPriority.HIGH },
-          { status: TicketStatus.CLOSED, priority: TicketPriority.LOW },
-        ].map((ticket, idx) => {
-          return (
-            <TicketCard
-              key={idx}
-              ticket={ticket}
-              onView={() => setTicket(ticket)}
-            />
-          )
-        })}
-      </div>
+      {!data?.pages?.[0]?.count && !isFetching && (
+        <TicketsEmptyState hasFilters={!!Object.values(filters).length} />
+      )}
+      {!!data?.pages?.[0]?.count && (
+        <div className="grid grid-cols-[repeat(auto-fit,_minmax(270px,1fr))] gap-5">
+          {data.pages
+            .flatMap((page) => page.results)
+            .map((ticket) => {
+              return (
+                <TicketCard
+                  key={ticket.id}
+                  ticket={ticket}
+                  onView={() => setTicket(ticket)}
+                />
+              )
+            })}
+        </div>
+      )}
       <TicketViewDrawer ticket={ticket} />
     </div>
   )

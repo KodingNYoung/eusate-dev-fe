@@ -10,8 +10,8 @@ export enum HelpDeskTabs {
 export enum TicketStatus {
   OPEN = "open",
   TAKEN = "taken",
-  RELEASED_AND_OPEN = "released-and-open",
-  RESOLVED_AND_CLOSED = "resolved-and-closed",
+  RELEASED_AND_OPEN = "released_and_open",
+  RESOLVED_AND_CLOSED = "resolved_and_closed",
   CLOSED = "closed",
 }
 export enum TicketPriority {
@@ -28,6 +28,7 @@ export enum UserTemperament {
 }
 export enum TicketFilters {
   PRIORITY = "priority",
+  STATUS = "status",
   ASSIGNEE = "assignee",
   DATE_CREATED = "date_created",
   LAST_UPDATED = "last_updated",

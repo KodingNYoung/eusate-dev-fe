@@ -8,10 +8,11 @@ import { TicketFilters as ETicketFilters } from "../utils"
 const TicketFilters: FC = () => {
   const { get, set, searchParams } = useQueryParams()
 
-  const { priorities, date_created, last_created, temperament } =
+  const { priorities, statuses, date_created, last_created, temperament } =
     useMemo(() => {
       return {
         priorities: get(ETicketFilters.PRIORITY)?.split(",") || [],
+        statuses: get(ETicketFilters.STATUS)?.split(",") || [],
         date_created: get(ETicketFilters.DATE_CREATED),
         last_created: get(ETicketFilters.LAST_UPDATED),
         temperament: get(ETicketFilters.TEMPERAMENT)?.split(",") || [],
@@ -20,14 +21,32 @@ const TicketFilters: FC = () => {
 
   const removeFilter = useCallback(
     (filter: ETicketFilters, value?: string) => {
-      if (filter === ETicketFilters.PRIORITY) {
-        const newPriorities = priorities.filter(
-          (priority) => priority !== value
-        )
-        set(ETicketFilters.PRIORITY, newPriorities.join(",") || null)
+      let prev: string | string[] | null
+      switch (filter) {
+        case ETicketFilters.PRIORITY:
+          prev = priorities
+          break
+        case ETicketFilters.STATUS:
+          prev = statuses
+          break
+        case ETicketFilters.TEMPERAMENT:
+          prev = temperament
+          break
+        default:
+          prev = []
+      }
+      if (
+        [
+          ETicketFilters.PRIORITY,
+          ETicketFilters.TEMPERAMENT,
+          ETicketFilters.STATUS,
+        ].includes(filter)
+      ) {
+        const newFilters = prev.filter((priority) => priority !== value)
+        set(filter, newFilters.join(",") || null)
       }
     },
-    [priorities, temperament]
+    [priorities, temperament, statuses]
   )
 
   return (
@@ -41,6 +60,14 @@ const TicketFilters: FC = () => {
               label="Priority"
               value={priority}
               onRemove={() => removeFilter(ETicketFilters.PRIORITY, priority)}
+            />
+          ))}
+          {statuses.map((status) => (
+            <TicketFilterItem
+              key={status}
+              label="Status"
+              value={status}
+              onRemove={() => removeFilter(ETicketFilters.STATUS, status)}
             />
           ))}
           {date_created && (

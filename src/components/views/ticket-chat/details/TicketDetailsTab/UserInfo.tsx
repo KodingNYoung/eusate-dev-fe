@@ -1,22 +1,18 @@
 import React from "react"
-import { FC } from "@/utils/types"
+import { FC, TicketCustomer } from "@/utils/types"
 import Badge from "@/components/atoms/Badge"
-import {
-  TEMPERAMENT_COLOR_MAP,
-  UserTemperament,
-} from "@/components/views/help-desk/utils"
+import { TEMPERAMENT_COLOR_MAP } from "@/components/views/help-desk/utils"
 import TicketDetailItem from "@/components/views/help-desk/_components/ViewTicketDrawer/TicketDetailItem"
 
 type Props = {
-  customerId: string
-  temperament: UserTemperament
+  customer: TicketCustomer
 }
 
-const UserInfo: FC<Props> = ({ customerId, temperament }) => {
+const UserInfo: FC<Props> = ({ customer }) => {
   return (
-    <section className="py-5 px-8">
-      <main className="border border-gray-50 rounded-x20 p-4 grid gap-5">
-        <TicketDetailItem label="Customer ID" value={customerId} />
+    <section className="py-5 px-6">
+      <main className="border border-gray-50 rounded-x20 py-4 px-5 grid gap-4">
+        <TicketDetailItem label="Customer ID" value={customer.id} />
         <TicketDetailItem
           label="Temperament"
           value={
@@ -24,9 +20,9 @@ const UserInfo: FC<Props> = ({ customerId, temperament }) => {
               type="accent"
               size="sm"
               className="capitalize"
-              color={TEMPERAMENT_COLOR_MAP[temperament]}
+              color={TEMPERAMENT_COLOR_MAP[customer.current_temperament]}
             >
-              {temperament}
+              {customer.current_temperament}
             </Badge>
           }
         />

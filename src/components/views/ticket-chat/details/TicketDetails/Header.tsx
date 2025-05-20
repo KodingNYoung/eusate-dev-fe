@@ -1,18 +1,16 @@
 import Typography from "@/components/atoms/Typography"
+import { Ticket } from "@/utils/types"
 import React, { FC } from "react"
 
-type Props = {
-  title: string
-  description: string
-}
-const Header: FC<Props> = ({ title, description }) => {
+type Props = { ticket: Ticket }
+const Header: FC<Props> = ({ ticket }) => {
   return (
     <header className="grid gap-2 mb-6">
       <Typography as="h2" className="text-semibold-xl text-gray-900">
-        {title}
+        {ticket?.title}
       </Typography>
-      <Typography as="p" className="text-gray-700 text-regular-sm">
-        {description}
+      <Typography as="p" className="text-regular-sm text-gray-700">
+        {ticket?.description}
       </Typography>
     </header>
   )

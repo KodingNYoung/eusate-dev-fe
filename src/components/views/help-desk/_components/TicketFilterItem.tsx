@@ -13,7 +13,7 @@ const TicketFilterItem: FC<Props> = ({ label, value, onRemove }) => {
   return (
     <div className="flex items-center gap-3 px-2.5 py-1.5 bg-gold-50 rounded-lg whitespace-nowrap">
       <Typography as="span" className="text-gray-900 text-medium-base">
-        {label} is {value}
+        {label} is {value.replaceAll("_", " ")}
       </Typography>
       <button className="leading-none" onClick={onRemove}>
         <Icon name="icon-close" size={24} />

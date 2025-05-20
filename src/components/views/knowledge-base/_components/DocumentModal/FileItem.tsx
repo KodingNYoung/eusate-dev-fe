@@ -19,7 +19,7 @@ type Props = {
   file: File
   onRemove: () => void
 }
-const fileIconMap = {
+export const fileIconMap = {
   doc: doc,
   docx: doc,
   gif: gif,
@@ -27,6 +27,7 @@ const fileIconMap = {
   mp3: mp3,
   pdf: pdf,
   png: png,
+  svg: png,
   txt: txt,
   xls: xls,
 } as const

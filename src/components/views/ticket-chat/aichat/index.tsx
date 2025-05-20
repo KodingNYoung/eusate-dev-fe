@@ -1,10 +1,10 @@
 import React, { useRef } from "react"
 import Header from "./AIChatHeader"
 import ChatArea from "./AIChatArea"
-import { ChatMessage } from "../customer-chat"
 import { MOCK_SATE_CHAT } from "../mockData"
 import ChatFooter from "./AIChatFooter"
-import { SateChatProvider } from "@/providers/ticketChatProvider"
+// import { SateChatProvider } from "@/providers/ticketChatProvider"
+import { MessageType } from "@/utils/types"
 
 export type Chat = {
   sate: {
@@ -16,7 +16,7 @@ export type Chat = {
     id: string
     name: string
   }
-  chatPayload: ChatMessage[]
+  chatPayload: MessageType[]
 }
 
 const AIChat = () => {
@@ -27,13 +27,13 @@ const AIChat = () => {
   }
 
   return (
-    <SateChatProvider>
-      <div className="grid grid-rows-[auto_1fr_auto] h-full">
-        <Header />
-        <ChatArea bottomRef={bottomRef} ref={chatRef} chat={MOCK_SATE_CHAT} />
-        <ChatFooter scrollToBottom={scrollToBottom} />
-      </div>
-    </SateChatProvider>
+    // <SateChatProvider>
+    <div className="grid grid-rows-[auto_1fr_auto] h-full">
+      <Header />
+      <ChatArea bottomRef={bottomRef} ref={chatRef} chat={MOCK_SATE_CHAT} />
+      <ChatFooter scrollToBottom={scrollToBottom} />
+    </div>
+    // </SateChatProvider>
   )
 }
 

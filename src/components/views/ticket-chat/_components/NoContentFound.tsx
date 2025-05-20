@@ -9,7 +9,7 @@ const NoContentFound: FC<Props> = ({ msg }) => {
   return (
     <Typography
       as="p"
-      className="text-medium-xs text-gray-400 text-center mt-8"
+      className="text-medium-xs text-gray-400 text-center h-full flex justify-center items-center"
     >
       {msg}
     </Typography>

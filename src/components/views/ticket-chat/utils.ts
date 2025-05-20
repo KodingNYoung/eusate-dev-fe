@@ -73,22 +73,18 @@ export type TicketDetails = {
   lastUpdated: Date
   createdAt: Date
   assignedTo: string
-  channel: Channels
   customerId: string
   temperament: UserTemperament
 }
 
-export type Channels = "twitter"
-
 export enum ChannelList {
   TWITTER = "twitter",
 }
-
-export type Comment = {
-  avatarUrl: string
-  name: string
-  createdAt: Date
-  comment: string
+export enum TicketDetailsTabs {
+  ATTACHMENTS = "attachments",
+  ACTIVITY = "activity",
+  COMMENTS = "comments",
+  USERINFO = "userinfo",
 }
 
 export type Activity = {
@@ -100,7 +96,27 @@ export type Activity = {
   createdAt: Date
 }
 
-export type ChatPersons = "customer" | "sate" | "support"
+export const TICKET_DETAILS_TABS_LIST: {
+  key: TicketDetailsTabs
+  label: string
+}[] = [
+  {
+    key: TicketDetailsTabs.ATTACHMENTS,
+    label: "Attachments",
+  },
+  {
+    key: TicketDetailsTabs.USERINFO,
+    label: "User info",
+  },
+  {
+    key: TicketDetailsTabs.COMMENTS,
+    label: "Comments",
+  },
+  {
+    key: TicketDetailsTabs.ACTIVITY,
+    label: "Activity",
+  },
+]
 
 export const getFileFromPublicAssets = async (path: string): Promise<File> => {
   const response = await fetch(path)

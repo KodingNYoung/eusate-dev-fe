@@ -1,32 +1,40 @@
 import Button from "@/components/molecules/Buttons"
 import { ROUTES } from "@/utils/constants"
+import { Ticket } from "@/utils/types"
 import { useRouter } from "next/navigation"
-import React, { FC } from "react"
+import React, { FC, useCallback } from "react"
 
-const TicketActionBtns: FC = () => {
+type Props = {
+  ticket: Ticket
+}
+
+const TicketActionBtns: FC<Props> = ({ ticket }) => {
   const router = useRouter()
 
-  const viewFullTicketDetails = () => {
-    router.push(ROUTES.TICKET + "/TIC-394")
-  }
+  const goToChat = useCallback(() => {
+    router.push(`${ROUTES.TICKET}/${ticket.id}`)
+  }, [ticket])
+  const takeOver = useCallback(() => {}, [ticket])
 
   return (
-    <section className="py-5 px-8 border-b border-gray-50 w-full">
-      <div className="w-full flex flex-1 justify-between gap-x-8">
-        <Button variant="outlined" size="lg" classNames={{ root: "w-[45%]" }}>
-          View full details
-        </Button>
-
-        <Button
-          variant="primary"
-          onClick={viewFullTicketDetails}
-          size="xl"
-          classNames={{ root: "w-[45%] px-3 py-3.5 sm:py-4.5 sm:px-8" }}
-        >
-          Take over
-        </Button>
-      </div>
-    </section>
+    <footer className="p-5 border-t border-gray-50 w-full sticky left-0 bottom-0 mt-auto flex items-center justify-center gap-5 bg-white">
+      <Button
+        variant="tetiary"
+        onClick={goToChat}
+        size="lg"
+        classNames={{ root: "w-[182px] max-w-[45%] py-4.5" }}
+      >
+        View full details
+      </Button>
+      <Button
+        variant="primary"
+        onClick={takeOver}
+        size="xl"
+        classNames={{ root: "w-[182px] max-w-[45%] py-4.5" }}
+      >
+        Take over
+      </Button>
+    </footer>
   )
 }
 

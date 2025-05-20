@@ -1,82 +1,30 @@
-import { Chat, ChatMessage } from "."
-import React, { forwardRef, useEffect, useState } from "react"
+import React from "react"
 import ChatBox from "../_components/ChatBox"
 import NoContentFound from "../_components/NoContentFound"
-import { useCustomerChat } from "@/providers/ticketChatProvider"
+import { FC } from "@/utils/types"
+import { useChatContext } from "@/hooks/helpdesk"
 
-type Props = {
-  chat: Chat
-}
-
-const ChatArea = forwardRef<HTMLDivElement, Props>(({ chat }, ref) => {
-  const {
-    chats,
-    // setChats,
-  } = useCustomerChat()
-  const [localChats, setLocalChats] = useState<ChatMessage[]>()
-
-  const {
-    customer: { avatarUrl: customerAvatarUrl },
-    support: { avatarUrl: agentAvatarUrl },
-    // chatPayload
-  } = chat
-
-  useEffect(() => {
-    // mock chats
-    // setChats([...chatPayload])
-    // setLocalChats(chatPayload)
-  }, [])
-
-  useEffect(() => {
-    console.log("logging..")
-    console.log(chats)
-    setLocalChats(chats)
-  }, [chats])
+const CustomerChatArea: FC = () => {
+  const { messages, isLoading } = useChatContext()
 
   return (
-    <div
-      ref={ref}
-      className="custom-scrollbar flex flex-col justify-between overflow-y-auto h-[56vh] w-full"
-    >
-      {localChats?.length ? (
+    <div className="flex flex-col justify-between w-full mb-8">
+      {isLoading && !messages?.length && (
+        <div className="h-full w-full flex items-center justify-center">
+          loading...
+        </div>
+      )}
+      {messages?.length ? (
         <div className="flex flex-col items-center gap-y-4 px-6 w-full">
-          {localChats.map(
-            ({ msg, person, createdAt, hasAttachment, files }) => {
-              switch (person) {
-                case "customer":
-                  return (
-                    <ChatBox
-                      position="right"
-                      avatarUrl={customerAvatarUrl}
-                      msg={msg}
-                      hasAttachments={hasAttachment}
-                      files={files}
-                      variant={person}
-                      createdAt={createdAt}
-                    />
-                  )
-                case "support":
-                  return (
-                    <ChatBox
-                      position="left"
-                      avatarUrl={agentAvatarUrl}
-                      msg={msg}
-                      hasAttachments={hasAttachment}
-                      files={files}
-                      variant={person}
-                      createdAt={createdAt}
-                    />
-                  )
-              }
-            }
-          )}
+          {messages.map((message) => (
+            <ChatBox message={message} key={message.id} />
+          ))}
         </div>
       ) : (
         <NoContentFound msg="Start the conversation" />
       )}
     </div>
   )
-})
+}
 
-ChatArea.displayName = "ChatArea"
-export default ChatArea
+export default CustomerChatArea
