@@ -68,4 +68,8 @@ export const QUERY_FN_KEYS = {
   DEV_SPACE_FUNCTIONS: ["dev-space-fuctions"],
   CODENAMES: ["codenames"],
   API_KEYS: ["api-keys"],
+  TICKETS: ["tickets"],
+  TICKET: ["ticket"],
+  TICKET_COMMENTS: ["ticket-comments"],
+  TICKET_CHAT: ["ticket-chat"],
 }

@@ -60,3 +60,9 @@ export enum AiTones {
   PROFESSIONAL = "professional",
   FRIENDLY = "friendly",
 }
+
+export enum MessageSenders {
+  CUSTOMER = "customer",
+  SATE = "sate",
+  AGENT = "agent",
+}

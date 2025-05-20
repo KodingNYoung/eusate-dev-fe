@@ -1,17 +1,10 @@
 import { Activity } from "../../utils"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import ActivityCard from "../../_components/ActivityCard"
 import NoContentFound from "../../_components/NoContentFound"
-import { useTicketChatDetails } from "@/providers/ticketChatProvider"
 
-// import { MockActivity } from '../../mockData'
 const Activities = () => {
-  const { activities } = useTicketChatDetails()
-  const [localActivities, setLocalActivities] = useState<Activity[]>(activities)
-
-  useEffect(() => {
-    setLocalActivities(activities)
-  }, [activities])
+  const [localActivities] = useState<Activity[]>([])
 
   return (
     <div className="custom-scrollbar px-6 py-4 h-[17rem] overflow-y-auto">

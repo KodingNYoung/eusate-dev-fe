@@ -7,6 +7,8 @@ import { FC } from "@/utils/types"
 import React, { useState } from "react"
 import { TicketFilters } from "../utils"
 import PriorityFilter from "./PriorityFilter"
+import StatusFilter from "./StatusFilter"
+import TemperamentFilter from "./TemperamentFilter"
 
 const TickerFilterDropdown: FC = () => {
   const [openedFilter, setOpenedFilter] = useState<TicketFilters | null>()
@@ -42,10 +44,11 @@ const TickerFilterDropdown: FC = () => {
         classNames={{ content: "p-1 min-w-[150px] items-start" }}
       >
         {openedFilter === TicketFilters.PRIORITY && <PriorityFilter />}
+        {openedFilter === TicketFilters.STATUS && <StatusFilter />}
         {openedFilter === TicketFilters.ASSIGNEE && <PriorityFilter />}
         {openedFilter === TicketFilters.DATE_CREATED && <PriorityFilter />}
         {openedFilter === TicketFilters.LAST_UPDATED && <PriorityFilter />}
-        {openedFilter === TicketFilters.TEMPERAMENT && <PriorityFilter />}
+        {openedFilter === TicketFilters.TEMPERAMENT && <TemperamentFilter />}
       </AppPopover>
       <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
@@ -53,24 +56,30 @@ const TickerFilterDropdown: FC = () => {
       >
         Priority
       </button>
+      <button
+        className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
+        onClick={() => setOpenedFilter(TicketFilters.STATUS)}
+      >
+        Status
+      </button>
       {/* <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
         onClick={() => setOpenedFilter(TicketFilters.ASSIGNEE)}
       >
         Assignee
       </button> */}
-      <button
+      {/* <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
         onClick={() => setOpenedFilter(TicketFilters.DATE_CREATED)}
       >
         Date created
-      </button>
-      <button
+      </button> */}
+      {/* <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
         onClick={() => setOpenedFilter(TicketFilters.LAST_UPDATED)}
       >
         Last updated
-      </button>
+      </button> */}
       <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
         onClick={() => setOpenedFilter(TicketFilters.TEMPERAMENT)}

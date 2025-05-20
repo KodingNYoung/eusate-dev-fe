@@ -3,7 +3,7 @@
 import { FC } from "@/utils/types"
 import React, { useState } from "react"
 import FunctionCard from "./_components/FunctionCard"
-import { useDevSpaceFunctions } from "@/hooks/apiHooks/devSpaceHooks"
+import { useDevSpaceFunctions } from "@/hooks/api/devSpaceHooks"
 import DevSpaceEmptyState from "./_components/DevSpaceEmptyState"
 import { DevspaceTabs } from "./utils"
 import DSFunctionsDrawer from "./_components/DSFunctionsDrawer"

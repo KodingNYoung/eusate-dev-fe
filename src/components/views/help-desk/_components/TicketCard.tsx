@@ -6,6 +6,7 @@ import Typography from "@/components/atoms/Typography"
 import Icon from "@/components/atoms/Icon"
 import Badge from "@/components/atoms/Badge"
 import TicketCardActions from "./TicketCardActions"
+import dayjs from "dayjs"
 
 const bgMap = {
   [TicketStatus.OPEN]: "bg-gold-50",
@@ -47,38 +48,35 @@ const TicketCard: FC<Props> = ({ ticket, onView }) => {
           <div className="flex-1 flex items-center gap-2 text-gray-300">
             <Icon name="icon-ticket" size={20} />
             <Typography className="text-regular-sm text-[inherit] !leading-none">
-              #TIC-2386
+              {ticket.id_slug}
             </Typography>
           </div>
-          <Badge
-            type="filled"
-            color={BADGE_COLOR_MAP[ticket.priority]}
-            size="sm"
-            className="capitalize"
-          >
-            {ticket.priority}
-          </Badge>
+          {ticket.priority && (
+            <Badge
+              type="filled"
+              color={BADGE_COLOR_MAP[ticket.priority]}
+              size="sm"
+              className="capitalize"
+            >
+              {ticket.priority}
+            </Badge>
+          )}
           <TicketCardActions onView={onView} />
         </header>
         <section className="grid gap-2">
           <Typography as="h4" className="text-gray-900 text-medium-lg truncate">
-            Ticket Subject
+            {ticket.title}
           </Typography>
           <Typography
             as="span"
             className="line-clamp-2 text-gray-500 text-regular-sm"
           >
-            Lorem ipsum, dolor sit amet consectetur adi pisi cing elit. Fugiat
-            deserunt odio repudiandae voluptates consectetur est, quod tempore
-            veniam reprehenderit asperiores eaque eligendi cupiditate assumenda
-            name quisquam nisi aperiam ipsa. Quaerat enim ex provident quae
-            perspiciatis deleniti eaque omnis tempore, commodi earum quod rem
-            consequuntur illum cumque, quam molestias id. Necessitatibus.
+            {ticket.description}
           </Typography>
         </section>
         <footer className="flex items-center justify-between">
           <Typography as="span" className="text-gray-400 text-regular-xs">
-            Created at 17/09/2025 7:08PM
+            Created at {dayjs(ticket.date_created).format("DD/MM/YYYY hh:mmA")}
           </Typography>
           <div className="size-6 min-w-6 min-h-6 rounded-full bg-brand-gradient p-px">
             <div className="w-full h-full rounded-[inherit] bg-black text-white !leading-none flex items-center justify-center">

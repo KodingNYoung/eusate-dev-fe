@@ -9,7 +9,7 @@ import {
   generateParamSchema,
   ParamsProvidedBy,
 } from "../../utils"
-import { useParamsCodenames } from "@/hooks/apiHooks/devSpaceHooks"
+import { useParamsCodenames } from "@/hooks/api/devSpaceHooks"
 import { copyObject } from "@/utils/helpers"
 import { paramFieldSchema } from "@/lib/schemas/dev-space"
 import { useValidation } from "@/hooks/formHooks"

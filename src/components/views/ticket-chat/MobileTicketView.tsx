@@ -12,8 +12,7 @@ type Props = {
   ticketDetails: TicketDetails
 }
 
-const MobileTicketView: FC<Props> = ({ tab, ticketDetails }) => {
-  const { customerId, temperament } = ticketDetails
+const MobileTicketView: FC<Props> = ({ tab }) => {
   const { set, get } = useQueryParams()
 
   return (
@@ -33,11 +32,7 @@ const MobileTicketView: FC<Props> = ({ tab, ticketDetails }) => {
         selectedKey={get("tab") || MOBILE_TICKET_CHAT_HB_TABS[0].key} // default to first tab
       />
 
-      {tab === "conversation" ? (
-        <CustomerChat customerId={customerId} temperament={temperament} />
-      ) : (
-        <Details ticketId="" tab={tab} ticketDetails={ticketDetails} />
-      )}
+      {tab === "conversation" ? <CustomerChat /> : <Details />}
     </div>
   )
 }

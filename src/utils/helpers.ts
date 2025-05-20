@@ -8,6 +8,10 @@ import {
 } from "./types"
 import { RefObject } from "react"
 import { ROUTES } from "./constants"
+import dayjs from "dayjs"
+import calendar from "dayjs/plugin/calendar"
+
+dayjs.extend(calendar)
 
 export function cls(
   ...classNames: (TWClassNames | string | null | undefined | false)[]
@@ -129,6 +133,18 @@ export const chunkFile = (file: File, chunkSizeInByte: number) => {
   return chunks
 }
 
+export const objToQuery = (obj: Record<string, string | number | boolean>) => {
+  const query = new URLSearchParams()
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key as keyof typeof obj]
+    if (value !== undefined && value !== "") {
+      query.set(key, value.toString())
+    }
+  })
+
+  return query.toString()
+}
+
 export const pageLayerAdapter = (
   pathname: string,
   PAGE_LAYERS: PageLayers
@@ -151,20 +167,6 @@ export const pageLayerAdapter = (
   return PAGE_LAYERS[pathname] || []
 }
 
-/* returns format: 12 Mar, 2024. 7:00PM */
-export const formatDate = (input: Date | string): string => {
-  const date = typeof input === "string" ? new Date(input) : input
-  const day = date.getDate()
-  const monthShort = date.toLocaleString("default", { month: "short" })
-  const year = date.getFullYear()
-  let hours = date.getHours()
-  const minutes = date.getMinutes()
-  const ampm = hours >= 12 ? "PM" : "AM"
-  hours = hours % 12 || 12
-  const paddedMinutes = minutes.toString().padStart(2, "0")
-  return `${day} ${monthShort}, ${year}. ${hours}:${paddedMinutes}${ampm}`
-}
-
 export const capitalizeFirstLetter = (str: string): string => {
   if (!str) return ""
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -173,27 +175,6 @@ export const capitalizeFirstLetter = (str: string): string => {
 export const truncateWord = (str: string, maxLength: number): string => {
   if (str.length <= maxLength) return str
   return str.slice(0, maxLength) + "..."
-}
-
-/**
- * @returns Returns "2 days ago", "3 hrs ago", etc.
- */
-export const timeAgo = (input: Date | string): string => {
-  const date = typeof input === "string" ? new Date(input) : input
-  const seconds = Math.floor((Date.now() - date.getTime()) / 1000)
-  const intervals = [
-    { label: "yr", seconds: 31536000 },
-    { label: "mo", seconds: 2592000 },
-    { label: "day", seconds: 86400 },
-    { label: "hr", seconds: 3600 },
-    { label: "min", seconds: 60 },
-    { label: "sec", seconds: 1 },
-  ]
-  for (const { label, seconds: s } of intervals) {
-    const value = Math.floor(seconds / s)
-    if (value >= 1) return `${value} ${label}${value > 1 ? "s" : ""} ago`
-  }
-  return "just now"
 }
 
 export const getFileExtension = (
@@ -207,4 +188,13 @@ export const getFileExtension = (
     const nameParts = file.name.split(".")
     return nameParts.length > 1 ? nameParts.pop()!.toLowerCase() : ""
   }
+}
+
+export const formatToMessageTime = (date: string) => {
+  return dayjs(date).calendar(null, {
+    sameDay: "h:mmA", // The same day ( Today at 2:30 AM )
+    lastDay: "[Yesterday], h:mmA", // The day before ( Yesterday at 2:30 AM )
+    lastWeek: "dddd, h:mmA", // Last week ( Last Monday at 2:30 AM )
+    sameElse: "DD/MM/YYYY, h:mmA ", // Everything else ( 7/10/2011 )
+  })
 }
