@@ -304,6 +304,8 @@ export type AttachmentMetadata = {
   name: string
   size_kb: number
   extension: string
+  loading?: boolean
+  error?: boolean
 }
 
 export type MessageType = DBResource & {
@@ -337,15 +339,3 @@ export type PageLayersPath = {
 export type PageLayers = {
   [path: string]: PageLayersPath[]
 }
-
-export type AllowedFileExt =
-  | "doc"
-  | "docx"
-  | "png"
-  | "jpeg"
-  | "xls"
-  | "mp3"
-  | "txt"
-  | "gif"
-  | "pdf"
-  | "jpg"

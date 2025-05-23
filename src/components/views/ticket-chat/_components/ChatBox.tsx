@@ -52,17 +52,15 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
         )}
       >
         {/* Attachments */}
-        <div>
-          {message.is_attachment && message.attachment_metadata ? (
-            <div className="grid gap-2">
-              {/* {message.sender?.map((file, idx) => ( */}
-              <CustomerSupportAttachmentCard
-                attachment={message.attachment_metadata}
-              />
-              {/* ))} */}
-            </div>
-          ) : null}
-        </div>
+        {message.is_attachment && message.attachment_metadata ? (
+          <div className="grid gap-2">
+            {/* {message.sender?.map((file, idx) => ( */}
+            <CustomerSupportAttachmentCard
+              attachment={message.attachment_metadata}
+            />
+            {/* ))} */}
+          </div>
+        ) : null}
         <Typography className="text-medium-sm text-gray-700">
           {message.message}
         </Typography>

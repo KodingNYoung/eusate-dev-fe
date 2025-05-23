@@ -23,13 +23,13 @@ export const useChatSocket = (
   const session = useSession()
 
   const emitMessage = useCallback(
-    (message: string, attachment: AttachmentMetadata) => {
+    (message: string, attachment?: AttachmentMetadata) => {
       if (!socket.current) return
       const payload = {
         message,
         ticket_chat_id: chatId,
         attachment: !!attachment,
-        attachment_meta: attachment,
+        attachment_meta: attachment || null,
       }
 
       socket.current.emit(SocketEvents.SEND_MESSAGE, payload)

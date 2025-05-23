@@ -42,7 +42,7 @@ type ChatContextProps = {
   messages: MessageType[]
   isLoading: boolean
   scrollRef?: RefObject<HTMLDivElement>
-  sendMessage: (message: string, attachment: AttachmentMetadata) => void
+  sendMessage: (message: string, attachment?: AttachmentMetadata) => void
   readChat: () => void
   scrollToBottom: (behavior?: ScrollBehavior, delay?: number) => void
 }
@@ -65,6 +65,7 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
 
   // create ticket message state
   const [messages, setMessages] = useState<MessageType[]>([])
+  // const [composer]
   // get ticket messages
   const { data: ticketChat, isLoading } = useTicketChats(ticketId)
 
@@ -103,7 +104,7 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
     }
   }, [ticketChat?.id, emitRead])
   const sendMessage = useCallback(
-    (message: string, attachment: AttachmentMetadata) => {
+    (message: string, attachment?: AttachmentMetadata) => {
       const messageObj = emitMessage(message, attachment)
       if (messageObj) {
         updateMessages({

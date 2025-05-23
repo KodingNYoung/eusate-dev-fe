@@ -3,51 +3,10 @@ import {
   TicketStatus,
   UserTemperament,
 } from "../help-desk/utils"
-import { AllowedFileExt } from "@/utils/types"
 
 export enum MobileTicketChatTabs {
   CONVERSATION = "conversation",
   DETAILS = "details",
-}
-
-const allowedFileExt: AllowedFileExt[] = [
-  "doc",
-  "docx",
-  "jpg",
-  "jpeg",
-  "png",
-  "mp3",
-  "xls",
-  "gif",
-  "txt",
-]
-
-export const getAllowedFileExts = (): string => {
-  return allowedFileExt
-    .map((ext) => {
-      switch (ext) {
-        case "jpg":
-        case "jpeg":
-          return "image/jpeg"
-        case "png":
-          return "image/png"
-        case "gif":
-          return "image/gif"
-        case "doc":
-          return "application/msword"
-        case "docx":
-          return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        case "mp3":
-          return "audio/mpeg"
-        case "xls":
-          return "application/vnd.ms-excel"
-        case "txt":
-          return "text/plain"
-        default:
-          return `.${ext}`
-      }
-    })
-    .join(", ")
 }
 
 export const MOBILE_TICKET_CHAT_HB_TABS: {

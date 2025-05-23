@@ -1,25 +1,27 @@
 "use client"
 
-import { FC } from "@/utils/types"
+import { AttachmentMetadata, FC } from "@/utils/types"
 import Icon from "@/components/atoms/Icon"
 import FileItem from "../_components/FileItem"
 import React, { useState } from "react"
 // import { useTicketChat } from "@/hooks/ticketChat"
 // import { useCustomerChat } from "@/providers/ticketChatProvider"
-// import { getAllowedFileExts, promptFileUpload } from "../utils"
+import { promptFileUpload } from "../utils"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import AutoResizingTextarea from "@/components/molecules/Inputs/AutoResizingTextarea"
 import AIModal, { AIModalTrigger } from "./AIModal"
 import { useChatContext } from "@/hooks/helpdesk"
 import Button from "@/components/molecules/Buttons"
-import FileUploadButton from "@/components/molecules/Inputs/FileUploadButton"
+import { getFileExtension } from "@/utils/helpers"
+import { uploadTicketAttachment } from "@/app/(dashboard)/helpdesk/actions"
+import { toaster } from "@/components/molecules/Toast"
 
 const ChatFooter: FC = () => {
-  const { scrollToBottom } = useChatContext()
+  const { sendMessage } = useChatContext()
   // const { message, submitMessage, setMessage } = useCustomerChat()
 
   // const { setComposer, composer, setAttachments } = useTicketChat()
-  const [uploadedFiles, setUploadFile] = useState<File[]>([])
+  const [attachment, setAttachment] = useState<AttachmentMetadata>()
 
   // const handleUpload = async () => {
   //   const files = await promptFileUpload(getAllowedFileExts())
@@ -30,40 +32,51 @@ const ChatFooter: FC = () => {
   // setMessage(composer)
   // }, [composer])
 
+  const handleFileUpload = async () => {
+    const file = (
+      await promptFileUpload(
+        "application/pdf, .txt, .doc, .docx, .xls, .png, .jpg, .jpeg, .gif"
+      )
+    )?.[0]
+    if (!file) return
+    const attachmentMetadata: AttachmentMetadata = {
+      name: file.name,
+      url: URL.createObjectURL(file),
+      size_kb: file.size / 1024,
+      extension: getFileExtension(file),
+      loading: true,
+    }
+    setAttachment(attachmentMetadata)
+
+    console.log({ file })
+    const formdata = new FormData()
+    formdata.append("file", file)
+
+    const uploadResponse = await uploadTicketAttachment(formdata)
+    console.log({ uploadResponse })
+    if ("success" in uploadResponse) {
+      setAttachment(uploadResponse.payload)
+    } else if ("error" in uploadResponse) {
+      setAttachment({ ...attachmentMetadata, loading: false, error: true })
+      toaster.error(`Failed to upload file: ${uploadResponse.error.message}`)
+    }
+  }
+
   return (
     <footer className="sticky bottom-0 mt-auto px-4 md:px-6 pb-16 sm:pb-5 bg-white">
       <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          // submitMessage("support", {
-          //   hasAttachment: uploadedFiles.length > 0,
-          //   files: uploadedFiles,
-          // })
-          // if (uploadedFiles.length) setAttachments([...uploadedFiles])
-          // setComposer("")
-          setUploadFile([])
-          scrollToBottom()
+        action={(formdata) => {
+          const message = formdata.get("message") as string
+          sendMessage(message, attachment)
         }}
         className="border border-gray-50 bg-gray-25 flex flex-col rounded-x20 p-0.5 gap-2"
       >
-        {!!uploadedFiles.length && (
-          <div className="flex flex-wrap gap-4">
-            {/* Attachments */}
-            {uploadedFiles.map((file, idx) => (
-              <FileItem
-                key={idx}
-                file={file}
-                onRemove={() =>
-                  setUploadFile((p) => [
-                    ...p.slice(0, idx),
-                    ...p.slice(idx + 1),
-                  ])
-                }
-              />
-            ))}
-          </div>
+        {!!attachment && (
+          <FileItem
+            file={attachment}
+            onRemove={() => setAttachment(undefined)}
+          />
         )}
-
         <AutoResizingTextarea
           placeholder="Type a message..."
           name="message"
@@ -87,20 +100,19 @@ const ChatFooter: FC = () => {
 
         {/* Attachments and Submit button */}
         <div className="flex items-center px-3 py-2.5 gap-2">
-          <FileUploadButton className="rounded-[100px]" name="attachment">
-            <Button
-              variant="tetiary"
-              autoFocus={false}
-              className="py-1.5 px-3 flex items-center justify-center rounded-[inherit] !leading-none"
-              startContent={
-                <Icon
-                  size={20}
-                  name="icon-attach-square"
-                  className="!leading-none"
-                />
-              }
-            />
-          </FileUploadButton>
+          <Button
+            variant="tetiary"
+            autoFocus={false}
+            className="py-1.5 px-3 flex items-center justify-center rounded-[100px] !leading-none"
+            startContent={
+              <Icon
+                size={20}
+                name="icon-attach-square"
+                className="!leading-none"
+              />
+            }
+            onClick={handleFileUpload}
+          />
 
           <div className="flex-1" />
           <SubmitButton
