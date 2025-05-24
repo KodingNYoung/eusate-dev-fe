@@ -36,7 +36,7 @@ export const initiateLogin = async (
     // save session to cookie storage
     await createSession({
       refreshToken: response.refresh,
-      // accessToken: response.access,
+      accessToken: response.access,
       email: email as string,
       isVerified: response.verified,
       twofaMethod: response.twofa_method,

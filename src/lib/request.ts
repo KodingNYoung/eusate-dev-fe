@@ -87,25 +87,29 @@ export const sendAuthRequest = cache(
           Authorization: `Bearer ${session?.accessToken}`,
         },
       })
-      console.log({ response })
-      if (response.status === 401) {
-        // refresh access token
-        const refreshResult = await refreshAccessToken()
-
-        // if success resend request
-        if (refreshResult.success) {
-          return sendAuthRequest<T>(endpoint, payload, options)
-        } else {
-          return { shouldAuthenticate: true }
-        }
-      } else if (response.status === 500) {
-        throw new Error("Something went wrong.")
-      }
 
       return response.data as T
     } catch (err) {
-      console.log(err)
       if (err instanceof AxiosError) {
+        // Handle 401 - token refresh
+        if (err.response?.status === 401) {
+          // refresh access token
+          const refreshResult = await refreshAccessToken()
+
+          // if success resend request
+          if (refreshResult.success) {
+            // retry original request
+            return sendAuthRequest<T>(endpoint, payload, options)
+          } else {
+            return { shouldAuthenticate: true }
+          }
+        }
+
+        // Handle 500
+        if (err.response?.status === 500) {
+          throw new Error("Something went wrong.")
+        }
+
         const message =
           err?.response?.data?.detail || "An unexpected error occurred."
         throw Error(message)
