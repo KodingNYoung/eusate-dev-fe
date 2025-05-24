@@ -5,6 +5,8 @@ import { LayoutFC } from "@/utils/types"
 import { NextUIProvider } from "@nextui-org/react"
 import ReactQueryProvider from "@/providers/reactQueryProvider"
 import { Slide, ToastContainer } from "react-toastify"
+import { getSession } from "@/lib/sessions"
+import { AuthProvider } from "@/providers/authProvider"
 
 export const metadata: Metadata = {
   title: {
@@ -14,13 +16,16 @@ export const metadata: Metadata = {
   description: "Supercharge your customer support with our AI powered agents",
 }
 
-const RootLayout: LayoutFC = ({ children }) => {
+const RootLayout: LayoutFC = async ({ children }) => {
+  const session = await getSession()
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <body>
-        <ReactQueryProvider>
-          <NextUIProvider>{children}</NextUIProvider>
-        </ReactQueryProvider>
+        <AuthProvider initialSession={session ?? undefined}>
+          <ReactQueryProvider>
+            <NextUIProvider>{children}</NextUIProvider>
+          </ReactQueryProvider>
+        </AuthProvider>
         <ToastContainer
           position="top-right"
           autoClose={3000}

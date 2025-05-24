@@ -1,6 +1,6 @@
 "server only"
 import { SessionPayload } from "@/utils/types"
-import { COOKIES_KEYS } from "@/utils/constants"
+import { API_BASEURL, COOKIES_KEYS } from "@/utils/constants"
 import { cookies } from "next/headers"
 import { jwtVerify, SignJWT } from "jose"
 
@@ -51,7 +51,7 @@ export const getSession = async (): Promise<SessionPayload | null> => {
 
 export async function updateSession(payload: Partial<SessionPayload>) {
   const cookie = cookies().get(COOKIES_KEYS.SESSION)?.value
-  const session = (await decrypt(cookie)) as SessionPayload
+  const session = (await decrypt(cookie)) as SessionPayload | undefined
 
   if (!cookie || !session) {
     return null
@@ -79,4 +79,40 @@ export const verifySession = async () => {
     return null
   }
   return { isAuth: true, accessToken: session.accessToken }
+}
+
+// Add these new functions:
+export async function refreshAccessToken(): Promise<{
+  success: boolean
+  accessToken?: string
+}> {
+  const session = await getSession()
+
+  if (!session?.refreshToken) {
+    return { success: false }
+  }
+
+  try {
+    const response = await fetch(`${API_BASEURL}/auth/refresh`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${session.refreshToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error()
+    }
+
+    const { accessToken } = await response.json()
+
+    // Update session with new access token
+    await updateSession({ accessToken })
+
+    return { success: true, accessToken }
+  } catch {
+    await deleteSession()
+    return { success: false }
+  }
 }

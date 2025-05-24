@@ -1,6 +1,6 @@
 "use server"
 
-import { getSession } from "@/lib/sessions"
+import { getSession, refreshAccessToken } from "@/lib/sessions"
 import { API_BASEURL } from "@/utils/constants"
 import axios, { AxiosError, AxiosRequestConfig } from "axios"
 import { cache } from "react"
@@ -87,14 +87,13 @@ export const sendAuthRequest = cache(
           Authorization: `Bearer ${session?.accessToken}`,
         },
       })
+      console.log({ response })
       if (response.status === 401) {
         // refresh access token
-        // const refresh = await refreshAccessToken()
-        const refreshResponse = await axios.post("/api/auth/refresh-token")
-        const refreshData = await refreshResponse.data
+        const refreshResult = await refreshAccessToken()
 
         // if success resend request
-        if (refreshData.success) {
+        if (refreshResult.success) {
           return sendAuthRequest<T>(endpoint, payload, options)
         } else {
           return { shouldAuthenticate: true }
@@ -105,6 +104,7 @@ export const sendAuthRequest = cache(
 
       return response.data as T
     } catch (err) {
+      console.log(err)
       if (err instanceof AxiosError) {
         const message =
           err?.response?.data?.detail || "An unexpected error occurred."
