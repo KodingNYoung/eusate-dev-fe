@@ -51,6 +51,7 @@ export const useChatSocket = (
 
   useEffect(() => {
     if (!API_BASEURL || socket.current || !session || !chatId) return
+    console.log(chatId, session, onmessage)
 
     const _socket = io(`${API_BASEURL}/helpdesk`, {
       autoConnect: true,
@@ -73,9 +74,11 @@ export const useChatSocket = (
 
     return () => {
       // emit close event to server
-      //   socket.current?.close()
+      socket.current?.close()
+      socket.current = null
+      console.log("Socket disconnected")
     }
-  }, [onmessage, chatId, session])
+  }, [chatId, session])
 
   return { emitMessage, emitRead }
 }

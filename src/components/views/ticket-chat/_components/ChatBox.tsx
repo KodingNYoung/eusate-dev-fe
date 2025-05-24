@@ -32,7 +32,7 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
   return (
     <div
       className={cls(
-        "p-2 flex gap-2 relative w-96",
+        "p-2 flex gap-2 relative w-96 max-w-full",
         isGuest ? "self-start flex-row" : "self-end flex-row-reverse",
         classNames?.root
       )}
@@ -47,7 +47,7 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
       </div>
       <div
         className={cls(
-          "p-3 rounded-xl space-y-2",
+          "p-3 rounded-xl space-y-2 max-w-4/5",
           boxVariantStyle[message.sender]
         )}
       >

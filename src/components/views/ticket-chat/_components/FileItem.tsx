@@ -1,6 +1,6 @@
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
-import { truncateWord } from "@/utils/helpers"
+import { cls, truncateWord } from "@/utils/helpers"
 import { AttachmentMetadata } from "@/utils/types"
 import React, { FC } from "react"
 
@@ -17,14 +17,37 @@ const FileItem: FC<Props> = ({ file, onRemove }) => {
         {truncateWord(file.name, 8)}
         <span className="text-gray-400">{file.extension}</span>
       </Typography>
-      <button onClick={onRemove} className="leading-none cursor-pointer">
-        {file.loading ? (
-          "l"
-        ) : file.error ? (
-          "e"
-        ) : (
-          <Icon size={16} name="icon-close-circle" className="text-gray-300" />
-        )}
+      <button
+        onClick={onRemove}
+        className="leading-none cursor-pointer group/button grid place-items-center [grid-template-areas:'allow']"
+        data-loading={file.loading}
+        data-error={file.error}
+        title="Remove file"
+      >
+        <Icon
+          size={16}
+          name="icon-refresh"
+          className={cls(
+            "text-gray-300 animate-spin block [grid-area:allow] invisible",
+            "group-data-[loading=true]/button:visible group-data-[error=true]/button:invisible"
+          )}
+        />
+        <Icon
+          size={16}
+          name="icon-danger-bold"
+          className={cls(
+            "text-red-500 block [grid-area:allow] invisible",
+            "group-data-[error=true]/button:visible"
+          )}
+        />
+        <Icon
+          size={16}
+          name="icon-close-circle"
+          className={cls(
+            "text-gray-300  block [grid-area:allow]",
+            "group-data-[loading=true]/button:invisible group-data-[error=true]/button:invisible"
+          )}
+        />
       </button>
     </div>
   )

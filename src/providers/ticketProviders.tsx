@@ -71,8 +71,9 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
 
   // connect to websocket with the ticket
   const { emitMessage, emitRead } = useChatSocket(ticketChat?.id, {
-    onmessage: () => {
-      // console.log("hello")
+    onmessage: (data) => {
+      console.log("Received message:", data)
+      // readChat();
     },
   })
   // expose functions to emit message to ticket chat, mark chat as read, read conversations in real time, scroll to bottom

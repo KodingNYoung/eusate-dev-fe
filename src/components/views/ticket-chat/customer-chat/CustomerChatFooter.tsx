@@ -48,12 +48,11 @@ const ChatFooter: FC = () => {
     }
     setAttachment(attachmentMetadata)
 
-    console.log({ file })
     const formdata = new FormData()
     formdata.append("file", file)
 
     const uploadResponse = await uploadTicketAttachment(formdata)
-    console.log({ uploadResponse })
+
     if ("success" in uploadResponse) {
       setAttachment(uploadResponse.payload)
     } else if ("error" in uploadResponse) {
