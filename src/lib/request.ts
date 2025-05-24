@@ -1,6 +1,6 @@
 "use server"
 
-import { getSession } from "@/lib/sessions"
+import { getSession, refreshAccessToken } from "@/lib/sessions"
 import { API_BASEURL } from "@/utils/constants"
 import axios, { AxiosError, AxiosRequestConfig } from "axios"
 import { cache } from "react"
@@ -87,25 +87,29 @@ export const sendAuthRequest = cache(
           Authorization: `Bearer ${session?.accessToken}`,
         },
       })
-      if (response.status === 401) {
-        // refresh access token
-        // const refresh = await refreshAccessToken()
-        const refreshResponse = await axios.post("/api/auth/refresh-token")
-        const refreshData = await refreshResponse.data
-
-        // if success resend request
-        if (refreshData.success) {
-          return sendAuthRequest<T>(endpoint, payload, options)
-        } else {
-          return { shouldAuthenticate: true }
-        }
-      } else if (response.status === 500) {
-        throw new Error("Something went wrong.")
-      }
 
       return response.data as T
     } catch (err) {
       if (err instanceof AxiosError) {
+        // Handle 401 - token refresh
+        if (err.response?.status === 401) {
+          // refresh access token
+          const refreshResult = await refreshAccessToken()
+
+          // if success resend request
+          if (refreshResult.success) {
+            // retry original request
+            return sendAuthRequest<T>(endpoint, payload, options)
+          } else {
+            return { shouldAuthenticate: true }
+          }
+        }
+
+        // Handle 500
+        if (err.response?.status === 500) {
+          throw new Error("Something went wrong.")
+        }
+
         const message =
           err?.response?.data?.detail || "An unexpected error occurred."
         throw Error(message)

@@ -1,8 +1,9 @@
 "server only"
 import { SessionPayload } from "@/utils/types"
-import { COOKIES_KEYS } from "@/utils/constants"
+import { API_BASEURL, COOKIES_KEYS } from "@/utils/constants"
 import { cookies } from "next/headers"
 import { jwtVerify, SignJWT } from "jose"
+import axios from "axios"
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -21,8 +22,8 @@ async function decrypt(session: string | undefined = "") {
       algorithms: ["HS256"],
     })
     return payload
-  } catch (error) {
-    console.log("Failed to verify session", error)
+  } catch {
+    console.log("Failed to verify session")
   }
 }
 
@@ -41,21 +42,20 @@ export async function createSession(payload: SessionPayload) {
 
 export const getSession = async (): Promise<SessionPayload | null> => {
   const session = cookies().get(COOKIES_KEYS.SESSION)?.value
+
+  if (!session) return null
+
   const payload = await decrypt(session)
 
-  if (!session || !payload) {
-    return null
-  }
+  if (!payload) return null
+
   return payload as SessionPayload
 }
 
 export async function updateSession(payload: Partial<SessionPayload>) {
-  const cookie = cookies().get(COOKIES_KEYS.SESSION)?.value
-  const session = (await decrypt(cookie)) as SessionPayload
+  const session = await getSession()
 
-  if (!cookie || !session) {
-    return null
-  }
+  if (!session) return null
 
   const newSession = await encrypt({ ...session, ...payload })
 
@@ -79,4 +79,34 @@ export const verifySession = async () => {
     return null
   }
   return { isAuth: true, accessToken: session.accessToken }
+}
+
+// Add these new functions:
+export async function refreshAccessToken(): Promise<{
+  success: boolean
+  accessToken?: string
+}> {
+  const session = await getSession()
+
+  if (!session?.refreshToken) {
+    return { success: false }
+  }
+
+  try {
+    const response = await axios.post(
+      `${API_BASEURL}/api/v1/auth/token/refresh/`,
+      { refresh: session.refreshToken },
+      { method: "POST" }
+    )
+
+    const accessToken = response.data.access as string
+
+    // Update session with new access token
+    await updateSession({ accessToken })
+
+    return { success: true, accessToken }
+  } catch {
+    await deleteSession()
+    return { success: false }
+  }
 }
