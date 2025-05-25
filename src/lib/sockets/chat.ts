@@ -1,16 +1,13 @@
-import { useSession } from "@/hooks/api/sessionHooks"
-import { API_BASEURL } from "@/utils/constants"
+import { useSocket } from "@/hooks/sockets"
 import { MessageSenders } from "@/utils/enums"
 import { AttachmentMetadata } from "@/utils/types"
-import { useCallback, useEffect, useRef } from "react"
-import { io, Socket } from "socket.io-client"
+import { useCallback, useEffect, useMemo } from "react"
+import { Socket } from "socket.io-client"
 
 enum SocketEvents {
   SEND_MESSAGE = "agent_support",
   MARK_CONVERSATION_READ = "mark_conversation_read",
   JOIN_CHAT = "enter_support",
-  DISCONNECT = "disconnect",
-  CONNECT = "connect",
 }
 
 export const useChatSocket = (
@@ -19,12 +16,33 @@ export const useChatSocket = (
 ) => {
   const { onmessage } = cb || {}
 
-  const socket = useRef<Socket | null>(null)
-  const session = useSession()
+  const socketOptions = useMemo(
+    () => ({
+      query: { token_source: "inapp" },
+      events: {
+        connect: (socket: Socket) =>
+          socket && chatId
+            ? socket.emit(SocketEvents.JOIN_CHAT, { ticket_chat_id: chatId })
+            : undefined,
+      },
+    }),
+    [chatId]
+  )
 
+  const { isConnected, socket } = useSocket("/helpdesk", socketOptions)
+
+  useEffect(() => {
+    if (!socket) return
+
+    socket.on(SocketEvents.SEND_MESSAGE, (data: unknown) => {
+      if (onmessage) onmessage(data)
+    })
+  }, [socket])
+
+  // FUNCTIONS
   const emitMessage = useCallback(
     (message: string, attachment?: AttachmentMetadata) => {
-      if (!socket.current) return
+      if (!socket || !isConnected) return
       const payload = {
         message,
         ticket_chat_id: chatId,
@@ -32,53 +50,25 @@ export const useChatSocket = (
         attachment_meta: attachment || null,
       }
 
-      socket.current.emit(SocketEvents.SEND_MESSAGE, payload)
+      socket.emit(SocketEvents.SEND_MESSAGE, payload)
 
       return payload
     },
-    [chatId]
+    [chatId, isConnected, socket]
   )
 
-  const emitRead = useCallback((chatId: string) => {
-    console.log("Read chat", chatId)
-    if (!socket.current || !chatId) return
-    const payload = {
-      ticket_chat_id: chatId,
-      entity: MessageSenders.AGENT,
-    }
-    socket.current.emit(SocketEvents.MARK_CONVERSATION_READ, payload)
-  }, [])
-
-  useEffect(() => {
-    if (!API_BASEURL || socket.current || !session || !chatId) return
-    console.log(chatId, session, onmessage)
-
-    const _socket = io(`${API_BASEURL}/helpdesk`, {
-      autoConnect: true,
-      transports: ["websocket"],
-      query: {
-        token_source: "inapp",
-        token: session.accessToken,
-        organisation_id: session.organisationId,
-      },
-    })
-
-    _socket.on(SocketEvents.DISCONNECT, () => console.log("Disconnected"))
-    _socket.on(SocketEvents.SEND_MESSAGE, (data: unknown) => {
-      if (onmessage) onmessage(data)
-    })
-    _socket.on(SocketEvents.CONNECT, () =>
-      _socket.emit(SocketEvents.JOIN_CHAT, { ticket_chat_id: chatId })
-    )
-    socket.current = _socket
-
-    return () => {
-      // emit close event to server
-      socket.current?.close()
-      socket.current = null
-      console.log("Socket disconnected")
-    }
-  }, [chatId, session])
+  const emitRead = useCallback(
+    (chatId: string) => {
+      console.log("Read chat", chatId)
+      if (!socket || !chatId || !isConnected) return
+      const payload = {
+        ticket_chat_id: chatId,
+        entity: MessageSenders.AGENT,
+      }
+      socket.emit(SocketEvents.MARK_CONVERSATION_READ, payload)
+    },
+    [isConnected, isConnected, chatId]
+  )
 
   return { emitMessage, emitRead }
 }
