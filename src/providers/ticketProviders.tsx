@@ -1,8 +1,9 @@
 import { useTicketChats, useTicketDetails } from "@/hooks/api/helpdeskHooks"
 import { useChatSocket } from "@/lib/sockets/chat"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { MessageSenders } from "@/utils/enums"
 import { AttachmentMetadata, FC, MessageType, Ticket } from "@/utils/types"
-import { UseQueryResult } from "@tanstack/react-query"
+import { useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import dayjs from "dayjs"
 import {
   createContext,
@@ -42,7 +43,7 @@ type ChatContextProps = {
   messages: MessageType[]
   isLoading: boolean
   scrollRef?: RefObject<HTMLDivElement>
-  sendMessage: (message: string, attachment: AttachmentMetadata) => void
+  sendMessage: (message: string, attachment?: AttachmentMetadata) => void
   readChat: () => void
   scrollToBottom: (behavior?: ScrollBehavior, delay?: number) => void
 }
@@ -60,18 +61,20 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
   children,
   ticketId,
 }) => {
-  // ref of the chat scroller
   const chatScrollRef = useRef<HTMLDivElement | null>(null)
+  const queryClient = useQueryClient()
 
   // create ticket message state
   const [messages, setMessages] = useState<MessageType[]>([])
+
   // get ticket messages
   const { data: ticketChat, isLoading } = useTicketChats(ticketId)
 
   // connect to websocket with the ticket
   const { emitMessage, emitRead } = useChatSocket(ticketChat?.id, {
-    onmessage: () => {
-      // console.log("hello")
+    onmessage: (data) => {
+      console.log("Received message:", data)
+      // readChat();
     },
   })
   // expose functions to emit message to ticket chat, mark chat as read, read conversations in real time, scroll to bottom
@@ -103,7 +106,7 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
     }
   }, [ticketChat?.id, emitRead])
   const sendMessage = useCallback(
-    (message: string, attachment: AttachmentMetadata) => {
+    (message: string, attachment?: AttachmentMetadata) => {
       const messageObj = emitMessage(message, attachment)
       if (messageObj) {
         updateMessages({
@@ -113,11 +116,16 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
           sender: MessageSenders.AGENT,
           is_attachment: messageObj?.attachment,
           ticket_chat: ticketChat?.id as string,
-          attachment_metadata: messageObj?.attachment_meta,
+          attachment_metadata: messageObj?.attachment_metadata,
+        })
+      }
+      if (attachment) {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_FN_KEYS.TICKET, ticketId],
         })
       }
     },
-    [emitMessage, ticketChat?.id, updateMessages]
+    [emitMessage, ticketChat?.id, updateMessages, queryClient, ticketId]
   )
 
   // update ticket message state

@@ -1,6 +1,7 @@
 import { ZodError } from "zod"
 import {
   ErrorObjectType,
+  FileExtension,
   FormState,
   PageLayers,
   PageLayersPath,
@@ -177,19 +178,12 @@ export const truncateWord = (str: string, maxLength: number): string => {
   return str.slice(0, maxLength) + "..."
 }
 
-export const getFileExtension = (
-  file: File,
-  method: "name" | "type" = "name"
-): string => {
-  if (method === "type" && file.type) {
-    const mimeParts = file.type.split("/")
-    return mimeParts.length > 1 ? mimeParts[1].toLowerCase() : ""
-  } else {
-    const nameParts = file.name.split(".")
-    return nameParts.length > 1 ? nameParts.pop()!.toLowerCase() : ""
-  }
+export const getFileExtension = (file: File) => {
+  return (file.name ? "." + file.name.split(".").pop() : "") as FileExtension
 }
-
+export const getFileNameWithoutExt = (filename: string) => {
+  return filename ? filename.split(".").slice(0, -1).join(".") : ""
+}
 export const formatToMessageTime = (date: string) => {
   return dayjs(date).calendar(null, {
     sameDay: "h:mmA", // The same day ( Today at 2:30 AM )

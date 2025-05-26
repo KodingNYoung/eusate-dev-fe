@@ -6,7 +6,7 @@ import CustomerChatHeader from "./CustomerChatHeader"
 
 const CustomerChat: FC = () => {
   const { ticketDetails: { data: ticket, isLoading } = {} } = useTicketContext()
-  const { scrollRef, readChat, scrollToBottom, messages } = useChatContext()
+  const { scrollRef, readChat, messages, scrollToBottom } = useChatContext()
 
   scrollToBottom("instant", 0)
   useEffect(() => {
@@ -28,7 +28,7 @@ const CustomerChat: FC = () => {
         >
           <CustomerChatHeader customer={ticket?.customer} />
           <CustomerChatArea />
-          <ChatFooter />
+          <ChatFooter ticket={ticket} />
         </div>
       )}
     </>

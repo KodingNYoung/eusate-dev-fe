@@ -1,32 +1,21 @@
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
-import { fileIconMap } from "@/components/views/knowledge-base/_components/DocumentModal/FileItem"
-import { formatFileSize } from "@/utils/helpers"
-import { FC } from "@/utils/types"
+import { FILE_ICON_MAP } from "@/utils/constants"
+import { formatFileSize, kbToByte } from "@/utils/helpers"
+import { AttachmentMetadata, FC } from "@/utils/types"
 import Image from "next/image"
 import Link from "next/link"
-import React, { useMemo } from "react"
+import React from "react"
 
 type Props = {
-  url: string
-  size?: number // size in bytes
+  attachment: AttachmentMetadata
 }
 
-const AttachmentItem: FC<Props> = ({ url, size }) => {
-  const { filename, ext } = useMemo(() => {
-    const filenameSplit = url.split("/").pop()?.split(".")
-    const ext = filenameSplit?.pop() as keyof typeof fileIconMap
-
-    return {
-      filename: filenameSplit?.join("."),
-      ext,
-    }
-  }, [url])
-
-  return (
+const AttachmentItem: FC<Props> = ({ attachment }) => {
+  return attachment ? (
     <div className="flex items-center gap-3 border border-gray-50 p-4 rounded-x20">
       <Image
-        src={fileIconMap[ext]}
+        src={FILE_ICON_MAP[attachment.extension]}
         width={32}
         height={32}
         className="size-8"
@@ -37,18 +26,16 @@ const AttachmentItem: FC<Props> = ({ url, size }) => {
           as="span"
           className="w-full text-medium-sm text-gray-900 grid"
         >
-          <span className="truncate w-fit max-w-full">
-            {filename}.{ext}
-          </span>
+          <span className="truncate w-fit max-w-full">{attachment.name}</span>
         </Typography>
-        <div className="flex items-center justify-start">
-          {size !== undefined && (
+        <div className="flex items-center justify-start gap-2">
+          {attachment.size_kb !== undefined && (
             <Typography as="span" className="text-medium-xs text-gray-400">
-              {formatFileSize(221232)}
+              {formatFileSize(kbToByte(attachment.size_kb))}
             </Typography>
           )}
           <Link
-            href={url}
+            href={attachment.url}
             download
             target="_blank"
             rel="noreferrer"
@@ -60,7 +47,7 @@ const AttachmentItem: FC<Props> = ({ url, size }) => {
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default AttachmentItem
