@@ -7,7 +7,12 @@ import {
   TwoFAMethods,
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
-import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
+import {
+  COOKIES_KEYS,
+  FILE_ICON_MAP,
+  SHOW_FOR,
+  STORAGE_KEYS,
+} from "./constants"
 import {
   AuthLocation,
   AuthType,
@@ -175,6 +180,7 @@ export type TableColumn<T = unknown> = {
   showFor?: (typeof SHOW_FOR)[keyof typeof SHOW_FOR]
   clickable?: boolean
 }
+export type FileExtension = keyof typeof FILE_ICON_MAP
 
 export type DBResource = {
   id: string
@@ -276,6 +282,7 @@ export type TicketChannel = DBResource & {
   name: string
   logo: string
 }
+
 export type Ticket = DBResource & {
   organisation: string
   id_slug: string
@@ -285,7 +292,7 @@ export type Ticket = DBResource & {
   priority: TicketPriority
   pinned: boolean
   customer: TicketCustomer
-  attachments: string[]
+  attachments: AttachmentMetadata[]
   assignee: string | null
   channel: TicketChannel
 }
@@ -303,7 +310,7 @@ export type AttachmentMetadata = {
   url: string
   name: string
   size_kb: number
-  extension: string
+  extension: FileExtension
   loading?: boolean
   error?: boolean
 }

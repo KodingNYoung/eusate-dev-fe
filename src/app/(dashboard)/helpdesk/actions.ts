@@ -56,3 +56,30 @@ export const uploadTicketAttachment = async (formdata: FormData) => {
     })
   }
 }
+
+type TakeoverResponse = { success: true }
+export const takeoverTicket = async (state: FormState, formdata: FormData) => {
+  const { successResponse, errorResponse } =
+    formStateResponse<TakeoverResponse>(state)
+  const { ticket } = Object.fromEntries(formdata)
+
+  try {
+    const session = await getSession()
+    const response = await sendAuthRequest<TakeoverResponse>(
+      `/api/v1/helpdesk/tickets/${ticket}/take-over/`,
+      { organisation_id: session?.organisationId },
+      { method: "POST" }
+    )
+
+    if ("shouldAuthenticate" in response)
+      throw new Error("Session expired, log in again")
+    console.log(response)
+
+    return successResponse("", "", response)
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+}

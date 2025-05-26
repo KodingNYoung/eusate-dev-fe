@@ -47,7 +47,7 @@ export const useChatSocket = (
         message,
         ticket_chat_id: chatId,
         attachment: !!attachment,
-        attachment_meta: attachment || null,
+        attachment_metadata: attachment || null,
       }
 
       socket.emit(SocketEvents.SEND_MESSAGE, payload)

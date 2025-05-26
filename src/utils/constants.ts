@@ -1,4 +1,12 @@
 import { AiTones, ResourceSources } from "./enums"
+import doc from "@/assets/images/file-doc.svg"
+import gif from "@/assets/images/file-gif.svg"
+import jpg from "@/assets/images/file-jpg.svg"
+import mp3 from "@/assets/images/file-mp3.svg"
+import pdf from "@/assets/images/file-pdf.svg"
+import png from "@/assets/images/file-png.svg"
+import txt from "@/assets/images/file-txt.svg"
+import xls from "@/assets/images/file-xls.svg"
 
 export const API_BASEURL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT_URL
 
@@ -73,3 +81,17 @@ export const QUERY_FN_KEYS = {
   TICKET_COMMENTS: ["ticket-comments"],
   TICKET_CHAT: ["ticket-chat"],
 }
+
+export const FILE_ICON_MAP = {
+  ".doc": doc,
+  ".docx": doc,
+  ".gif": gif,
+  ".jpg": jpg,
+  ".mp3": mp3,
+  ".pdf": pdf,
+  ".png": png,
+  ".svg": png,
+  ".txt": txt,
+  ".xls": xls,
+  "": txt,
+} as const

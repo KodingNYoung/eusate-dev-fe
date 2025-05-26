@@ -1,17 +1,17 @@
 import CustomerChatArea from "./CustomerChatArea"
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import ChatFooter from "./CustomerChatFooter"
 import { useChatContext, useTicketContext } from "@/hooks/helpdesk"
 import CustomerChatHeader from "./CustomerChatHeader"
 
 const CustomerChat: FC = () => {
   const { ticketDetails: { data: ticket, isLoading } = {} } = useTicketContext()
-  const { scrollRef, scrollToBottom } = useChatContext()
+  const { scrollRef, readChat, messages, scrollToBottom } = useChatContext()
 
   scrollToBottom("instant", 0)
-  // useEffect(() => {
-  //   readChat()
-  // }, [messages, readChat])
+  useEffect(() => {
+    readChat()
+  }, [messages, readChat])
 
   return (
     <>
@@ -28,7 +28,7 @@ const CustomerChat: FC = () => {
         >
           <CustomerChatHeader customer={ticket?.customer} />
           <CustomerChatArea />
-          <ChatFooter />
+          <ChatFooter ticket={ticket} />
         </div>
       )}
     </>

@@ -1,8 +1,9 @@
 import { useTicketChats, useTicketDetails } from "@/hooks/api/helpdeskHooks"
 import { useChatSocket } from "@/lib/sockets/chat"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { MessageSenders } from "@/utils/enums"
 import { AttachmentMetadata, FC, MessageType, Ticket } from "@/utils/types"
-import { UseQueryResult } from "@tanstack/react-query"
+import { useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import dayjs from "dayjs"
 import {
   createContext,
@@ -60,12 +61,12 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
   children,
   ticketId,
 }) => {
-  // ref of the chat scroller
   const chatScrollRef = useRef<HTMLDivElement | null>(null)
+  const queryClient = useQueryClient()
 
   // create ticket message state
   const [messages, setMessages] = useState<MessageType[]>([])
-  // const [composer]
+
   // get ticket messages
   const { data: ticketChat, isLoading } = useTicketChats(ticketId)
 
@@ -115,11 +116,16 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
           sender: MessageSenders.AGENT,
           is_attachment: messageObj?.attachment,
           ticket_chat: ticketChat?.id as string,
-          attachment_metadata: messageObj?.attachment_meta,
+          attachment_metadata: messageObj?.attachment_metadata,
+        })
+      }
+      if (attachment) {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_FN_KEYS.TICKET, ticketId],
         })
       }
     },
-    [emitMessage, ticketChat?.id, updateMessages]
+    [emitMessage, ticketChat?.id, updateMessages, queryClient, ticketId]
   )
 
   // update ticket message state

@@ -1,10 +1,10 @@
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
-import { FC } from "@/utils/types"
+import { AttachmentMetadata, FC } from "@/utils/types"
 import React from "react"
 import AttachmentItem from "./AttachmentItem"
 
-type Props = { attachments: string[] }
+type Props = { attachments: AttachmentMetadata[] }
 
 const Attachments: FC<Props> = ({ attachments }) => {
   return (
@@ -17,7 +17,7 @@ const Attachments: FC<Props> = ({ attachments }) => {
       </header>
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(210px,_1fr))] gap-3">
         {attachments.map((attachment, idx) => (
-          <AttachmentItem url={attachment} key={idx} />
+          <AttachmentItem attachment={attachment} key={idx} />
         ))}
       </div>
     </section>

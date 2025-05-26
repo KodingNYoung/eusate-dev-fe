@@ -3,10 +3,10 @@ import Icon from "@/components/atoms/Icon"
 import { AttachmentMetadata, MessageType, TWClassNames } from "@/utils/types"
 import Typography from "@/components/atoms/Typography"
 import {
-  capitalizeFirstLetter,
   cls,
   formatFileSize,
   formatToMessageTime,
+  getFileNameWithoutExt,
   kbToByte,
   truncateWord,
 } from "@/utils/helpers"
@@ -47,7 +47,7 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
       </div>
       <div
         className={cls(
-          "p-3 rounded-xl space-y-2 max-w-4/5",
+          "p-3 rounded-xl space-y-2 flex-1",
           boxVariantStyle[message.sender]
         )}
       >
@@ -99,21 +99,30 @@ const CustomerSupportAttachmentCard: FC<{ attachment: AttachmentMetadata }> = ({
   attachment,
 }) => {
   return (
-    <div className="p-3 flex gap-3 items-center bg-gray-50 rounded-xl ">
-      <div className="p-3 bg-gold-50 border border-gold-600 rounded-xl">
+    <a
+      // download={attachment.name}
+      href={attachment.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      // aria-label={`Download attachment: ${attachment.name}`}
+      role="button"
+      tabIndex={0}
+      className="p-2 flex gap-3 items-center bg-gray-50 rounded-xl text-left"
+    >
+      <div className="p-2.5 bg-gold-50 border border-gold-600 rounded-xl leading-none">
         <Icon size={24} name="icon-document-text" className="text-gold-600" />
       </div>
 
-      <div className="">
+      <div className="grid gap-1">
         <Typography className="text-semibold-sm text-gray-700">
-          {capitalizeFirstLetter(truncateWord(attachment.name, 9))}
+          {truncateWord(getFileNameWithoutExt(attachment.name), 9)}
           <span className="text-gray-300">{attachment.extension}</span>
         </Typography>
-        <Typography className="text-regular-xs text-gray-300">
+        <Typography className="text-semibold-xs text-gray-300">
           {formatFileSize(kbToByte(attachment.size_kb))}
         </Typography>
       </div>
-    </div>
+    </a>
   )
 }
 
