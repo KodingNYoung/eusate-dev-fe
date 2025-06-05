@@ -9,6 +9,7 @@ import {
 } from "./types"
 import { RefObject } from "react"
 import { ROUTES } from "./constants"
+import { SETTINGS_NAV_LINKS } from "../components/templates/settings/utils"
 import dayjs from "dayjs"
 import calendar from "dayjs/plugin/calendar"
 
@@ -150,7 +151,9 @@ export const pageLayerAdapter = (
   pathname: string,
   PAGE_LAYERS: PageLayers
 ): PageLayersPath[] => {
-  const lastPathSegment = pathname.split("/").slice(-1)[0]
+  const splittedPath = pathname.split("/")
+  const lastPathSegment = splittedPath.slice(-1)[0]
+  const secondToLast = splittedPath.slice(-2)[0]
   const firstThreeChar = lastPathSegment.slice(0, 3)
 
   if (firstThreeChar === "TIC") {
@@ -162,6 +165,19 @@ export const pageLayerAdapter = (
         id: 1,
       },
       { label: "#" + lastPathSegment, id: 2 },
+    ]
+  } else if (
+    SETTINGS_NAV_LINKS.includes(lastPathSegment) &&
+    secondToLast === "settings"
+  ) {
+    return [
+      {
+        label: "Settings",
+        icon: "icon-setting",
+        link: ROUTES.SETTINGS,
+        id: 1,
+      },
+      { label: capitalizeFirstLetter(lastPathSegment), id: 2 },
     ]
   }
 
@@ -190,5 +206,23 @@ export const formatToMessageTime = (date: string) => {
     lastDay: "[Yesterday], h:mmA", // The day before ( Yesterday at 2:30 AM )
     lastWeek: "dddd, h:mmA", // Last week ( Last Monday at 2:30 AM )
     sameElse: "DD/MM/YYYY, h:mmA ", // Everything else ( 7/10/2011 )
+  })
+}
+export const promptFileUpload = (
+  accept = "*",
+  multiple = false
+): Promise<FileList | null> => {
+  return new Promise((resolve) => {
+    const input = document.createElement("input")
+    input.type = "file"
+    input.accept = accept
+    input.multiple = multiple
+    input.style.display = "none"
+    input.onchange = () => {
+      resolve(input.files)
+    }
+    document.body.appendChild(input)
+    input.click()
+    document.body.removeChild(input)
   })
 }

@@ -106,22 +106,3 @@ export const formatTime12Hr = (input: Date | string): string => {
   const paddedMinutes = minutes.toString().padStart(2, "0")
   return `${hour12}:${paddedMinutes}${period}`
 }
-
-export const promptFileUpload = (
-  accept = "*",
-  multiple = false
-): Promise<FileList | null> => {
-  return new Promise((resolve) => {
-    const input = document.createElement("input")
-    input.type = "file"
-    input.accept = accept
-    input.multiple = multiple
-    input.style.display = "none"
-    input.onchange = () => {
-      resolve(input.files)
-    }
-    document.body.appendChild(input)
-    input.click()
-    document.body.removeChild(input)
-  })
-}

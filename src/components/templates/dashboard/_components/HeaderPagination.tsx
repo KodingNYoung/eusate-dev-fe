@@ -24,7 +24,10 @@ const PAGE_LAYERS: PageLayers = {
     },
   ],
   [ROUTES.REPORTS]: [{ label: "Reports", icon: "icon-chart", id: 4 }],
-  [ROUTES.SETTINGS]: [{ label: "Settings", icon: "icon-setting", id: 5 }],
+  [ROUTES.SETTINGS]: [
+    { label: "Settings", icon: "icon-setting", id: 5 },
+    { label: "Profile", id: 2 },
+  ],
   [ROUTES.HELP_AND_SUPPORT]: [
     { label: "Help & Support", icon: "icon-health", id: 6 },
   ],

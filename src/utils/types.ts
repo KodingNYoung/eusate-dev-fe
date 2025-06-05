@@ -26,7 +26,7 @@ import {
   TicketStatus,
   UserTemperament,
 } from "@/components/views/help-desk/utils"
-import { ApiKeyStatus } from "@/components/views/settings/utlis"
+import { ApiKeyStatus } from "@/components/views/settings/utils"
 import { IconNames } from "./iconNames"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
