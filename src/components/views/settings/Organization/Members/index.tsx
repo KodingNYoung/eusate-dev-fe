@@ -5,7 +5,7 @@ import Header from "./MemberHeader"
 import Area from "./MembersArea"
 import { useQueryParams } from "@/hooks/utilityHooks"
 import { MEMBER_QUERY_KEYS } from "./utils"
-import MemberModal from "./MembersModals"
+import MemberModal from "./_components/MembersModals"
 
 const Members = () => {
   const { get } = useQueryParams()

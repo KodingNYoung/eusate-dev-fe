@@ -1,5 +1,4 @@
-import { Member } from "."
-import { Ord } from "../../utils"
+import { Member, Ord } from "../../utils"
 import { ROWS_PER_PAGE } from "./const"
 
 export const filterItems = (members: Member[], filterQuery: string | null) => {

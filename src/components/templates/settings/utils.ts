@@ -15,13 +15,13 @@ export const SETTINGS_NAV_LINKS = [
 export const SETTINGS_ROUTES = {
   PROFILE: "/settings/profile",
   ORGANIZATION: "/settings/organization",
-  SATE_AI: "/sate-ai",
-  INTEGRATIONS: "/integrations",
-  USAGE_AND_BILLING: "/usage&billing",
-  NOTIFICATIONS: "/notifications",
-  SECURITY: "/security",
-  SUPPORT: "/support",
-  RESOURCES: "/resources",
+  SATE_AI: "/settings/sate-ai",
+  INTEGRATIONS: "/settings/integrations",
+  USAGE_AND_BILLING: "/settings/usage&billing",
+  NOTIFICATIONS: "/settings/notifications",
+  SECURITY: "/settings/security",
+  SUPPORT: "/settings/support",
+  RESOURCES: "/settings/resources",
 }
 
 export const SETTINGS_TABS: {

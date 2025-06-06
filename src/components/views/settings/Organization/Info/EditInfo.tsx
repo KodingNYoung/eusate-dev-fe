@@ -12,23 +12,20 @@ import Select from "@/components/molecules/Select"
 import { INDUSTRIES, ORGANIZATION_SIZES } from "./utils"
 
 const EditInfo = () => {
-  const {
-    organization: { info },
-    updateOrganizationInfo,
-  } = useSettings()
   const { close } = useModal()
-  const { img_url: src_, name: name_, size: size_, industry: industry_ } = info
-  const [src, setSrc] = useState<string | null>(src_)
+  const { getInfo, updateOrganizationInfo } = useSettings()
+  const { avatar, name: name_, size: size_, industry: industry_ } = getInfo()
+  const [src, setSrc] = useState<string | null>(avatar)
   const [name, setName] = useState<string>(name_)
   const [size, setSize] = useState<string | undefined>(size_)
   const [industry, setIndustry] = useState<string | undefined>(industry_)
 
   const onSaveChanges = () => {
-    updateOrganizationInfo({ img_url: src, name, size, industry })
+    updateOrganizationInfo({ avatar: src, name, size, industry })
     close()
   }
   const onDiscardChanges = () => {
-    setSrc(src_)
+    setSrc(avatar)
     setSize(size_)
     setIndustry(industry_)
     close()

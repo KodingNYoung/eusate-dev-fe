@@ -1,4 +1,4 @@
-import { Member } from "../utils"
+import { Member } from "../../utils"
 import DisplayDate from "./DisplayDate"
 import Icon from "@/components/atoms/Icon"
 import Userinfo from "@/components/molecules/Userinfo"

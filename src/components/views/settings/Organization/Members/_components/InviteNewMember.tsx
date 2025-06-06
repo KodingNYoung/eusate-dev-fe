@@ -7,7 +7,7 @@ import Button from "@/components/molecules/Buttons"
 import AppModal from "@/components/organisms/Modal"
 import Checkbox from "@/components/molecules/Checkbox"
 import Typography from "@/components/atoms/Typography"
-import { formatPermissionKey, Permission } from "./utils"
+import { formatPermissionKey, Permission } from "../utils"
 
 const InitialPermission: Permission = {
   reset_user_passwords: true,

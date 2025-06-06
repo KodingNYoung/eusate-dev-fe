@@ -1,6 +1,6 @@
-import InviteNewMember from "./InviteNewMember"
-import CompletedModal from "../../_components/Completed"
 import { PopupKeys } from "@/utils/enums"
+import InviteNewMember from "./InviteNewMember"
+import CompletedModal from "../../../_components/Completed"
 
 const MemberModals = () => {
   return (

@@ -226,3 +226,9 @@ export const promptFileUpload = (
     document.body.removeChild(input)
   })
 }
+
+export const hasSameBasePath = (a: string, b: string) => {
+  const baseA = a.split("/")[1]
+  const baseB = b.split("/")[1]
+  return baseA && baseA === baseB
+}

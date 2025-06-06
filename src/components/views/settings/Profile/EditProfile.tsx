@@ -11,15 +11,15 @@ import { useSettings } from "@/providers/settingsProvider"
 
 const EditProfile = () => {
   const {
-    profile: { src: src_, fullname },
-    updateProfileItem,
+    profile: { avatar: src_, fullname },
+    updateProfile,
   } = useSettings()
   const { close } = useModal()
   const [src, setSrc] = useState<string | null>(src_)
   const [input, setInput] = useState<string>(fullname)
 
   const onSaveChanges = () => {
-    updateProfileItem({ src, fullname: input })
+    updateProfile({ avatar: src, fullname: input })
     close()
   }
   const onDiscardChanges = () => {

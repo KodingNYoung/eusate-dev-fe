@@ -7,12 +7,11 @@ import {
   TableHeader,
   TableColumn,
 } from "@nextui-org/react"
-import { Member } from "./utils"
 import { FC } from "@/utils/types"
 import Cell from "./_components/Cell"
 import { useQueryParams } from "@/hooks/utilityHooks"
 import { COLUMNS, ROWS_PER_PAGE } from "./utils/const"
-import { MEMBER_QUERY_KEYS, Ord, Sortby } from "../utils"
+import { Member, MEMBER_QUERY_KEYS, Ord, Sortby } from "../utils"
 import { useSettings } from "@/providers/settingsProvider"
 import AppPagination from "@/components/organisms/AppPagination"
 import { useCallback, useMemo, useState, useEffect } from "react"

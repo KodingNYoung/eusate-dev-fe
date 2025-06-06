@@ -10,14 +10,14 @@ import { useSettings } from "@/providers/settingsProvider"
 const Profile = () => {
   const { open } = useModal()
   const {
-    profile: { src, fullname, email, role },
+    profile: { avatar, fullname, email, role },
   } = useSettings()
   return (
     <section className="flex flex-col w-full h-auto border rounded-x20 border-gray-100 p-8 gap-y-16">
       <header>
         <EditProfile />
         <UserAvatar
-          src={src}
+          src={avatar}
           fullname={fullname}
           email={email}
           editAction={() => open(PopupKeys.EDIT_PROFILE)}

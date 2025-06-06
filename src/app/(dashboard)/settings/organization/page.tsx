@@ -1,10 +1,10 @@
-import Organization from "@/components/views/settings/Organization"
 import {
   ORAGANIZATION_TABS,
   ORGANIZATION_QUERY_KEYS,
   OrganizationTabsType,
 } from "@/components/views/settings/Organization/utils"
 import { PageFC } from "@/utils/types"
+import Organization from "@/components/views/settings/Organization"
 
 const OrganizationPage: PageFC = ({ searchParams }) => {
   const tab =

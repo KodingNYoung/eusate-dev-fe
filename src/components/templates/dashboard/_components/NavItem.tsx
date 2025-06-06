@@ -1,16 +1,15 @@
 "use client"
 
+import React from "react"
+import Link from "next/link"
 import Badge from "@/components/atoms/Badge"
 import Icon from "@/components/atoms/Icon"
 import NotificationBadge from "@/components/atoms/NotificationBadge"
 import Typography from "@/components/atoms/Typography"
-import { cls } from "@/utils/helpers"
+import { cls, hasSameBasePath } from "@/utils/helpers"
 import { IconNames } from "@/utils/iconNames"
 import { FC, TWClassNames } from "@/utils/types"
-import Link from "next/link"
 import { usePathname } from "next/navigation"
-import React from "react"
-import { SETTINGS_ROUTES } from "../../settings/utils"
 
 type Slots = "root" | "notificationBadge" | "badge" | "icon" | "label"
 type Props = {
@@ -31,7 +30,7 @@ const NavItem: FC<Props> = ({ icon, label, use, link, badge, classNames }) => {
       prefetch
       data-active={
         (link && pathname.includes(link)) ||
-        (use === "dashboard" && Object.values(SETTINGS_ROUTES).includes(link))
+        (use === "dashboard" && hasSameBasePath(pathname, link))
       }
       className={cls(
         "group-hover:gap-3 group group/navitem",

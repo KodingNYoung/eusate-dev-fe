@@ -8,26 +8,34 @@ export type Permission = {
   view_access_to_user_profiles: boolean
   edit_access_to_user_profiles: boolean
   delete_access_to_user_profiles: boolean
-  write_permissions_for_shared_folders: boolean
   admin_rights_for_project_management: boolean
+  write_permissions_for_shared_folders: boolean
   view_only_access_to_financial_reports: boolean
 }
 export type Ord = "ascending" | "descending"
 export type QueryKeys = "ord" | "sortby" | "q" | "p"
 export type Sortby = "last_seen" | "date_added" | "none"
+export type Member = {
+  id: number
+  avatar: string
+  name: string
+  email: string
+  last_seen: string
+  date_added: string
+}
 
 // constants
-export const MEMBER_QUERY_KEYS: { [k in string]: QueryKeys } = {
+export const MEMBER_QUERY_KEYS: { [k: string]: QueryKeys } = {
   PAGE: "p",
   ORD: "ord",
   QUERY: "q",
   SORT_BY: "sortby",
 } as const
-export const SORT_BY_VALUES: { [k in string]: Sortby } = {
+export const SORT_BY_VALUES: { [k: string]: Sortby } = {
   LAST_SEEN: "last_seen",
   DATE_ADDED: "date_added",
 } as const
-export const ORD_VALUES: { [k in string]: Ord } = {
+export const ORD_VALUES: { [k: string]: Ord } = {
   ASC: "ascending",
   DES: "descending",
 } as const

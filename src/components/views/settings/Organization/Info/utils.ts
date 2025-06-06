@@ -2,6 +2,15 @@ type SelectItem = {
   key: string
   label: string
 }
+export type Info = {
+  avatar: string | null
+  name: string
+  email: string
+  industry: string | undefined
+  size: string | undefined
+  members: number
+}
+
 export const ORGANIZATION_SIZES: SelectItem[] = [
   { key: "default", label: "1-10" },
   { key: "1-10", label: "1-10" },

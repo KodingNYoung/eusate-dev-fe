@@ -9,17 +9,14 @@ import { useSettings } from "@/providers/settingsProvider"
 
 const Info = () => {
   const { open } = useModal()
-  const {
-    organization: {
-      info: { img_url, name, email, industry, size, members },
-    },
-  } = useSettings()
+  const { getInfo } = useSettings()
+  const { avatar, name, email, industry, size, members } = getInfo()
   return (
     <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-y-16">
       <header>
         <EditInfo />
         <UserAvatar
-          src={img_url}
+          src={avatar}
           fullname={name}
           email={email}
           editAction={() => open(PopupKeys.EDIT_ORGANIZATION_INFO)}
