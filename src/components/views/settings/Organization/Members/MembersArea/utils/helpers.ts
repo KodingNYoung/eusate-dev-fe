@@ -20,7 +20,7 @@ export const sortItems = (
   return [...currentPageMembers].sort((a, b) => {
     const first = new Date(a[sortby])
     const second = new Date(b[sortby])
-    const cmp = first < second ? -1 : first < second ? 1 : 0
+    const cmp = first < second ? -1 : first > second ? 1 : 0
     return ord === "descending" ? -cmp : cmp
   })
 }

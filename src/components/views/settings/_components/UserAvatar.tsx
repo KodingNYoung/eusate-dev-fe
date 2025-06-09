@@ -1,9 +1,9 @@
-import Avatar from "@/components/atoms/Avatar"
-import Typography from "@/components/atoms/Typography"
-import userAvatar from "@/assets/images/user-avatar.svg"
 import { FC } from "react"
 import Icon from "@/components/atoms/Icon"
+import Avatar from "@/components/atoms/Avatar"
 import Button from "@/components/molecules/Buttons"
+import Typography from "@/components/atoms/Typography"
+import userAvatar from "@/assets/images/user-avatar.svg"
 
 type Props = {
   email: string

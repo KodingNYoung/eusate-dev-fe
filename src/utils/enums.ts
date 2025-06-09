@@ -42,6 +42,7 @@ export enum PopupKeys {
   EDIT_PROFILE = "edit-profile",
   EDIT_ORGANIZATION_INFO = "edit-organization-info",
   INVITE_MEMBER = "invite-member",
+  SENT_FEEDBACK = "sent-feedback",
   COMPLETED_INVITE_MEMBER = "completed-invite-member",
   GENERATE_API_KEY = "generate-api-keys",
   DELETE_API_KEY = "delete-api-keys",

@@ -24,10 +24,10 @@ type Props = {
 const CompletedModal: FC<Props> = ({
   id,
   header,
-  description,
   btnLabel,
   redirect,
   classNames,
+  description,
 }) => {
   const { close } = useModal()
   return (

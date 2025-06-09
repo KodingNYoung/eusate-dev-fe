@@ -1,4 +1,4 @@
-// types
+// TYPES
 export type Permission = {
   reset_user_passwords: boolean
   import_user_profile_data: boolean
@@ -12,9 +12,9 @@ export type Permission = {
   write_permissions_for_shared_folders: boolean
   view_only_access_to_financial_reports: boolean
 }
-export type Ord = "ascending" | "descending"
-export type QueryKeys = "ord" | "sortby" | "q" | "p"
 export type Sortby = "last_seen" | "date_added" | "none"
+export type QueryKeys = "ord" | "sortby" | "q" | "p"
+export type Ord = "ascending" | "descending"
 export type Member = {
   id: number
   avatar: string
@@ -24,7 +24,7 @@ export type Member = {
   date_added: string
 }
 
-// constants
+// CONSTANTS
 export const MEMBER_QUERY_KEYS: { [k: string]: QueryKeys } = {
   PAGE: "p",
   ORD: "ord",
@@ -55,21 +55,21 @@ export const SORT_BY_OPTIONS = [
   // name and value are just there to fufill all righteousness for Radio comp
   {
     label: "Last seen",
-    query_key: MEMBER_QUERY_KEYS.SORT_BY,
     key: SORT_BY_VALUES.LAST_SEEN,
     name: SORT_BY_VALUES.LAST_SEEN,
     value: SORT_BY_VALUES.LAST_SEEN,
+    query_key: MEMBER_QUERY_KEYS.SORT_BY,
   },
   {
     label: "Date added",
-    query_key: MEMBER_QUERY_KEYS.SORT_BY,
     key: SORT_BY_VALUES.DATE_ADDED,
     name: SORT_BY_VALUES.DATE_ADDED,
     value: SORT_BY_VALUES.DATE_ADDED,
+    query_key: MEMBER_QUERY_KEYS.SORT_BY,
   },
 ]
 
-// helpers
+// HELPERS
 export const formatPermissionKey = (key: string): string => {
   const withoutUnderscores = key.replace(/_/g, " ")
   const capitalized =

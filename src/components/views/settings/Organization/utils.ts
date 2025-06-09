@@ -3,6 +3,7 @@ export enum OrganizationTabsType {
   MEMBERS = "members",
 }
 
+// CONSTANTS
 export const ORAGANIZATION_TABS: {
   key: OrganizationTabsType
   label: string
@@ -15,8 +16,7 @@ export const ORAGANIZATION_TABS: {
     key: OrganizationTabsType.MEMBERS,
     label: "Members",
   },
-]
-
+] as const
 export const ORGANIZATION_QUERY_KEYS = {
   TAB: "tab",
-}
+} as const

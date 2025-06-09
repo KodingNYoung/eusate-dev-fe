@@ -1,1 +1,1 @@
-export type ColumnType = { name: string; uid: string; sortable?: boolean }
+export type ColumnType = { id: string; name: string; sortable?: boolean }

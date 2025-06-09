@@ -1,54 +1,60 @@
 "use client"
 
 import { Remark } from "../utils"
-import { ChangeEvent, useState } from "react"
 import Input from "@/components/molecules/Inputs"
 import Button from "@/components/molecules/Buttons"
+import { ChangeEvent, useMemo, useState } from "react"
 import { useSettings } from "@/providers/settingsProvider"
 
 const Remarks = () => {
   const { getRemarks, updateRemarks } = useSettings()
-  const [remarks, setRemarks] = useState<Remark>(getRemarks())
+  const [remarks, setRemarks] = useState<Remark>(getRemarks)
+
+  const isEditing = useMemo(
+    () =>
+      !!getRemarks.closing_remark.length || !!getRemarks.opening_remark.length,
+    [getRemarks]
+  )
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setRemarks({ ...remarks, [name]: value })
   }
   const onSaveChanges = () => updateRemarks(remarks)
-  const onDiscardChanges = () => setRemarks(getRemarks())
+  const onDiscardChanges = () => setRemarks(getRemarks)
   return (
     <section className="px-12 py-8 border-1 border-gray-50 rounded-x20 w-full h-full">
       <div className="w-full md:w-1/2 grid gap-8">
         <div className="w-full grid gap-8">
           <Input
-            multiline
             rows={5}
+            multiline
             name="opening_remark"
             label="Opening remark"
-            value={remarks?.opening_remark ?? ""}
+            onChange={onInputChange}
             classNames={{
               label: "mb-4 text-gray-700",
               helperText: "text-regular-sm",
             }}
-            onChange={onInputChange}
-            helperText="This is the default first message that our AI sends to every of your customer"
+            value={remarks?.opening_remark ?? ""}
             placeholder="Type an answer to the question above..."
+            helperText="This is the default first message that our AI sends to every of your customer"
           />
           <Input
-            multiline
             rows={5}
+            multiline
             name="closing_remark"
             label="Closing remark"
-            value={remarks?.closing_remark ?? ""}
             onChange={onInputChange}
             classNames={{
               label: "mb-4 text-gray-700",
               helperText: "text-regular-sm",
             }}
-            helperText="This is the default last message that our AI sends to every of your customer"
+            value={remarks?.closing_remark ?? ""}
             placeholder="Type an answer to the question above..."
+            helperText="This is the default last message that our AI sends to every of your customer"
           />
         </div>
-        {(remarks?.closing_remark || remarks?.opening_remark) && (
+        {(remarks?.closing_remark || remarks?.opening_remark || isEditing) && (
           <div className="flex item-center gap-8 w-full md:w-1/2">
             <Button
               size="sm"

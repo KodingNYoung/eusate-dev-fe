@@ -9,9 +9,12 @@ import {
 } from "./types"
 import { RefObject } from "react"
 import { ROUTES } from "./constants"
-import { SETTINGS_NAV_LINKS } from "../components/templates/settings/utils"
 import dayjs from "dayjs"
 import calendar from "dayjs/plugin/calendar"
+import {
+  SETTINGS_NAV_LINKS,
+  SettingsNavLink,
+} from "../components/templates/settings/utils"
 
 dayjs.extend(calendar)
 
@@ -167,7 +170,7 @@ export const pageLayerAdapter = (
       { label: "#" + lastPathSegment, id: 2 },
     ]
   } else if (
-    SETTINGS_NAV_LINKS.includes(lastPathSegment) &&
+    SETTINGS_NAV_LINKS.includes(lastPathSegment as SettingsNavLink) &&
     secondToLast === "settings"
   ) {
     return [

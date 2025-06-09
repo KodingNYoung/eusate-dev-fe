@@ -1,3 +1,5 @@
+"use client"
+
 import { FC } from "@/utils/types"
 import { SateAiTabsType } from "./utils"
 import SateAiTabActions from "./_components/SateAiTabActions"

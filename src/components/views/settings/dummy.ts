@@ -2,17 +2,17 @@ import { Info } from "./Organization/Info/utils"
 import { Profile } from "./utils"
 
 export const dummyProfile: Profile = {
-  avatar: null,
+  email: "adainipatrick@gmail.com",
   fullname: "Patrick Adanini",
   role: "Product Designer",
-  email: "adainipatrick@gmail.com",
+  avatar: null,
 }
 
 export const dummyOrganizationInfo: Info = {
-  avatar: null,
-  name: "Eusate Inc",
   email: "adainipatric@gmail.com",
   industry: "Technology",
-  size: "1-9",
+  name: "Eusate Inc",
+  avatar: null,
   members: 20,
+  size: "50+",
 }

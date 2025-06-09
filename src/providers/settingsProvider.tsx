@@ -1,39 +1,61 @@
 import {
+  Remark,
+  SateAI,
+  PriorityType,
+} from "@/components/views/settings/Sate-ai/utils"
+import {
   dummyProfile,
   dummyOrganizationInfo,
 } from "@/components/views/settings/dummy"
 import { Organization, Profile } from "@/components/views/settings/utils"
-import { createContext, FC, ReactNode, useContext, useState } from "react"
+import {
+  FC,
+  useMemo,
+  useState,
+  ReactNode,
+  useContext,
+  createContext,
+} from "react"
 import { Info } from "@/components/views/settings/Organization/Info/utils"
-import { Remark, SateAI } from "@/components/views/settings/Sate-ai/utils"
 import { dummyMembers } from "@/components/views/settings/Organization/Members/MembersArea/utils/dummy"
 
-type EditableProfileItems = Pick<Profile, "fullname" | "avatar">
 type EditableInfoItems = Pick<Info, "avatar" | "name" | "size" | "industry">
+type EditableProfileItems = Pick<Profile, "fullname" | "avatar">
 type SettingsContextType = {
   updateProfile: (profileItem: EditableProfileItems) => void
   updateOrganizationInfo: (infoItems: EditableInfoItems) => void
+  updatePriority: (priority: PriorityType[]) => void
   updateRemarks: (remark: Remark) => void
-  getInfo: () => Info
+  updateFeedback: (feedback: string) => void
+  getPriorities: PriorityType[]
   organization: Organization
-  getProfile: () => Profile
-  getRemarks: () => Remark
+  getFeedback: string | null
+  getRemarks: Remark
+  getInfo: Info
   profile: Profile
 }
+
 const SettingsContext = createContext<SettingsContextType | null>(null)
 
 const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [profile, setProfile] = useState<Profile>(dummyProfile)
-  const [sateAi, setSateAi] = useState<SateAI>({} as SateAI)
+  const [sateAi, setSateAi] = useState<SateAI>({
+    remarks: { closing_remark: "", opening_remark: "" },
+    priority: [],
+    feedback: null,
+  })
   const [organization, setOrganization] = useState<Organization>({
     info: dummyOrganizationInfo,
     members: dummyMembers,
   })
 
-  const getProfile = () => profile
-  const getRemarks = () => sateAi.remarks
-  const getInfo = () => organization.info
+  const getRemarks = useMemo(() => sateAi.remarks, [sateAi.remarks])
+  const getInfo = useMemo(() => organization.info, [organization.info])
+  const getFeedback = useMemo(() => sateAi.feedback, [sateAi.feedback])
+  const getPriorities = useMemo(() => sateAi.priority, [sateAi.priority])
 
+  const updateFeedback = (feedback: string) =>
+    setSateAi({ ...sateAi, feedback })
   const updateProfile = (profile_: EditableProfileItems) => {
     setProfile({ ...profile, ...profile_ })
   }
@@ -49,18 +71,27 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
       remarks: { ...sateAi.remarks, ...remarks },
     })
   }
+  const updatePriority = (prioties: PriorityType[]) => {
+    setSateAi({
+      ...sateAi,
+      priority: [...prioties],
+    })
+  }
 
   return (
     <SettingsContext.Provider
       value={{
-        profile,
-        getProfile,
-        getRemarks,
-        getInfo,
+        updateOrganizationInfo,
+        updatePriority,
+        updateFeedback,
+        getPriorities,
         updateRemarks,
         updateProfile,
         organization,
-        updateOrganizationInfo,
+        getFeedback,
+        getRemarks,
+        profile,
+        getInfo,
       }}
     >
       {children}

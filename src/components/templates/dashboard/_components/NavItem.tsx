@@ -23,7 +23,6 @@ type Props = {
 
 const NavItem: FC<Props> = ({ icon, label, use, link, badge, classNames }) => {
   const pathname = usePathname()
-
   return (
     <Link
       href={link}

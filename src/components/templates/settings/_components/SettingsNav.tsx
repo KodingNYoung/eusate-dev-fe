@@ -4,12 +4,12 @@ import { cls } from "@/utils/helpers"
 
 const SettingsNav = () => {
   return (
-    <div>
+    <section>
       {SETTINGS_TABS.map(({ link, id, ...route }) => (
         <NavItem
+          key={id}
           use="settings"
           link={`${link}`}
-          key={id}
           {...route}
           classNames={{
             root: cls(
@@ -24,7 +24,7 @@ const SettingsNav = () => {
           }}
         />
       ))}
-    </div>
+    </section>
   )
 }
 

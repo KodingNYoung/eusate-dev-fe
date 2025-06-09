@@ -1,10 +1,10 @@
-import SateAi from "@/components/views/settings/Sate-ai"
 import {
-  SATE_AI_QUERY_KEYS,
   SATE_AI_TABS,
   SateAiTabsType,
+  SATE_AI_QUERY_KEYS,
 } from "@/components/views/settings/Sate-ai/utils"
 import { PageFC } from "@/utils/types"
+import SateAi from "@/components/views/settings/Sate-ai"
 
 const SateAiPage: PageFC = ({ searchParams }) => {
   const tab =

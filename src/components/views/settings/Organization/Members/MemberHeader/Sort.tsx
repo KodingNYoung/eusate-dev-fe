@@ -9,7 +9,6 @@ import AppPopover from "@/components/molecules/Popups/AppPopover"
 
 const Sort = () => {
   const { get, set } = useQueryParams()
-
   return (
     <AppPopover
       placement="bottom-start"

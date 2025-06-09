@@ -1,29 +1,53 @@
 import { IconNames } from "@/utils/iconNames"
 
-export const SETTINGS_NAV_LINKS = [
-  "profile",
-  "organization",
-  "sate-ai",
-  "integrations",
-  "usage&Billing",
-  "notifications",
-  "security",
-  "support",
-  "resources",
-]
+//  TYPES
+export type SettingsNavLink =
+  | "usage&Billing"
+  | "notifications"
+  | "organization"
+  | "integrations"
+  | "resources"
+  | "security"
+  | "support"
+  | "sate-ai"
+  | "profile"
 
-export const SETTINGS_ROUTES = {
-  PROFILE: "/settings/profile",
-  ORGANIZATION: "/settings/organization",
-  SATE_AI: "/settings/sate-ai",
-  INTEGRATIONS: "/settings/integrations",
-  USAGE_AND_BILLING: "/settings/usage&billing",
-  NOTIFICATIONS: "/settings/notifications",
-  SECURITY: "/settings/security",
-  SUPPORT: "/settings/support",
-  RESOURCES: "/settings/resources",
+// ENUMS
+export enum SettingsTabsType {
+  USAGE_AND_BILLING = "usage-and-billing",
+  NOTIFICATIONS = "notifications",
+  ORGANIZATION = "organization",
+  INTEGRATIONS = "integrations",
+  RESOURCES = "resources",
+  SECURITY = "security",
+  SUPPORT = "support",
+  PROFILE = "profile",
+  SATE_AI = "sate-ai",
 }
 
+// CONSTANTS
+export const SETTINGS_NAV_LINKS: SettingsNavLink[] = [
+  "usage&Billing",
+  "notifications",
+  "organization",
+  "integrations",
+  "resources",
+  "security",
+  "support",
+  "sate-ai",
+  "profile",
+] as const
+export const SETTINGS_ROUTES = {
+  USAGE_AND_BILLING: "/settings/usage&billing",
+  NOTIFICATIONS: "/settings/notifications",
+  INTEGRATIONS: "/settings/integrations",
+  ORGANIZATION: "/settings/organization",
+  RESOURCES: "/settings/resources",
+  SECURITY: "/settings/security",
+  SUPPORT: "/settings/support",
+  PROFILE: "/settings/profile",
+  SATE_AI: "/settings/sate-ai",
+} as const
 export const SETTINGS_TABS: {
   id: number
   icon: IconNames
@@ -84,4 +108,4 @@ export const SETTINGS_TABS: {
     label: "Resources",
     icon: "icon-layer",
   },
-]
+] as const

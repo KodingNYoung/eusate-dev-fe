@@ -15,7 +15,6 @@ const DisplayDate: FC<Props> = ({ timestamp }) => {
       time: parsed.format("h:mmA"),
     }
   }, [timestamp])
-
   return (
     <div className="w-full">
       <Typography variant="regular-sm" className="text-gray-900">

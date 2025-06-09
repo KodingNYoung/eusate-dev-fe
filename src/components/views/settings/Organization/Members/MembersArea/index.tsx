@@ -10,35 +10,34 @@ import {
 import { FC } from "@/utils/types"
 import Cell from "./_components/Cell"
 import { useQueryParams } from "@/hooks/utilityHooks"
+import { useCallback, useMemo, useState } from "react"
 import { COLUMNS, ROWS_PER_PAGE } from "./utils/const"
-import { Member, MEMBER_QUERY_KEYS, Ord, Sortby } from "../utils"
 import { useSettings } from "@/providers/settingsProvider"
 import AppPagination from "@/components/organisms/AppPagination"
-import { useCallback, useMemo, useState, useEffect } from "react"
+import { Member, MEMBER_QUERY_KEYS, Ord, Sortby } from "../utils"
 import { filterItems, setPageContent, sortItems } from "./utils/helpers"
 
 type Props = {
   page: number
-  filterQuery: string | null
+  searchQuery: string | null
   setPage: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Area: FC<Props> = ({ page, setPage, filterQuery }) => {
+const Area: FC<Props> = ({ page, setPage, searchQuery }) => {
   const {
     organization: { members },
   } = useSettings()
-  const { get, set } = useQueryParams()
+  const { get } = useQueryParams()
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]))
 
-  useEffect(() => {
-    set(MEMBER_QUERY_KEYS.PAGE, page)
-  }, [page, set])
-
   const filteredMembers = useMemo(
-    () => filterItems(members, filterQuery),
-    [members, filterQuery]
+    () => filterItems(members, searchQuery),
+    [members, searchQuery]
   )
-  const pages = Math.ceil(filteredMembers.length / ROWS_PER_PAGE) || 1
+  const pages = useMemo(
+    () => Math.ceil(filteredMembers.length / ROWS_PER_PAGE) || 1,
+    [filteredMembers]
+  )
   const currentPageMembers = useMemo(
     () => setPageContent(page, filteredMembers),
     [page, filteredMembers]
@@ -92,8 +91,8 @@ const Area: FC<Props> = ({ page, setPage, filterQuery }) => {
       <TableHeader columns={COLUMNS}>
         {(column) => (
           <TableColumn
-            key={column.uid}
-            align={column.uid === "action" ? "center" : "start"}
+            key={column.id}
+            align={column.id === "action" ? "center" : "start"}
             allowsSorting={column.sortable}
           >
             {column.name}
@@ -104,7 +103,9 @@ const Area: FC<Props> = ({ page, setPage, filterQuery }) => {
         {(item) => (
           <TableRow key={item.id}>
             {(columnkey) => (
-              <TableCell>{renderCell(item, columnkey)}</TableCell>
+              <TableCell key={columnkey}>
+                {renderCell(item, columnkey)}
+              </TableCell>
             )}
           </TableRow>
         )}
