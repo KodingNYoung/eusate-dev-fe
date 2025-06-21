@@ -1,20 +1,28 @@
 import { FC, TWClassNames } from "@/utils/types"
 import React from "react"
-import Avatar from "../atoms/Avatar"
+import Avatar, { AvatarProps } from "../atoms/Avatar"
 import Typography from "../atoms/Typography"
 import { cls } from "@/utils/helpers"
 import { Skeleton } from "@nextui-org/react"
 
 type Slots = "root" | "avatar" | "info" | "title" | "subtitle"
-type Props = {
+export type UserInfoProps = {
   src?: string
   title?: string
   subtitle?: string | React.ReactNode
   classNames?: { [slot in Slots]?: TWClassNames }
+  avatarProps?: AvatarProps
   loading?: boolean
 }
 
-const Userinfo: FC<Props> = ({ src, title, subtitle, classNames, loading }) => {
+const Userinfo: FC<UserInfoProps> = ({
+  src,
+  title,
+  subtitle,
+  classNames,
+  loading,
+  avatarProps,
+}) => {
   return (
     <div className={cls("flex items-center gap-3 py-4", classNames?.root)}>
       <Avatar
@@ -22,13 +30,12 @@ const Userinfo: FC<Props> = ({ src, title, subtitle, classNames, loading }) => {
         name={title}
         className={classNames?.avatar}
         loading={loading}
+        {...avatarProps}
       />
       <div className={cls("grid", classNames?.info)}>
         <Typography
-          variant="semibold-sm"
           as="h3"
-          className={cls("text-white-100 truncate", classNames?.title)}
-          loading={loading}
+          className={cls("truncate text-semibold-sm", classNames?.title)}
         >
           {title}
         </Typography>

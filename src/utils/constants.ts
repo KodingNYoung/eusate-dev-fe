@@ -25,6 +25,7 @@ export const ROUTES = {
   TICKET: "/helpdesk/ticket",
   REPORTS: "/reports",
   SETTINGS: "/settings/profile",
+  REPORT: "/report",
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
   RESOURCE: "/knowledge-base/resource",

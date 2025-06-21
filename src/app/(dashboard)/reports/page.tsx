@@ -1,8 +1,9 @@
+import Reports from "@/components/views/reports"
 import { PageFC } from "@/utils/types"
 import React from "react"
 
 const ReportsPage: PageFC = () => {
-  return <div>ReportsPage</div>
+  return <Reports />
 }
 
 export default ReportsPage

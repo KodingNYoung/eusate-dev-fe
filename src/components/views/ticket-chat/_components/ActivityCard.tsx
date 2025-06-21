@@ -31,7 +31,7 @@ const ActivityCard: FC<Props> = ({
           classNames={{
             root: "!py-0",
             avatar: "!size-7 !min-w-7 !min-h-7",
-            title: "!text-semibold-sm font-[500] !text-gray-900",
+            title: "!text-semibold-sm font-[500] text-gray-900",
           }}
         />
         <Typography className="text-gray-300 text-regular-sm">

@@ -17,6 +17,7 @@ const SidebarUserInfo: FC = () => {
         subtitle={data?.email}
         classNames={{
           root: "w-full gap-0 group-hover:gap-3 group-hover:justify-start flex-1",
+          title: "text-white",
           info: "w-0 group-hover:w-full overflow-hidden",
         }}
         loading={isLoading}

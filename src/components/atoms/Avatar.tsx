@@ -1,26 +1,26 @@
 import { cls } from "@/utils/helpers"
-import { FC } from "@/utils/types"
 import { Skeleton } from "@nextui-org/react"
+import { FC, TWClassNames } from "@/utils/types"
 import Image from "next/image"
-import React, { useMemo } from "react"
+import React from "react"
+import Icon from "./Icon"
 
-type Props = {
+type Slots = "root" | "img" | "iconContainer" | "icon"
+export type AvatarProps = {
   src?: string
   name?: string
+  size?: TWClassNames
+  classNames?: { [slot in Slots]?: TWClassNames }
   loading?: boolean
 }
 
-const Avatar: FC<Props> = ({ src, name, className, loading }) => {
-  const initials = useMemo(() => {
-    if (!name) return ""
-    const clean = name.replace(/[^a-zA-Z ]/g, "") // removes symbols like #
-    const names = clean.trim().split(" ")
-
-    const first = names[0]?.[0] ?? ""
-    const second = names[1]?.[0] ?? ""
-    return (first + second).toUpperCase()
-  }, [name])
-
+const Avatar: FC<AvatarProps> = ({
+  src,
+  size,
+  className,
+  classNames,
+  loading,
+}) => {
   return (
     <Skeleton
       isLoaded={!loading}
@@ -28,21 +28,34 @@ const Avatar: FC<Props> = ({ src, name, className, loading }) => {
     >
       <div
         className={cls(
-          "min-w-10 min-h-10 w-10 h-10 border border-white-100 rounded-full overflow-hidden",
-          className
+          "border border-white-100 rounded-full overflow-hidden",
+          size || "min-w-10 min-h-10 w-10 h-10",
+          className,
+          classNames?.root
         )}
       >
-        {loading && <Skeleton />}
         {src && (
           <Image
             height={100}
             width={100}
             src={src}
             alt=""
-            className="h-full w-full object-cover"
+            className={cls("h-full w-full object-cover", classNames?.img)}
           />
         )}
-        {!src && name && <span className="uppercase">{initials}</span>}
+        {!src && (
+          <div
+            className={cls(
+              "flex items-center justify-center w-full h-full rounded-full bg-gold-50",
+              classNames?.iconContainer
+            )}
+          >
+            <Icon
+              name="icon-user"
+              className={cls("text-gold-600", classNames?.icon)}
+            />
+          </div>
+        )}
       </div>
     </Skeleton>
   )
