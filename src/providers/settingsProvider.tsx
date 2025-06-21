@@ -16,7 +16,7 @@ import {
   useContext,
   createContext,
 } from "react"
-import { Info } from "@/components/views/settings/Organization/Info/utils"
+import { Info } from "@/components/views/settings/Organization/OrganizationInfo/utils"
 import { dummyMembers } from "@/components/views/settings/Organization/Members/MembersArea/utils/dummy"
 
 type EditableInfoItems = Pick<Info, "avatar" | "name" | "size" | "industry">

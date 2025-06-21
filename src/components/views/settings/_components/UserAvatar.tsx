@@ -37,6 +37,7 @@ const UserAvatar: FC<Props> = ({
             <Icon size={18} className="text-semibold-sm" name="icon-edit-2" />
           }
           classNames={{ root: "px-3 py-2", label: "text-semibold-sm" }}
+          disabled={loading}
         >
           {editLabel || "Edit profile"}
         </Button>
