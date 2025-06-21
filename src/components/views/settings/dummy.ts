@@ -1,4 +1,4 @@
-import { Info } from "./Organization/Info/utils"
+import { Info } from "./Organization/OrganizationInfo/utils"
 import { Profile } from "./utils"
 
 export const dummyProfile: Profile = {

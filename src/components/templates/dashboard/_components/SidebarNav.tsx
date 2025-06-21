@@ -56,6 +56,7 @@ const SidebarNav: FC = () => {
       })}
       <div className="w-full h-px bg-gray-900 my-[22px]" />
       <NavItem
+        use="dashboard"
         icon="icon-eusate"
         label="Playground"
         link={ROUTES.PLAYGROUND}

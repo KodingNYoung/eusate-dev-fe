@@ -1,5 +1,5 @@
 import { cls } from "@/utils/helpers"
-import { Skeleton } from "@nextui-org/react"
+import { Skeleton } from "@heroui/react"
 import { FC, TWClassNames } from "@/utils/types"
 import Image from "next/image"
 import React from "react"
@@ -24,7 +24,12 @@ const Avatar: FC<AvatarProps> = ({
   return (
     <Skeleton
       isLoaded={!loading}
-      className={cls("rounded-full overflow-hidden", className)}
+      className={cls(
+        "rounded-full overflow-hidden",
+        size || "min-w-10 min-h-10 w-10 h-10",
+        className,
+        classNames?.root
+      )}
     >
       <div
         className={cls(

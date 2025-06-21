@@ -36,6 +36,7 @@ const Profile = () => {
               <Typography
                 variant="semibold-base"
                 className="text-gray-900 text-left"
+                loading={isLoading}
               >
                 {data?.username}
               </Typography>
@@ -44,7 +45,11 @@ const Profile = () => {
               <Typography variant="regular-base" className="text-gray-400">
                 Role
               </Typography>
-              <Typography variant="semibold-base" className="text-gray-900">
+              <Typography
+                variant="semibold-base"
+                className="text-gray-900"
+                loading={isLoading}
+              >
                 {data?.meta.role}
               </Typography>
             </div>
@@ -52,7 +57,11 @@ const Profile = () => {
               <Typography variant="regular-base" className="text-gray-400">
                 Email
               </Typography>
-              <Typography variant="semibold-base" className="text-gray-900">
+              <Typography
+                variant="semibold-base"
+                className="text-gray-900"
+                loading={isLoading}
+              >
                 {data?.email}
               </Typography>
             </div>

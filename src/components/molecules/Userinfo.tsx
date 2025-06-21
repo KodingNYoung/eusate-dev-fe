@@ -3,7 +3,7 @@ import React from "react"
 import Avatar, { AvatarProps } from "../atoms/Avatar"
 import Typography from "../atoms/Typography"
 import { cls } from "@/utils/helpers"
-import { Skeleton } from "@nextui-org/react"
+import { Skeleton } from "@heroui/react"
 
 type Slots = "root" | "avatar" | "info" | "title" | "subtitle"
 export type UserInfoProps = {

@@ -1,5 +1,5 @@
 import { Member } from "../Organization/Members/utils"
-import { Info } from "../Organization/Info/utils"
+import { Info } from "../Organization/OrganizationInfo/utils"
 
 export enum ApiKeyStatus {
   REVOKED = "revoked",

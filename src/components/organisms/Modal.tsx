@@ -5,7 +5,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalProps,
-} from "@nextui-org/react"
+} from "@heroui/react"
 import React from "react"
 import Icon from "../atoms/Icon"
 import { cls } from "@/utils/helpers"

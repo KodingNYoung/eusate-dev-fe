@@ -1,6 +1,6 @@
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames, TypographyVariants } from "@/utils/types"
-import { Skeleton } from "@nextui-org/react"
+import { Skeleton } from "@heroui/react"
 import { createElement, HTMLProps, ReactNode } from "react"
 
 type Props = HTMLProps<HTMLHeadingElement & HTMLParagraphElement> & {
@@ -39,15 +39,22 @@ const Typography: FC<Props> = ({
   loading,
   ...props
 }) => {
-  return (
-    <Skeleton isLoaded={!loading} className={cls("rounded-sm", className)}>
+  return loading ? (
+    <Skeleton isLoaded={false} className={cls("rounded-sm w-52", className)}>
       {getElement(
         as,
-        children,
+        "John doe", // Placeholder text for loading state
         cls("font-app", weight && weightProps[weight], className, variant),
         props
       )}
     </Skeleton>
+  ) : (
+    getElement(
+      as,
+      children,
+      cls("font-app", weight && weightProps[weight], className, variant),
+      props
+    )
   )
 }
 

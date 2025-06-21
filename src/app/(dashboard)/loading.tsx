@@ -1,5 +1,5 @@
 import { FC } from "@/utils/types"
-import { Progress } from "@nextui-org/react"
+import { Progress } from "@heroui/react"
 import React from "react"
 
 const PageLoading: FC = () => {

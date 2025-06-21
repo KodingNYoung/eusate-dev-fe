@@ -1,5 +1,5 @@
 export enum OrganizationTabsType {
-  INFO = "info",
+  ORGANIZATION_INFO = "organization_info",
   MEMBERS = "members",
 }
 
@@ -9,8 +9,8 @@ export const ORAGANIZATION_TABS: {
   label: string
 }[] = [
   {
-    key: OrganizationTabsType.INFO,
-    label: "Organizaiton Info",
+    key: OrganizationTabsType.ORGANIZATION_INFO,
+    label: "Organization Info",
   },
   {
     key: OrganizationTabsType.MEMBERS,

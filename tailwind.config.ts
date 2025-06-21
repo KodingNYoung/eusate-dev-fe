@@ -1,4 +1,4 @@
-import { nextui } from "@nextui-org/react"
+import { heroui } from "@heroui/react"
 import type { Config } from "tailwindcss"
 import defaultTheme from "tailwindcss/defaultTheme"
 
@@ -8,7 +8,7 @@ const config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/providers/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     ...defaultTheme,
@@ -373,7 +373,7 @@ const config = {
   },
   darkMode: "class",
   plugins: [
-    nextui({
+    heroui({
       addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
       defaultTheme: "light", // default theme from the themes object
       themes: {
