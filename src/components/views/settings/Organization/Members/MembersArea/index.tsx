@@ -6,7 +6,7 @@ import {
   TableCell,
   TableHeader,
   TableColumn,
-} from "@nextui-org/react"
+} from "@heroui/react"
 import { FC } from "@/utils/types"
 import Cell from "./_components/Cell"
 import { useQueryParams } from "@/hooks/utilityHooks"

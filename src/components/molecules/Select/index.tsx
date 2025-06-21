@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectProps,
   SelectSlots,
-} from "@nextui-org/react"
+} from "@heroui/react"
 import "./style.css"
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"

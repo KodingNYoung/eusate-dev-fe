@@ -8,7 +8,7 @@ import {
   PopoverProps,
   PopoverSlots,
   PopoverTrigger,
-} from "@nextui-org/react"
+} from "@heroui/react"
 import React, { ReactElement } from "react"
 
 type Props = Omit<PopoverProps, "children"> & {
