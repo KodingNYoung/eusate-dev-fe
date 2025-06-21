@@ -12,6 +12,7 @@ const SidebarUserInfo: FC = () => {
         subtitle="abiodun@eusate.com"
         classNames={{
           root: "w-full gap-0 group-hover:gap-3 group-hover:justify-start flex-1",
+          title: "text-white",
           info: "w-0 group-hover:w-full overflow-hidden",
         }}
       />

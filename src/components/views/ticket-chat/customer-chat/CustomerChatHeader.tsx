@@ -34,7 +34,7 @@ const CustomerChatHeader: FC<Props> = ({ customer }) => {
           classNames={{
             root: "!py-0",
             avatar: "!size-12 !min-w-12 !min-h-12",
-            title: "!text-semibold-sm font-[500] !text-gray-900",
+            title: "!text-semibold-sm font-[500] text-gray-900",
           }}
         />
       </div>

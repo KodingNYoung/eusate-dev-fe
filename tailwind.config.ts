@@ -355,6 +355,7 @@ const config = {
         64: "16rem", // 256px
       },
       borderRadius: {
+        x10: "0.625rem", //10px
         x20: "1.25rem", // 20px
       },
       zIndex: {
