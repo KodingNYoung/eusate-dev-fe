@@ -24,14 +24,15 @@ export const ROUTES = {
   HELP_DESK: "/helpdesk",
   TICKET: "/helpdesk/ticket",
   REPORTS: "/reports",
+  SETTINGS: "/settings/profile",
   REPORT: "/report",
-  SETTINGS: "/settings",
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
   RESOURCE: "/knowledge-base/resource",
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
   DEV_SPACE: "/dev-space",
+  PROFILE: "/settings/profile",
 }
 
 export const EMAIL_REGEX_PATTERNS =
@@ -81,6 +82,7 @@ export const QUERY_FN_KEYS = {
   TICKET: ["ticket"],
   TICKET_COMMENTS: ["ticket-comments"],
   TICKET_CHAT: ["ticket-chat"],
+  USER_PROFILE: ["user-profile"],
 }
 
 export const FILE_ICON_MAP = {

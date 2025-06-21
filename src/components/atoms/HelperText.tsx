@@ -8,7 +8,7 @@ type Props = {
   isSuccess?: boolean
 }
 
-const HelperText: FC<Props> = ({ children, isError, isSuccess }) => {
+const HelperText: FC<Props> = ({ children, isError, isSuccess, className }) => {
   return (
     <Typography
       as="span"
@@ -16,7 +16,8 @@ const HelperText: FC<Props> = ({ children, isError, isSuccess }) => {
       data-error={isError}
       data-success={isSuccess}
       className={cls(
-        "text-gray-500 data-[success=true]:text-success-600 data-[error=true]:text-error-500"
+        "text-gray-500 data-[success=true]:text-success-600 data-[error=true]:text-error-500",
+        className
       )}
     >
       {children}

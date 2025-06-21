@@ -3,6 +3,7 @@ import React from "react"
 import Avatar, { AvatarProps } from "../atoms/Avatar"
 import Typography from "../atoms/Typography"
 import { cls } from "@/utils/helpers"
+import { Skeleton } from "@nextui-org/react"
 
 type Slots = "root" | "avatar" | "info" | "title" | "subtitle"
 export type UserInfoProps = {
@@ -11,6 +12,7 @@ export type UserInfoProps = {
   subtitle?: string | React.ReactNode
   classNames?: { [slot in Slots]?: TWClassNames }
   avatarProps?: AvatarProps
+  loading?: boolean
 }
 
 const Userinfo: FC<UserInfoProps> = ({
@@ -18,6 +20,7 @@ const Userinfo: FC<UserInfoProps> = ({
   title,
   subtitle,
   classNames,
+  loading,
   avatarProps,
 }) => {
   return (
@@ -26,6 +29,7 @@ const Userinfo: FC<UserInfoProps> = ({
         src={src}
         name={title}
         className={classNames?.avatar}
+        loading={loading}
         {...avatarProps}
       />
       <div className={cls("grid", classNames?.info)}>
@@ -41,11 +45,14 @@ const Userinfo: FC<UserInfoProps> = ({
             variant="regular-sm"
             as="span"
             className={cls("truncate", classNames?.subtitle)}
+            loading={loading}
           >
             {subtitle}
           </Typography>
         ) : (
-          subtitle
+          <Skeleton>
+            <div>{subtitle}</div>
+          </Skeleton>
         )}
       </div>
     </div>

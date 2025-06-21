@@ -1,5 +1,5 @@
 import { toaster } from "@/components/molecules/Toast"
-import { getAPiKeys } from "@/lib/data/settings"
+import { getAPiKeys, getUserProfile } from "@/lib/data/settings"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { useQuery } from "@tanstack/react-query"
 
@@ -14,4 +14,17 @@ export const useApiKeys = () => {
   }
 
   return { ...result, apiKeys: result ? result?.data : [] }
+}
+
+export const useUserProfile = () => {
+  const result = useQuery({
+    queryKey: QUERY_FN_KEYS.USER_PROFILE,
+    queryFn: async () => await getUserProfile(),
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  return result
 }

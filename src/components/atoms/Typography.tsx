@@ -1,11 +1,13 @@
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames, TypographyVariants } from "@/utils/types"
+import { Skeleton } from "@nextui-org/react"
 import { createElement, HTMLProps, ReactNode } from "react"
 
 type Props = HTMLProps<HTMLHeadingElement & HTMLParagraphElement> & {
   variant?: TypographyVariants
   as?: keyof HTMLElementTagNameMap
   weight?: 400 | 500 | 600 | 700
+  loading?: boolean
 }
 
 const weightProps = {
@@ -34,13 +36,18 @@ const Typography: FC<Props> = ({
   weight,
   children,
   className,
+  loading,
   ...props
 }) => {
-  return getElement(
-    as,
-    children,
-    cls("font-app", weight && weightProps[weight], className, variant),
-    props
+  return (
+    <Skeleton isLoaded={!loading} className={cls("rounded-sm", className)}>
+      {getElement(
+        as,
+        children,
+        cls("font-app", weight && weightProps[weight], className, variant),
+        props
+      )}
+    </Skeleton>
   )
 }
 

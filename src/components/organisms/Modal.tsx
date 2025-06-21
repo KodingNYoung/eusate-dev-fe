@@ -1,12 +1,4 @@
 "use client"
-import { useModal } from "@/hooks/popupHooks"
-import { FC } from "@/utils/types"
-import React from "react"
-import Typography from "../atoms/Typography"
-import Button from "../molecules/Buttons"
-import Icon from "../atoms/Icon"
-import { IconNames } from "@/utils/iconNames"
-import { PopupKeys } from "@/utils/enums"
 import {
   Modal,
   ModalBody,
@@ -14,6 +6,15 @@ import {
   ModalHeader,
   ModalProps,
 } from "@nextui-org/react"
+import React from "react"
+import Icon from "../atoms/Icon"
+import { cls } from "@/utils/helpers"
+import { useModal } from "@/hooks/popupHooks"
+import { FC, TWClassNames } from "@/utils/types"
+import Typography from "../atoms/Typography"
+import Button from "../molecules/Buttons"
+import { IconNames } from "@/utils/iconNames"
+import { PopupKeys } from "@/utils/enums"
 
 export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
   //   classNames?: { [slot in ModalSlots]?: TWClassNames }
@@ -22,18 +23,20 @@ export type AppModalProps = Omit<ModalProps, "isOpen" | "onClose"> & {
     subtitle?: string
     closeIcon?: IconNames | false
   }
-  size?: Sizes
+  headerStyle?: {
+    title?: TWClassNames
+    subtitle?: TWClassNames
+    closeIcon?: TWClassNames
+  }
   id: PopupKeys
 }
 
-type Sizes = "full"
-
 const AppModal: FC<AppModalProps> = ({
   children,
+  headerStyle,
   classNames,
   header,
   id,
-  size,
   ...props
 }) => {
   const { isOpen, close } = useModal(id)
@@ -42,7 +45,6 @@ const AppModal: FC<AppModalProps> = ({
     <Modal
       isOpen={isOpen}
       placement="center"
-      size={size}
       onClose={close}
       classNames={{
         ...classNames,
@@ -50,7 +52,10 @@ const AppModal: FC<AppModalProps> = ({
         base: ["shadow-none", classNames?.base],
         closeButton: ["mt-5 mr-5 top-0 end-0", classNames?.closeButton],
         header: [
-          "flex items-center justify-between p-5 border-b border-gray-50",
+          cls(
+            "flex items-center justify-between p-5 border-b border-gray-50",
+            classNames?.header as string
+          ),
           classNames?.backdrop,
         ],
         body: ["p-0", classNames?.body],
@@ -80,7 +85,7 @@ const AppModal: FC<AppModalProps> = ({
                     <Typography
                       as="h2"
                       variant="semibold-xl"
-                      className="text-gray-900"
+                      className={cls("text-gray-900", headerStyle?.title)}
                     >
                       {header.title}
                     </Typography>
@@ -89,7 +94,7 @@ const AppModal: FC<AppModalProps> = ({
                     <Typography
                       as="span"
                       variant="regular-xs"
-                      className="text-gray-500"
+                      className={cls("text-gray-500", headerStyle?.subtitle)}
                     >
                       {header.subtitle}
                     </Typography>

@@ -30,6 +30,7 @@ const AppTab: FC<Props> = ({
     <div
       data-active={active}
       className={cls(
+        "border-none",
         "transition-all duration-500 relative z-1 text-gray-400 group-data-[selected=true]:text-gray-900 flex items-center gap-2",
         classNames?.root
       )}

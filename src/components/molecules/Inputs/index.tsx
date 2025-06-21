@@ -6,7 +6,7 @@ import "./style.css"
 import Icon from "@/components/atoms/Icon"
 import HelperText from "@/components/atoms/HelperText"
 
-type Sizes = "lg" | "sm"
+type Sizes = "lg" | "sm" | "md"
 type Slots =
   | "root"
   | "label"
@@ -37,6 +37,7 @@ function getElement(
 
 const inputSize: { [sizes in Sizes]: TWClassNames } = {
   sm: "h-9",
+  md: "h-11",
   lg: "h-14",
 }
 
