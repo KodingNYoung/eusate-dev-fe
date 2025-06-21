@@ -31,6 +31,7 @@ export const ROUTES = {
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
   DEV_SPACE: "/dev-space",
+  PROFILE: "/settings/profile",
 }
 
 export const EMAIL_REGEX_PATTERNS =
@@ -80,6 +81,7 @@ export const QUERY_FN_KEYS = {
   TICKET: ["ticket"],
   TICKET_COMMENTS: ["ticket-comments"],
   TICKET_CHAT: ["ticket-chat"],
+  USER_PROFILE: ["user-profile"],
 }
 
 export const FILE_ICON_MAP = {

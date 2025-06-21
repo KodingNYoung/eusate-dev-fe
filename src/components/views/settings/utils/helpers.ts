@@ -1,14 +1,13 @@
 import { Item } from "@/components/molecules/Select"
 import { promptFileUpload } from "@/utils/helpers"
 
-export const onUploadNew = async (
-  setSrc: React.Dispatch<React.SetStateAction<string | null>>
-) => {
+// TODO: remove this function after cleanup
+export const handleFileUpload = async () => {
   const files = await promptFileUpload(".png, .jpg, .jpeg, .webp")
   if (files) {
     const file = files[0]
-    const convertToSrc = URL.createObjectURL(file)
-    setSrc(convertToSrc)
+    const fileSrc = URL.createObjectURL(file)
+    return [file, fileSrc] as const
   }
 }
 

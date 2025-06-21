@@ -2,7 +2,7 @@ import { PopupKeys } from "@/utils/enums"
 import { useModal } from "@/hooks/popupHooks"
 import { ChangeEvent, useState } from "react"
 import Avatar from "@/components/atoms/Avatar"
-import { onUploadNew } from "../../utils/helpers"
+// import { onUploadNew } from "../../utils/helpers"
 import Input from "@/components/molecules/Inputs"
 import Button from "@/components/molecules/Buttons"
 import AppModal from "@/components/organisms/Modal"
@@ -63,7 +63,7 @@ const EditInfo = () => {
               <Button
                 variant="tetiary"
                 className="px-3 py-2"
-                onClick={() => onUploadNew(setSrc)}
+                // onClick={() => onUploadNew(setSrc)}
                 classNames={{ label: "text-medium-sm text-gray-600" }}
               >
                 Upload new

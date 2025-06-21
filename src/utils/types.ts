@@ -346,3 +346,24 @@ export type PageLayersPath = {
 export type PageLayers = {
   [path: string]: PageLayersPath[]
 }
+
+export type OrganizationType = DBResource & {
+  owner: string
+  name: string
+  logo: string
+  meta: {
+    domain: string
+    sector: string
+    use_case: string
+    company_size: string
+  }
+}
+export type UserProfileType = DBResource & {
+  email: string
+  username: string
+  profile_picture: string
+  twofa_method: string
+  verified: boolean
+  meta: { role: string }
+  organisations: OrganizationType[]
+}
