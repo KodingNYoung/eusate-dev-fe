@@ -16,7 +16,7 @@ export const getPlaygroundChatHistory = async () => {
   try {
     const session = await getSession()
     const response = await sendAuthRequest<GetChatHistoryResponse>(
-      `/api/v1/playground/${session?.organisationId}/messages/`
+      `/api/v1/playground/${session?.currentOrganisationId}/messages/`
     )
     if ("shouldAuthenticate" in response) {
       throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

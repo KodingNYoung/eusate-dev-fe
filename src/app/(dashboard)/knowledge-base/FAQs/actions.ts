@@ -21,7 +21,7 @@ export const addFAQ = async (
     const response = await sendAuthRequest<AddFAQResponse>(
       "/api/v1/library/faq/add/",
       {
-        organisation_id: session?.organisationId,
+        organisation_id: session?.currentOrganisationId,
         question,
         answer,
       },
@@ -56,7 +56,7 @@ export const editFAQ = async (
     const response = await sendAuthRequest<AddFAQResponse>(
       `/api/v1/library/faq/${id}/edit/`,
       {
-        organisation_id: session?.organisationId,
+        organisation_id: session?.currentOrganisationId,
         title: question,
         question,
         answer,

@@ -21,7 +21,7 @@ export const editSource = async (
 
   const response = await sendAuthRequest<EditSourceResponseType>(
     `/api/v1/library/${tag}/${id}/edit/`,
-    { ...payload, organisation_id: session?.organisationId },
+    { ...payload, organisation_id: session?.currentOrganisationId },
     { method: "PATCH" }
   )
 
@@ -36,7 +36,7 @@ export const deleteSource = async (id: string, tag: KnowledgeSourceTags) => {
   const session = await getSession()
   const response = await sendAuthRequest<DeleteSourceResponseType>(
     `/api/v1/library/${tag}/${id}/delete/`,
-    { organisation_id: session?.organisationId },
+    { organisation_id: session?.currentOrganisationId },
     { method: "DELETE" }
   )
 
@@ -54,7 +54,7 @@ export const uploadChunk = async (
   const session = await getSession()
   const formdata = new FormData()
 
-  formdata.append("organisation_id", session?.organisationId || "")
+  formdata.append("organisation_id", session?.currentOrganisationId || "")
   if (streamOptions) {
     formdata.append("init_stream_key", streamOptions.streamKey)
     formdata.append("chunk_index", streamOptions.idx.toString())
@@ -86,7 +86,7 @@ export const initiateDocumentStream = async (noOfChunks: number) => {
   const response = await sendAuthRequest<InitiateDocumentStreamResponseType>(
     "/api/v1/library/document/init-stream/",
     {
-      organisation_id: session?.organisationId,
+      organisation_id: session?.currentOrganisationId,
       num_chunks: noOfChunks,
     },
     { method: "POST" }
@@ -106,7 +106,7 @@ export const addWebsite = async (url: string, origin: boolean) => {
 
   const response = await sendAuthRequest<AddWebsiteResponseType>(
     "/api/v1/library/website/add/",
-    { organisation_id: session?.organisationId, url, origin },
+    { organisation_id: session?.currentOrganisationId, url, origin },
     { method: "POST" }
   )
 

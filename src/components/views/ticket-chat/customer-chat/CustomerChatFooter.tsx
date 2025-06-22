@@ -21,7 +21,7 @@ type Props = {
 }
 const ChatFooter: FC<Props> = ({ ticket }) => {
   const formRef = useRef<HTMLFormElement>(null)
-  // TODO: This shouldn't be -- when the organization context has been implemented, then you can switch this to organization user instead
+  // TODO: This shouldn't be -- when the organisation context has been implemented, then you can switch this to organisation user instead
   const { user } = useAuth()
   const { sendMessage } = useChatContext()
 

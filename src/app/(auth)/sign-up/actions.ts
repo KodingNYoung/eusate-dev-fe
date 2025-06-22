@@ -42,7 +42,7 @@ export const signup = async (
     // create session
     await createSession({
       email: res.email,
-      organisationId: res.organisation_id,
+      ownedOrganisationId: res.organisation_id,
       userId: res.user_id,
     })
   } catch (err) {

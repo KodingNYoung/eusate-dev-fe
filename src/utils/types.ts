@@ -159,7 +159,8 @@ export type SessionPayload = {
   tokenVerified?: boolean
   email: string
   userId?: string
-  organisationId?: string
+  currentOrganisationId?: string
+  ownedOrganisationId?: string
   isVerified?: boolean
   twofaMethod?: TwoFAMethods | null
   expiresAt?: Date
@@ -347,7 +348,7 @@ export type PageLayers = {
   [path: string]: PageLayersPath[]
 }
 
-export type OrganizationType = DBResource & {
+export type OrganisationType = DBResource & {
   owner: string
   name: string
   logo: string
@@ -365,5 +366,5 @@ export type UserProfileType = DBResource & {
   twofa_method: string
   verified: boolean
   meta: { role: string }
-  organisations: OrganizationType[]
+  organisations: OrganisationType[]
 }

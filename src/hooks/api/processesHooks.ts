@@ -35,7 +35,7 @@ export const useProcessWithSocket = () => {
   //         transports: ["websocket"],
   //         query: {
   //           token: session?.accessToken,
-  //           organisation_id: session?.organisationId,
+  //           organisation_id: session?.currentOrganisationId,
   //         },
   //       })
   //       _socket.on("disconnect", () => console.log("Disconnected"))

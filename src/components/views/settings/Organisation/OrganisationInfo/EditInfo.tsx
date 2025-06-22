@@ -9,7 +9,7 @@ import AppModal from "@/components/organisms/Modal"
 import userAvatar from "@/assets/images/user-avatar.svg"
 import { useSettings } from "@/providers/settingsProvider"
 import Select from "@/components/molecules/Select"
-import { INDUSTRIES, ORGANIZATION_SIZES } from "./utils"
+import { INDUSTRIES, ORGANISATION_SIZES } from "./utils"
 
 type Data = {
   name: string
@@ -18,7 +18,7 @@ type Data = {
 }
 const EditInfo = () => {
   const { close } = useModal()
-  const { getInfo, updateOrganizationInfo } = useSettings()
+  const { getInfo, updateOrganisationInfo } = useSettings()
   const { avatar, ...data_ } = getInfo
   const [data, setData] = useState<Data>(data_)
   const [src, setSrc] = useState<string | null>(avatar)
@@ -31,7 +31,7 @@ const EditInfo = () => {
   }
   const onSaveChanges = () => {
     const { name, size, industry } = data
-    updateOrganizationInfo({
+    updateOrganisationInfo({
       avatar: src,
       name,
       size,
@@ -47,7 +47,7 @@ const EditInfo = () => {
   return (
     <AppModal
       size="xl"
-      id={PopupKeys.EDIT_ORGANIZATION_INFO}
+      id={PopupKeys.EDIT_ORGANISATION_INFO}
       header={{
         title: "Edit Profile",
       }}
@@ -97,7 +97,7 @@ const EditInfo = () => {
               aria-label="select-size"
               placeholder="e.g. 10-15"
               onChange={onInputChange}
-              items={ORGANIZATION_SIZES}
+              items={ORGANISATION_SIZES}
               defaultSelectedKeys={[data?.size]}
             />
             <Select

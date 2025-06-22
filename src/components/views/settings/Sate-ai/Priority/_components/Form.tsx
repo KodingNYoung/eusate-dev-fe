@@ -30,7 +30,7 @@ const Form: FC<Props> = ({
       <Input
         name="area"
         value={formState.area}
-        label="Organization priority area"
+        label="Organisation priority area"
         placeholder="E.g Withdrawal, Refund etc"
         classNames={{
           label: "mb-4 text-gray-700",

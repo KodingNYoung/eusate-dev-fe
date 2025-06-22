@@ -41,18 +41,18 @@ export const useSocket = (
 
   const query = useMemo(
     () => ({
-      organisation_id: user?.organisationId || "",
+      organisation_id: user?.currentOrganisationId || "",
       token: accessToken || "",
       ...customQuery,
     }),
-    [accessToken, user?.organisationId, customQuery]
+    [accessToken, user?.currentOrganisationId, customQuery]
   )
 
   // EFFECTS ---------
   useEffect(() => {
     const connectionId = ++connectionAttemptsRef.current
 
-    if (!user?.organisationId || !accessToken) return
+    if (!user?.currentOrganisationId || !accessToken) return
 
     // clean up any existing connections
     if (socketRef.current?.connected) {
@@ -115,12 +115,12 @@ export const useSocket = (
         setIsConnected(false)
       }
     }
-  }, [user?.organisationId, autoConnect, transports, query, events])
+  }, [user?.currentOrganisationId, autoConnect, transports, query, events])
 
   useEffect(() => {
-    if (socketRef.current && accessToken && user?.organisationId) {
+    if (socketRef.current && accessToken && user?.currentOrganisationId) {
       socketRef.current.io.opts.query = {
-        organisation_id: user.organisationId,
+        organisation_id: user.currentOrganisationId,
         token: accessToken,
         ...customQuery,
       }

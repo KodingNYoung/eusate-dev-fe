@@ -6,21 +6,18 @@ import { useModal } from "@/hooks/popupHooks"
 import UserAvatar from "../_components/UserAvatar"
 import Typography from "@/components/atoms/Typography"
 import { useUserProfile } from "@/hooks/api/settingsHooks"
-import userAvatar from "@/assets/images/user-avatar.svg"
 
 const Profile = () => {
   const { open } = useModal()
 
   const { data, isLoading } = useUserProfile()
 
-  // TODO: handle loading with skeleton
-
   return (
     <>
       <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-y-16">
         <header>
           <UserAvatar
-            src={data?.profile_picture || userAvatar}
+            src={data?.profile_picture}
             email={data?.email || ""}
             fullname={data?.username || ""}
             editAction={() => open(PopupKeys.EDIT_PROFILE)}

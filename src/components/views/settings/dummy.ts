@@ -1,4 +1,4 @@
-import { Info } from "./Organization/OrganizationInfo/utils"
+import { Info } from "./Organisation/OrganisationInfo/utils"
 import { Profile } from "./utils"
 
 export const dummyProfile: Profile = {
@@ -8,7 +8,7 @@ export const dummyProfile: Profile = {
   avatar: null,
 }
 
-export const dummyOrganizationInfo: Info = {
+export const dummyOrganisationInfo: Info = {
   email: "adainipatric@gmail.com",
   industry: "Technology",
   name: "Eusate Inc",

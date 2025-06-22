@@ -16,7 +16,7 @@ export const addTicketComment = async (
     const session = await getSession()
     const response = await sendAuthRequest<TicketComment>(
       "/api/v1/helpdesk/comments/",
-      { message, ticket_id, organisation_id: session?.organisationId },
+      { message, ticket_id, organisation_id: session?.currentOrganisationId },
       { method: "POST" }
     )
 
@@ -40,7 +40,7 @@ export const uploadTicketAttachment = async (formdata: FormData) => {
   try {
     const session = await getSession()
     const response = await sendAuthRequest<UploadAttachmentResponse>(
-      `/api/v1/helpdesk/${session?.organisationId}/upload-attachment/`,
+      `/api/v1/helpdesk/${session?.currentOrganisationId}/upload-attachment/`,
       formdata,
       { method: "POST", headers: { "Content-Type": "multipart/form-data" } }
     )
@@ -67,7 +67,7 @@ export const takeoverTicket = async (state: FormState, formdata: FormData) => {
     const session = await getSession()
     const response = await sendAuthRequest<TakeoverResponse>(
       `/api/v1/helpdesk/tickets/${ticket}/take-over/`,
-      { organisation_id: session?.organisationId },
+      { organisation_id: session?.currentOrganisationId },
       { method: "POST" }
     )
 

@@ -30,7 +30,7 @@ export const createArticle = async (
         title,
         content,
         published: !unpublished,
-        organisation_id: session?.organisationId,
+        organisation_id: session?.currentOrganisationId,
       },
       { method: "POST" }
     )

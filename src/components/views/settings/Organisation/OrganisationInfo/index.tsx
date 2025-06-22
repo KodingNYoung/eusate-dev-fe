@@ -12,7 +12,7 @@ const Info = () => {
   const { getInfo } = useSettings()
   const { avatar, name, email, industry, size, members } = getInfo
   return (
-    <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-y-16">
+    <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-10">
       <header>
         <EditInfo />
         <UserAvatar
@@ -20,7 +20,7 @@ const Info = () => {
           fullname={name}
           email={email}
           editLabel="Edit details"
-          editAction={() => open(PopupKeys.EDIT_ORGANIZATION_INFO)}
+          editAction={() => open(PopupKeys.EDIT_ORGANISATION_INFO)}
         />
       </header>
 

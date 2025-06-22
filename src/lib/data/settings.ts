@@ -9,7 +9,7 @@ export type ApiKeyResponse = DBResource & ApiKeysType
 export const getAPiKeys = async () => {
   const session = await getSession()
   const response = await sendAuthRequest<ApiKeyResponse[]>(
-    `/api/v1/organisations/${session?.organisationId}/apikeys/`
+    `/api/v1/organisations/${session?.currentOrganisationId}/apikeys/`
   )
   if ("shouldAuthenticate" in response) {
     throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

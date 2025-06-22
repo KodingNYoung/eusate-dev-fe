@@ -61,7 +61,7 @@ export const generateAPIKey = async (state: FormState, formdata: FormData) => {
   try {
     const session = await getSession()
     const response = await sendAuthRequest<{ token: string }>(
-      `/api/v1/organisations/${session?.organisationId}/apikeys/add/`,
+      `/api/v1/organisations/${session?.currentOrganisationId}/apikeys/add/`,
       expiry_num ? { name, expiry_num, expiry_unit } : { name },
       { method: "POST" }
     )
@@ -86,7 +86,7 @@ export const deleteAPIKey = async (state: FormState, formdata: FormData) => {
   try {
     const session = await getSession()
     const response = await sendAuthRequest<{ success: true }>(
-      `/api/v1/organisations/${session?.organisationId}/apikeys/delete/`,
+      `/api/v1/organisations/${session?.currentOrganisationId}/apikeys/delete/`,
       { token },
       { method: "DELETE" }
     )
@@ -109,7 +109,7 @@ export const revokeAPIKey = async (state: FormState, formdata: FormData) => {
   try {
     const session = await getSession()
     const response = await sendAuthRequest<{ success: true }>(
-      `/api/v1/organisations/${session?.organisationId}/apikeys/revoke/`,
+      `/api/v1/organisations/${session?.currentOrganisationId}/apikeys/revoke/`,
       { token },
       { method: "POST" }
     )

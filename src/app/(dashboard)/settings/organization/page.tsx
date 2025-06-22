@@ -1,16 +1,16 @@
 import {
-  ORAGANIZATION_TABS,
-  ORGANIZATION_QUERY_KEYS,
-  OrganizationTabsType,
-} from "@/components/views/settings/Organization/utils"
+  ORAGANISATION_TABS,
+  ORGANISATION_QUERY_KEYS,
+  OrganisationTabsType,
+} from "@/components/views/settings/Organisation/utils"
 import { PageFC } from "@/utils/types"
-import Organization from "@/components/views/settings/Organization"
+import Organisation from "@/components/views/settings/Organisation"
 
-const OrganizationPage: PageFC = ({ searchParams }) => {
+const OrganisationPage: PageFC = ({ searchParams }) => {
   const tab =
-    (searchParams?.[ORGANIZATION_QUERY_KEYS.TAB] as OrganizationTabsType) ||
-    ORAGANIZATION_TABS[0].key
-  return <Organization tab={tab} />
+    (searchParams?.[ORGANISATION_QUERY_KEYS.TAB] as OrganisationTabsType) ||
+    ORAGANISATION_TABS[0].key
+  return <Organisation tab={tab} />
 }
 
-export default OrganizationPage
+export default OrganisationPage

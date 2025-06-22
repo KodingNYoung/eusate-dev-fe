@@ -25,7 +25,7 @@ type Props = {
 
 const Area: FC<Props> = ({ page, setPage, searchQuery }) => {
   const {
-    organization: { members },
+    organisation: { members },
   } = useSettings()
   const { get } = useQueryParams()
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]))

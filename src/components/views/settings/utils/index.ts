@@ -1,5 +1,5 @@
-import { Member } from "../Organization/Members/utils"
-import { Info } from "../Organization/OrganizationInfo/utils"
+import { Member } from "../Organisation/Members/utils"
+import { Info } from "../Organisation/OrganisationInfo/utils"
 
 export enum ApiKeyStatus {
   REVOKED = "revoked",
@@ -14,7 +14,7 @@ export type Profile = {
   email: string
   role: string
 }
-export type Organization = {
+export type Organisation = {
   members: Member[]
   info: Info
 }

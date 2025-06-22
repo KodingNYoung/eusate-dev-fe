@@ -28,7 +28,7 @@ export const validateUrl = async (
     const response = await sendAuthRequest<ValidateUrlResponse>(
       "/api/v1/library/validate-url/",
       {
-        organisation_id: session?.organisationId,
+        organisation_id: session?.currentOrganisationId,
         url,
       },
       { method: "POST" }
@@ -61,7 +61,7 @@ export const createArticleByLink = async (
   try {
     const response = await sendAuthRequest<CreateArticleByLinkResponse>(
       "/api/v1/library/article/add-link/",
-      { url, organisation_id: session?.organisationId },
+      { url, organisation_id: session?.currentOrganisationId },
       { method: "POST" }
     )
 

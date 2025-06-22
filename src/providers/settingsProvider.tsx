@@ -5,9 +5,9 @@ import {
 } from "@/components/views/settings/Sate-ai/utils"
 import {
   dummyProfile,
-  dummyOrganizationInfo,
+  dummyOrganisationInfo,
 } from "@/components/views/settings/dummy"
-import { Organization, Profile } from "@/components/views/settings/utils"
+import { Organisation, Profile } from "@/components/views/settings/utils"
 import {
   FC,
   useMemo,
@@ -16,19 +16,19 @@ import {
   useContext,
   createContext,
 } from "react"
-import { Info } from "@/components/views/settings/Organization/OrganizationInfo/utils"
-import { dummyMembers } from "@/components/views/settings/Organization/Members/MembersArea/utils/dummy"
+import { Info } from "@/components/views/settings/Organisation/OrganisationInfo/utils"
+import { dummyMembers } from "@/components/views/settings/Organisation/Members/MembersArea/utils/dummy"
 
 type EditableInfoItems = Pick<Info, "avatar" | "name" | "size" | "industry">
 type EditableProfileItems = Pick<Profile, "fullname" | "avatar">
 type SettingsContextType = {
   updateProfile: (profileItem: EditableProfileItems) => void
-  updateOrganizationInfo: (infoItems: EditableInfoItems) => void
+  updateOrganisationInfo: (infoItems: EditableInfoItems) => void
   updatePriority: (priority: PriorityType[]) => void
   updateRemarks: (remark: Remark) => void
   updateFeedback: (feedback: string) => void
   getPriorities: PriorityType[]
-  organization: Organization
+  organisation: Organisation
   getFeedback: string | null
   getRemarks: Remark
   getInfo: Info
@@ -44,13 +44,13 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     priority: [],
     feedback: null,
   })
-  const [organization, setOrganization] = useState<Organization>({
-    info: dummyOrganizationInfo,
+  const [organisation, setOrganisation] = useState<Organisation>({
+    info: dummyOrganisationInfo,
     members: dummyMembers,
   })
 
   const getRemarks = useMemo(() => sateAi.remarks, [sateAi.remarks])
-  const getInfo = useMemo(() => organization.info, [organization.info])
+  const getInfo = useMemo(() => organisation.info, [organisation.info])
   const getFeedback = useMemo(() => sateAi.feedback, [sateAi.feedback])
   const getPriorities = useMemo(() => sateAi.priority, [sateAi.priority])
 
@@ -59,8 +59,8 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const updateProfile = (profile_: EditableProfileItems) => {
     setProfile({ ...profile, ...profile_ })
   }
-  const updateOrganizationInfo = (infoItems: EditableInfoItems) => {
-    setOrganization(({ members, info }) => ({
+  const updateOrganisationInfo = (infoItems: EditableInfoItems) => {
+    setOrganisation(({ members, info }) => ({
       members,
       info: { ...info, ...infoItems },
     }))
@@ -81,13 +81,13 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <SettingsContext.Provider
       value={{
-        updateOrganizationInfo,
+        updateOrganisationInfo,
         updatePriority,
         updateFeedback,
         getPriorities,
         updateRemarks,
         updateProfile,
-        organization,
+        organisation,
         getFeedback,
         getRemarks,
         profile,
