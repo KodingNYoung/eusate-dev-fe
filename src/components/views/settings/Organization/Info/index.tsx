@@ -16,7 +16,7 @@ const Info = () => {
       <header>
         <EditInfo />
         <UserAvatar
-          src={avatar}
+          src={avatar as string}
           fullname={name}
           email={email}
           editLabel="Edit details"

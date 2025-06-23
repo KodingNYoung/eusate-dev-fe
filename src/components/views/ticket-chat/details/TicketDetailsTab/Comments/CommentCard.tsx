@@ -22,7 +22,7 @@ const CommentCard: FC<Props> = ({ comment }) => {
           classNames={{
             root: "!py-0 !gap-2.5",
             avatar: "!size-6 !min-w-6 !min-h-6",
-            title: "!text-semibold-sm font-[500] !text-gray-900",
+            title: "!text-semibold-sm font-[500] text-gray-900",
           }}
         />
         <span className="text-gray-300">•</span>

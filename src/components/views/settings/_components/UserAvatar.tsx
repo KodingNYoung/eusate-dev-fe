@@ -3,14 +3,14 @@ import Icon from "@/components/atoms/Icon"
 import Avatar from "@/components/atoms/Avatar"
 import Button from "@/components/molecules/Buttons"
 import Typography from "@/components/atoms/Typography"
-import userAvatar from "@/assets/images/user-avatar.svg"
 
 type Props = {
   email: string
   fullname: string
   editLabel?: string
-  src?: string | null
+  src?: string
   editAction: () => void
+  loading?: boolean
 }
 
 const UserAvatar: FC<Props> = ({
@@ -19,11 +19,17 @@ const UserAvatar: FC<Props> = ({
   email,
   editLabel,
   editAction,
+  loading,
 }) => {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center w-full">
-        <Avatar className="w-20 h-20" src={src || userAvatar} />
+        <Avatar
+          className="w-20 h-20"
+          src={src}
+          name={fullname}
+          loading={loading}
+        />
         <Button
           variant="tetiary"
           onClick={editAction}
@@ -36,10 +42,18 @@ const UserAvatar: FC<Props> = ({
         </Button>
       </div>
       <div className="space-y-2">
-        <Typography variant="semibold-base" className="text-gray-900">
+        <Typography
+          variant="semibold-base"
+          className="text-gray-900"
+          loading={loading}
+        >
           {fullname}
         </Typography>
-        <Typography variant="regular-sm" className="text-gray-500">
+        <Typography
+          variant="regular-sm"
+          className="text-gray-500"
+          loading={loading}
+        >
           {email}
         </Typography>
       </div>

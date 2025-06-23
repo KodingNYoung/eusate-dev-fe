@@ -90,6 +90,7 @@ const OtpInput: FC<Props> = ({
                   onChange={(e) => handleChange(e.target.value, idx)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
                   onPaste={handlePaste}
+                  inputMode="numeric"
                   ref={(el) => {
                     inputsRef.current[idx] = el
                   }}
