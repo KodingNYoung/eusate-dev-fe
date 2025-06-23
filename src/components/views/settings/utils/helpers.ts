@@ -1,6 +1,13 @@
 import { Item } from "@/components/molecules/Select"
 import { promptFileUpload } from "@/utils/helpers"
 
+/**
+ * Prompts the user to upload an image file with specified formats.
+ * If a file is selected, it converts the file to a URL object and
+ * updates the state with this URL.
+ *
+ * @param setSrc - A state dispatcher function to update the source URL of the uploaded image.
+ */
 export const onUploadNew = async (
   setSrc: React.Dispatch<React.SetStateAction<string | null>>
 ) => {

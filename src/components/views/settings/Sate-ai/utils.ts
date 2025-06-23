@@ -1,4 +1,5 @@
 // TYPES
+
 export type Remark = { opening_remark: string; closing_remark: string }
 export type PriorityType = {
   id: string
@@ -13,6 +14,7 @@ export type SateAI = {
 }
 
 // ENUMS
+
 export enum SateAiTabsType {
   REMARKS = "remarks",
   PRIORITY = "priority",
@@ -26,6 +28,7 @@ export enum PriorityLevels {
 }
 
 // CONSTANTS
+
 export const SATE_AI_QUERY_KEYS = {
   TAB: "tab",
 } as const
@@ -67,3 +70,8 @@ export const PRIORITY_LEVELS: { key: PriorityLevelType; label: string }[] = [
     label: "Low",
   },
 ] as const
+export const INITIAL_SATE_STATE: SateAI = {
+  remarks: { closing_remark: "", opening_remark: "" },
+  priority: [],
+  feedback: null,
+}

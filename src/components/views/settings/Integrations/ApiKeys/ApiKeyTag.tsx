@@ -1,7 +1,7 @@
 import Badge, { BadgeColor } from "@/components/atoms/Badge"
 import { FC } from "@/utils/types"
 import React from "react"
-import { ApiKeyStatus } from "../utils"
+import { ApiKeyStatus } from "../../utils"
 
 type Props = {
   status: ApiKeyStatus

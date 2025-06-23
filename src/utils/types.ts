@@ -32,6 +32,7 @@ import { IconNames } from "./iconNames"
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
 export type TypographyVariants =
+  | "caption-lg"
   | "regular-xxs"
   | "regular-xs"
   | "regular-sm"

@@ -12,7 +12,7 @@ const Cell = (member: Member, columnKey: unknown) => {
       return (
         <Userinfo
           src={member.avatar}
-          classNames={{ title: "!text-gray-500" }}
+          classNames={{ title: "!text-gray-900 text-semibold-sm" }}
           title={cellValue as string}
         />
       )

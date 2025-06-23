@@ -2,14 +2,14 @@ import { IconNames } from "@/utils/iconNames"
 
 //  TYPES
 export type SettingsNavLink =
-  | "usage&Billing"
+  | "usage&billing"
   | "notifications"
   | "organization"
   | "integrations"
   | "resources"
   | "security"
   | "support"
-  | "sate-ai"
+  | "sate-AI"
   | "profile"
 
 // ENUMS
@@ -27,14 +27,14 @@ export enum SettingsTabsType {
 
 // CONSTANTS
 export const SETTINGS_NAV_LINKS: SettingsNavLink[] = [
-  "usage&Billing",
+  "usage&billing",
   "notifications",
   "organization",
   "integrations",
   "resources",
   "security",
   "support",
-  "sate-ai",
+  "sate-AI",
   "profile",
 ] as const
 export const SETTINGS_ROUTES = {
@@ -46,7 +46,7 @@ export const SETTINGS_ROUTES = {
   SECURITY: "/settings/security",
   SUPPORT: "/settings/support",
   PROFILE: "/settings/profile",
-  SATE_AI: "/settings/sate-ai",
+  SATE_AI: "/settings/sate-AI",
 } as const
 export const SETTINGS_TABS: {
   id: number

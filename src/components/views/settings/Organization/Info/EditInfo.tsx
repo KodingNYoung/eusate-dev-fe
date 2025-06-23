@@ -79,10 +79,10 @@ const EditInfo = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-5">
             <Input
               name="name"
-              label="Name"
+              label="Company name"
               value={data?.name}
               placeholder="Eusate"
               classNames={{
@@ -93,21 +93,23 @@ const EditInfo = () => {
             />
             <Select
               name="size"
-              label="Size"
+              label="Company size"
               aria-label="select-size"
               placeholder="e.g. 10-15"
               onChange={onInputChange}
               items={ORGANIZATION_SIZES}
               defaultSelectedKeys={[data?.size]}
+              classNames={{ label: "text-gray-700" }}
             />
             <Select
               defaultSelectedKeys={[data?.industry]}
               name="industry"
-              aria-label="select-industry"
-              label="Industry sector"
-              placeholder="Technology"
               items={INDUSTRIES}
+              label="Industry sector"
               onChange={onInputChange}
+              placeholder="Technology"
+              aria-label="select-industry"
+              classNames={{ label: "text-gray-700" }}
             />
           </div>
         </main>

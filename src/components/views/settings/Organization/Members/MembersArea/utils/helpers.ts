@@ -3,11 +3,10 @@ import { ROWS_PER_PAGE } from "./const"
 
 export const filterItems = (members: Member[], filterQuery: string | null) => {
   let filteredMember = [...members]
-  if (filterQuery) {
+  if (filterQuery)
     filteredMember = filteredMember.filter((member) =>
       member.name.toLowerCase().includes(filterQuery.toLowerCase())
     )
-  }
   return filteredMember
 }
 
@@ -16,7 +15,7 @@ export const sortItems = (
   sortby: keyof Pick<Member, "last_seen" | "date_added"> | "none",
   ord: Ord
 ) => {
-  if (sortby === "none") return
+  if (sortby === "none") return currentPageMembers
   return [...currentPageMembers].sort((a, b) => {
     const first = new Date(a[sortby])
     const second = new Date(b[sortby])
