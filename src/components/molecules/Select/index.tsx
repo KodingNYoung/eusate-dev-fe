@@ -25,7 +25,9 @@ type Props = Omit<
   items: Item[]
   defaultSelectedKeys?: string[]
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void
-  classNames?: { [slot in SelectSlots]: TWClassNames } & { item: TWClassNames }
+  classNames?: { [slot in SelectSlots]?: TWClassNames } & {
+    item?: TWClassNames
+  }
 }
 
 const Select: FC<Props> = ({
@@ -81,7 +83,9 @@ const Select: FC<Props> = ({
             defaultSelectedKeys ? (defaultSelectedKeys_ as string[]) : []
           }
           classNames={{
-            mainWrapper: "relative z-1 bg-white rounded-[100px]",
+            value: "!text-gray-900 text-regular-sm",
+            mainWrapper: "relative z-1 bg-white rounded-[100px] ",
+            selectorIcon: "w-8 h-8 text-gray-900",
             listbox: "p-2 bg-gray-50 rounded-xl",
             trigger:
               "min-h-14 border group-data-[focus=true]:border-white border-none outline-none",

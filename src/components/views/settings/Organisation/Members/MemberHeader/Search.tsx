@@ -27,7 +27,7 @@ const SearchQuery: FC<Props> = ({ searchQuery, setSearchQuery, setPage }) => {
       name="search"
       value={searchQuery ?? ""}
       placeholder="Search"
-      className="w-full min-w-96 "
+      className="w-full min-w-96 h-[40px]"
       onChange={onSearchChange}
       startComponent={
         <Icon size={20} className="text-gray-200" name="icon-search-normal" />

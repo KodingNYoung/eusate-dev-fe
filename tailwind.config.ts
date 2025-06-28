@@ -39,6 +39,7 @@ const config = {
       "medium-4xl": ["36px", { lineHeight: "45px", fontWeight: "500" }],
       "medium-5xl": ["48px", { lineHeight: "48px", fontWeight: "500" }],
       // weight- 600
+      "caption-lg": ["14px", { lineHeight: "22.4px", fontWeight: "600" }],
       "semibold-xxs": ["10px", { lineHeight: "11px", fontWeight: "600" }],
       "semibold-xs": ["12px", { lineHeight: "15px", fontWeight: "600" }],
       "semibold-sm": ["14px", { lineHeight: "17.5px", fontWeight: "600" }],

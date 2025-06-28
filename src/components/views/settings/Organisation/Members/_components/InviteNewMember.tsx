@@ -46,12 +46,12 @@ const InviteNewMember = () => {
         <Input
           name="email"
           label="Email address"
-          classNames={{ label: "text-gray-700" }}
+          classNames={{ label: "text-gray-700 mb-2" }}
           placeholder="Enter email address of invitee"
           startComponent={<Icon size={20} name="icon-sms" />}
         />
-        <section className="grid border-1 border-gray-50 rounded-lg">
-          <div className="px-5 py-4 border-b border-b-gray-50">
+        <section className="grid border-1 border-gray-100 rounded-lg">
+          <div className="px-5 py-4 border-b border-b-gray-100">
             <Typography variant="semibold-sm" className="text-gray-900">
               Permissions
             </Typography>

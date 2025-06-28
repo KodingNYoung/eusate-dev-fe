@@ -39,6 +39,7 @@ export enum PopupKeys {
   // TICKET CHAT
   OPEN_CHAT_WITH_AI = "open-chat-with-ai",
   // SETTINGS
+  TWOFA = "twofa",
   EDIT_PROFILE = "edit-profile",
   EDIT_ORGANISATION_INFO = "edit-organisation-info",
   INVITE_MEMBER = "invite-member",

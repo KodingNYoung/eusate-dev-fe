@@ -17,7 +17,7 @@ const Sort = () => {
         <Button
           size="sm"
           variant="tetiary"
-          className="px-4 py-3"
+          className="px-4 h-[40px]"
           endContent={<Icon size={20} name="icon-arrow-swap" />}
         >
           Sort by

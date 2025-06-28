@@ -8,7 +8,7 @@ const Invite = () => {
   return (
     <Button
       size="sm"
-      className="px-4 py-3"
+      className="px-4 h-[40px]"
       onClick={() => open(PopupKeys.INVITE_MEMBER)}
       startContent={<Icon size={20} name="icon-plus" />}
     >

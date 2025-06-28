@@ -5,13 +5,27 @@ import HelperText from "@/components/atoms/HelperText"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { TwoFAMethods } from "@/utils/enums"
-import { FC, FormState } from "@/utils/types"
+import { FC, FormState, TWClassNames } from "@/utils/types"
 import { setup2faPayloadSchema } from "@/lib/schemas/auth"
 import React, { ChangeEvent, useRef } from "react"
 import { useFormState } from "react-dom"
 import MethodRadio from "./_components/MethodRadio"
+import { cls } from "@/utils/helpers"
 
-const Setup2FAForm: FC = () => {
+type Slots = "root" | "wrapper" | "button"
+type Props = {
+  use?: "page" | "dialog"
+  dialogAction?: () => void
+  classNames?: { [slot in Slots]?: TWClassNames }
+  onMethodSelect?: (method: TwoFAMethods) => void
+}
+
+const Setup2FAForm: FC<Props> = ({
+  use = "page",
+  dialogAction,
+  classNames,
+  onMethodSelect,
+}) => {
   const formRef = useRef<HTMLFormElement>(null)
 
   const { errors, hasErrors, markFieldTouched } = useValidation(
@@ -25,11 +39,16 @@ const Setup2FAForm: FC = () => {
   //   functions
   const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     markFieldTouched(e.target.name)
+    if (onMethodSelect) onMethodSelect(e.target.value as TwoFAMethods)
   }
 
   return (
-    <form action={action} className="py-10 flex flex-col gap-3" ref={formRef}>
-      <div className="grid gap-5">
+    <form
+      action={use === "dialog" ? dialogAction : action}
+      className={cls("py-10 flex flex-col gap-3", classNames?.root)}
+      ref={formRef}
+    >
+      <div className={cls("grid gap-5", classNames?.wrapper)}>
         <MethodRadio
           id={TwoFAMethods.AUTHENTICATOR}
           name="method"
@@ -50,7 +69,10 @@ const Setup2FAForm: FC = () => {
       {hasErrors && (
         <HelperText isError={hasErrors}>{errors.method}</HelperText>
       )}
-      <SubmitButton className="mt-5" disabled={hasErrors}>
+      <SubmitButton
+        className={cls("mt-5", classNames?.button)}
+        disabled={hasErrors}
+      >
         Proceed
       </SubmitButton>
     </form>

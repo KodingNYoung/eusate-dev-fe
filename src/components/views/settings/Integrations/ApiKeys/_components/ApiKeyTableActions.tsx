@@ -4,7 +4,7 @@ import { ApiKeysType, FC } from "@/utils/types"
 import React from "react"
 import Button from "@/components/molecules/Buttons"
 import Icon from "@/components/atoms/Icon"
-import { ApiKeyStatus } from "../../utils"
+import { ApiKeyStatus } from "../../../utils"
 
 type Props = {
   row: ApiKeysType
