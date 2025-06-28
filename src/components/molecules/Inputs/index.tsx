@@ -6,7 +6,7 @@ import "./style.css"
 import Icon from "@/components/atoms/Icon"
 import HelperText from "@/components/atoms/HelperText"
 
-type Sizes = "lg" | "sm"
+type Sizes = "lg" | "sm" | "md"
 type Slots =
   | "root"
   | "label"
@@ -37,6 +37,7 @@ function getElement(
 
 const inputSize: { [sizes in Sizes]: TWClassNames } = {
   sm: "h-9",
+  md: "h-11",
   lg: "h-14",
 }
 
@@ -87,7 +88,7 @@ const Input: FC<InputProps> = ({
           {getElement(
             multiline ? "textarea" : "input",
             cls(
-              "p-4  transition-colors duration-200 outline-0 w-full relative regular-sm font-app text-gray-900 bg-white-100",
+              "p-4 transition-colors duration-200 outline-0 w-full relative regular-sm font-app text-gray-900 bg-white-100",
               "placeholder:text-regular-sm placeholder:text-gray-400 rounded-[inherit] resize-none",
               !multiline && inputSize[size],
               !!endComponent && "pr-10",

@@ -1,38 +1,53 @@
 import { cls } from "@/utils/helpers"
-import { FC } from "@/utils/types"
+import { Skeleton } from "@heroui/react"
+import { FC, TWClassNames } from "@/utils/types"
 import Image from "next/image"
-import React, { useMemo } from "react"
+import React from "react"
+import userAvatar from "@/assets/images/user-avatar.svg"
 
-type Props = {
+type Slots = "root" | "img" | "iconContainer" | "icon"
+export type AvatarProps = {
   src?: string
   name?: string
+  size?: TWClassNames
+  classNames?: { [slot in Slots]?: TWClassNames }
+  loading?: boolean
 }
 
-const Avatar: FC<Props> = ({ src, name, className }) => {
-  const initials = useMemo(() => {
-    if (!name) return ""
-    const names = name?.split(" ")
-    return names[0][0] + (names[1][0] ?? "")
-  }, [name])
-
+const Avatar: FC<AvatarProps> = ({
+  src,
+  size,
+  className,
+  classNames,
+  loading,
+}) => {
   return (
-    <div
+    <Skeleton
+      isLoaded={!loading}
       className={cls(
-        "min-w-10 min-h-10 w-10 h-10 border border-white-100 rounded-full overflow-hidden",
-        className
+        "rounded-full overflow-hidden",
+        size || "min-w-10 min-h-10 w-10 h-10",
+        className,
+        classNames?.root
       )}
     >
-      {src && (
+      <div
+        className={cls(
+          "border border-white-100 rounded-full overflow-hidden",
+          size || "min-w-10 min-h-10 w-10 h-10",
+          className,
+          classNames?.root
+        )}
+      >
         <Image
           height={100}
           width={100}
-          src={src}
+          src={src || userAvatar}
           alt=""
-          className="h-full w-full object-cover"
+          className={cls("h-full w-full object-cover", classNames?.img)}
         />
-      )}
-      {!src && name && <span className="uppercase">{initials}</span>}
-    </div>
+      </div>
+    </Skeleton>
   )
 }
 

@@ -45,10 +45,18 @@ const SidebarNav: FC = () => {
   return (
     <nav className="flex flex-col gap-2">
       {SIDEBAR_ROUTES.map(({ id, ...route }) => {
-        return <NavItem {...route} key={id} badge={id === 2 ? 2 : 0} />
+        return (
+          <NavItem
+            use="dashboard"
+            {...route}
+            key={id}
+            badge={id === 2 ? 2 : 0}
+          />
+        )
       })}
       <div className="w-full h-px bg-gray-900 my-[22px]" />
       <NavItem
+        use="dashboard"
         icon="icon-eusate"
         label="Playground"
         link={ROUTES.PLAYGROUND}

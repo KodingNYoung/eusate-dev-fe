@@ -13,7 +13,7 @@ type InitiateLoginResponse = {
   twofa_method?: TwoFAMethods | null
   verified: boolean
   user_id: string
-  organisation_id: string
+  owned_organisation_id: string
   onboarded: boolean | null
 }
 
@@ -41,7 +41,7 @@ export const initiateLogin = async (
       isVerified: response.verified,
       twofaMethod: response.twofa_method,
       userId: response.user_id,
-      organisationId: response.organisation_id,
+      ownedOrganisationId: response.owned_organisation_id,
       shouldOnboard: response.onboarded === false,
     })
 

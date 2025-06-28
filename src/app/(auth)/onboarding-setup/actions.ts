@@ -6,7 +6,7 @@ import { FormState } from "@/utils/types"
 import { getSession } from "@/lib/sessions"
 import { sendAuthRequest } from "@/lib/request"
 
-type OrganizationOnboarding = {
+type OrganisationOnboarding = {
   id: string
   name: string
   owner: string
@@ -26,8 +26,8 @@ export const setupAccount = async (
   try {
     const session = await getSession()
     // connect to api endpoint
-    const response = await sendAuthRequest<OrganizationOnboarding>(
-      `/api/v1/organisations/${session?.organisationId}/edit/`,
+    const response = await sendAuthRequest<OrganisationOnboarding>(
+      `/api/v1/organisations/${session?.ownedOrganisationId}/edit/`,
       {
         meta: {
           company_size: payload.company_size as string,

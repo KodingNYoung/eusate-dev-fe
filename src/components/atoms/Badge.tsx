@@ -68,7 +68,7 @@ const Badge: FC<Props> = ({
       as="span"
       variant={typoVariants[size]}
       className={cls(
-        "rounded-xl",
+        "rounded-2xl",
         badgeSizes[size],
         badgeVariants[`${type}-${color}`],
         className

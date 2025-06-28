@@ -1,11 +1,7 @@
 import { FC } from "@/utils/types"
-import {
-  Select,
-  SelectItem,
-  SelectItemProps,
-  SelectProps,
-} from "@nextui-org/react"
+import { Select, SelectItem, SelectItemProps, SelectProps } from "@heroui/react"
 import React, { ReactNode } from "react"
+import Icon from "../atoms/Icon"
 
 export type AppSelectProps = Omit<SelectProps, "children" | "items"> & {
   itemProps?: SelectItemProps
@@ -21,6 +17,7 @@ const AppSelect: FC<AppSelectProps> = ({
 }) => {
   return (
     <Select
+      aria-label={props.name || "Select dropdown"}
       variant="bordered"
       listboxProps={{ variant: "light" }}
       classNames={{
@@ -45,6 +42,7 @@ const AppSelect: FC<AppSelectProps> = ({
       }}
       labelPlacement="outside"
       disallowEmptySelection
+      selectorIcon={<Icon name="icon-chevron-down" size={20} />}
       {...props}
     >
       {items.map((item) => {

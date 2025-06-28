@@ -1,4 +1,12 @@
 import { AiTones, ResourceSources } from "./enums"
+import doc from "@/assets/images/file-doc.svg"
+import gif from "@/assets/images/file-gif.svg"
+import jpg from "@/assets/images/file-jpg.svg"
+import mp3 from "@/assets/images/file-mp3.svg"
+import pdf from "@/assets/images/file-pdf.svg"
+import png from "@/assets/images/file-png.svg"
+import txt from "@/assets/images/file-txt.svg"
+import xls from "@/assets/images/file-xls.svg"
 
 export const API_BASEURL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT_URL
 
@@ -14,14 +22,17 @@ export const ROUTES = {
   OVERVIEW: "/overview",
   KNOWLEDGE_BASE: "/knowledge-base",
   HELP_DESK: "/helpdesk",
+  TICKET: "/helpdesk/ticket",
   REPORTS: "/reports",
-  SETTINGS: "/settings",
+  SETTINGS: "/settings/profile",
+  REPORT: "/report",
   HELP_AND_SUPPORT: "/help-and-support",
   NEW_ARTICLE: "/knowledge-base/new-article",
   RESOURCE: "/knowledge-base/resource",
   FAQS: "/knowledge-base/FAQs",
   PLAYGROUND: "/playground",
   DEV_SPACE: "/dev-space",
+  PROFILE: "/settings/profile",
 }
 
 export const EMAIL_REGEX_PATTERNS =
@@ -66,4 +77,25 @@ export const QUERY_FN_KEYS = {
   AUTH_CONFIG: ["auth-config"],
   DEV_SPACE_FUNCTIONS: ["dev-space-fuctions"],
   CODENAMES: ["codenames"],
+  API_KEYS: ["api-keys"],
+  TICKETS: ["tickets"],
+  TICKET: ["ticket"],
+  TICKET_COMMENTS: ["ticket-comments"],
+  TICKET_CHAT: ["ticket-chat"],
+  USER_PROFILE: ["user-profile"],
+  ORGANISATION: ["organisation"],
 }
+
+export const FILE_ICON_MAP = {
+  ".doc": doc,
+  ".docx": doc,
+  ".gif": gif,
+  ".jpg": jpg,
+  ".mp3": mp3,
+  ".pdf": pdf,
+  ".png": png,
+  ".svg": png,
+  ".txt": txt,
+  ".xls": xls,
+  "": txt,
+} as const

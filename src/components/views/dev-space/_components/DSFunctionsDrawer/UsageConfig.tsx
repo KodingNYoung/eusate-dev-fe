@@ -13,9 +13,9 @@ import { useFormState } from "react-dom"
 import {
   addFunction,
   updateFunction,
-} from "@/app/(dashboard)/dev-space/actions"
+} from "@/app/(organisation-routes)/(dashboard)/dev-space/actions"
 import Typography from "@/components/atoms/Typography"
-import { useAuthConfig } from "@/hooks/devSpaceHooks"
+import { useAuthConfig } from "@/hooks/api/devSpaceHooks"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import Spinner from "@/components/atoms/Spinner"
 

@@ -1,4 +1,4 @@
-import { bulkRemoveSourcePublished } from "@/app/(dashboard)/knowledge-base/actions"
+import { bulkRemoveSourcePublished } from "@/app/(organisation-routes)/(dashboard)/knowledge-base/actions"
 import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useFormToast } from "@/hooks/formHooks"

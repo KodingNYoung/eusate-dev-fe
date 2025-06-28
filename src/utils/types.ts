@@ -2,11 +2,18 @@ import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
 import {
   AiTones,
   KnowledgeSourceTags,
+  MessageSenders,
+  PermissionCodenames,
   ResourceSources,
   TwoFAMethods,
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
-import { COOKIES_KEYS, SHOW_FOR, STORAGE_KEYS } from "./constants"
+import {
+  COOKIES_KEYS,
+  FILE_ICON_MAP,
+  SHOW_FOR,
+  STORAGE_KEYS,
+} from "./constants"
 import {
   AuthLocation,
   AuthType,
@@ -15,10 +22,18 @@ import {
   FunctionStatus,
   ParamsProvidedBy,
 } from "@/components/views/dev-space/utils"
+import {
+  TicketPriority,
+  TicketStatus,
+  UserTemperament,
+} from "@/components/views/help-desk/utils"
+import { ApiKeyStatus } from "@/components/views/settings/utils"
+import { IconNames } from "./iconNames"
 
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
 export type TypographyVariants =
+  | "caption-lg"
   | "regular-xxs"
   | "regular-xs"
   | "regular-sm"
@@ -80,6 +95,7 @@ export type FC<PropsType = unknown> = {
   ): ReactElement | null
   displayName?: string
 }
+
 export type LayoutFC<
   ParamsType = { [paramsKey: string]: string | string[] | undefined },
 > = {
@@ -105,6 +121,7 @@ export type PageFC<
   ): ReactElement | null | Promise<ReactElement | null>
   displayName?: string
 }
+
 export type ErrorObjectType = {
   type: "request" | "validation"
   message?: string
@@ -144,7 +161,8 @@ export type SessionPayload = {
   tokenVerified?: boolean
   email: string
   userId?: string
-  organisationId?: string
+  currentOrganisationId?: string
+  ownedOrganisationId?: string
   isVerified?: boolean
   twofaMethod?: TwoFAMethods | null
   expiresAt?: Date
@@ -165,6 +183,7 @@ export type TableColumn<T = unknown> = {
   showFor?: (typeof SHOW_FOR)[keyof typeof SHOW_FOR]
   clickable?: boolean
 }
+export type FileExtension = keyof typeof FILE_ICON_MAP
 
 export type DBResource = {
   id: string
@@ -255,4 +274,105 @@ export type DSFunction = {
   status: FunctionStatus
   organisation_id?: string
   auth_config_id?: string
+}
+
+export type TicketCustomer = {
+  id: string
+  current_temperament: UserTemperament
+  temperaments: UserTemperament[]
+}
+export type TicketChannel = DBResource & {
+  name: string
+  logo: string
+}
+
+export type Ticket = DBResource & {
+  organisation: string
+  id_slug: string
+  title: string
+  description: string
+  status: TicketStatus
+  priority: TicketPriority
+  pinned: boolean
+  customer: TicketCustomer
+  attachments: AttachmentMetadata[]
+  assignee: string | null
+  channel: TicketChannel
+}
+export type TicketCommentAgent = {
+  id: string
+  name: string
+  email: string
+}
+export type TicketComment = DBResource & {
+  message: string
+  ticket: string
+  agent: TicketCommentAgent
+}
+export type AttachmentMetadata = {
+  url: string
+  name: string
+  size_kb: number
+  extension: FileExtension
+  loading?: boolean
+  error?: boolean
+}
+
+export type MessageType = DBResource & {
+  message: string
+  sender: MessageSenders
+  is_attachment: boolean
+  attachment_metadata: AttachmentMetadata | null
+  ticket_chat: string
+}
+
+export type ApiKeysType = {
+  token: string
+  name: string
+  expires_at: string | null
+  status: ApiKeyStatus
+  organisation: string
+  user: {
+    id: string
+    username: string
+    email: string
+  }
+}
+
+export type PageLayersPath = {
+  label: string
+  icon?: IconNames
+  link?: string
+  id: number
+}
+
+export type PageLayers = {
+  [path: string]: PageLayersPath[]
+}
+
+export type OrganisationType = DBResource & {
+  owner: { owner: string }
+  name: string
+  logo: string
+  meta: {
+    domain: string
+    sector: string
+    use_case: string
+    company_size: string
+  }
+}
+export type UserProfileType = DBResource & {
+  email: string
+  username: string
+  profile_picture: string
+  twofa_method: string
+  verified: boolean
+  organisations: OrganisationType[]
+}
+
+export type UserPermission = DBResource & {
+  name: string
+  code_name: PermissionCodenames
+  module: string
+  description: string
 }

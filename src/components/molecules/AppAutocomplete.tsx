@@ -4,7 +4,7 @@ import {
   AutocompleteItem,
   AutocompleteItemProps,
   AutocompleteProps,
-} from "@nextui-org/react"
+} from "@heroui/react"
 import React, { ReactNode } from "react"
 
 type Props = Omit<AutocompleteProps, "children" | "items"> & {

@@ -1,31 +1,33 @@
 "use client"
-import Icon from "@/components/atoms/Icon"
-import Typography from "@/components/atoms/Typography"
-import { ROUTES } from "@/utils/constants"
-import { cls } from "@/utils/helpers"
-import { IconNames } from "@/utils/iconNames"
-import { FC } from "@/utils/types"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import React from "react"
 
-const PAGE_LAYERS: {
-  [path: string]: {
-    label: string
-    icon?: IconNames
-    link?: string
-    id: number
-  }[]
-} = {
+import React from "react"
+import Link from "next/link"
+import { ROUTES } from "@/utils/constants"
+import Icon from "@/components/atoms/Icon"
+import { usePathname } from "next/navigation"
+import { FC, PageLayers } from "@/utils/types"
+import Typography from "@/components/atoms/Typography"
+import { cls, pageLayerAdapter } from "@/utils/helpers"
+
+const PAGE_LAYERS: PageLayers = {
   [ROUTES.OVERVIEW]: [
     { label: "Overview", icon: "icon-speedometer-bold", id: 1 },
   ],
   [ROUTES.KNOWLEDGE_BASE]: [
     { label: "Knowledge base", icon: "icon-layer", id: 2 },
   ],
-  [ROUTES.HELP_DESK]: [{ label: "Helpdesk", icon: "icon-ticket", id: 3 }],
+  [ROUTES.HELP_DESK]: [
+    {
+      label: "Helpdesk",
+      icon: "icon-ticket",
+      id: 3,
+    },
+  ],
   [ROUTES.REPORTS]: [{ label: "Reports", icon: "icon-chart", id: 4 }],
-  [ROUTES.SETTINGS]: [{ label: "Settings", icon: "icon-setting", id: 5 }],
+  [ROUTES.SETTINGS]: [
+    { label: "Settings", icon: "icon-setting", id: 5 },
+    { label: "Profile", id: 2 },
+  ],
   [ROUTES.HELP_AND_SUPPORT]: [
     { label: "Help & Support", icon: "icon-health", id: 6 },
   ],
@@ -62,7 +64,7 @@ const PAGE_LAYERS: {
 
 const HeaderPagination: FC = () => {
   const pathname = usePathname()
-  const pages = PAGE_LAYERS[pathname] || []
+  const pages = pageLayerAdapter(pathname, PAGE_LAYERS)
 
   return (
     <section className="flex items-center gap-2 text-gray-400">
@@ -87,7 +89,13 @@ const HeaderPagination: FC = () => {
 
         return (
           <div className="flex items-center gap-2" key={page.id}>
-            {page.link ? <Link href={page.link}>{content}</Link> : content}
+            {page.link ? (
+              <Link href={page.link} prefetch>
+                {content}
+              </Link>
+            ) : (
+              content
+            )}
             {pages.length - 1 !== idx && <Icon name="icon-chevron-right" />}
           </div>
         )

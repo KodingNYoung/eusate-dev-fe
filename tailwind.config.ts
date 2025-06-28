@@ -1,4 +1,4 @@
-import { nextui } from "@nextui-org/react"
+import { heroui } from "@heroui/react"
 import type { Config } from "tailwindcss"
 import defaultTheme from "tailwindcss/defaultTheme"
 
@@ -8,7 +8,7 @@ const config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/providers/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     ...defaultTheme,
@@ -39,6 +39,7 @@ const config = {
       "medium-4xl": ["36px", { lineHeight: "45px", fontWeight: "500" }],
       "medium-5xl": ["48px", { lineHeight: "48px", fontWeight: "500" }],
       // weight- 600
+      "caption-lg": ["14px", { lineHeight: "22.4px", fontWeight: "600" }],
       "semibold-xxs": ["10px", { lineHeight: "11px", fontWeight: "600" }],
       "semibold-xs": ["12px", { lineHeight: "15px", fontWeight: "600" }],
       "semibold-sm": ["14px", { lineHeight: "17.5px", fontWeight: "600" }],
@@ -230,6 +231,7 @@ const config = {
     extend: {
       padding: {
         0: "0rem", // 0px
+        0.25: "0.063rem", // 1px
         0.5: "0.125rem", //2px
         1: "0.25rem", // 4px
         1.5: "0.375rem", // 6px
@@ -354,6 +356,7 @@ const config = {
         64: "16rem", // 256px
       },
       borderRadius: {
+        x10: "0.625rem", //10px
         x20: "1.25rem", // 20px
       },
       zIndex: {
@@ -371,7 +374,7 @@ const config = {
   },
   darkMode: "class",
   plugins: [
-    nextui({
+    heroui({
       addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
       defaultTheme: "light", // default theme from the themes object
       themes: {

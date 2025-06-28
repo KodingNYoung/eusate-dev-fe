@@ -6,7 +6,7 @@ import Button from "@/components/molecules/Buttons"
 import Icon from "@/components/atoms/Icon"
 import AppPopover from "@/components/molecules/Popups/AppPopover"
 import Typography from "@/components/atoms/Typography"
-import { useProcessWithSocket } from "@/hooks/processesHooks"
+import { useProcessWithSocket } from "@/hooks/api/processesHooks"
 
 const ProcessesActionButton: FC = () => {
   const [open, setOpen] = useState(false)

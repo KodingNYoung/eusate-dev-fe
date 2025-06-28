@@ -1,4 +1,4 @@
-import { createArticleByLink } from "@/app/(dashboard)/knowledge-base/actions"
+import { createArticleByLink } from "@/app/(organisation-routes)/(dashboard)/knowledge-base/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Info from "@/components/molecules/Info"
 import WebsiteInput from "@/components/organisms/WebsiteInput"

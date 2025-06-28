@@ -1,4 +1,4 @@
-import { removeFunction } from "@/app/(dashboard)/dev-space/actions"
+import { removeFunction } from "@/app/(organisation-routes)/(dashboard)/dev-space/actions"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"

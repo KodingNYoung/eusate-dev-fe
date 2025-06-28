@@ -1,4 +1,4 @@
-import { addWebsites } from "@/app/(dashboard)/knowledge-base/actions"
+import { addWebsites } from "@/app/(organisation-routes)/(dashboard)/knowledge-base/actions"
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import Button from "@/components/molecules/Buttons"

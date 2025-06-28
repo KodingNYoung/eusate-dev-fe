@@ -1,4 +1,4 @@
-import { createMessage } from "@/app/(dashboard)/playground/actions"
+import { createMessage } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import Icon from "@/components/atoms/Icon"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { usePlayground } from "@/hooks/playground"

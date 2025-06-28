@@ -1,6 +1,22 @@
+import {
+  ErrorObjectType,
+  FileExtension,
+  FormState,
+  PageLayers,
+  PageLayersPath,
+  TWClassNames,
+} from "./types"
+import {
+  SETTINGS_NAV_LINKS,
+  SettingsNavLink,
+} from "../components/templates/settings/utils"
+import dayjs from "dayjs"
 import { ZodError } from "zod"
-import { ErrorObjectType, FormState, TWClassNames } from "./types"
 import { RefObject } from "react"
+import { ROUTES } from "./constants"
+import calendar from "dayjs/plugin/calendar"
+
+dayjs.extend(calendar)
 
 export function cls(
   ...classNames: (TWClassNames | string | null | undefined | false)[]
@@ -120,4 +136,102 @@ export const chunkFile = (file: File, chunkSizeInByte: number) => {
   }
 
   return chunks
+}
+
+export const objToQuery = (obj: Record<string, string | number | boolean>) => {
+  const query = new URLSearchParams()
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key as keyof typeof obj]
+    if (value !== undefined && value !== "") {
+      query.set(key, value.toString())
+    }
+  })
+
+  return query.toString()
+}
+
+export const pageLayerAdapter = (
+  pathname: string,
+  PAGE_LAYERS: PageLayers
+): PageLayersPath[] => {
+  const splittedPath = pathname.split("/")
+  const lastPathSegment = splittedPath.slice(-1)[0]
+  const secondToLast = splittedPath.slice(-2)[0]
+  const firstThreeChar = lastPathSegment.slice(0, 3)
+
+  if (firstThreeChar === "TIC") {
+    return [
+      {
+        label: "Helpdesk",
+        icon: "icon-ticket",
+        link: ROUTES.HELP_DESK,
+        id: 1,
+      },
+      { label: "#" + lastPathSegment, id: 2 },
+    ]
+  } else if (
+    SETTINGS_NAV_LINKS.includes(lastPathSegment as SettingsNavLink) &&
+    secondToLast === "settings"
+  ) {
+    return [
+      {
+        label: "Settings",
+        icon: "icon-setting",
+        link: ROUTES.SETTINGS,
+        id: 1,
+      },
+      { label: capitalizeFirstLetter(lastPathSegment), id: 2 },
+    ]
+  }
+
+  return PAGE_LAYERS[pathname] || []
+}
+
+export const capitalizeFirstLetter = (str: string): string => {
+  if (!str) return ""
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+export const truncateWord = (str: string, maxLength: number): string => {
+  if (str.length <= maxLength) return str
+  return str.slice(0, maxLength) + "..."
+}
+
+export const getFileExtension = (file: File) => {
+  return (file.name ? "." + file.name.split(".").pop() : "") as FileExtension
+}
+export const getFileNameWithoutExt = (filename: string) => {
+  return filename ? filename.split(".").slice(0, -1).join(".") : ""
+}
+export const formatToMessageTime = (date: string) => {
+  return dayjs(date).calendar(null, {
+    sameDay: "h:mmA", // The same day ( Today at 2:30 AM )
+    lastDay: "[Yesterday], h:mmA", // The day before ( Yesterday at 2:30 AM )
+    lastWeek: "dddd, h:mmA", // Last week ( Last Monday at 2:30 AM )
+    sameElse: "DD/MM/YYYY, h:mmA ", // Everything else ( 7/10/2011 )
+  })
+}
+export const promptFileUpload = (
+  accept = "*",
+  multiple = false
+): Promise<FileList | null> => {
+  return new Promise((resolve) => {
+    const input = document.createElement("input")
+    input.type = "file"
+    input.accept = accept
+    input.multiple = multiple
+    input.style.display = "none"
+    input.onchange = () => {
+      resolve(input.files)
+    }
+    document.body.appendChild(input)
+    input.click()
+    document.body.removeChild(input)
+  })
+}
+
+export const hasSameBasePath = (a: string, b: string) => {
+  const baseA = a.split("/")[1]
+  const baseB = b.split("/")[1]
+  return baseA && baseA === baseB
 }

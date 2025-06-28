@@ -1,4 +1,4 @@
-import { toggleSourcePrivacy } from "@/app/(dashboard)/knowledge-base/actions"
+import { toggleSourcePrivacy } from "@/app/(organisation-routes)/(dashboard)/knowledge-base/actions"
 import Checkbox, { CheckboxProps } from "@/components/molecules/Checkbox"
 import { useFormToast } from "@/hooks/formHooks"
 import { FC, KnowledgeSource } from "@/utils/types"

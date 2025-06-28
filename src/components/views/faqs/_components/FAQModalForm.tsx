@@ -1,6 +1,9 @@
 "use client"
 
-import { addFAQ, editFAQ } from "@/app/(dashboard)/knowledge-base/FAQs/actions"
+import {
+  addFAQ,
+  editFAQ,
+} from "@/app/(organisation-routes)/(dashboard)/knowledge-base/FAQs/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Input from "@/components/molecules/Inputs"
 import { useFormToast, useValidation } from "@/hooks/formHooks"

@@ -9,7 +9,7 @@ import {
   PopoverSlots,
   PopoverTrigger,
   Tooltip,
-} from "@nextui-org/react"
+} from "@heroui/react"
 import React, { ReactNode } from "react"
 
 export type TooltipProps = Omit<PopoverProps, "content" | "children"> & {

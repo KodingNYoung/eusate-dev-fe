@@ -10,7 +10,7 @@ export type AuthConfigurationResponse = DBResource & AuthConfig
 export const getAuthConfiguration = async () => {
   const session = await getSession()
   const response = await sendAuthRequest<AuthConfigurationResponse[]>(
-    `/api/v1/lab/${session?.organisationId}/auth-configs/`
+    `/api/v1/lab/${session?.currentOrganisationId}/auth-configs/`
   )
 
   if ("shouldAuthenticate" in response) {
@@ -28,7 +28,7 @@ export type DevSpaceFunctionsResponse = DBResource &
 export const getDevSpaceFunctions = async () => {
   const session = await getSession()
   const response = await sendAuthRequest<DevSpaceFunctionsResponse[]>(
-    `/api/v1/lab/${session?.organisationId}/functions/`
+    `/api/v1/lab/${session?.currentOrganisationId}/functions/`
   )
 
   if ("shouldAuthenticate" in response) {

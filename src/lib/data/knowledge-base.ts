@@ -41,7 +41,7 @@ export const getKnowledgeSources = async (
     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
     const response = await sendAuthRequest<GetKnowledgeSourcesResponse>(
-      `/api/v1/library/${session.organisationId}/?${query}`
+      `/api/v1/library/${session.currentOrganisationId}/?${query}`
     )
 
     if ("shouldAuthenticate" in response)
@@ -109,7 +109,7 @@ export const getProcesses = async () => {
   //     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
   //     const _response = await sendAuthRequest<GetProcessResponse>(
-  //       `/api/v1/library/${session.organisationId}/processing-resources/?status=ingesting,updating`
+  //       `/api/v1/library/${session.currentOrganisationId}/processing-resources/?status=ingesting,updating`
   //     )
 
   //     if ("shouldAuthenticate" in _response)
