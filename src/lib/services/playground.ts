@@ -21,7 +21,7 @@ export const sendMessage = async (
 
   const payload = {
     message,
-    organisation_id: session?.organisationId,
+    organisation_id: session?.currentOrganisationId,
     tone: settings.tone,
     temperature: settings.temperature,
     top_p: settings.top_p, //optional
@@ -49,7 +49,7 @@ export const clearMessages = async () => {
   const response = await sendAuthRequest<ClearMessageResponse>(
     "/api/v1/playground/clear-messages/",
     {
-      organisation_id: session?.organisationId,
+      organisation_id: session?.currentOrganisationId,
     },
     { method: "DELETE" }
   )
@@ -71,7 +71,7 @@ export const sendFeeback = async (
   const response = await sendAuthRequest<SendFeedbackResponse>(
     "/api/v1/playground/sate-feedback/",
     {
-      organisation_id: session?.organisationId,
+      organisation_id: session?.currentOrganisationId,
       liked,
       user_feedback: user_feedback || undefined,
       playground_sate_response_id,

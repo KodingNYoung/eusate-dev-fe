@@ -1,4 +1,4 @@
-import { takeoverTicket } from "@/app/(dashboard)/helpdesk/actions"
+import { takeoverTicket } from "@/app/(organisation-routes)/(dashboard)/helpdesk/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { FC, FormState } from "@/utils/types"

@@ -17,6 +17,7 @@ type ButtonVariants =
   | "warning"
   | "error"
   | "errorText"
+  | "errorOutlined"
 type Slots = "root" | "label"
 export type ButtonProps = Omit<
   HTMLProps<HTMLButtonElement>,
@@ -102,6 +103,14 @@ const buttonVariant: { [variant in ButtonVariants]?: TWClassNames } = {
     "disabled:bg-error-100", // disabled
     "focus:border-error-100 focus:bg-error-600", // focused
     "aria-expanded:border-error-100 aria-expanded:bg-error-600" // focused when used as trigger
+  ),
+  errorOutlined: cls(
+    "error-btn border-error-200 border-1 text-error-500 bg-white", // default
+    "hover:text-error-600 hover:border-error-300", // hover
+    "active:text-error-700 active:border-error-400", // active
+    "disabled:text-error-100 disabled:border-error-100", // disabled
+    "focus:border-error-300 focus:text-error-600", // focused
+    "aria-expanded:border-error-300 aria-expanded:text-error-600" // focused when used as trigger
   ),
   errorText: cls(
     "error-btn border-transparent border-1 text-error-500  bg-white", // default

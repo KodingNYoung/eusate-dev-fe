@@ -3,6 +3,7 @@ import {
   AiTones,
   KnowledgeSourceTags,
   MessageSenders,
+  PermissionCodenames,
   ResourceSources,
   TwoFAMethods,
 } from "./enums"
@@ -32,6 +33,7 @@ import { IconNames } from "./iconNames"
 export type TWClassNames = HTMLProps<HTMLElement>["className"]
 
 export type TypographyVariants =
+  | "caption-lg"
   | "regular-xxs"
   | "regular-xs"
   | "regular-sm"
@@ -159,7 +161,8 @@ export type SessionPayload = {
   tokenVerified?: boolean
   email: string
   userId?: string
-  organisationId?: string
+  currentOrganisationId?: string
+  ownedOrganisationId?: string
   isVerified?: boolean
   twofaMethod?: TwoFAMethods | null
   expiresAt?: Date
@@ -347,8 +350,8 @@ export type PageLayers = {
   [path: string]: PageLayersPath[]
 }
 
-export type OrganizationType = DBResource & {
-  owner: string
+export type OrganisationType = DBResource & {
+  owner: { owner: string }
   name: string
   logo: string
   meta: {
@@ -364,6 +367,12 @@ export type UserProfileType = DBResource & {
   profile_picture: string
   twofa_method: string
   verified: boolean
-  meta: { role: string }
-  organisations: OrganizationType[]
+  organisations: OrganisationType[]
+}
+
+export type UserPermission = DBResource & {
+  name: string
+  code_name: PermissionCodenames
+  module: string
+  description: string
 }

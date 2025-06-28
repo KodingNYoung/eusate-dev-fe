@@ -5,7 +5,7 @@ import UserTextBox from "./UserTextBox"
 import { usePlayground } from "@/hooks/playground"
 import { useFormState } from "react-dom"
 import { SendMessageResponse } from "@/lib/services/playground"
-import { createMessage } from "@/app/(dashboard)/playground/actions"
+import { createMessage } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import { EditMessageReturnType } from "@/providers/playgroundProvider"
 
 type Props = {

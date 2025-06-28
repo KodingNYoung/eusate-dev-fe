@@ -7,10 +7,16 @@ import { sendCode } from "@/app/(auth)/setup-2fa/actions"
 type Props = {
   method: TwoFAMethods
   email?: string
+  hasBackBtn?: boolean
   qrcodeProps?: { svg: string; secretKey: string }
 }
 
-const TwoFAMethod: FC<Props> = ({ method, email, qrcodeProps }) => {
+const TwoFAMethod: FC<Props> = ({
+  method,
+  email,
+  qrcodeProps,
+  hasBackBtn = true,
+}) => {
   const methodSubtitles = {
     [TwoFAMethods.AUTHENTICATOR]:
       "Scan the QR code with your authenticator app (e.g., Google Authenticator) and enter the generated code below.",
@@ -25,6 +31,7 @@ const TwoFAMethod: FC<Props> = ({ method, email, qrcodeProps }) => {
   return (
     <TwoFACodeInputView
       title="Set up 2FA"
+      hasBackBtn={hasBackBtn}
       subtitle={methodSubtitles[method]}
       method={method}
       submitAction={sendCode}

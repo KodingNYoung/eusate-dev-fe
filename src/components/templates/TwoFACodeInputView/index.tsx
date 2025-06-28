@@ -10,6 +10,7 @@ import CodeInputForm from "./CodeInputForm"
 type Props = {
   title: ReactNode
   subtitle: ReactNode
+  hasBackBtn?: boolean
   method: TwoFAMethods
   isSetup?: boolean
   submitAction: (state: FormState, formdata: FormData) => Promise<FormState>
@@ -26,6 +27,7 @@ const TwoFACodeInputView: FC<Props> = ({
   subtitle,
   method,
   isSetup,
+  hasBackBtn,
   qrcodeProps,
   submitAction,
   onError,
@@ -33,7 +35,7 @@ const TwoFACodeInputView: FC<Props> = ({
 }) => {
   return (
     <main className="mx-auto w-[544px] px-4 py-8 max-w-full flex flex-col">
-      <AuthHeader hasBackBtn title={title} subtitle={subtitle} />
+      <AuthHeader hasBackBtn={hasBackBtn} title={title} subtitle={subtitle} />
       {isSetup && qrcodeProps && method === TwoFAMethods.AUTHENTICATOR && (
         <QRCode {...qrcodeProps} />
       )}

@@ -1,5 +1,6 @@
-import { Info } from "./Organization/OrganizationInfo/utils"
+import { Info } from "./Organisation/OrganisationInfo/utils"
 import { Profile } from "./utils"
+import { dummyMembers } from "./Organisation/Members/MembersArea/utils/dummy"
 
 export const dummyProfile: Profile = {
   email: "adainipatrick@gmail.com",
@@ -8,11 +9,16 @@ export const dummyProfile: Profile = {
   avatar: null,
 }
 
-export const dummyOrganizationInfo: Info = {
+export const dummyOrganisationInfo: Info = {
   email: "adainipatric@gmail.com",
   industry: "Technology",
   name: "Eusate Inc",
   avatar: null,
   members: 20,
   size: "50+",
+}
+
+export const DUMMY_ORGANIZATION = {
+  info: dummyOrganisationInfo,
+  members: dummyMembers,
 }

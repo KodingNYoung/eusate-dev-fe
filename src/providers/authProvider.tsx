@@ -5,7 +5,10 @@ import { FC, SessionPayload } from "@/utils/types"
 import { createContext, useContext, useState } from "react"
 
 type AuthContextType = {
-  user?: Omit<SessionPayload, "accessToken" | "refreshToken">
+  user?: Omit<
+    SessionPayload,
+    "accessToken" | "refreshToken" | "currentOrganisationId"
+  >
   accessToken?: string
   isAuthenticated: boolean
   refreshAccessToken: () => Promise<boolean>
@@ -22,7 +25,11 @@ export const AuthProvider: FC<Props> = ({ children, initialSession }) => {
     initialSession?.accessToken
   )
   const [user, setUser] = useState<
-    Omit<SessionPayload, "accessToken" | "refreshToken"> | undefined
+    | Omit<
+        SessionPayload,
+        "accessToken" | "refreshToken" | "currentOrganisationId"
+      >
+    | undefined
   >(initialSession)
 
   const refreshAccessToken = async () => {

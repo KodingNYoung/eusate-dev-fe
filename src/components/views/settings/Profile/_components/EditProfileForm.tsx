@@ -7,7 +7,10 @@ import Input from "@/components/molecules/Inputs"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useModal } from "@/hooks/popupHooks"
 import { useFormState } from "react-dom"
-import { updateProfile, uploadPhoto } from "@/app/(dashboard)/settings/actions"
+import {
+  updateProfile,
+  uploadPhoto,
+} from "@/app/(organisation-routes)/(dashboard)/settings/actions"
 import UploadButton from "@/components/molecules/Inputs/UploadButton"
 import { toaster } from "@/components/molecules/Toast"
 import { useFormToast } from "@/hooks/formHooks"

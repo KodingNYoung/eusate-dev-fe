@@ -3,7 +3,7 @@ import { Skeleton } from "@heroui/react"
 import { FC, TWClassNames } from "@/utils/types"
 import Image from "next/image"
 import React from "react"
-import Icon from "./Icon"
+import userAvatar from "@/assets/images/user-avatar.svg"
 
 type Slots = "root" | "img" | "iconContainer" | "icon"
 export type AvatarProps = {
@@ -39,28 +39,13 @@ const Avatar: FC<AvatarProps> = ({
           classNames?.root
         )}
       >
-        {src && (
-          <Image
-            height={100}
-            width={100}
-            src={src}
-            alt=""
-            className={cls("h-full w-full object-cover", classNames?.img)}
-          />
-        )}
-        {!src && (
-          <div
-            className={cls(
-              "flex items-center justify-center w-full h-full rounded-full bg-gold-50",
-              classNames?.iconContainer
-            )}
-          >
-            <Icon
-              name="icon-user"
-              className={cls("text-gold-600", classNames?.icon)}
-            />
-          </div>
-        )}
+        <Image
+          height={100}
+          width={100}
+          src={src || userAvatar}
+          alt=""
+          className={cls("h-full w-full object-cover", classNames?.img)}
+        />
       </div>
     </Skeleton>
   )

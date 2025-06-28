@@ -1,7 +1,7 @@
 import {
   createArticle,
   updateResourceContent,
-} from "@/app/(dashboard)/knowledge-base/resource/actions"
+} from "@/app/(organisation-routes)/(dashboard)/knowledge-base/resource/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import {

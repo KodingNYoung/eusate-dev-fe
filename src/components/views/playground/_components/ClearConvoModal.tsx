@@ -1,4 +1,4 @@
-import { clearChatWall } from "@/app/(dashboard)/playground/actions"
+import { clearChatWall } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useModal } from "@/hooks/popupHooks"

@@ -2,21 +2,21 @@ import { IconNames } from "@/utils/iconNames"
 
 //  TYPES
 export type SettingsNavLink =
-  | "usage&Billing"
+  | "usage&billing"
   | "notifications"
-  | "organization"
+  | "organisation"
   | "integrations"
   | "resources"
   | "security"
   | "support"
-  | "sate-ai"
+  | "sate-AI"
   | "profile"
 
 // ENUMS
 export enum SettingsTabsType {
   USAGE_AND_BILLING = "usage-and-billing",
   NOTIFICATIONS = "notifications",
-  ORGANIZATION = "organization",
+  ORGANISATION = "organisation",
   INTEGRATIONS = "integrations",
   RESOURCES = "resources",
   SECURITY = "security",
@@ -27,26 +27,26 @@ export enum SettingsTabsType {
 
 // CONSTANTS
 export const SETTINGS_NAV_LINKS: SettingsNavLink[] = [
-  "usage&Billing",
+  "usage&billing",
   "notifications",
-  "organization",
+  "organisation",
   "integrations",
   "resources",
   "security",
   "support",
-  "sate-ai",
+  "sate-AI",
   "profile",
 ] as const
 export const SETTINGS_ROUTES = {
   USAGE_AND_BILLING: "/settings/usage&billing",
   NOTIFICATIONS: "/settings/notifications",
   INTEGRATIONS: "/settings/integrations",
-  ORGANIZATION: "/settings/organization",
+  ORGANISATION: "/settings/organisation",
   RESOURCES: "/settings/resources",
   SECURITY: "/settings/security",
   SUPPORT: "/settings/support",
   PROFILE: "/settings/profile",
-  SATE_AI: "/settings/sate-ai",
+  SATE_AI: "/settings/sate-AI",
 } as const
 export const SETTINGS_TABS: {
   id: number
@@ -62,8 +62,8 @@ export const SETTINGS_TABS: {
   },
   {
     id: 2,
-    link: SETTINGS_ROUTES.ORGANIZATION,
-    label: "Organization",
+    link: SETTINGS_ROUTES.ORGANISATION,
+    label: "Organisation",
     icon: "icon-building",
   },
   {

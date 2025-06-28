@@ -11,7 +11,7 @@ import AIModal, { AIModalTrigger } from "./AIModal"
 import { useChatContext } from "@/hooks/helpdesk"
 import Button from "@/components/molecules/Buttons"
 import { getFileExtension } from "@/utils/helpers"
-import { uploadTicketAttachment } from "@/app/(dashboard)/helpdesk/actions"
+import { uploadTicketAttachment } from "@/app/(organisation-routes)/(dashboard)/helpdesk/actions"
 import { toaster } from "@/components/molecules/Toast"
 import { useAuth } from "@/providers/authProvider"
 import TakeoverButton from "./TakeoverButton"
@@ -21,7 +21,7 @@ type Props = {
 }
 const ChatFooter: FC<Props> = ({ ticket }) => {
   const formRef = useRef<HTMLFormElement>(null)
-  // TODO: This shouldn't be -- when the organization context has been implemented, then you can switch this to organization user instead
+  // TODO: This shouldn't be -- when the organisation context has been implemented, then you can switch this to organisation user instead
   const { user } = useAuth()
   const { sendMessage } = useChatContext()
 

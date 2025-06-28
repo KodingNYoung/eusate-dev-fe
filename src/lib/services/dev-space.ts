@@ -13,7 +13,7 @@ export const createAuthConfig = async (payload: AuthConfig) => {
 
   const response = await sendAuthRequest<AuthConfigurationResponse>(
     "/api/v1/lab/auth-config/add/",
-    { ...payload, organisation_id: session?.organisationId },
+    { ...payload, organisation_id: session?.currentOrganisationId },
     { method: "POST" }
   )
 
@@ -27,7 +27,7 @@ export const editAuthConfig = async (id: string, payload: AuthConfig) => {
 
   const response = await sendAuthRequest<AuthConfigurationResponse>(
     `/api/v1/lab/auth-config/${id}/edit/`,
-    { ...payload, organisation_id: session?.organisationId },
+    { ...payload, organisation_id: session?.currentOrganisationId },
     { method: "PUT" }
   )
 
@@ -41,7 +41,7 @@ export const createFunction = async (payload: DSFunction) => {
 
   const response = await sendAuthRequest<DevSpaceFunctionsResponse>(
     "/api/v1/lab/function/add/",
-    { ...payload, organisation_id: session?.organisationId },
+    { ...payload, organisation_id: session?.currentOrganisationId },
     { method: "POST" }
   )
 
@@ -55,7 +55,7 @@ export const editFunction = async (id: string, payload: DSFunction) => {
 
   const response = await sendAuthRequest<DevSpaceFunctionsResponse>(
     `/api/v1/lab/function/${id}/edit/`,
-    { ...payload, organisation_id: session?.organisationId },
+    { ...payload, organisation_id: session?.currentOrganisationId },
     { method: "PATCH" }
   )
 
@@ -69,7 +69,7 @@ export const deleteAuthconfig = async (id: string) => {
   const session = await getSession()
   const response = sendAuthRequest(
     `/api/v1/lab/auth-config/${id}/delete/`,
-    { organisation_id: session?.organisationId },
+    { organisation_id: session?.currentOrganisationId },
     { method: "DELETE" }
   )
 
@@ -82,7 +82,7 @@ export const deleteFunction = async (id: string) => {
   const session = await getSession()
   const response = sendAuthRequest(
     `/api/v1/lab/function/${id}/delete/`,
-    { organisation_id: session?.organisationId },
+    { organisation_id: session?.currentOrganisationId },
     { method: "DELETE" }
   )
 

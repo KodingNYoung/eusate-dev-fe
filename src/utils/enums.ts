@@ -39,8 +39,9 @@ export enum PopupKeys {
   // TICKET CHAT
   OPEN_CHAT_WITH_AI = "open-chat-with-ai",
   // SETTINGS
+  TWOFA = "twofa",
   EDIT_PROFILE = "edit-profile",
-  EDIT_ORGANIZATION_INFO = "edit-organization-info",
+  EDIT_ORGANISATION_INFO = "edit-organisation-info",
   INVITE_MEMBER = "invite-member",
   SENT_FEEDBACK = "sent-feedback",
   COMPLETED_INVITE_MEMBER = "completed-invite-member",
@@ -70,4 +71,20 @@ export enum MessageSenders {
   CUSTOMER = "customer",
   SATE = "sate",
   AGENT = "agent",
+}
+export enum PermissionCodenames {
+  KNOWLEDGE_BASE_VIEWER = "knowledge_base_viewer",
+  KNOWLEDGE_BASE_EDITOR = "knowledge_base_editor",
+  HELPDESK_VIEWER = "helpdesk_viewer",
+  HELPDESK_TICKET_HANDLER = "helpdesk_ticket_handler",
+  HELPDESK_TICKET_COMMENTER = "helpdesk_ticket_commenter",
+  REPORT_VIEWER = "report_viewer",
+  REPORT_DOWNLOADER = "report_downloader",
+  ORGANISATION_INFO_MANAGER = "organisation_info_manager",
+  ORGANISATION_MEMBERS_VIEWER = "organisation_members_viewer",
+  ORGANISATION_MEMBERS_MANAGER = "organisation_members_manager",
+  ORGANISATION_SATE_MANAGER = "organisation_sate_manager",
+  ORGANISATION_INTEGRATION_MANAGER = "organisation_integration_manager",
+  ORGANISATION_USAGE_BILLING_MANAGER = "organisation_usage_billing_manager",
+  DEVELOPER_SPACE_MANAGER = "developer_space_manager",
 }

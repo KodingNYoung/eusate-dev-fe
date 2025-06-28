@@ -40,7 +40,11 @@ const CodeInputForm: FC<Props> = ({ submitAction }) => {
   }, [state, router])
 
   return (
-    <form className="py-10 flex flex-col gap-10" action={action} ref={formRef}>
+    <form
+      className="pt-10 pb-5 flex flex-col gap-10"
+      action={action}
+      ref={formRef}
+    >
       <input name="code" value={otp} readOnly hidden />
       <OtpInput label="Enter 2FA code" onChange={onCodeChange} />
       <SubmitButton size="xl" disabled={hasErrors}>

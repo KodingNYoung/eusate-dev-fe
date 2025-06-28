@@ -33,7 +33,7 @@ export const getTickets = async (options: GetTicketOptions) => {
   const query = objToQuery(options)
   const session = await getSession()
   const response = await sendAuthRequest<GetTicketsResponse>(
-    `/api/v1/helpdesk/${session?.organisationId}/tickets/?${query}`
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/?${query}`
   )
 
   if ("shouldAuthenticate" in response) {
@@ -46,7 +46,7 @@ export const getTickets = async (options: GetTicketOptions) => {
 export const getTicketDetails = async (id: string) => {
   const session = await getSession()
   const response = await sendAuthRequest<Ticket>(
-    `/api/v1/helpdesk/${session?.organisationId}/tickets/${id}/`
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/`
   )
 
   if ("shouldAuthenticate" in response) {
@@ -59,7 +59,7 @@ export const getTicketDetails = async (id: string) => {
 export const getTicketComments = async (id: string) => {
   const session = await getSession()
   const response = await sendAuthRequest<TicketComment[]>(
-    `/api/v1/helpdesk/${session?.organisationId}/tickets/${id}/comments`
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/comments`
   )
 
   if ("shouldAuthenticate" in response) {
@@ -78,7 +78,7 @@ export type GetTicketChatsResponse = DBResource & {
 export const getTicketChats = async (id: string) => {
   const session = await getSession()
   const response = await sendAuthRequest<GetTicketChatsResponse>(
-    `/api/v1/helpdesk/${session?.organisationId}/tickets/${id}/chat/`
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/chat/`
   )
 
   if ("shouldAuthenticate" in response) {

@@ -1,4 +1,4 @@
-import { sendResponseFeedback } from "@/app/(dashboard)/playground/actions"
+import { sendResponseFeedback } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import Icon from "@/components/atoms/Icon"
 import Button from "@/components/molecules/Buttons"
 import { useFormToast } from "@/hooks/formHooks"

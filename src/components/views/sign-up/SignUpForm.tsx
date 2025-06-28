@@ -43,21 +43,14 @@ const SignUpForm: FC = () => {
         helperText={errors?.username}
         onChange={onFieldChange}
       />
-      <div className="grid sm:grid-cols-2  gap-5">
-        <Input
-          name="organisation_name"
-          label="Company name"
-          placeholder="Enter  company name"
-          isError={!!errors?.organisation_name}
-          helperText={errors.organisation_name}
-          onChange={onFieldChange}
-        />
-        <Input
-          name="role"
-          label="Job title (Optional)"
-          placeholder="What is your role?"
-        />
-      </div>
+      <Input
+        name="organisation_name"
+        label="Company name"
+        placeholder="Enter  company name"
+        isError={!!errors?.organisation_name}
+        helperText={errors.organisation_name}
+        onChange={onFieldChange}
+      />
       <SubmitButton className="mt-5" disabled={hasErrors}>
         Proceed
       </SubmitButton>

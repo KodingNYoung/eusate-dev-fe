@@ -11,7 +11,7 @@ import ClearButton from "./ClearButton"
 import ClearConvoModal from "./ClearConvoModal"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useFormState } from "react-dom"
-import { createMessage } from "@/app/(dashboard)/playground/actions"
+import { createMessage } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import { SendMessageResponse } from "@/lib/services/playground"
 import { usePlayground } from "@/hooks/playground"
 
