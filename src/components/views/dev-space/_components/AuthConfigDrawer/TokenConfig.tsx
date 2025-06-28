@@ -20,7 +20,7 @@ import { ZodTypeAny } from "zod"
 import {
   addAuthConfig,
   updateAuthConfig,
-} from "@/app/(dashboard)/dev-space/actions"
+} from "@/app/(organisation-routes)/(dashboard)/dev-space/actions"
 import { useModal } from "@/hooks/popupHooks"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useQueryClient } from "@tanstack/react-query"

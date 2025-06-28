@@ -1,6 +1,6 @@
 "use client"
 
-import { generateAPIKey } from "@/app/(dashboard)/settings/actions"
+import { generateAPIKey } from "@/app/(organisation-routes)/(dashboard)/settings/actions"
 import Icon from "@/components/atoms/Icon"
 import AppSelect from "@/components/molecules/AppSelect"
 import Button from "@/components/molecules/Buttons"

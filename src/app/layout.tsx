@@ -21,11 +21,11 @@ const RootLayout: LayoutFC = async ({ children }) => {
   return (
     <html lang="en" className={plusJakartaSans.variable}>
       <body>
-        <AuthProvider initialSession={session ?? undefined}>
-          <ReactQueryProvider>
+        <ReactQueryProvider>
+          <AuthProvider initialSession={session ?? undefined}>
             <HeroUIProvider>{children}</HeroUIProvider>
-          </ReactQueryProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </ReactQueryProvider>
         <ToastContainer
           position="top-right"
           autoClose={3000}

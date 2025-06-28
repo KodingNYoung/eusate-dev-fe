@@ -1,4 +1,4 @@
-import { removeAuthConfig } from "@/app/(dashboard)/dev-space/actions"
+import { removeAuthConfig } from "@/app/(organisation-routes)/(dashboard)/dev-space/actions"
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"

@@ -13,7 +13,7 @@ import {
   validateUrlSchema,
 } from "@/lib/schemas/knowledge-base"
 import { useFormStatus } from "react-dom"
-import { validateUrl } from "@/app/(dashboard)/knowledge-base/actions"
+import { validateUrl } from "@/app/(organisation-routes)/(dashboard)/knowledge-base/actions"
 import { toaster } from "../molecules/Toast"
 
 type Props = InputProps & {

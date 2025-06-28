@@ -40,18 +40,6 @@ const Profile = () => {
             </div>
             <div className="grid grid-cols-[1fr_200px] w-full">
               <Typography variant="regular-base" className="text-gray-400">
-                Role
-              </Typography>
-              <Typography
-                variant="semibold-base"
-                className="text-gray-900"
-                loading={isLoading}
-              >
-                {data?.meta.role}
-              </Typography>
-            </div>
-            <div className="grid grid-cols-[1fr_200px] w-full">
-              <Typography variant="regular-base" className="text-gray-400">
                 Email
               </Typography>
               <Typography

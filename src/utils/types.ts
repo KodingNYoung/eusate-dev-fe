@@ -3,6 +3,7 @@ import {
   AiTones,
   KnowledgeSourceTags,
   MessageSenders,
+  PermissionCodenames,
   ResourceSources,
   TwoFAMethods,
 } from "./enums"
@@ -349,7 +350,7 @@ export type PageLayers = {
 }
 
 export type OrganisationType = DBResource & {
-  owner: string
+  owner: { owner: string }
   name: string
   logo: string
   meta: {
@@ -365,6 +366,12 @@ export type UserProfileType = DBResource & {
   profile_picture: string
   twofa_method: string
   verified: boolean
-  meta: { role: string }
   organisations: OrganisationType[]
+}
+
+export type UserPermission = DBResource & {
+  name: string
+  code_name: PermissionCodenames
+  module: string
+  description: string
 }

@@ -1,4 +1,4 @@
-import { bulkToggleSourcePublished } from "@/app/(dashboard)/knowledge-base/actions"
+import { bulkToggleSourcePublished } from "@/app/(organisation-routes)/(dashboard)/knowledge-base/actions"
 import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useFormToast } from "@/hooks/formHooks"

@@ -1,3 +1,5 @@
+"use client"
+
 import { toaster } from "@/components/molecules/Toast"
 import { getOwnedOrganisation } from "@/lib/data/organisation"
 import { QUERY_FN_KEYS } from "@/utils/constants"

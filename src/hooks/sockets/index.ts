@@ -1,6 +1,7 @@
 "use client"
 
 import { useAuth } from "@/providers/authProvider"
+import { useOrganisation } from "@/providers/organisationProvider"
 import { API_BASEURL } from "@/utils/constants"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { io, Socket } from "socket.io-client"
@@ -32,7 +33,8 @@ export const useSocket = (
     events,
   } = options
 
-  const { user, accessToken, refreshAccessToken } = useAuth()
+  const { accessToken, refreshAccessToken } = useAuth()
+  const { currentOrganisation } = useOrganisation()
 
   const connectionAttemptsRef = useRef(0)
   const socketRef = useRef<Socket | null>(null)
@@ -41,18 +43,18 @@ export const useSocket = (
 
   const query = useMemo(
     () => ({
-      organisation_id: user?.currentOrganisationId || "",
+      organisation_id: currentOrganisation?.id || "",
       token: accessToken || "",
       ...customQuery,
     }),
-    [accessToken, user?.currentOrganisationId, customQuery]
+    [accessToken, currentOrganisation?.id, customQuery]
   )
 
   // EFFECTS ---------
   useEffect(() => {
     const connectionId = ++connectionAttemptsRef.current
 
-    if (!user?.currentOrganisationId || !accessToken) return
+    if (!currentOrganisation?.id || !accessToken) return
 
     // clean up any existing connections
     if (socketRef.current?.connected) {
@@ -115,12 +117,12 @@ export const useSocket = (
         setIsConnected(false)
       }
     }
-  }, [user?.currentOrganisationId, autoConnect, transports, query, events])
+  }, [currentOrganisation?.id, autoConnect, transports, query, events])
 
   useEffect(() => {
-    if (socketRef.current && accessToken && user?.currentOrganisationId) {
+    if (socketRef.current && accessToken && currentOrganisation?.id) {
       socketRef.current.io.opts.query = {
-        organisation_id: user.currentOrganisationId,
+        organisation_id: currentOrganisation?.id,
         token: accessToken,
         ...customQuery,
       }

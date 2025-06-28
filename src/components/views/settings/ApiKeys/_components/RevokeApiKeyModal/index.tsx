@@ -1,4 +1,4 @@
-import { revokeAPIKey } from "@/app/(dashboard)/settings/actions"
+import { revokeAPIKey } from "@/app/(organisation-routes)/(dashboard)/settings/actions"
 import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useFormToast } from "@/hooks/formHooks"

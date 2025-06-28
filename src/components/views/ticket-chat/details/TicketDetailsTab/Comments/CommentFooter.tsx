@@ -1,4 +1,4 @@
-import { addTicketComment } from "@/app/(dashboard)/helpdesk/actions"
+import { addTicketComment } from "@/app/(organisation-routes)/(dashboard)/helpdesk/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useValidation } from "@/hooks/formHooks"
 import { addCommentSchema } from "@/lib/schemas/helpdesk"
