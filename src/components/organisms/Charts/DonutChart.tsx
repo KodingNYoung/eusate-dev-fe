@@ -3,7 +3,7 @@ import { cls } from "@/utils/helpers"
 import { FC, TWClassNames } from "@/utils/types"
 import { Chart } from "@highcharts/react"
 import { Pie } from "@highcharts/react/series"
-import { Progress } from "@heroui/react"
+import { Progress } from "@nextui-org/react"
 import React, { useMemo } from "react"
 
 type Props = {

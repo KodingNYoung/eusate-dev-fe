@@ -351,7 +351,7 @@ export type PageLayers = {
 }
 
 export type OrganisationType = DBResource & {
-  owner: { owner: string }
+  owner: { email: string }
   name: string
   logo: string
   meta: {

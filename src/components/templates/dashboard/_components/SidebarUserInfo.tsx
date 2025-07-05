@@ -8,13 +8,14 @@ import React from "react"
 import userAvatar from "@/assets/images/user-avatar.svg"
 import AppPopover from "@/components/molecules/Popups/AppPopover"
 import LogoutButton from "./LogoutButton"
+import OrganisationSwitcher from "./OrganisationSwitcher"
 
 const SidebarUserInfo: FC = () => {
   const { data, isLoading } = useUserProfile()
   return (
     <AppPopover
       placement="right-start"
-      offset={30}
+      offset={33}
       trigger={
         <button className="text-left w-full flex justify-between items-center gap-2">
           <Userinfo
@@ -39,6 +40,7 @@ const SidebarUserInfo: FC = () => {
       }}
     >
       <div className="flex flex-col gap-6 w-full">
+        <OrganisationSwitcher />
         <LogoutButton />
       </div>
     </AppPopover>

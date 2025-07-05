@@ -1,15 +1,15 @@
 import { FC, TWClassNames } from "@/utils/types"
-import React from "react"
+import React, { ReactNode } from "react"
 import Avatar, { AvatarProps } from "../atoms/Avatar"
 import Typography from "../atoms/Typography"
 import { cls } from "@/utils/helpers"
-import { Skeleton } from "@heroui/react"
+import { Skeleton } from "@nextui-org/react"
 
 type Slots = "root" | "avatar" | "info" | "title" | "subtitle"
 export type UserInfoProps = {
   src?: string
   title?: string
-  subtitle?: string | React.ReactNode
+  subtitle?: string | ReactNode
   classNames?: { [slot in Slots]?: TWClassNames }
   avatarProps?: AvatarProps
   loading?: boolean
@@ -36,6 +36,7 @@ const Userinfo: FC<UserInfoProps> = ({
         <Typography
           as="h3"
           className={cls("truncate text-semibold-sm", classNames?.title)}
+          loading={loading}
         >
           {title}
         </Typography>
@@ -50,7 +51,7 @@ const Userinfo: FC<UserInfoProps> = ({
             {subtitle}
           </Typography>
         ) : (
-          <Skeleton>
+          <Skeleton isLoaded={!loading}>
             <div>{subtitle}</div>
           </Skeleton>
         )}

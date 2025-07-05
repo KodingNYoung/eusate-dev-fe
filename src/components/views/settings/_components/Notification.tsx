@@ -1,5 +1,5 @@
 import Typography from "@/components/atoms/Typography"
-import { Switch } from "@heroui/react"
+import { Switch } from "@nextui-org/react"
 import { FC } from "react"
 
 type Props = {

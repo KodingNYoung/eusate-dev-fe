@@ -12,7 +12,7 @@ import {
   DropdownSectionProps,
   DropdownTrigger,
   DropdownTriggerProps,
-} from "@heroui/react"
+} from "@nextui-org/react"
 import React, { ReactElement } from "react"
 import Icon from "@/components/atoms/Icon"
 import { cls } from "@/utils/helpers"

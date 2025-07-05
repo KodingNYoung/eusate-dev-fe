@@ -1,5 +1,10 @@
 import { FC } from "@/utils/types"
-import { Select, SelectItem, SelectItemProps, SelectProps } from "@heroui/react"
+import {
+  Select,
+  SelectItem,
+  SelectItemProps,
+  SelectProps,
+} from "@nextui-org/react"
 import React, { ReactNode } from "react"
 import Icon from "../atoms/Icon"
 

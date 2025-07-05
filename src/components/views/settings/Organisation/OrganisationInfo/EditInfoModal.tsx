@@ -1,6 +1,6 @@
 import { PopupKeys } from "@/utils/enums"
 import { useModal } from "@/hooks/popupHooks"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import Avatar from "@/components/atoms/Avatar"
 // import { onUploadNew } from "../../utils/helpers"
 import Input from "@/components/molecules/Inputs"
@@ -10,18 +10,34 @@ import userAvatar from "@/assets/images/user-avatar.svg"
 import { useSettings } from "@/providers/settingsProvider"
 import Select from "@/components/molecules/Select"
 import { INDUSTRIES, ORGANISATION_SIZES } from "./utils"
+import { FC, OrganisationType } from "@/utils/types"
+import UploadButton from "@/components/molecules/Inputs/UploadButton"
+import { usePhotoUpload } from "@/hooks/utilityHooks"
+import AppSelect from "@/components/molecules/AppSelect"
 
-type Data = {
-  name: string
-  size: string
-  industry: string
+type Props = {
+  organisation: OrganisationType
 }
-const EditInfo = () => {
+
+const EditInfoModal: FC<Props> = ({ organisation }) => {
   const { close } = useModal()
-  const { getInfo, updateOrganisationInfo } = useSettings()
-  const { avatar, ...data_ } = getInfo
-  const [data, setData] = useState<Data>(data_)
+
+  const { getInfo } = useSettings()
+  const { avatar } = getInfo
+
+  const [data, setData] = useState({
+    logo: "",
+    name: "",
+    company_size: "",
+    industry: "",
+  })
   const [src, setSrc] = useState<string | null>(avatar)
+
+  const { isUploading, onPhotoChange } = usePhotoUpload((url) =>
+    setData((curr) => ({ ...curr, logo: url }))
+  )
+
+  const removeProfile = () => setData((curr) => ({ ...curr, logo: "" }))
 
   const onInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -29,50 +45,62 @@ const EditInfo = () => {
     const { name, value } = e.target
     setData({ ...data, [name]: value })
   }
-  const onSaveChanges = () => {
-    const { name, size, industry } = data
-    updateOrganisationInfo({
-      avatar: src,
-      name,
-      size,
-      industry,
-    })
-    close()
-  }
+  // const onSaveChanges = () => {
+  //   const { name, industry } = data
+  //   updateOrganisationInfo({
+  //     avatar: src,
+  //     name,
+  //     size,
+  //     industry,
+  //   })
+  //   close()
+  // }
   const onDiscardChanges = () => {
     setSrc(avatar)
-    setData(data_)
+    // setData(data_)
     close()
   }
+
+  useEffect(() => {
+    if (organisation) {
+      setData({
+        logo: organisation.logo,
+        name: organisation.name,
+        company_size: organisation.meta.company_size,
+        industry: organisation.meta.sector,
+      })
+    }
+  }, [organisation])
+
   return (
     <AppModal
       size="xl"
       id={PopupKeys.EDIT_ORGANISATION_INFO}
       header={{
-        title: "Edit Profile",
+        title: "Edit Info",
       }}
       headerStyle={{
         title: "text-regular-lg px-3 py-2",
       }}
     >
-      <section>
+      <section className="relative">
         <main className="px-8 pt-4 pb-2 grid gap-6 border-b border-b-gray-50">
           <div className="flex items-center gap-6">
             <Avatar className="w-20 h-20" src={src || userAvatar} />
             <div className="flex gap-4">
-              <Button
-                variant="tetiary"
-                className="px-3 py-2"
-                // onClick={() => onUploadNew(setSrc)}
-                classNames={{ label: "text-medium-sm text-gray-600" }}
+              <UploadButton
+                id="organisation-logo-upload-btn"
+                onChange={onPhotoChange}
+                buttonProps={{ loading: isUploading }}
               >
                 Upload new
-              </Button>
+              </UploadButton>
               <Button
-                onClick={() => setSrc(null)}
+                size="sm"
                 variant="tetiary"
                 className="px-3 py-2"
-                classNames={{ label: "text-medium-sm text-gray-600" }}
+                onClick={removeProfile}
+                disabled={isUploading}
               >
                 Remove photo
               </Button>
@@ -89,18 +117,30 @@ const EditInfo = () => {
                 inputContainer: "!mb-0",
                 label: "text-semibold-sm text-gray-700 mb-3",
               }}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => onInputChange(e)}
+              onChange={(e) =>
+                setData((curr) => ({
+                  ...curr,
+                  name: (e.target as HTMLInputElement).value,
+                }))
+              }
             />
-            <Select
+            <AppSelect
+              label="Company size"
+              name="size"
+              placeholder="e.g. 10-15"
+              size="lg"
+              items={ORGANISATION_SIZES}
+              classNames={{ trigger: "rounded-[100px]" }}
+            />
+            {/* <Select
               name="size"
               label="Company size"
               aria-label="select-size"
               placeholder="e.g. 10-15"
               onChange={onInputChange}
               items={ORGANISATION_SIZES}
-              defaultSelectedKeys={[data?.size]}
               classNames={{ label: "text-gray-700" }}
-            />
+            /> */}
             <Select
               defaultSelectedKeys={[data?.industry]}
               name="industry"
@@ -123,7 +163,7 @@ const EditInfo = () => {
           >
             Discard changes
           </Button>
-          <Button onClick={onSaveChanges} size="xl" className="px-6 py-5 w-52">
+          <Button size="xl" className="px-6 py-5 w-52">
             Save changes
           </Button>
         </footer>
@@ -132,4 +172,4 @@ const EditInfo = () => {
   )
 }
 
-export { EditInfo as default }
+export default EditInfoModal

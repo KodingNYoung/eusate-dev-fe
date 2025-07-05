@@ -1,70 +1,72 @@
 "use client"
 
-import EditInfo from "./EditInfo"
 import { PopupKeys } from "@/utils/enums"
 import { useModal } from "@/hooks/popupHooks"
 import UserAvatar from "../../_components/UserAvatar"
 import Typography from "@/components/atoms/Typography"
-import { useSettings } from "@/providers/settingsProvider"
+import { useOrganisation } from "@/providers/organisationProvider"
+import organisationAvatar from "@/assets/images/organisation-avatar.svg"
+import EditInfoModal from "./EditInfoModal"
 
-const Info = () => {
+const OrganisationInfo = () => {
   const { open } = useModal()
-  const { getInfo } = useSettings()
-  const { avatar, name, email, industry, size, members } = getInfo
+  const { currentOrganisation, isLoading } = useOrganisation()
   return (
-    <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-10">
-      <header>
-        <EditInfo />
-        <UserAvatar
-          src={avatar as string}
-          fullname={name}
-          email={email}
-          editLabel="Edit details"
-          editAction={() => open(PopupKeys.EDIT_ORGANISATION_INFO)}
-        />
-      </header>
+    <>
+      <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-10">
+        <header>
+          <UserAvatar
+            src={currentOrganisation?.logo || organisationAvatar}
+            fullname={currentOrganisation?.name || ""}
+            email={currentOrganisation?.owner?.email || ""}
+            editLabel="Edit details"
+            editAction={() => open(PopupKeys.EDIT_ORGANISATION_INFO)}
+            loading={isLoading}
+          />
+        </header>
 
-      <main className="flex justify-between w-full md:w-[40%]">
-        <div className="grid gap-y-4 w-full">
-          <div className="grid grid-cols-[1fr_200px] w-full">
-            <Typography variant="regular-base" className="text-gray-400">
-              Company name
-            </Typography>
-            <Typography
-              variant="semibold-base"
-              className="text-gray-900 text-left"
-            >
-              {name}
-            </Typography>
+        <main className="flex justify-between w-full md:w-[40%]">
+          <div className="grid gap-y-4 w-full">
+            <div className="grid grid-cols-[1fr_200px] w-full">
+              <Typography variant="regular-base" className="text-gray-400">
+                Company name
+              </Typography>
+              <Typography
+                variant="semibold-base"
+                className="text-gray-900 text-left"
+                loading={isLoading}
+              >
+                {currentOrganisation?.name}
+              </Typography>
+            </div>
+            <div className="grid grid-cols-[1fr_200px] w-full">
+              <Typography variant="regular-base" className="text-gray-400">
+                Industry
+              </Typography>
+              <Typography
+                variant="semibold-base"
+                className="text-gray-900"
+                loading={isLoading}
+              >
+                {currentOrganisation?.meta?.sector}
+              </Typography>
+            </div>
+            <div className="grid grid-cols-[1fr_200px] w-full">
+              <Typography variant="regular-base" className="text-gray-400">
+                Size
+              </Typography>
+              <Typography variant="semibold-base" className="text-gray-900">
+                {currentOrganisation?.meta.company_size}
+              </Typography>
+            </div>
           </div>
-          <div className="grid grid-cols-[1fr_200px] w-full">
-            <Typography variant="regular-base" className="text-gray-400">
-              Industry
-            </Typography>
-            <Typography variant="semibold-base" className="text-gray-900">
-              {industry}
-            </Typography>
-          </div>
-          <div className="grid grid-cols-[1fr_200px] w-full">
-            <Typography variant="regular-base" className="text-gray-400">
-              Size
-            </Typography>
-            <Typography variant="semibold-base" className="text-gray-900">
-              {size}
-            </Typography>
-          </div>
-          <div className="grid grid-cols-[1fr_200px] w-full">
-            <Typography variant="regular-base" className="text-gray-400">
-              Members
-            </Typography>
-            <Typography variant="semibold-base" className="text-gray-900">
-              {members}
-            </Typography>
-          </div>
-        </div>
-      </main>
-    </section>
+        </main>
+      </section>
+      {currentOrganisation && (
+        <EditInfoModal organisation={currentOrganisation} />
+      )}
+    </>
   )
 }
 
-export default Info
+export default OrganisationInfo

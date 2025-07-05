@@ -10,7 +10,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerProps,
-} from "@heroui/react"
+} from "@nextui-org/react"
 import React from "react"
 import Button from "../molecules/Buttons"
 import Icon from "../atoms/Icon"

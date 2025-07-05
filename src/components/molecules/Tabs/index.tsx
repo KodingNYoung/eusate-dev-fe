@@ -1,7 +1,7 @@
 "use client"
 
 import { FC, TWClassNames } from "@/utils/types"
-import { Tab, Tabs, TabsProps, TabsSlots } from "@heroui/react"
+import { Tab, Tabs, TabsProps, TabsSlots } from "@nextui-org/react"
 import React, { ReactNode } from "react"
 import AppTab, { AppTabSlots } from "./Tab"
 import { BadgeColor } from "@/components/atoms/Badge"

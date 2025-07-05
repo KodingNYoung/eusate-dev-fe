@@ -83,6 +83,7 @@ export const QUERY_FN_KEYS = {
   TICKET_COMMENTS: ["ticket-comments"],
   TICKET_CHAT: ["ticket-chat"],
   USER_PROFILE: ["user-profile"],
+  OWNED_ORGANISATION: ["owned-organisation"],
   ORGANISATION: ["organisation"],
 }
 

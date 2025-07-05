@@ -1,5 +1,5 @@
 import { cls } from "@/utils/helpers"
-import { Skeleton } from "@heroui/react"
+import { Skeleton } from "@nextui-org/react"
 import { FC, TWClassNames } from "@/utils/types"
 import Image from "next/image"
 import React from "react"

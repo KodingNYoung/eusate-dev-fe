@@ -20,6 +20,8 @@ import {
 } from "@/app/(organisation-routes)/actions"
 import { getUserProfile } from "@/lib/data/settings"
 import { toaster } from "@/components/molecules/Toast"
+// import Spinner from "@/components/atoms/Spinner"
+// import Typography from "@/components/atoms/Typography"
 
 type OrganisationContextType = {
   currentOrganisation: OrganisationType | null
@@ -124,7 +126,7 @@ export const OrganisationProvider: FC = ({ children }) => {
         // show error toast
         toaster.error("Failed to switch organisation")
       } finally {
-        setIsSwitching(true)
+        setIsSwitching(false)
       }
     },
     [isSwitching, organisations, queryClient]
@@ -141,9 +143,6 @@ export const OrganisationProvider: FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    // check if user is defined
-    //  if user is defined,
-
     if (!user) return
     initializeOrganization()
   }, [user])
@@ -160,6 +159,17 @@ export const OrganisationProvider: FC = ({ children }) => {
         refreshOrganisations,
       }}
     >
+      {/* {isLoading ? (
+        <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-70">
+          <Spinner />
+          <Typography>Loading organisation context</Typography>
+        </div>
+      ) : isSwitching ? (
+        <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-40">
+          <Spinner />
+          <Typography>Switching organisation context</Typography>
+        </div>
+      ) : null} */}
       {children}
     </OrganisationContext.Provider>
   )

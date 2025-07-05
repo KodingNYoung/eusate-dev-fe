@@ -1,6 +1,6 @@
 import { cls } from "@/utils/helpers"
 import { FC, TWClassNames, TypographyVariants } from "@/utils/types"
-import { Skeleton } from "@heroui/react"
+import { Skeleton } from "@nextui-org/react"
 import { createElement, HTMLProps, ReactNode } from "react"
 
 type Props = HTMLProps<HTMLHeadingElement & HTMLParagraphElement> & {

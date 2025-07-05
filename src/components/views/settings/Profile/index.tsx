@@ -14,7 +14,7 @@ const Profile = () => {
 
   return (
     <>
-      <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-y-16">
+      <section className="flex flex-col w-full border rounded-x20 border-gray-100 p-8 gap-10">
         <header>
           <UserAvatar
             src={data?.profile_picture}
