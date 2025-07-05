@@ -2,9 +2,9 @@ import { FormState } from ".."
 import { FC } from "@/utils/types"
 import { ChangeEvent } from "react"
 import Input from "@/components/molecules/Inputs"
-import Select from "@/components/molecules/Select"
 import Button from "@/components/molecules/Buttons"
 import { PRIORITY_LEVELS, PriorityLevelType } from "../../utils"
+import AppSelect from "@/components/molecules/AppSelect"
 
 type Props = {
   isEditing: boolean
@@ -39,7 +39,7 @@ const Form: FC<Props> = ({
         onChange={(e: ChangeEvent<HTMLInputElement>) => onInputChange(e)}
         helperText="Enter comma seperated values for different priority areas"
       />
-      <Select
+      <AppSelect
         name="level"
         label="Priority level"
         placeholder="Critical"

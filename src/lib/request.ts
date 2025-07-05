@@ -109,7 +109,6 @@ export const sendAuthRequest = cache(
         if (err.response?.status === 500) {
           throw new Error("Something went wrong.")
         }
-        console.log({ err })
         const message =
           err?.response?.data?.detail || "An unexpected error occurred."
         throw Error(message)

@@ -1,4 +1,4 @@
-import { Item } from "@/components/molecules/Select"
+import { ItemType } from "@/components/molecules/Popups/AppDropdown"
 import { promptFileUpload } from "@/utils/helpers"
 
 // TODO: remove this function after cleanup
@@ -11,10 +11,10 @@ export const handleFileUpload = async () => {
   }
 }
 
-export const findLabel = <K>(items: Item[], selectedKey: K) => {
+export const findLabel = <K>(items: ItemType[], selectedKey: K) => {
   return items.find((item) => item.key === selectedKey)?.label
 }
 
-export const findKey = (items: Item[], label: string) => {
+export const findKey = (items: ItemType[], label: string) => {
   return items.find((item) => item.label === label)?.key
 }

@@ -4,7 +4,12 @@ import { sendAuthRequest } from "@/lib/request"
 import { getSession } from "@/lib/sessions"
 import { ERROR_CAUSES, ROUTES } from "@/utils/constants"
 import { formStateResponse } from "@/utils/helpers"
-import { AttachmentMetadata, FormState, UserProfileType } from "@/utils/types"
+import {
+  AttachmentMetadata,
+  FormState,
+  OrganisationType,
+  UserProfileType,
+} from "@/utils/types"
 import { revalidatePath } from "next/cache"
 
 export const uploadPhoto = async (formdata: FormData) => {
@@ -56,11 +61,11 @@ export const updateOrganisation = async (
   formdata: FormData
 ) => {
   const { successResponse, errorResponse } =
-    formStateResponse<UserProfileType>(state)
+    formStateResponse<OrganisationType>(state)
 
   try {
     const session = await getSession()
-    const response = await sendAuthRequest<UserProfileType>(
+    const response = await sendAuthRequest<OrganisationType>(
       `/api/v1/organisations/${session?.currentOrganisationId}/edit/`,
       formdata,
       { method: "PATCH", headers: { "Content-Type": "multipart/form-data" } }

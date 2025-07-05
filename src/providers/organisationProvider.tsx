@@ -20,8 +20,8 @@ import {
 } from "@/app/(organisation-routes)/actions"
 import { getUserProfile } from "@/lib/data/settings"
 import { toaster } from "@/components/molecules/Toast"
-// import Spinner from "@/components/atoms/Spinner"
-// import Typography from "@/components/atoms/Typography"
+import Spinner from "@/components/atoms/Spinner"
+import Typography from "@/components/atoms/Typography"
 
 type OrganisationContextType = {
   currentOrganisation: OrganisationType | null
@@ -31,6 +31,7 @@ type OrganisationContextType = {
   isSwitching: boolean
   switchOrganisation: (organisationId: string) => Promise<void>
   refreshOrganisations: () => Promise<void>
+  setCurrentOrganisation: (organisation: OrganisationType) => void
 }
 
 const OrganisationContext = createContext<OrganisationContextType | null>({
@@ -41,6 +42,7 @@ const OrganisationContext = createContext<OrganisationContextType | null>({
   isSwitching: false,
   refreshOrganisations: async () => {},
   switchOrganisation: async () => {},
+  setCurrentOrganisation: () => {},
 })
 
 export const OrganisationProvider: FC = ({ children }) => {
@@ -61,8 +63,6 @@ export const OrganisationProvider: FC = ({ children }) => {
 
       // get the last current organisation from the BE
       const currentOrgContext = await getCurrentOrganisation()
-
-      console.log(currentOrgContext)
 
       if (!currentOrgContext) throw new Error("No current organisation found")
 
@@ -157,19 +157,32 @@ export const OrganisationProvider: FC = ({ children }) => {
         isSwitching,
         switchOrganisation,
         refreshOrganisations,
+        setCurrentOrganisation,
       }}
     >
-      {/* {isLoading ? (
+      {isLoading ? (
         <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-70">
           <Spinner />
-          <Typography>Loading organisation context</Typography>
+          <Typography as="h2" className="text-semibold-xl">
+            Loading organisation context
+          </Typography>
+          <Typography>
+            I know this doesn&apos;t make sense, meet patrick to give me a
+            better ux.
+          </Typography>
         </div>
       ) : isSwitching ? (
         <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-40">
           <Spinner />
-          <Typography>Switching organisation context</Typography>
+          <Typography as="h2" className="text-semibold-xl">
+            Switching organisation context.
+          </Typography>
+          <Typography>
+            I know this doesn&apos;t make sense, meet patrick to give me a
+            better ux.
+          </Typography>
         </div>
-      ) : null} */}
+      ) : null}
       {children}
     </OrganisationContext.Provider>
   )

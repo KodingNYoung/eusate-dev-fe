@@ -62,9 +62,7 @@ const OrganisationInfo = () => {
           </div>
         </main>
       </section>
-      {currentOrganisation && (
-        <EditInfoModal organisation={currentOrganisation} />
-      )}
+      <EditInfoModal />
     </>
   )
 }
