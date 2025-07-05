@@ -1,5 +1,5 @@
 import { FC } from "@/utils/types"
-import { Textarea, TextAreaProps } from "@heroui/react"
+import { Textarea, TextAreaProps } from "@nextui-org/react"
 import React from "react"
 
 type Props = Omit<TextAreaProps, "onChange"> & {

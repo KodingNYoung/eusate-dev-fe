@@ -5,7 +5,7 @@ import Button from "@/components/molecules/Buttons"
 import AppPopover from "@/components/molecules/Popups/AppPopover"
 import { useQueryParams } from "@/hooks/utilityHooks"
 import { getLocalTimeZone, today } from "@internationalized/date"
-import { DateRangePicker } from "@heroui/react"
+import { DateRangePicker } from "@nextui-org/react"
 import React, { useMemo, useRef, useState } from "react"
 import { ReportFilters } from "../utils"
 

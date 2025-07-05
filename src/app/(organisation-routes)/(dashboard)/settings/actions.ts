@@ -51,6 +51,32 @@ export const updateProfile = async (state: FormState, formdata: FormData) => {
     })
   }
 }
+export const updateOrganisation = async (
+  state: FormState,
+  formdata: FormData
+) => {
+  const { successResponse, errorResponse } =
+    formStateResponse<UserProfileType>(state)
+
+  try {
+    const session = await getSession()
+    const response = await sendAuthRequest<UserProfileType>(
+      `/api/v1/organisations/${session?.currentOrganisationId}/edit/`,
+      formdata,
+      { method: "PATCH", headers: { "Content-Type": "multipart/form-data" } }
+    )
+
+    if ("shouldAuthenticate" in response)
+      throw new Error("Session expired, log in again")
+
+    return successResponse("Organisation info updated", "", response)
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+}
 
 export const generateAPIKey = async (state: FormState, formdata: FormData) => {
   const { successResponse, errorResponse } = formStateResponse<{

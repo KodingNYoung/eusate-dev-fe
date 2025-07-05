@@ -8,7 +8,7 @@ export const refreshTokenAction = async () => {
 }
 
 export async function logoutAction() {
-  await deleteSession()
+  deleteSession()
   redirect("/login")
 }
 

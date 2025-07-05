@@ -1,5 +1,5 @@
 import { FC } from "@/utils/types"
-import { Slider, SliderProps } from "@heroui/react"
+import { Slider, SliderProps } from "@nextui-org/react"
 import React from "react"
 
 type Props = SliderProps

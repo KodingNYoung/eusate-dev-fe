@@ -1,21 +1,18 @@
 import Avatar from "@/components/atoms/Avatar"
 import { FC, UserProfileType } from "@/utils/types"
-import React, { FormEvent, useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import userAvatar from "@/assets/images/user-avatar.svg"
 import Button from "@/components/molecules/Buttons"
 import Input from "@/components/molecules/Inputs"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useModal } from "@/hooks/popupHooks"
 import { useFormState } from "react-dom"
-import {
-  updateProfile,
-  uploadPhoto,
-} from "@/app/(organisation-routes)/(dashboard)/settings/actions"
+import { updateProfile } from "@/app/(organisation-routes)/(dashboard)/settings/actions"
 import UploadButton from "@/components/molecules/Inputs/UploadButton"
-import { toaster } from "@/components/molecules/Toast"
 import { useFormToast } from "@/hooks/formHooks"
 import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_FN_KEYS } from "@/utils/constants"
+import { usePhotoUpload } from "@/hooks/utilityHooks"
 
 type Props = {
   profileData: UserProfileType
@@ -30,47 +27,20 @@ const EditProfileForm: FC<Props> = ({ profileData }) => {
   const { close } = useModal()
   const queryClient = useQueryClient()
 
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
-  const [isUploading, setIsUploading] = useState(false)
   const [profile, setProfile] = useState<ProfileType>({
     username: "",
     profile_picture: "",
   })
 
+  const { isUploading, onPhotoChange } = usePhotoUpload((url) =>
+    setProfile((curr) => ({ ...curr, profile_picture: url }))
+  )
   const [state, action] = useFormState(updateProfile, {})
 
   useFormToast(state, true)
 
   const removeProfile = () => {
     setProfile((curr) => ({ ...curr, profile_picture: "" }))
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""
-    }
-  }
-  const onPhotoChange = async (e: FormEvent<HTMLInputElement>) => {
-    const file = e.currentTarget.files?.[0]
-    if (file) {
-      setIsUploading(true)
-
-      const src = URL.createObjectURL(file)
-      setProfile((curr) => ({ ...curr, profile_picture: src }))
-
-      const formdata = new FormData()
-      formdata.append("file", file)
-
-      const response = await uploadPhoto(formdata)
-      if ("success" in response) {
-        setProfile((curr) => ({
-          ...curr,
-          profile_picture: response.payload?.url || "",
-        }))
-      } else if ("error" in response) {
-        toaster.error(`Failed to upload file: ${response.error.message}`)
-      }
-
-      setIsUploading(false)
-    }
   }
 
   useEffect(() => {
@@ -129,7 +99,6 @@ const EditProfileForm: FC<Props> = ({ profileData }) => {
             label: "text-semibold-sm text-gray-700 mb-3",
           }}
           onChange={(e) => {
-            console.log(e)
             setProfile((curr) => ({
               ...curr,
               username: (e.target as HTMLInputElement).value,

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import "../styles/globals.css"
 import { plusJakartaSans } from "@/assets/font"
 import { LayoutFC } from "@/utils/types"
-import { HeroUIProvider } from "@heroui/react"
+import { NextUIProvider } from "@nextui-org/react"
 import ReactQueryProvider from "@/providers/reactQueryProvider"
 import { Slide, ToastContainer } from "react-toastify"
 import { getSession } from "@/lib/sessions"
@@ -23,7 +23,7 @@ const RootLayout: LayoutFC = async ({ children }) => {
       <body>
         <ReactQueryProvider>
           <AuthProvider initialSession={session ?? undefined}>
-            <HeroUIProvider>{children}</HeroUIProvider>
+            <NextUIProvider>{children}</NextUIProvider>
           </AuthProvider>
         </ReactQueryProvider>
         <ToastContainer

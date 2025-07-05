@@ -4,8 +4,9 @@ import {
   AutocompleteItem,
   AutocompleteItemProps,
   AutocompleteProps,
-} from "@heroui/react"
+} from "@nextui-org/react"
 import React, { ReactNode } from "react"
+import Icon from "../atoms/Icon"
 
 type Props = Omit<AutocompleteProps, "children" | "items"> & {
   items: { key: string; label: ReactNode; props?: AutocompleteItemProps }[]
@@ -45,6 +46,7 @@ const AppAutocomplete: FC<Props> = ({
         ],
       }}
       size="lg"
+      selectorIcon={<Icon name="icon-chevron-down" size={20} />}
       {...props}
     >
       {items.map((item) => (

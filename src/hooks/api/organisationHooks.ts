@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 
 export const useOwnedOrganisation = () => {
   const result = useQuery({
-    queryKey: QUERY_FN_KEYS.ORGANISATION,
+    queryKey: QUERY_FN_KEYS.OWNED_ORGANISATION,
     queryFn: async () => await getOwnedOrganisation(),
   })
 

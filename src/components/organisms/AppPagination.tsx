@@ -1,7 +1,7 @@
 "use client"
 
 import { FC, TWClassNames } from "@/utils/types"
-import { Pagination } from "@heroui/react"
+import { Pagination } from "@nextui-org/react"
 import React from "react"
 import Button, { ButtonProps } from "../molecules/Buttons"
 import Icon from "../atoms/Icon"

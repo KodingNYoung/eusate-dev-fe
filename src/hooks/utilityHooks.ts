@@ -1,6 +1,8 @@
+import { uploadPhoto } from "@/app/(organisation-routes)/(dashboard)/settings/actions"
+import { toaster } from "@/components/molecules/Toast"
 import { JSONValue } from "@/utils/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useMemo } from "react"
+import { FormEvent, useCallback, useMemo, useState } from "react"
 
 type BatchParams = {
   key: string
@@ -74,4 +76,32 @@ export const useDebounceCallback = <T = JSONValue, K = JSONValue>(
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => fn(...args), delay)
   }
+}
+
+export const usePhotoUpload = (onUrlChange: (url: string) => void) => {
+  const [isUploading, setIsUploading] = useState(false)
+
+  const onPhotoChange = async (e: FormEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files?.[0]
+    if (file) {
+      setIsUploading(true)
+
+      const src = URL.createObjectURL(file)
+      onUrlChange(src)
+
+      const formdata = new FormData()
+      formdata.append("file", file)
+
+      const response = await uploadPhoto(formdata)
+      if ("success" in response) {
+        onUrlChange(response.payload?.url || "")
+      } else if ("error" in response) {
+        toaster.error(`Failed to upload file: ${response.error.message}`)
+      }
+
+      setIsUploading(false)
+    }
+  }
+
+  return { isUploading, onPhotoChange }
 }
