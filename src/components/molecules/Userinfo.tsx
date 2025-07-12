@@ -27,7 +27,6 @@ const Userinfo: FC<UserInfoProps> = ({
     <div className={cls("flex items-center gap-3 py-4", classNames?.root)}>
       <Avatar
         src={src}
-        name={title}
         className={classNames?.avatar}
         loading={loading}
         {...avatarProps}

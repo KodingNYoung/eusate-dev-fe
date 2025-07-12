@@ -1,3 +1,5 @@
+"use client"
+
 import { uploadPhoto } from "@/app/(organisation-routes)/(dashboard)/settings/actions"
 import { toaster } from "@/components/molecules/Toast"
 import { JSONValue } from "@/utils/types"

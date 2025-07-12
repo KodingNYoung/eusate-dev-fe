@@ -2,6 +2,7 @@ import { FC, LogoVariants } from "@/utils/types"
 import { StaticImport } from "next/dist/shared/lib/get-img-props"
 import React from "react"
 import fullBlack from "@/assets/logos/full-black.svg"
+import fullGray from "@/assets/logos/full-gray.svg"
 import fullWhite from "@/assets/logos/full-white.svg"
 import fullGradientWhite from "@/assets/logos/full-gradient-white.svg"
 import fullGradientBlack from "@/assets/logos/full-gradient-black.svg"
@@ -16,6 +17,7 @@ type Props = {
 
 const typeProps: { [key in LogoVariants]: StaticImport } = {
   "full-black": fullBlack,
+  "full-gray": fullGray,
   "full-white": fullWhite,
   "full-gradient-black": fullGradientBlack,
   "full-gradient-white": fullGradientWhite,

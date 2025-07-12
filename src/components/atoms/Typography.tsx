@@ -43,7 +43,7 @@ const Typography: FC<Props> = ({
     <Skeleton isLoaded={false} className={cls("rounded-sm w-52", className)}>
       {getElement(
         as,
-        "John doe", // Placeholder text for loading state
+        children || "John doe", // Placeholder text for loading state
         cls("font-app", weight && weightProps[weight], className, variant),
         props
       )}

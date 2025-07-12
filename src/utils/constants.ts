@@ -1,4 +1,4 @@
-import { AiTones, ResourceSources } from "./enums"
+import { AiTones, ResourceSources, SortOrder } from "./enums"
 import doc from "@/assets/images/file-doc.svg"
 import gif from "@/assets/images/file-gif.svg"
 import jpg from "@/assets/images/file-jpg.svg"
@@ -85,6 +85,9 @@ export const QUERY_FN_KEYS = {
   USER_PROFILE: ["user-profile"],
   OWNED_ORGANISATION: ["owned-organisation"],
   ORGANISATION: ["organisation"],
+  ORGANISATION_USERS: ["organisation-users"],
+  PERMISSIONS: ["permissions"],
+  INVITE: ["invite"],
 }
 
 export const FILE_ICON_MAP = {
@@ -100,3 +103,16 @@ export const FILE_ICON_MAP = {
   ".xls": xls,
   "": txt,
 } as const
+
+export const SORT_ORDERS = [
+  {
+    value: SortOrder.ASCEND,
+    label: "Ascending",
+    icon: "icon-arrow-circle-up",
+  },
+  {
+    value: SortOrder.DESCEND,
+    label: "Descending",
+    icon: "icon-arrow-circle-down",
+  },
+] as const

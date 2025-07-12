@@ -5,9 +5,15 @@ import { FC } from "@/utils/types"
 import React from "react"
 import FilterDropdown from "./FilterDropdown"
 import SearchInput from "../../../molecules/Inputs/SearchInput"
-import SortDropdown from "./SortDropdown"
 import { useQueryParams } from "@/hooks/utilityHooks"
-import { INIT_PAGE_PARAMS, KB_QUERY_KEYS, KNOWLEDGE_BASE_TABS } from "../utils"
+import {
+  INIT_PAGE_PARAMS,
+  KB_QUERY_KEYS,
+  KNOWLEDGE_BASE_SORT_COLUMNS,
+  KNOWLEDGE_BASE_TABS,
+} from "../utils"
+import SortDropdown from "@/components/molecules/Popups/SortDropdown"
+import { SortOrder } from "@/utils/enums"
 
 type Props = {
   counts: Record<"all" | "published" | "drafts", number>
@@ -51,10 +57,15 @@ const TableTop: FC<Props> = ({ counts }) => {
       />
 
       <SortDropdown
-        value={get(KB_QUERY_KEYS.SORT_BY) || ""}
+        value={
+          get(KB_QUERY_KEYS.SORT_BY)?.[0] ||
+          KNOWLEDGE_BASE_SORT_COLUMNS[0].value
+        }
         onSort={(value) =>
           batchSet([{ key: KB_QUERY_KEYS.SORT_BY, value }, INIT_PAGE_PARAMS])
         }
+        options={KNOWLEDGE_BASE_SORT_COLUMNS}
+        order={get(KB_QUERY_KEYS.SORT_BY)?.[1] || SortOrder.ASCEND}
       />
 
       <FilterDropdown />

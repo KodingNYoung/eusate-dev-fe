@@ -11,6 +11,7 @@ export type CheckboxProps = HTMLProps<HTMLInputElement> & {
   value?: string
   indeterminate?: boolean
   classNames?: { [slot in Slots]?: TWClassNames }
+  loading?: boolean
 }
 
 const Checkbox: FC<CheckboxProps> = ({
@@ -20,6 +21,8 @@ const Checkbox: FC<CheckboxProps> = ({
   className,
   indeterminate,
   classNames,
+  loading,
+  disabled,
   ...props
 }) => {
   return (
@@ -43,6 +46,7 @@ const Checkbox: FC<CheckboxProps> = ({
           className,
           classNames?.input
         )}
+        disabled={loading || disabled}
         {...props}
       />
       <div
@@ -63,6 +67,7 @@ const Checkbox: FC<CheckboxProps> = ({
       </div>
       <Typography
         className={cls("text-regular-xs text-gray-600", classNames?.label)}
+        loading={loading}
       >
         {children}
       </Typography>

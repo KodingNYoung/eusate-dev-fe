@@ -1,12 +1,3 @@
-export type Info = {
-  avatar: string | null
-  name: string
-  email: string
-  industry: string
-  size: string
-  members: number
-}
-
 export const ORGANISATION_SIZES = [
   { key: "1-10", label: "1 - 10" },
   { key: "11-50", label: "11 - 50" },
