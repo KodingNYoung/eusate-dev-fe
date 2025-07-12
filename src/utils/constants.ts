@@ -33,6 +33,7 @@ export const ROUTES = {
   PLAYGROUND: "/playground",
   DEV_SPACE: "/dev-space",
   PROFILE: "/settings/profile",
+  INVITE: "/invite",
 }
 
 export const EMAIL_REGEX_PATTERNS =
