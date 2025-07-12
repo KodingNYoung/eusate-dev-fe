@@ -25,6 +25,7 @@ const AuthConfigDrawer: FC<Props> = ({
           : "Update auth configuration",
       }}
       classNames={{ wrapper: "px-2", base: "w-full max-w-[504px]" }}
+      isDismissable={false}
     >
       <AuthConfigForm isAdd={isAdd} config={config} />
     </AppDrawer>

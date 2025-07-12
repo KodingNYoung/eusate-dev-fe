@@ -69,7 +69,7 @@ const FunctionCard: FC<Props> = ({ func, onEdit, onDelete }) => {
           </Typography>
         </section>
         <Typography as="span" variant="regular-sm" className="text-gray-400">
-          {dayjs(func.date_created).format("MMM DD, YYYY. h:MMA")}
+          {dayjs(func.date_created).format("MMM DD, YYYY. h:mmA")}
         </Typography>
       </main>
       <span className="flex justify-center p-1.5">
