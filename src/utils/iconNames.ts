@@ -34,6 +34,7 @@ export type IconNames =
   | "icon-edit-2"
   | "icon-edit-alt"
   | "icon-eusate"
+  | "icon-export"
   | "icon-health"
   | "icon-help"
   | "icon-info-circle"

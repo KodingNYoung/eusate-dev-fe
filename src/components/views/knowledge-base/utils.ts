@@ -25,7 +25,7 @@ export const KNOWLEDGE_BASE_TABS = {
 export const KNOWLEDGE_BASE_SORT_COLUMNS = [
   { value: "title", label: "Title" },
   { value: "date_created", label: "Date" },
-] as const
+]
 export const SORT_ORDERS = [
   {
     value: "asc",

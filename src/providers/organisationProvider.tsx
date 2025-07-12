@@ -20,8 +20,8 @@ import {
 } from "@/app/(organisation-routes)/actions"
 import { getUserProfile } from "@/lib/data/settings"
 import { toaster } from "@/components/molecules/Toast"
-import Spinner from "@/components/atoms/Spinner"
 import Typography from "@/components/atoms/Typography"
+import { LoaderIcon } from "@/assets/images/svg"
 
 type OrganisationContextType = {
   currentOrganisation: OrganisationType | null
@@ -160,29 +160,16 @@ export const OrganisationProvider: FC = ({ children }) => {
         setCurrentOrganisation,
       }}
     >
-      {isLoading ? (
-        <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-70">
-          <Spinner />
-          <Typography as="h2" className="text-semibold-xl">
-            Loading organisation context
-          </Typography>
-          <Typography>
-            I know this doesn&apos;t make sense, meet patrick to give me a
-            better ux.
+      {(isLoading || isSwitching) && (
+        <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center gap-4 bg-white backdrop-blur-large  bg-opacity-50">
+          <div className="size-24 min-w-24 min-h-24 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
+            <span className="block animate-spin">{LoaderIcon}</span>
+          </div>
+          <Typography as="span" className="text-semibold-xl text-gray-600">
+            Loading content, please wait...
           </Typography>
         </div>
-      ) : isSwitching ? (
-        <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-40">
-          <Spinner />
-          <Typography as="h2" className="text-semibold-xl">
-            Switching organisation context.
-          </Typography>
-          <Typography>
-            I know this doesn&apos;t make sense, meet patrick to give me a
-            better ux.
-          </Typography>
-        </div>
-      ) : null}
+      )}
       {children}
     </OrganisationContext.Provider>
   )

@@ -5,10 +5,6 @@ import {
   INITIAL_SATE_STATE,
 } from "@/components/views/settings/Sate-ai/utils"
 import {
-  DUMMY_ORGANIZATION,
-  dummyProfile,
-} from "@/components/views/settings/dummy"
-import {
   FC,
   useMemo,
   useState,
@@ -16,8 +12,6 @@ import {
   useContext,
   createContext,
 } from "react"
-import { Organisation, Profile } from "@/components/views/settings/utils"
-import { Info } from "@/components/views/settings/Organisation/OrganisationInfo/utils"
 import {
   Channel,
   dummyAppChannels,
@@ -29,11 +23,7 @@ import {
   Notification,
 } from "@/components/views/settings/Notifications/utils"
 
-type EditableInfoItems = Pick<Info, "avatar" | "name" | "size" | "industry">
-type EditableProfileItems = Pick<Profile, "fullname" | "avatar">
 type SettingsContextType = {
-  updateProfile: (profileItem: EditableProfileItems) => void
-  updateOrganisationInfo: (infoItems: EditableInfoItems) => void
   updateTicketChannels: (channels: Channel[]) => void
   updatePriority: (priority: PriorityType[]) => void
   updateBugChannels: (channels: Channel[]) => void
@@ -45,28 +35,21 @@ type SettingsContextType = {
   updateRemarks: (remark: Remark) => void
   ticketChannels: Channel[]
   getPriorities: PriorityType[]
-  organisation: Organisation
   getFeedback: string | null
   bugChannels: Channel[]
   getRemarks: Remark
-  profile: Profile
-  getInfo: Info
 }
 
 const SettingsContext = createContext<SettingsContextType | null>(null)
 
 const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [profile, setProfile] = useState<Profile>(dummyProfile)
   const [sateAi, setSateAi] = useState<SateAI>(INITIAL_SATE_STATE)
-  const [organisation, setOrganization] =
-    useState<Organisation>(DUMMY_ORGANIZATION)
   const [notifications, setNotifications] =
     useState<NotifcationsType>(INITIAL_STATE)
   const [integrations, setIntegrations] =
     useState<IntegrationsType>(dummyAppChannels)
 
   const getRemarks = useMemo(() => sateAi.remarks, [sateAi.remarks])
-  const getInfo = useMemo(() => organisation.info, [organisation.info])
   const getFeedback = useMemo(() => sateAi.feedback, [sateAi.feedback])
   const getPriorities = useMemo(() => sateAi.priority, [sateAi.priority])
   const notificationPreference = useMemo(
@@ -118,13 +101,6 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }
   const updateFeedback = (feedback: string) =>
     setSateAi({ ...sateAi, feedback })
-  const updateProfile = (profile_: EditableProfileItems) =>
-    setProfile({ ...profile, ...profile_ })
-  const updateOrganisationInfo = (infoItems: EditableInfoItems) =>
-    setOrganization(({ members, info }) => ({
-      members,
-      info: { ...info, ...infoItems },
-    }))
   const updateRemarks = (remarks: Remark) =>
     setSateAi({
       ...sateAi,
@@ -141,7 +117,6 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
       value={{
         updateNotificationPreference,
         updateNotificationType,
-        updateOrganisationInfo,
         updateTicketChannels,
         updateBugChannels,
         notificationPreference,
@@ -151,13 +126,9 @@ const SettingsProvider: FC<{ children: ReactNode }> = ({ children }) => {
         ticketChannels,
         getPriorities,
         updateRemarks,
-        updateProfile,
-        organisation,
         bugChannels,
         getFeedback,
         getRemarks,
-        profile,
-        getInfo,
       }}
     >
       {children}

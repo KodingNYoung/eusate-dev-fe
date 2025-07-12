@@ -9,9 +9,10 @@ type Props<T> = {
   columns: TableColumn<T>[]
   isOpen: boolean
   row: T
+  loading?: boolean
 }
 
-const RowAccordion = <T,>({ columns, isOpen, row }: Props<T>) => {
+const RowAccordion = <T,>({ columns, isOpen, row, loading }: Props<T>) => {
   const noOfMobileColumns = useMemo(
     () =>
       columns.filter((column) => column.showFor !== SHOW_FOR.NOT_MOBILE).length,
@@ -34,7 +35,7 @@ const RowAccordion = <T,>({ columns, isOpen, row }: Props<T>) => {
                 <RowAccordionItem
                   key={id}
                   title={title}
-                  value={render(row)}
+                  value={render(row, loading)}
                   tooltip={tooltip}
                 />
               )
