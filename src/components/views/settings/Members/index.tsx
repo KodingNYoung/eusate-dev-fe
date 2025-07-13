@@ -108,7 +108,7 @@ const Members = () => {
           <MemberRowAction
             row={row}
             onManage={() => openModal(PopupKeys.MANAGE_ACCESS_MODAL, row)}
-            onDelete={() => openModal(PopupKeys.MANAGE_ACCESS_MODAL, row)}
+            onDelete={() => openModal(PopupKeys.REMOVE_AGENT_MODAL, row)}
           />
         </Skeleton>
       ),

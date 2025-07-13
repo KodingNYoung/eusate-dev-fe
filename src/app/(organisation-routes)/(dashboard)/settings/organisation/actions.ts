@@ -52,7 +52,7 @@ export const updateMemberPermissions = async (
     if ("shouldAuthenticate" in response)
       throw new Error("Session expired, log in again")
 
-    return successResponse("Updated user's access!", "", response)
+    return successResponse("Updated user's access", "", response)
   } catch (err) {
     return errorResponse({
       type: "request",
@@ -71,13 +71,14 @@ export const removeMember = async (
     const session = await getSession()
     const response = await sendAuthRequest<{ success: true }>(
       `/api/v1/organisations/${session?.currentOrganisationId}/users/${id}/remove/`,
+      {},
       { method: "DELETE" }
     )
 
     if ("shouldAuthenticate" in response)
       throw new Error("Session expired, log in again")
 
-    return successResponse("Updated user's access!", "", response)
+    return successResponse("User removed successfully", "", response)
   } catch (err) {
     return errorResponse({
       type: "request",
@@ -127,7 +128,11 @@ export const acceptInvite = async (
     if ("shouldAuthenticate" in response)
       throw new Error("Session expired, log in again")
 
-    return successResponse("", ROUTES.LOGIN, response)
+    return successResponse(
+      "Successful. You'll be redirected to log in to complete your account setup",
+      ROUTES.LOGIN,
+      response
+    )
   } catch (err) {
     return errorResponse({
       type: "request",
