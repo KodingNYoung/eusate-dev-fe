@@ -145,7 +145,7 @@ export const OrganisationProvider: FC = ({ children }) => {
   useEffect(() => {
     if (!user) return
     initializeOrganization()
-  }, [user])
+  }, [])
 
   return (
     <OrganisationContext.Provider

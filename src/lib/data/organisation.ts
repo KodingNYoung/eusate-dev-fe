@@ -1,7 +1,7 @@
 "use server"
 
 import { ERROR_CAUSES } from "@/utils/constants"
-import { sendAuthRequest } from "../request"
+import { sendAuthRequest, sendRequest } from "../request"
 import { getSession } from "../sessions"
 import {
   DBResource,
@@ -113,7 +113,7 @@ export const getAllPermissions = cache(async () => {
 
 export const getInvite = cache(
   async (inviteId: string, organisationId: string) => {
-    const response = await sendAuthRequest<MemberInviteType>(
+    const response = await sendRequest<MemberInviteType>(
       `/api/v1/organisations/${organisationId}/invite/${inviteId}/`
     )
     if ("shouldAuthenticate" in response) {

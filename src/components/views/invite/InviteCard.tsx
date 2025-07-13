@@ -12,6 +12,7 @@ import {
   rejectInvite,
 } from "@/app/(organisation-routes)/(dashboard)/settings/organisation/actions"
 import { useFormToast } from "@/hooks/formHooks"
+import { useAuth } from "@/providers/authProvider"
 import { useRouter } from "next/navigation"
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
 }
 
 const InviteCard: FC<Props> = ({ invite, isLoading }) => {
+  const { logout, isAuthenticated } = useAuth()
   const router = useRouter()
 
   const [acceptState, acceptAction] = useFormState(acceptInvite, {})
@@ -30,9 +32,13 @@ const InviteCard: FC<Props> = ({ invite, isLoading }) => {
 
   useEffect(() => {
     if ("success" in acceptState) {
-      router.replace(acceptState.redirectTo || "")
+      if (isAuthenticated) {
+        logout()
+      } else {
+        router.replace(acceptState.redirectTo || "")
+      }
     }
-  }, [acceptState, router])
+  }, [acceptState, logout, isAuthenticated, router])
 
   const form = new FormData()
   form.append("organisation_id", invite?.organisation?.id || "")
