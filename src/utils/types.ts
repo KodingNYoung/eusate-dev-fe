@@ -2,6 +2,7 @@ import { HTMLProps, PropsWithChildren, ReactElement, ReactNode } from "react"
 import {
   AiTones,
   KnowledgeSourceTags,
+  MemberInviteStatus,
   MessageSenders,
   PermissionCodenames,
   ResourceSources,
@@ -84,6 +85,7 @@ export type LogoVariants =
   | "icon-white"
   | "icon-black"
   | "full-white"
+  | "full-gray"
   | "full-black"
   | "full-gradient-white"
   | "full-gradient-black"
@@ -173,7 +175,7 @@ export type TableColumn<T = unknown> = {
   id: string | number
   title: ReactNode
   align?: "left" | "center" | "right" | "char" | "justify"
-  render: (row: T) => ReactNode | null
+  render: (row: T, loading?: boolean) => ReactNode | null
   classNames?: {
     cell?: TWClassNames
     th?: TWClassNames
@@ -361,18 +363,37 @@ export type OrganisationType = DBResource & {
     company_size: string
   }
 }
-export type UserProfileType = DBResource & {
+export type UserType = DBResource & {
   email: string
   username: string
   profile_picture: string
+}
+export type UserProfileType = UserType & {
   twofa_method: string
   verified: boolean
   organisations: OrganisationType[]
 }
 
+export type OrganisationUser = DBResource & {
+  owner: boolean
+  user: UserType
+}
 export type UserPermission = DBResource & {
   name: string
   code_name: PermissionCodenames
   module: string
   description: string
+  child_permissions: Omit<UserPermission, "child_permissions">[]
+}
+export type MemberInviteType = DBResource & {
+  id: string
+  date_created: string
+  date_updated: string
+  invitee_email: string
+  invitee_registered: string
+  inviter_name: string
+  status: MemberInviteStatus
+  expired: boolean
+  organisation: { id: string; name: string; logo: string }
+  permissions: string[]
 }

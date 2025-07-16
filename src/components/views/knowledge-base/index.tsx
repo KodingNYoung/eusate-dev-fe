@@ -214,7 +214,7 @@ const KnowledgeBase: FC<Props> = ({
       {!total && !isSearched && <EmptyState />}
       {/* has an error */}
       {/* data available  or empty with search */}
-      {((!!data && !!data.length) || isSearched) && (
+      {(!!data?.length || isSearched) && (
         <TableTop
           counts={{
             all: publishedTotal + unpublishedTotal,
@@ -226,7 +226,7 @@ const KnowledgeBase: FC<Props> = ({
       {/* empty with search */}
       {!total && isSearched && <EmptySearchState />}
       {/* data available */}
-      {!!data && !!data.length && (
+      {!!data?.length && (
         <>
           {/* rows are selected */}
           <SelectedRowsBanner

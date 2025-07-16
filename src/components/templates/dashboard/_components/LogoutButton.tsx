@@ -1,13 +1,14 @@
-import { logoutAction } from "@/app/(auth)/actions"
+"use client"
+
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
+import { useAuth } from "@/providers/authProvider"
 import React from "react"
-import { useFormState } from "react-dom"
 
 const LogoutButton = () => {
-  const state = useFormState(logoutAction, undefined)
+  const { logout } = useAuth()
 
   return (
-    <form action={state[1]}>
+    <form action={logout}>
       <SubmitButton variant="errorOutlined" className="w-full !py-3">
         Log out
       </SubmitButton>

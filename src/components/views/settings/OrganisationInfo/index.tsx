@@ -2,7 +2,7 @@
 
 import { PopupKeys } from "@/utils/enums"
 import { useModal } from "@/hooks/popupHooks"
-import UserAvatar from "../../_components/UserAvatar"
+import UserAvatar from "../_components/UserAvatar"
 import Typography from "@/components/atoms/Typography"
 import { useOrganisation } from "@/providers/organisationProvider"
 import organisationAvatar from "@/assets/images/organisation-avatar.svg"

@@ -1,15 +1,14 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
 import { cls } from "@/utils/helpers"
 import { PopupKeys } from "@/utils/enums"
 import { useModal } from "@/hooks/popupHooks"
 import { FC, TWClassNames } from "@/utils/types"
 import Button from "@/components/molecules/Buttons"
 import AppModal from "@/components/organisms/Modal"
-import check from "@/assets/images/completed-check.svg"
 import Typography from "@/components/atoms/Typography"
+import Icon from "@/components/atoms/Icon"
 
 type Slots = "root" | "header" | "description" | "btn"
 type Props = {
@@ -31,20 +30,23 @@ const CompletedModal: FC<Props> = ({
 }) => {
   const { close } = useModal()
   return (
-    <AppModal id={id} size="lg" hideCloseButton className="px-4 py-8">
+    <AppModal id={id} size="lg" hideCloseButton className="px-4 py-7">
       <main
         className={cls(
           "mx-auto w-full max-w-[544px] px-4 py-8 flex flex-col items-center gap-10",
           classNames?.root
         )}
       >
-        <Image
-          src={check}
-          height={120}
-          width={120}
-          alt="completed checl icon"
-        />
-        <header className="text-center w-3/4">
+        <div className="size-[120px] min-w-[120px] min-h-[120px] bg-[#FBF7E6] flex items-center justify-center rounded-full">
+          <div className="size-20 min-w-20 min-h-20 flex items-center justify-center bg-[#F3E5B2] rounded-[inherit]">
+            <Icon
+              name="icon-tick-circle-bold"
+              size={40}
+              className="text-gradient"
+            />
+          </div>
+        </div>
+        <header className="text-center max-w-[370px]">
           <Typography
             as="h2"
             className={cls(

@@ -1,6 +1,7 @@
 "use server"
 
 import { deleteSession, getSession, refreshAccessToken } from "@/lib/sessions"
+import { ROUTES } from "@/utils/constants"
 import { redirect } from "next/navigation"
 
 export const refreshTokenAction = async () => {
@@ -9,7 +10,7 @@ export const refreshTokenAction = async () => {
 
 export async function logoutAction() {
   deleteSession()
-  redirect("/login")
+  redirect(ROUTES.LOGIN)
 }
 
 export async function getAccessTokenAction() {

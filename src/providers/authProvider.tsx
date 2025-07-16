@@ -2,13 +2,21 @@
 
 import { logoutAction, refreshTokenAction } from "@/app/(auth)/actions"
 import { FC, SessionPayload } from "@/utils/types"
-import { createContext, useContext, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
+
+type UserContext = Omit<
+  SessionPayload,
+  "accessToken" | "refreshToken" | "currentOrganisationId"
+>
 
 type AuthContextType = {
-  user?: Omit<
-    SessionPayload,
-    "accessToken" | "refreshToken" | "currentOrganisationId"
-  >
+  user?: UserContext
   accessToken?: string
   isAuthenticated: boolean
   refreshAccessToken: () => Promise<boolean>
@@ -24,13 +32,7 @@ export const AuthProvider: FC<Props> = ({ children, initialSession }) => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
     initialSession?.accessToken
   )
-  const [user, setUser] = useState<
-    | Omit<
-        SessionPayload,
-        "accessToken" | "refreshToken" | "currentOrganisationId"
-      >
-    | undefined
-  >(initialSession)
+  const [user, setUser] = useState<UserContext | undefined>(initialSession)
 
   const refreshAccessToken = async () => {
     try {
@@ -49,11 +51,17 @@ export const AuthProvider: FC<Props> = ({ children, initialSession }) => {
     }
   }
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     setAccessToken(undefined)
     setUser(undefined)
     await logoutAction()
-  }
+  }, [])
+
+  useEffect(() => {
+    if (!initialSession) return
+    setAccessToken(initialSession.accessToken)
+    setUser(initialSession)
+  }, [initialSession])
 
   return (
     <AuthContext.Provider

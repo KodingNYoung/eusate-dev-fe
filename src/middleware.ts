@@ -20,6 +20,10 @@ const middleware = async (request: NextRequest) => {
   // session
   const session = await getSession()
 
+  if (path === ROUTES.INVITE) {
+    return NextResponse.next()
+  }
+
   // if route is protected && refresh token is invalid || token is not verified, redirect to login
   if (isPrivateRoute && (!session?.refreshToken || !session.tokenVerified)) {
     // TODO: This should redirect to the url for the session expired modal

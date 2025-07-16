@@ -5,7 +5,7 @@ import { useModal } from "@/hooks/popupHooks"
 import { ChangeEvent, useState } from "react"
 import Input from "@/components/molecules/Inputs"
 import Button from "@/components/molecules/Buttons"
-import CompletedModal from "../../_components/Completed"
+import CompletedModal from "../../_components/CompletedModal"
 import { useSettings } from "@/providers/settingsProvider"
 
 const Feedback = () => {

@@ -20,7 +20,7 @@ const OrganisationSwitcher = () => {
       <>
         <div className="flex flex-col gap-3">
           <Typography as="h3" className="text-semibold-sm text-black">
-            Current signed into
+            Currently signed into
           </Typography>
           <div className="border border-gray-50 bg-gray-25 p-0.5  rounded-lg">
             {currentOrganisation && (

@@ -38,6 +38,7 @@ const requestHandler = cache(
     try {
       return await axios(requestOptions)
     } catch (err) {
+      console.log(err)
       throw err
     }
   }
@@ -105,13 +106,14 @@ export const sendAuthRequest = cache(
           }
         }
 
+        const message = err?.response?.data?.detail
+
         // Handle 500
         if (err.response?.status === 500) {
-          throw new Error("Something went wrong.")
+          throw new Error(message || "Something went wrong.")
         }
-        const message =
-          err?.response?.data?.detail || "An unexpected error occurred."
-        throw Error(message)
+
+        throw Error(message || "An unexpected error occurred.")
       }
       throw err
     }

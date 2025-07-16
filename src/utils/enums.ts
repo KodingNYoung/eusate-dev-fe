@@ -42,9 +42,11 @@ export enum PopupKeys {
   TWOFA = "twofa",
   EDIT_PROFILE = "edit-profile",
   EDIT_ORGANISATION_INFO = "edit-organisation-info",
-  INVITE_MEMBER = "invite-member",
+  INVITE_MEMBER_MODAL = "invite-member-modal",
   SENT_FEEDBACK = "sent-feedback",
-  COMPLETED_INVITE_MEMBER = "completed-invite-member",
+  INVITE_SENT_MODAL = "sent-invite-modal",
+  MANAGE_ACCESS_MODAL = "manage-access-modal",
+  REMOVE_AGENT_MODAL = "remove-agent-modal",
   GENERATE_API_KEY = "generate-api-keys",
   DELETE_API_KEY = "delete-api-keys",
   REVOKE_API_KEY = "revoke-api-keys",
@@ -87,4 +89,15 @@ export enum PermissionCodenames {
   ORGANISATION_INTEGRATION_MANAGER = "organisation_integration_manager",
   ORGANISATION_USAGE_BILLING_MANAGER = "organisation_usage_billing_manager",
   DEVELOPER_SPACE_MANAGER = "developer_space_manager",
+}
+
+export enum SortOrder {
+  ASCEND = "asc",
+  DESCEND = "desc",
+}
+
+export enum MemberInviteStatus {
+  PENDING = "pending",
+  ACCEPTED = "accepted",
+  REJECTED = "rejected",
 }

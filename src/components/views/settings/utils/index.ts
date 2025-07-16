@@ -1,20 +1,29 @@
-import { Member } from "../Organisation/Members/utils"
-import { Info } from "../Organisation/OrganisationInfo/utils"
-
 export enum ApiKeyStatus {
   REVOKED = "revoked",
   EXPIRED = "expired",
   ACTIVE = "active",
 }
+export enum OrganisationTabsType {
+  ORGANISATION_INFO = "organisation_info",
+  MEMBERS = "members",
+}
 
-// TYPES
-export type Profile = {
-  avatar: string | null
-  fullname: string
-  email: string
-  role: string
-}
-export type Organisation = {
-  members: Member[]
-  info: Info
-}
+// CONSTANTS
+export const ORAGANISATION_TABS: {
+  key: OrganisationTabsType
+  label: string
+}[] = [
+  {
+    key: OrganisationTabsType.ORGANISATION_INFO,
+    label: "Organisation Info",
+  },
+  {
+    key: OrganisationTabsType.MEMBERS,
+    label: "Members",
+  },
+] as const
+export const ORGANISATION_QUERY_KEYS = {
+  TAB: "tab",
+  SORT_BY: "sort_by",
+  SEARCH: "q",
+} as const
