@@ -50,7 +50,7 @@ const SidebarNav: FC = () => {
             use="dashboard"
             {...route}
             key={id}
-            badge={id === 2 ? 2 : 0}
+            // badge={id === 2 ? 2 : 0}
           />
         )
       })}

@@ -1,9 +1,7 @@
-import SplashScreen from "@/components/views/splash-screen"
+import { ROUTES } from "@/utils/constants"
 import { PageFC } from "@/utils/types"
-import React from "react"
+import { redirect } from "next/navigation"
 
-const HomePage: PageFC = () => {
-  return <SplashScreen />
-}
+const HomePage: PageFC = () => redirect(ROUTES.LOGIN)
 
 export default HomePage

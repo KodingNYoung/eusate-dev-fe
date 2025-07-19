@@ -2,9 +2,17 @@
 
 import { uploadPhoto } from "@/app/(organisation-routes)/(dashboard)/settings/actions"
 import { toaster } from "@/components/molecules/Toast"
+import { ACCEPTABLE_IMAGE_TYPES } from "@/utils/constants"
 import { JSONValue } from "@/utils/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { FormEvent, useCallback, useMemo, useState } from "react"
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 
 type BatchParams = {
   key: string
@@ -86,6 +94,12 @@ export const usePhotoUpload = (onUrlChange: (url: string) => void) => {
   const onPhotoChange = async (e: FormEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files?.[0]
     if (file) {
+      if (!ACCEPTABLE_IMAGE_TYPES.includes(file.type)) {
+        toaster.error(
+          `File type ${file.type} is not acceptable, please upload a PNG, JPEG or GIF.`
+        )
+        return
+      }
       setIsUploading(true)
 
       const src = URL.createObjectURL(file)
@@ -106,4 +120,30 @@ export const usePhotoUpload = (onUrlChange: (url: string) => void) => {
   }
 
   return { isUploading, onPhotoChange }
+}
+
+export const useCountdown = () => {
+  const timeout = useRef<NodeJS.Timeout>()
+
+  const [secondsLeft, setSecondsLeft] = useState(0)
+
+  useEffect(() => {
+    if (secondsLeft <= 0) return
+    timeout.current = setTimeout(() => {
+      setSecondsLeft(secondsLeft - 1)
+    }, 1000)
+    return () => clearTimeout(timeout.current)
+  }, [secondsLeft])
+
+  const start = useCallback((seconds: number) => {
+    setSecondsLeft(seconds)
+  }, [])
+  const stop = useCallback(() => {
+    setSecondsLeft(0)
+    if (timeout.current) {
+      clearTimeout(timeout.current)
+    }
+  }, [])
+
+  return { secondsLeft, start, stop, isCounting: secondsLeft > 0 }
 }

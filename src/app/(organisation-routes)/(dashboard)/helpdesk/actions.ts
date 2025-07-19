@@ -73,7 +73,6 @@ export const takeoverTicket = async (state: FormState, formdata: FormData) => {
 
     if ("shouldAuthenticate" in response)
       throw new Error("Session expired, log in again")
-    console.log(response)
 
     return successResponse("", "", response)
   } catch (err) {

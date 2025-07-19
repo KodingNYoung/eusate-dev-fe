@@ -1,6 +1,7 @@
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import { KnowledgeSourceTags } from "@/utils/enums"
+import { cls } from "@/utils/helpers"
 import { IconNames } from "@/utils/iconNames"
 import { FC } from "@/utils/types"
 import React from "react"
@@ -22,9 +23,9 @@ const resourceLabel: { [type in KnowledgeSourceTags]: string } = {
   faq: "FAQs",
 }
 
-const ResourceTypeTag: FC<Props> = ({ type }) => {
+const ResourceTypeTag: FC<Props> = ({ type, className }) => {
   return (
-    <div className="flex items-center justify-start gap-3">
+    <div className={cls("flex items-center justify-start gap-3", className)}>
       <Icon name={resourceIcon[type]} className="text-regular-xl" />
       <Typography as="span" className="text-regular-sm text-gray-500">
         {resourceLabel[type]}

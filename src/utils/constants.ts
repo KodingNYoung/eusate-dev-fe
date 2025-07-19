@@ -34,6 +34,7 @@ export const ROUTES = {
   DEV_SPACE: "/dev-space",
   PROFILE: "/settings/profile",
   INVITE: "/invite",
+  COMPONENT_TEST: "/component-test",
 }
 
 export const EMAIL_REGEX_PATTERNS =
@@ -75,6 +76,7 @@ export const AI_TONES = [
 ]
 
 export const QUERY_FN_KEYS = {
+  KNOWLEDGE_BASE_RESOURCES: ["knowledge-base-resources"],
   AUTH_CONFIG: ["auth-config"],
   DEV_SPACE_FUNCTIONS: ["dev-space-fuctions"],
   CODENAMES: ["codenames"],
@@ -104,6 +106,8 @@ export const FILE_ICON_MAP = {
   ".xls": xls,
   "": txt,
 } as const
+
+export const ACCEPTABLE_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif"]
 
 export const SORT_ORDERS = [
   {

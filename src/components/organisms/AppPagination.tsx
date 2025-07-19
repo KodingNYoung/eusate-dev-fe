@@ -65,7 +65,7 @@ const AppPagination: FC<AppPaginationProps> = ({
             label: "hidden md:block",
           }}
           variant="tetiary"
-          disabled={total === page}
+          disabled={total <= page}
           endContent={
             <Icon name="icon-arrow-right" className="text-regular-xl" />
           }

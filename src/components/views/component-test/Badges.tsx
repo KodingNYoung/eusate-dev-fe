@@ -15,6 +15,9 @@ const Badges: FC = () => {
         <Badge color="error"> Error</Badge>
         <Badge color="neutral">Neutral</Badge>
         <Badge color="disabled">Disabled</Badge>
+        <Badge color="disabled" loading>
+          Disabled
+        </Badge>
       </div>
     </div>
   )

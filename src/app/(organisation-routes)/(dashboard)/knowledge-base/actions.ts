@@ -9,11 +9,11 @@ import {
   uploadChunk,
 } from "@/lib/services/knowledge-base"
 import { getSession } from "@/lib/sessions"
-import { ROUTES } from "@/utils/constants"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { KnowledgeSourceTags } from "@/utils/enums"
 import { chunkFile, formStateResponse, mbToByte } from "@/utils/helpers"
 import { FormState, KnowledgeSource } from "@/utils/types"
-import { revalidatePath } from "next/cache"
+import { QueryClient } from "@tanstack/react-query"
 
 export type ValidateUrlResponse = { valid: boolean }
 
@@ -53,6 +53,7 @@ export const createArticleByLink = async (
   state: FormState,
   formdata: FormData
 ): Promise<FormState> => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse(state)
   const { url } = Object.fromEntries(formdata)
   const message = "Article record creation in progress"
@@ -75,7 +76,9 @@ export const createArticleByLink = async (
       message: err instanceof Error ? err.message : "Something went wrong",
     })
   }
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 
@@ -101,6 +104,7 @@ const FILE_CHUNK_SIZE_IN_MB = 8
  * 6. Revalidates the knowledge base path upon successful upload.
  */
 export const uploadDocuments = async (state: FormState, formdata: FormData) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse(state)
   const message = "Document uploaded, processing in progress"
   const documents = formdata.getAll("documents") as File[]
@@ -134,7 +138,9 @@ export const uploadDocuments = async (state: FormState, formdata: FormData) => {
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 
@@ -142,6 +148,7 @@ export const uploadDocuments = async (state: FormState, formdata: FormData) => {
  *
  */
 export const addWebsites = async (state: FormState, formdata: FormData) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse(state)
   const message = "Websites added successfully."
   const domain = formdata.get("main_website") as string
@@ -162,7 +169,9 @@ export const addWebsites = async (state: FormState, formdata: FormData) => {
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 
@@ -189,13 +198,13 @@ export const toggleSourcePrivacy = async (
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
   return successResponse(message)
 }
 export const bulkToggleSourcePrivacy = async (
   sources: KnowledgeSource[],
   external: boolean
 ) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse()
   const message =
     "You have successfully changed the privacy of the selected resources."
@@ -216,7 +225,9 @@ export const bulkToggleSourcePrivacy = async (
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 
@@ -224,6 +235,7 @@ export const toggleSourcePublished = async (
   state: FormState,
   formdata: FormData
 ) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse(state)
   const { published, id, tag } = Object.fromEntries(formdata)
   const message =
@@ -244,13 +256,16 @@ export const toggleSourcePublished = async (
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 export const bulkToggleSourcePublished = async (
   sources: KnowledgeSource[],
   published: boolean
 ) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse()
   const message = `You have successfully ${published ? "published" : "unpublished"}  the selected resources.`
 
@@ -267,11 +282,14 @@ export const bulkToggleSourcePublished = async (
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 
 export const removeSource = async (state: FormState, formdata: FormData) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse(state)
   const message = "You have successfully deleted a source."
   const { id, tag } = Object.fromEntries(formdata)
@@ -285,10 +303,13 @@ export const removeSource = async (state: FormState, formdata: FormData) => {
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }
 export const bulkRemoveSourcePublished = async (sources: KnowledgeSource[]) => {
+  const queryClient = new QueryClient()
   const { successResponse, errorResponse } = formStateResponse()
   const message = `You have successfully deleted the selected resources.`
 
@@ -305,6 +326,8 @@ export const bulkRemoveSourcePublished = async (sources: KnowledgeSource[]) => {
     })
   }
 
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+  queryClient.invalidateQueries({
+    queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+  })
   return successResponse(message)
 }

@@ -57,6 +57,7 @@ export const OrganisationProvider: FC = ({ children }) => {
   const [isSwitching, setIsSwitching] = useState<boolean>(false)
 
   const initializeOrganization = async () => {
+    if (!user) return
     try {
       // set loading to true,
       setIsLoading(true)
@@ -143,7 +144,6 @@ export const OrganisationProvider: FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (!user) return
     initializeOrganization()
   }, [])
 

@@ -7,7 +7,6 @@ import { usePhotoUpload } from "@/hooks/utilityHooks"
 import Button from "@/components/molecules/Buttons"
 import Input from "@/components/molecules/Inputs"
 import AppSelect from "@/components/molecules/AppSelect"
-import { INDUSTRIES, ORGANISATION_SIZES } from "./utils"
 import AppAutocomplete from "@/components/molecules/AppAutocomplete"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import { useFormState } from "react-dom"
@@ -15,6 +14,8 @@ import { updateOrganisation } from "@/app/(organisation-routes)/(dashboard)/sett
 import { useModal } from "@/hooks/popupHooks"
 import { PopupKeys } from "@/utils/enums"
 import { useFormToast } from "@/hooks/formHooks"
+import { INDUSTRIES, ORGANISATION_SIZES } from "@/utils/dummy"
+import { ACCEPTABLE_IMAGE_TYPES } from "@/utils/constants"
 
 type Props = {
   organisation: OrganisationType | null
@@ -28,7 +29,7 @@ const EditInfoForm: FC<Props> = ({ organisation, onUpdate }) => {
     logo: "",
     name: "",
     company_size: "",
-    industry: "",
+    sector: "",
   })
 
   const { isUploading, onPhotoChange } = usePhotoUpload((url) =>
@@ -49,7 +50,7 @@ const EditInfoForm: FC<Props> = ({ organisation, onUpdate }) => {
       logo: organisation?.logo || "",
       name: organisation?.name || "",
       company_size: organisation?.meta?.company_size || "",
-      industry: organisation?.meta?.sector || "",
+      sector: organisation?.meta?.sector || "",
     })
   }, [organisation])
 
@@ -61,6 +62,7 @@ const EditInfoForm: FC<Props> = ({ organisation, onUpdate }) => {
   useEffect(() => {
     if ("success" in state) {
       close()
+      console.log(state)
       onUpdate(state.payload as OrganisationType)
     }
   }, [state, close])
@@ -76,7 +78,7 @@ const EditInfoForm: FC<Props> = ({ organisation, onUpdate }) => {
               id="organisation-logo-upload-btn"
               onChange={onPhotoChange}
               buttonProps={{ loading: isUploading }}
-              accept="image/png, image/gif, image/jpeg"
+              accept={ACCEPTABLE_IMAGE_TYPES.join(", ")}
             >
               Upload new
             </UploadButton>
@@ -112,8 +114,8 @@ const EditInfoForm: FC<Props> = ({ organisation, onUpdate }) => {
           <AppSelect
             label="Company size"
             name="company_size"
-            value={data.company_size}
-            placeholder="e.g. 10-15"
+            selectedKeys={[data.company_size]}
+            placeholder="Select a company size"
             size="lg"
             items={ORGANISATION_SIZES}
             classNames={{ trigger: "rounded-[100px]" }}
@@ -123,14 +125,14 @@ const EditInfoForm: FC<Props> = ({ organisation, onUpdate }) => {
           />
           <AppAutocomplete
             label="Industry sector"
-            name="industry"
-            aira-label="select-industry"
-            inputValue={data.industry}
+            name="sector"
+            aira-label="select-sector"
+            inputValue={data.sector}
             placeholder="Technology"
             size="lg"
             items={INDUSTRIES}
             onInputChange={(value) =>
-              setData((curr) => ({ ...curr, industry: value }))
+              setData((curr) => ({ ...curr, sector: value }))
             }
             inputProps={{
               classNames: {
