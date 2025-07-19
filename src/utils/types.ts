@@ -154,8 +154,10 @@ export type JSONValue =
   | JSONValue[]
   | { [key: string]: JSONValue }
 
-export type StorageKeys = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS]
-export type CookieKeys = (typeof COOKIES_KEYS)[keyof typeof COOKIES_KEYS]
+export type ValueOf<K> = K[keyof K]
+
+export type StorageKeys = ValueOf<typeof STORAGE_KEYS>
+export type CookieKeys = ValueOf<typeof COOKIES_KEYS>
 
 export type SessionPayload = {
   refreshToken?: string

@@ -11,7 +11,7 @@ import { updateProfile } from "@/app/(organisation-routes)/(dashboard)/settings/
 import UploadButton from "@/components/molecules/Inputs/UploadButton"
 import { useFormToast } from "@/hooks/formHooks"
 import { useQueryClient } from "@tanstack/react-query"
-import { QUERY_FN_KEYS } from "@/utils/constants"
+import { ACCEPTABLE_IMAGE_TYPES, QUERY_FN_KEYS } from "@/utils/constants"
 import { usePhotoUpload } from "@/hooks/utilityHooks"
 
 type Props = {
@@ -76,6 +76,7 @@ const EditProfileForm: FC<Props> = ({ profileData }) => {
               id="profile-picture-upload-btn"
               onChange={onPhotoChange}
               buttonProps={{ loading: isUploading }}
+              accept={ACCEPTABLE_IMAGE_TYPES.join(", ")}
             >
               Upload new
             </UploadButton>

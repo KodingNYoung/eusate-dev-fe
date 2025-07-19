@@ -235,3 +235,13 @@ export const hasSameBasePath = (a: string, b: string) => {
   const baseB = b.split("/")[1]
   return baseA && baseA === baseB
 }
+
+export const convertSecondsToTime = (seconds: number) => {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+    .toString()
+    .padStart(2, "0")
+  const secs = (seconds % 60).toString().padStart(2, "0")
+
+  return hours > 0 ? `${hours}:${minutes}:${secs}` : `${minutes}:${secs}`
+}

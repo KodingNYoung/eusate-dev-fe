@@ -23,7 +23,7 @@ const FinalizeLogin: FC<Props> = ({ email, method }) => {
 
   return (
     <TwoFACodeInputView
-      title="Complete 2FA"
+      title="Verify with 2FA code"
       subtitle={methodSubtitles[method]}
       method={method}
       submitAction={finalizeLogin}

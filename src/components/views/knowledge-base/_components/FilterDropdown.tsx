@@ -33,6 +33,7 @@ const FilterDropdown = () => {
 
   return (
     <AppPopover
+      placement="bottom-start"
       trigger={
         <Button
           variant="tetiary"

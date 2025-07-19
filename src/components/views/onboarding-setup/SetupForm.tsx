@@ -1,10 +1,13 @@
 "use client"
 
 import { setupAccount } from "@/app/(auth)/onboarding-setup/actions"
+import AppAutocomplete from "@/components/molecules/AppAutocomplete"
+import AppSelect from "@/components/molecules/AppSelect"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Input from "@/components/molecules/Inputs"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { onboardingSetupPayloadSchema } from "@/lib/schemas/auth"
+import { INDUSTRIES, ORGANISATION_SIZES } from "@/utils/dummy"
 import { FC, FormState } from "@/utils/types"
 import { useRouter } from "next/navigation"
 import React, { ChangeEvent, useEffect, useRef } from "react"
@@ -35,21 +38,33 @@ const SetupForm: FC = () => {
 
   return (
     <form className="py-10 flex flex-col gap-3" action={action} ref={formRef}>
-      <Input
-        name="company_size"
+      <AppSelect
         label="Company size"
+        name="company_size"
         placeholder="e.g. 10-15"
-        isError={!!errors?.company_size}
-        helperText={errors?.company_size}
-        onChange={onFieldChange}
+        size="lg"
+        items={ORGANISATION_SIZES}
+        isInvalid={!!errors?.company_size}
+        errorMessage={errors?.company_size}
+        classNames={{ trigger: "rounded-[100px]" }}
+        onChange={(e) => markFieldTouched(e.target.name)}
       />
-      <Input
-        name="sector"
+      <AppAutocomplete
         label="Industry sector"
+        name="sector"
+        aira-label="select-sector"
         placeholder="e.g. Technology"
-        isError={!!errors?.sector}
-        helperText={errors?.sector}
-        onChange={onFieldChange}
+        size="lg"
+        items={INDUSTRIES}
+        isInvalid={!!errors?.sector}
+        errorMessage={errors?.sector}
+        onInputChange={() => markFieldTouched("sector")}
+        inputProps={{
+          classNames: {
+            inputWrapper: "rounded-[100px] min-h-14",
+            input: "text-[14px]",
+          },
+        }}
       />
       <Input
         name="use_case"

@@ -20,6 +20,7 @@ const DSFunctionsDrawer: FC<Props> = ({
       id={id}
       header={{ title: isAdd ? "Create a function" : "Update function" }}
       classNames={{ wrapper: "px-2", base: "w-full max-w-[504px]" }}
+      isDismissable={false}
     >
       <FunctionFormSections isAdd={isAdd} func={func} />
     </AppDrawer>

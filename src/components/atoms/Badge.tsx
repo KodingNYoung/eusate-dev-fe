@@ -18,6 +18,7 @@ type Props = {
   type?: BadgeType
   color?: BadgeColor
   size?: Sizes
+  loading?: boolean
 }
 
 const typoVariants: { [size in Sizes]: TypographyVariants } = {
@@ -62,6 +63,7 @@ const Badge: FC<Props> = ({
   color = "primary",
   children,
   className,
+  loading,
 }) => {
   return (
     <Typography
@@ -73,6 +75,7 @@ const Badge: FC<Props> = ({
         badgeVariants[`${type}-${color}`],
         className
       )}
+      loading={loading}
     >
       {children}
     </Typography>

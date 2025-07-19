@@ -32,6 +32,7 @@ const SortDropdown: FC<Props> = ({
 }) => {
   return (
     <AppPopover
+      placement="bottom-start"
       trigger={
         trigger || (
           <Button

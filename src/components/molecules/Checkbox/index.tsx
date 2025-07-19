@@ -29,7 +29,7 @@ const Checkbox: FC<CheckboxProps> = ({
     <label
       htmlFor={id}
       className={cls(
-        "font-mono flex items-center cursor-pointer relative",
+        "font-mono flex items-center cursor-pointer has-[:disabled]:cursor-not-allowed relative",
         !!children && "gap-3.5",
         classNames?.root
       )}
@@ -51,7 +51,7 @@ const Checkbox: FC<CheckboxProps> = ({
       />
       <div
         className={cls(
-          "w-4 h-4 border group border-gray-100 border-opacity-100 peer-checked:border-opacity-0 peer-checked:*:opacity-100 flex items-center justify-center rounded-[3px] transition-colors duration-200",
+          "w-4 h-4 border group border-gray-100 border-opacity-100 peer-checked:border-opacity-0 peer-checked:*:opacity-100 flex items-center justify-center rounded-[3px] transition-colors duration-200 peer-disabled:cursor-not-allowed",
           classNames?.box
         )}
       >

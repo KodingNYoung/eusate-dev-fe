@@ -62,13 +62,18 @@ export const updateOrganisation = async (
 ) => {
   const { successResponse, errorResponse } =
     formStateResponse<OrganisationType>(state)
+  const { logo, name, company_size, sector } = Object.fromEntries(formdata)
 
   try {
     const session = await getSession()
     const response = await sendAuthRequest<OrganisationType>(
       `/api/v1/organisations/${session?.currentOrganisationId}/edit/`,
-      formdata,
-      { method: "PATCH", headers: { "Content-Type": "multipart/form-data" } }
+      {
+        logo,
+        name,
+        meta: { company_size, sector },
+      },
+      { method: "PATCH" }
     )
 
     if ("shouldAuthenticate" in response)

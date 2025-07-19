@@ -20,7 +20,7 @@ const middleware = async (request: NextRequest) => {
   // session
   const session = await getSession()
 
-  if (path === ROUTES.INVITE) {
+  if (path === ROUTES.INVITE || path === ROUTES.COMPONENT_TEST) {
     return NextResponse.next()
   }
 

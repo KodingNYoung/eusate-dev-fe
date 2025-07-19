@@ -13,12 +13,14 @@ type Props = {
   row: KnowledgeSource
   publishToggleAction: () => void
   onDelete: () => void
+  loading?: boolean
 }
 
 const ResourceRowAction: FC<Props> = ({
   row,
   publishToggleAction,
   onDelete,
+  loading,
 }) => {
   const sections: SectionsType = [
     {
@@ -66,6 +68,7 @@ const ResourceRowAction: FC<Props> = ({
       sections={sections}
       triggerBtnProps={{ isIconOnly: true, radius: "full" }}
       menuProps={{ disabledKeys: [4] }}
+      isDisabled={loading}
     />
   )
 }

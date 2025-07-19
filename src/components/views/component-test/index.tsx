@@ -1,6 +1,6 @@
 import { FC } from "@/utils/types"
 import React from "react"
-// import Radios from "./Radios"
+import Radios from "./Radios"
 import Buttons from "./Buttons"
 import Badges from "./Badges"
 import Chips from "./Chips"
@@ -9,8 +9,8 @@ import Tooltip from "@/components/molecules/Tooltip"
 
 const ComponentTest: FC = () => {
   return (
-    <div className="p-10 flex flex-col gap-10 flex-wrap">
-      {/* <Radios /> */}
+    <div className="p-10 flex flex-col gap-10 flex-wrap bg-white">
+      <Radios />
       <Buttons />
       <Badges />
       <Chips />
@@ -26,13 +26,11 @@ const ComponentTest: FC = () => {
             </>
           }
           classNames={{ content: "w-96 p-2.5 rounded-xl" }}
-          isOpen
         >
           I have tooltip nulla quia suscipit consequatur soluta fuga vitae
           impedit.
         </Tooltip>
       </div>
-      hello
     </div>
   )
 }

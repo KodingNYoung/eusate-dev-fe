@@ -34,7 +34,7 @@ const BottomNav: FC = () => {
   return (
     <footer className="flex sm:hidden fixed -bottom-px left-0 w-screen bg-black-100 text-gray-500 py-2 pb-[9px] px-4  items-center justify-between z-[11]">
       {SIDEBAR_ROUTES.map(({ id, ...route }) => (
-        <NavItem key={id} {...route} badge={id === 2 ? 2 : 0} />
+        <NavItem key={id} {...route} />
       ))}
       <button>
         <NavItem icon="icon-menu" link="" />

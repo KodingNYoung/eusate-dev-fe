@@ -78,7 +78,7 @@ const OtpInput: FC<Props> = ({
                   "aspect-square text-gray-900 text-semibold-xl rounded-xl placeholder:text-gray-400 outline-none relative",
                   "before:absolute before:-inset-[1px] before:z-0 before:size-[calc(100%_+_2px)] has-[:focus]:before:[--inputColor1:#d7ab07] has-[:focus]:before:[--inputColor2:#e86555] before:bg-[linear-gradient(90deg,_var(--inputColor1),_var(--inputColor2))] before:rounded-[inherit] before:transition-[all,_--inputColor1,_--inputColor2] before:duration-400 "
                 )}
-                style={{ width: `${100 / otp.length}%` }}
+                style={{ width: `${100 / otp.length}%`, maxWidth: "80px" }}
                 key={idx}
               >
                 <input
@@ -98,6 +98,7 @@ const OtpInput: FC<Props> = ({
                     "relative w-full h-full text-center rounded-[inherit] outline-0"
                   )}
                   {...props}
+                  autoFocus={idx === 0}
                 />
               </label>
             )

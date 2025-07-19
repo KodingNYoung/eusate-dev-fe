@@ -43,6 +43,7 @@ const TwoFACodeInputView: FC<Props> = ({
         submitAction={submitAction}
         onError={onError}
         onSuccess={onSuccess}
+        method={method}
       />
     </main>
   )

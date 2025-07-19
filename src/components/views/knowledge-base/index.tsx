@@ -1,13 +1,12 @@
 "use client"
 import { FC, KnowledgeSource, TableColumn } from "@/utils/types"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import TableTop from "./_components/TableTop"
 import Table from "@/components/organisms/Table"
 import Checkbox from "@/components/molecules/Checkbox"
 import ResourceTypeTag from "./_components/ResourceTypeTag"
 import ResourceRowAction from "./_components/ResourceRowAction"
 import Icon from "@/components/atoms/Icon"
-import EmptyState from "./_components/EmptyState"
 import AddSourceModal from "./_components/AddSourceModal"
 import AddwebsiteModal from "./_components/AddWebsiteModal"
 import dayjs from "dayjs"
@@ -24,32 +23,55 @@ import { PopupKeys } from "@/utils/enums"
 import EmptySearchState from "./_components/EmptySearchState"
 import SelectedRowsBanner from "./_components/SelectedRowsBanner"
 import Badge from "@/components/atoms/Badge"
+import { GetKnowledgeSourcesOptions } from "@/lib/data/knowledge-base"
+import EmptyState from "@/components/organisms/EmptyState"
+import knowledgeBaseEmptyState from "@/assets/images/knowledge-base-empty-state.svg"
+import { useKnowledgeBaseResources } from "@/hooks/api/knowledgeBaseHooks"
+import { Skeleton } from "@nextui-org/react"
+import { cls } from "@/utils/helpers"
 
 type Props = {
-  hasFetchError?: boolean
-  data?: KnowledgeSource[]
-  isSearched: boolean
-  total: number
-  publishedTotal: number
-  unpublishedTotal: number
-  pageSize: number
-  page: number
+  options: GetKnowledgeSourcesOptions
 }
 
-const KnowledgeBase: FC<Props> = ({
-  data,
-  isSearched,
-  total,
-  publishedTotal,
-  unpublishedTotal,
-  pageSize,
-  page,
-}) => {
+const PAGE_SIZE = 6
+
+const KnowledgeBase: FC<Props> = ({ options }) => {
+  const { data, isLoading } = useKnowledgeBaseResources({
+    ...options,
+    page_size: PAGE_SIZE,
+  })
+
   const { set } = useQueryParams()
   const { open } = useModal()
 
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [source, setSource] = useState<KnowledgeSource>({} as KnowledgeSource)
+
+  // memos
+  const {
+    resources,
+    total,
+    isSearched,
+    publishedTotal,
+    unpublishedTotal,
+    page,
+  } = useMemo(
+    () => ({
+      resources: data?.data?.results || [],
+      total: data?.data?.count || 0,
+      isSearched: Boolean(
+        options.search ||
+          options.published === undefined ||
+          options.external === undefined ||
+          (options.page || 0) > 1
+      ),
+      publishedTotal: 0,
+      unpublishedTotal: 0,
+      page: data?.data?.page || 1,
+    }),
+    [data]
+  )
 
   const openModal = (id: PopupKeys, source: KnowledgeSource) => {
     open(id)
@@ -64,12 +86,12 @@ const KnowledgeBase: FC<Props> = ({
         <Checkbox
           name="select-all"
           checked={Boolean(selectedRows.size)}
-          indeterminate={selectedRows?.size !== pageSize}
+          indeterminate={selectedRows?.size !== PAGE_SIZE}
           onChange={(e) => {
             const check = e.currentTarget.checked
             let rows: Set<string>
-            if (check && data) {
-              rows = new Set([...data?.map((row) => row.id)])
+            if (check && resources) {
+              rows = new Set([...resources?.map((row) => row.id)])
             } else {
               rows = new Set()
             }
@@ -77,9 +99,10 @@ const KnowledgeBase: FC<Props> = ({
           }}
         />
       ),
-      render: (row) => (
+      render: (row, loading) => (
         <Checkbox
           name={row.id}
+          disabled={loading}
           checked={selectedRows?.has(row.id)}
           onChange={(e) => {
             const rows = new Set(selectedRows)
@@ -100,20 +123,27 @@ const KnowledgeBase: FC<Props> = ({
       id: 2,
       title: "Title",
       classNames: {
-        td: "text-black-90 !text-medium-sm max-w-[150px] sm:max-w-[300px] sm:min-w-[250px]",
+        td: "max-w-[150px] sm:max-w-[300px] sm:min-w-[250px]",
       },
-      render: (row) => <span className="truncate w-full">{row.title}</span>,
+      render: (row, loading) => (
+        <Skeleton isLoaded={!loading} className="rounded-sm">
+          <span className="truncate min-w-32 h-[17.5px] block text-black text-medium-sm">
+            {row.title}
+          </span>
+        </Skeleton>
+      ),
     },
     {
       id: 8,
       title: "Status",
       showFor: "not-mobile",
-      render: (row) => (
+      render: (row, loading) => (
         <Badge
           type="accent"
           color={row.published ? "success" : "neutral"}
           size="sm"
-          className="py-0.5"
+          className={cls("py-0.5 max-w-[75px]", loading && "border-0")}
+          loading={loading}
         >
           {row.published ? "Published" : "Drafts"}
         </Badge>
@@ -123,21 +153,33 @@ const KnowledgeBase: FC<Props> = ({
       id: 3,
       title: "Content type",
       showFor: "not-mobile",
-      render: (row) => <ResourceTypeTag type={row.tag} />,
+      render: (row, loading) => (
+        <Skeleton className="rounded-sm" isLoaded={!loading}>
+          <ResourceTypeTag type={row.tag} className="min-w-20 min-h-5" />
+        </Skeleton>
+      ),
     },
     {
       id: 4,
       title: "Date added",
       showFor: "not-mobile",
       classNames: { td: "!text-gray-500" },
-      render: (row) => dayjs(row.date_created).format("DD MMM, YYYY. hh:mmA"),
+      render: (row, loading) => (
+        <Skeleton isLoaded={!loading} className="rounded-sm">
+          {dayjs(row.date_created).format("DD MMM, YYYY. hh:mmA")}
+        </Skeleton>
+      ),
     },
     {
       id: 5,
       title: "Last updated",
       showFor: "not-mobile",
       classNames: { td: "!text-gray-500" },
-      render: (row) => dayjs(row.date_updated).format("DD MMM, YYYY. hh:mmA"),
+      render: (row, loading) => (
+        <Skeleton isLoaded={!loading} className="rounded-sm">
+          {dayjs(row.date_updated).format("DD MMM, YYYY. hh:mmA")}
+        </Skeleton>
+      ),
     },
     {
       id: 6,
@@ -165,7 +207,9 @@ const KnowledgeBase: FC<Props> = ({
 
         classNames: { content: "min-w-[210px]" },
       },
-      render: (row) => <SourcePrivacyCheckbox row={row} />,
+      render: (row, loading) => (
+        <SourcePrivacyCheckbox row={row} loading={loading} />
+      ),
     },
     {
       id: "accordion-trigger",
@@ -188,9 +232,10 @@ const KnowledgeBase: FC<Props> = ({
       },
       clickable: true,
       align: "center",
-      render: (row) => (
+      render: (row, loading) => (
         <ResourceRowAction
           row={row}
+          loading={loading}
           publishToggleAction={() =>
             openModal(PopupKeys.TOGGLE_PUBLISH_SOURCE_MODAL, row)
           }
@@ -203,18 +248,27 @@ const KnowledgeBase: FC<Props> = ({
   ]
 
   useEffect(() => {
-    if (data) {
+    if (resources) {
       setSelectedRows(new Set())
     }
-  }, [data])
+  }, [resources])
 
   return (
     <div className="grid gap-3 content-start flex-1">
       {/* empty without search */}
-      {!total && !isSearched && <EmptyState />}
+      {!total && !isSearched && !isLoading && (
+        <EmptyState
+          img={knowledgeBaseEmptyState}
+          title="Start by uploading a resource"
+          subtitle="Any resource uploaded will be available here. Manage resources that
+            educated your AI."
+          modalKey={PopupKeys.SOURCE_MODAL}
+          buttonLabel="Add a resource"
+        />
+      )}
       {/* has an error */}
       {/* data available  or empty with search */}
-      {(!!data?.length || isSearched) && (
+      {(!!resources.length || isSearched || isLoading) && (
         <TableTop
           counts={{
             all: publishedTotal + unpublishedTotal,
@@ -224,28 +278,31 @@ const KnowledgeBase: FC<Props> = ({
         />
       )}
       {/* empty with search */}
-      {!total && isSearched && <EmptySearchState />}
+      {!total && isSearched && !isLoading && <EmptySearchState />}
       {/* data available */}
-      {!!data?.length && (
+      {resources.length || isLoading ? (
         <>
           {/* rows are selected */}
           <SelectedRowsBanner
-            rows={data.filter((source) => selectedRows.has(source.id))}
+            rows={resources.filter((source) => selectedRows.has(source.id))}
           />
           <Table
             columns={columns}
-            data={data}
+            data={resources}
             onRowClick={(row) => {
               console.log(row)
             }}
             pagination={{
-              total: Math.ceil(total / pageSize),
+              total: Math.ceil(total / PAGE_SIZE),
               page,
               onChange: (page) => set(KB_QUERY_KEYS.PAGE, page),
             }}
+            loading={isLoading}
+            defaultRows={6}
+            classNames={{ td: "py-1 sm:!py-4" }}
           />
         </>
-      )}
+      ) : null}
       <AddSourceModal />
       <AddwebsiteModal />
       <ArticleModal />
