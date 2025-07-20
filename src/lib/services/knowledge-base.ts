@@ -100,13 +100,13 @@ export const initiateDocumentStream = async (noOfChunks: number) => {
 }
 
 // TODO: add an appropriate type. Check response type manually and fill it up.
-type AddWebsiteResponseType = { success: true }
-export const addWebsite = async (url: string, origin: boolean) => {
+type AddLinkResponseType = { success: true }
+export const addLink = async (url: string) => {
   const session = await getSession()
 
-  const response = await sendAuthRequest<AddWebsiteResponseType>(
-    "/api/v1/library/website/add/",
-    { organisation_id: session?.currentOrganisationId, url, origin },
+  const response = await sendAuthRequest<AddLinkResponseType>(
+    "/api/v1/library/link/add/",
+    { organisation_id: session?.currentOrganisationId, url },
     { method: "POST" }
   )
 

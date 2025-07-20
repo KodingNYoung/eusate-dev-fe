@@ -1,9 +1,9 @@
+import { ROUTES } from "@/utils/constants"
 import { KnowledgeSourceTags } from "@/utils/enums"
 import { IconNames } from "@/utils/iconNames"
 
 // TYPES
 export type SortOrder = "asc" | "desc"
-export type ArticleMethodType = "text" | "link"
 
 // CONSTANTS
 export const KB_QUERY_KEYS = {
@@ -46,6 +46,7 @@ export const MODAL_RESOURCE_TAGS: {
   icon: IconNames
   title: string
   subtitle: string
+  link?: string
 }[] = [
   {
     value: KnowledgeSourceTags.DOCUMENT,
@@ -56,43 +57,23 @@ export const MODAL_RESOURCE_TAGS: {
   {
     value: KnowledgeSourceTags.ARTICLE,
     icon: "icon-article-text",
-    title: "Add an article",
+    title: "Write an article",
     subtitle:
       "Create custom content directly in our built-in text editor or import using links.",
+    link: ROUTES.NEW_ARTICLE,
   },
   {
-    value: KnowledgeSourceTags.WEBSITE,
+    value: KnowledgeSourceTags.LINK,
     icon: "icon-link",
-    title: "Add website",
+    title: "Add a link",
     subtitle:
-      "Capture online content by entering URLs or using our web clipper.",
+      "Capture online content by entering URLs and we use our web clipper.",
   },
   {
     value: KnowledgeSourceTags.FAQ,
     icon: "icon-message-question",
     title: "Create FAQs",
     subtitle: "Build a repository of common questions and expert answers.",
-  },
-]
-export const ARTICLE_METHODS: {
-  value: ArticleMethodType
-  icon: IconNames
-  title: string
-  subtitle: string
-}[] = [
-  {
-    value: "text",
-    icon: "icon-edit-2",
-    title: "Write an article",
-    subtitle:
-      "Create custom content directly in our built-in text editor or import using links.",
-  },
-  {
-    value: "link",
-    icon: "icon-link-4",
-    title: "Import using links",
-    subtitle:
-      "Import your article contents from other online resources directly in our built-in text editor.",
   },
 ]
 export const ACCEPTABLE_DOCUMENT_EXTENSIONS = new Set([

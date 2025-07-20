@@ -29,13 +29,13 @@ const SelectResourceTag = () => {
         close()
         router.push(ROUTES.FAQS)
         break
-      case KnowledgeSourceTags.WEBSITE:
+      case KnowledgeSourceTags.LINK:
         close()
-        open(PopupKeys.WEBSITE_MODAL)
+        open(PopupKeys.LINK_MODAL)
         break
       case KnowledgeSourceTags.ARTICLE:
         close()
-        open(PopupKeys.ARTICLE_MODAL)
+        router.push(ROUTES.NEW_ARTICLE)
         break
       case KnowledgeSourceTags.DOCUMENT:
         close()

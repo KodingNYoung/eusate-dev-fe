@@ -25,7 +25,7 @@ const OrganisationInfo = () => {
           />
         </header>
 
-        <main className="flex justify-between w-full md:w-[40%]">
+        <main className="flex justify-between max-w-full w-[400px]">
           <div className="grid gap-y-4 w-full">
             <div className="grid grid-cols-[1fr_200px] w-full">
               <Typography variant="regular-base" className="text-gray-400">

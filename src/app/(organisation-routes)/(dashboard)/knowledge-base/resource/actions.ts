@@ -55,7 +55,7 @@ export const updateResourceContent = async (
   const { successResponse, errorResponse } = formStateResponse(state)
   const { title, content, id, tag, resourceState } =
     Object.fromEntries(formdata)
-  const message = "Article record updated"
+  const message = "Resource record updated"
   const route = ROUTES.KNOWLEDGE_BASE
 
   try {

@@ -21,7 +21,7 @@ const filters = [
     key: KB_QUERY_KEYS.TAGS,
     options: [
       { value: KnowledgeSourceTags.DOCUMENT, label: "File", default: true },
-      { value: KnowledgeSourceTags.WEBSITE, label: "Website", default: true },
+      { value: KnowledgeSourceTags.LINK, label: "Link", default: true },
       { value: KnowledgeSourceTags.ARTICLE, label: "Article", default: true },
       { value: KnowledgeSourceTags.FAQ, label: "FAQs", default: true },
     ],

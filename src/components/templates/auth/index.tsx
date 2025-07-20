@@ -32,6 +32,7 @@ const AuthLayout: FC = ({ children }) => {
             height={650}
             width={960}
             className="max-w-full"
+            priority
           />
         </div>
       </div>
