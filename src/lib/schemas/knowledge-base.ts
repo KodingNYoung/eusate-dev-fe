@@ -6,7 +6,7 @@ export const selectResourcesTagsSchema = z.object({
 })
 
 export const selectArticleMethodSchema = z.object({
-  method: z.enum(["text", "link"]),
+  method: z.enum(["text"]),
 })
 
 export const addFAQSchema = z.object({
@@ -26,15 +26,6 @@ export const validateUrlSchema = z.object({
     .url({ message: "Enter a valid url" })
     .min(1, "This field is required"),
 })
-
-export const validateSubdomainUrlSchema = (domain: string) =>
-  z.object({
-    url: z
-      .string()
-      .includes(domain, { message: "Domains don't match" })
-      .url({ message: "Enter a valid url" })
-      .min(1, "This field is required"),
-  })
 
 export const createArticleSchema = z.object({
   title: z

@@ -8,9 +8,8 @@ import ResourceTypeTag from "./_components/ResourceTypeTag"
 import ResourceRowAction from "./_components/ResourceRowAction"
 import Icon from "@/components/atoms/Icon"
 import AddSourceModal from "./_components/AddSourceModal"
-import AddwebsiteModal from "./_components/AddWebsiteModal"
 import dayjs from "dayjs"
-import ArticleModal from "./_components/ArticleModal"
+import LinkModal from "./_components/LinkModal"
 import DocumentModal from "./_components/DocumentModal"
 import Typography from "@/components/atoms/Typography"
 import { useQueryParams } from "@/hooks/utilityHooks"
@@ -306,9 +305,9 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
         </>
       ) : null}
       <AddSourceModal />
-      <AddwebsiteModal />
-      <ArticleModal />
+      <LinkModal />
       <DocumentModal />
+      <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={source} />
       <DeleteSourceModal source={source} />
       <UnpublishSourceModal source={source} />
       <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={source} />

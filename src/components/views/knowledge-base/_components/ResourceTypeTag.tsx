@@ -12,13 +12,13 @@ type Props = {
 
 const resourceIcon: { [type in KnowledgeSourceTags]: IconNames } = {
   document: "icon-document-text",
-  website: "icon-link",
+  link: "icon-link",
   article: "icon-article-text",
   faq: "icon-message-question",
 }
 const resourceLabel: { [type in KnowledgeSourceTags]: string } = {
   document: "File",
-  website: "Website",
+  link: "Link",
   article: "Article",
   faq: "FAQs",
 }

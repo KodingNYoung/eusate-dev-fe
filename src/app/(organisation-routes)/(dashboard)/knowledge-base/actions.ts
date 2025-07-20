@@ -2,7 +2,7 @@
 
 import { sendAuthRequest } from "@/lib/request"
 import {
-  addWebsite,
+  addLink,
   deleteSource,
   editSource,
   initiateDocumentStream,
@@ -43,37 +43,6 @@ export const validateUrl = async (
       message: err instanceof Error ? err.message : "Something went wrong",
     })
   }
-}
-
-type CreateArticleByLinkResponse = { process_id: string }
-// create article and revalidate the knowledge base url
-export const createArticleByLink = async (
-  state: FormState,
-  formdata: FormData
-): Promise<FormState> => {
-  const { successResponse, errorResponse } = formStateResponse(state)
-  const { url } = Object.fromEntries(formdata)
-  const message = "Article record creation in progress"
-  const session = await getSession()
-
-  try {
-    const response = await sendAuthRequest<CreateArticleByLinkResponse>(
-      "/api/v1/library/article/add-link/",
-      { url, organisation_id: session?.currentOrganisationId },
-      { method: "POST" }
-    )
-
-    // handle auth check
-    if ("shouldAuthenticate" in response) {
-      throw new Error("Session expired, log in again")
-    }
-  } catch (err) {
-    return errorResponse({
-      type: "request",
-      message: err instanceof Error ? err.message : "Something went wrong",
-    })
-  }
-  return successResponse(message)
 }
 
 const MAX_TRANSFERRABLE_DOCUMENT_SIZE_IN_MB = 100
@@ -137,20 +106,13 @@ export const uploadDocuments = async (state: FormState, formdata: FormData) => {
 /**
  *
  */
-export const addWebsites = async (state: FormState, formdata: FormData) => {
+export const addLinks = async (state: FormState, formdata: FormData) => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const message = "Websites added successfully."
-  const domain = formdata.get("main_website") as string
-  const subdomains = formdata.getAll("subdomains") as string[]
+  const message = "Links added successfully."
+  const links = formdata.getAll("url") as string[]
 
   try {
-    await Promise.all(
-      [domain, ...subdomains].map(async (url, idx) => {
-        // upload the url
-        // if it's the first url, then it's the domain - origin param: true .
-        return await addWebsite(url, idx === 0)
-      })
-    )
+    await Promise.all(links.map(async (url) => await addLink(url)))
   } catch (err) {
     return errorResponse({
       type: "request",
