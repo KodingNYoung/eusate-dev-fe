@@ -310,6 +310,7 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
       <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={source} />
       <DeleteSourceModal source={source} />
       <UnpublishSourceModal source={source} />
+      <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={source} />
     </div>
   )
 }
