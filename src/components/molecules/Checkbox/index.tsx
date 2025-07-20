@@ -65,12 +65,14 @@ const Checkbox: FC<CheckboxProps> = ({
           )}
         />
       </div>
-      <Typography
-        className={cls("text-regular-xs text-gray-600", classNames?.label)}
-        loading={loading}
-      >
-        {children}
-      </Typography>
+      {children && (
+        <Typography
+          className={cls("text-regular-xs text-gray-600", classNames?.label)}
+          loading={loading}
+        >
+          {children}
+        </Typography>
+      )}
     </label>
   )
 }

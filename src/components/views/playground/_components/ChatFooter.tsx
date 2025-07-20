@@ -65,7 +65,11 @@ const ChatFooter: FC = () => {
             value={textBoxValue}
             onChange={setTextBoxValue}
             onKeyDown={(e) => {
-              if (e.key === "Enter" && e.currentTarget.value && !e.shiftKey) {
+              if (
+                e.key === "Enter" &&
+                e.currentTarget.value.trim() &&
+                !e.shiftKey
+              ) {
                 e.preventDefault()
                 e.currentTarget.form.requestSubmit()
               }
@@ -87,6 +91,7 @@ const ChatFooter: FC = () => {
                   "!leading-none visible group-data-[loading=true]/button:invisible group-data-[loading=true]/button:absolute",
                 root: "size-9 sm:size-14 !py-0",
               }}
+              disabled={!textBoxValue.trim()}
             >
               <Icon name="icon-send-2-bold" size={20} />
             </SubmitButton>

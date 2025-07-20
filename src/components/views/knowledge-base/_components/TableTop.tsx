@@ -13,11 +13,7 @@ import {
 import SortDropdown from "@/components/molecules/Popups/SortDropdown"
 import { SortOrder } from "@/utils/enums"
 
-type Props = {
-  counts: Record<"all" | "published" | "drafts", number>
-}
-
-const TableTop: FC<Props> = () => {
+const TableTop: FC = () => {
   const { batchSet, get } = useQueryParams()
 
   return (

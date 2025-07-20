@@ -20,7 +20,7 @@ type Props<T> = {
   pagination?: AppPaginationProps
   columns: TableColumn<T>[]
   data: T[]
-  onRowClick?: (row: unknown) => void
+  onRowClick?: (row: T) => void
   classNames?: { [slots in TableSlots]?: TWClassNames }
   loading?: boolean
   defaultRows?: number

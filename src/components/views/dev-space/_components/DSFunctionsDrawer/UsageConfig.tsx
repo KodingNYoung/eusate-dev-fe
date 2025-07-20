@@ -18,6 +18,7 @@ import Typography from "@/components/atoms/Typography"
 import { useAuthConfig } from "@/hooks/api/devSpaceHooks"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import Spinner from "@/components/atoms/Spinner"
+import { useFormToast } from "@/hooks/formHooks"
 
 type Props = {
   onFieldChange: (name: string, value: unknown) => void
@@ -46,6 +47,8 @@ const UsageConfig: FC<Props> = ({
       return updateFunction(state, { id, ...data })
     }
   }, {})
+
+  useFormToast(state, true)
 
   useEffect(() => {
     if ("success" in state) {

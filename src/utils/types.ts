@@ -209,6 +209,7 @@ export type KnowledgeSource = DBResource & {
   origin: string | null
   extension: string | null
   content?: string
+  file_size_kb: number | null
 }
 
 export type UserMessage = DBResource & {

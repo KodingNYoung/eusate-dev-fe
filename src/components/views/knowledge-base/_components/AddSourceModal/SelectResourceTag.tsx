@@ -65,7 +65,7 @@ const SelectResourceTag = () => {
       <footer className="flex items-center justify-end p-5 border-t border-gray-50">
         <Button
           type="submit"
-          className="px-3.5 !py-2.5"
+          className="!py-3.5 px-4.5"
           endContent={
             <Icon name="icon-arrow-right" className="text-regular-xl" />
           }

@@ -2,10 +2,8 @@
 
 import { sendAuthRequest } from "@/lib/request"
 import { getSession } from "@/lib/sessions"
-import { ROUTES } from "@/utils/constants"
 import { formStateResponse } from "@/utils/helpers"
 import { FormState } from "@/utils/types"
-import { revalidatePath } from "next/cache"
 
 type AddFAQResponse = { success: true }
 
@@ -39,7 +37,6 @@ export const addFAQ = async (
     })
   }
 
-  revalidatePath(ROUTES.FAQS)
   return successResponse("FAQ record created successfully")
 }
 
@@ -75,6 +72,5 @@ export const editFAQ = async (
     })
   }
 
-  revalidatePath(ROUTES.FAQS)
   return successResponse("FAQ record updated successfully")
 }

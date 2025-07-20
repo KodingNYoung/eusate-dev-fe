@@ -52,7 +52,7 @@ const LoginUrlConfig: FC<Props> = ({
         <Input
           name="login_url"
           label="Login Endpoint URL"
-          placeholder="Enter a name for the API key"
+          placeholder="https:api.example.com/login"
           isError={touched.login_url && !!errors.login_url}
           helperText={touched.login_url ? errors.login_url : ""}
           onChange={(e) => {

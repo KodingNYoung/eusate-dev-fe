@@ -3,15 +3,18 @@ import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { KnowledgeSourceTags, PopupKeys } from "@/utils/enums"
 import { cls } from "@/utils/helpers"
 import { FC, FormState, KnowledgeSource } from "@/utils/types"
+import { useQueryClient } from "@tanstack/react-query"
 import React, { useEffect } from "react"
 import { useFormState } from "react-dom"
 
 type Props = { source: KnowledgeSource }
 
 const UnpublishSourceModal: FC<Props> = ({ source }) => {
+  const queryClient = useQueryClient()
   const [state, action] = useFormState<FormState, FormData>(
     toggleSourcePublished,
     {}
@@ -22,9 +25,12 @@ const UnpublishSourceModal: FC<Props> = ({ source }) => {
 
   useEffect(() => {
     if ("success" in state) {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
       close()
     }
-  }, [state])
+  }, [state, queryClient])
 
   const form = new FormData()
   form.append("id", source?.id)

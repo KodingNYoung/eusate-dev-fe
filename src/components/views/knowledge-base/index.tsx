@@ -19,7 +19,7 @@ import SourcePrivacyCheckbox from "./_components/SourcePrivacyCheckbox"
 import DeleteSourceModal from "./_components/DeleteSourceModal"
 import UnpublishSourceModal from "./_components/UnpublishSourceModal"
 import { useModal } from "@/hooks/popupHooks"
-import { PopupKeys } from "@/utils/enums"
+import { KnowledgeSourceTags, PopupKeys } from "@/utils/enums"
 import EmptySearchState from "./_components/EmptySearchState"
 import SelectedRowsBanner from "./_components/SelectedRowsBanner"
 import Badge from "@/components/atoms/Badge"
@@ -28,7 +28,11 @@ import EmptyState from "@/components/organisms/EmptyState"
 import knowledgeBaseEmptyState from "@/assets/images/knowledge-base-empty-state.svg"
 import { useKnowledgeBaseResources } from "@/hooks/api/knowledgeBaseHooks"
 import { Skeleton } from "@nextui-org/react"
-import { cls } from "@/utils/helpers"
+import { cls, formatFileSize, kbToByte } from "@/utils/helpers"
+import { useRouter } from "next/navigation"
+import { ROUTES } from "@/utils/constants"
+import FAQModal from "../faqs/_components/FAQModal"
+import Userinfo from "@/components/molecules/Userinfo"
 
 type Props = {
   options: GetKnowledgeSourcesOptions
@@ -37,6 +41,7 @@ type Props = {
 const PAGE_SIZE = 6
 
 const KnowledgeBase: FC<Props> = ({ options }) => {
+  const { push } = useRouter()
   const { data, isLoading } = useKnowledgeBaseResources({
     ...options,
     page_size: PAGE_SIZE,
@@ -49,14 +54,7 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
   const [source, setSource] = useState<KnowledgeSource>({} as KnowledgeSource)
 
   // memos
-  const {
-    resources,
-    total,
-    isSearched,
-    publishedTotal,
-    unpublishedTotal,
-    page,
-  } = useMemo(
+  const { resources, total, isSearched, page } = useMemo(
     () => ({
       resources: data?.data?.results || [],
       total: data?.data?.count || 0,
@@ -66,8 +64,6 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
           options.external === undefined ||
           (options.page || 0) > 1
       ),
-      publishedTotal: 0,
-      unpublishedTotal: 0,
       page: data?.data?.page || 1,
     }),
     [data]
@@ -126,11 +122,18 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
         td: "max-w-[150px] sm:max-w-[300px] sm:min-w-[250px]",
       },
       render: (row, loading) => (
-        <Skeleton isLoaded={!loading} className="rounded-sm">
-          <span className="truncate min-w-32 h-[17.5px] block text-black text-medium-sm">
-            {row.title}
-          </span>
-        </Skeleton>
+        <Userinfo
+          title={row.title}
+          subtitle={formatFileSize(kbToByte(row?.file_size_kb || 0))}
+          classNames={{
+            root: "!py-0",
+            avatar: "hidden",
+            info: "gap-0.5",
+            title: "w-[unset] min-w-36",
+            subtitle: loading ? "w-16" : "w-fit",
+          }}
+          loading={loading}
+        />
       ),
     },
     {
@@ -242,6 +245,7 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
           onDelete={() => {
             openModal(PopupKeys.DELETE_SOURCE_MODAL, row)
           }}
+          onFaqOpen={() => openModal(PopupKeys.EDIT_FAQS_MODAL, row)}
         />
       ),
     },
@@ -268,15 +272,7 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
       )}
       {/* has an error */}
       {/* data available  or empty with search */}
-      {(!!resources.length || isSearched || isLoading) && (
-        <TableTop
-          counts={{
-            all: publishedTotal + unpublishedTotal,
-            published: publishedTotal,
-            drafts: unpublishedTotal,
-          }}
-        />
-      )}
+      {(!!resources.length || isSearched || isLoading) && <TableTop />}
       {/* empty with search */}
       {!total && isSearched && !isLoading && <EmptySearchState />}
       {/* data available */}
@@ -290,7 +286,13 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
             columns={columns}
             data={resources}
             onRowClick={(row) => {
-              console.log(row)
+              if (row.tag === KnowledgeSourceTags.FAQ) {
+                openModal(PopupKeys.EDIT_FAQS_MODAL, row)
+              } else {
+                push(
+                  `${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${row.id}&${KB_QUERY_KEYS.TAGS}=${row.tag}`
+                )
+              }
             }}
             pagination={{
               total: Math.ceil(total / PAGE_SIZE),
@@ -309,6 +311,7 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
       <DocumentModal />
       <DeleteSourceModal source={source} />
       <UnpublishSourceModal source={source} />
+      <FAQModal id={PopupKeys.EDIT_FAQS_MODAL} faq={source} />
     </div>
   )
 }

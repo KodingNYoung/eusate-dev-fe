@@ -7,12 +7,15 @@ import { removeSource } from "@/app/(organisation-routes)/(dashboard)/knowledge-
 import { useModal } from "@/hooks/popupHooks"
 import Icon from "@/components/atoms/Icon"
 import { useFormToast } from "@/hooks/formHooks"
+import { useQueryClient } from "@tanstack/react-query"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 
 type Props = {
   source: KnowledgeSource
 }
 
 const DeleteSourceModal: FC<Props> = ({ source }) => {
+  const queryClient = useQueryClient()
   const [state, action] = useFormState<FormState, FormData>(removeSource, {})
   const { close } = useModal()
 
@@ -20,9 +23,12 @@ const DeleteSourceModal: FC<Props> = ({ source }) => {
 
   useEffect(() => {
     if ("success" in state) {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
       close()
     }
-  }, [state])
+  }, [state, queryClient])
 
   const id = new FormData()
   id.append("id", source?.id)

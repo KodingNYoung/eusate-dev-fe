@@ -4,11 +4,14 @@ import Info from "@/components/molecules/Info"
 import WebsiteInput from "@/components/organisms/WebsiteInput"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { FC, FormState } from "@/utils/types"
+import { useQueryClient } from "@tanstack/react-query"
 import React, { useEffect, useState } from "react"
 import { useFormState } from "react-dom"
 
 const AddArticleLink: FC = () => {
+  const queryClient = useQueryClient()
   const [url, setUrl] = useState("")
   const { close } = useModal()
 
@@ -26,9 +29,12 @@ const AddArticleLink: FC = () => {
   useEffect(() => {
     if ("success" in state) {
       // TODO: open the processes modal
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
       close()
     }
-  }, [state])
+  }, [state, queryClient])
 
   return (
     <div className="relative">
@@ -45,7 +51,7 @@ const AddArticleLink: FC = () => {
           <input type="hidden" name="url" value={url} readOnly />
           <footer className="flex items-center justify-end p-5 border-t border-gray-50">
             <SubmitButton
-              className="px-3.5 !py-2.5"
+              className="!py-3.5 px-4.5"
               classNames={{ label: "text-medium-sm" }}
               disabled={!url}
             >

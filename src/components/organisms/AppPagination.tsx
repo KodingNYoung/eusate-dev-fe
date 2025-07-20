@@ -34,7 +34,7 @@ const AppPagination: FC<AppPaginationProps> = ({
           size={btnSize}
           disabled={page === 1}
           classNames={{
-            root: "text-gray-900 px-3 py-2.5 md:pr-4.5 gap-2",
+            root: "text-gray-900 px-3 py-1.5 md:pr-4.5 gap-2",
             label: "hidden md:block",
           }}
           variant="tetiary"
@@ -61,7 +61,7 @@ const AppPagination: FC<AppPaginationProps> = ({
         <Button
           size={btnSize}
           classNames={{
-            root: "text-gray-900 px-3 py-2.5 md:pl-4.5 gap-2",
+            root: "text-gray-900 px-3 py-1.5 md:pl-4.5 gap-2",
             label: "hidden md:block",
           }}
           variant="tetiary"

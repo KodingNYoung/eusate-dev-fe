@@ -10,6 +10,7 @@ const DocumentModal: FC = () => {
       id={PopupKeys.DOCUMENT_MODAL}
       classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
       header={{ title: "Upload a document" }}
+      isDismissable={false}
     >
       <DocumentModalForm />
     </Modal>

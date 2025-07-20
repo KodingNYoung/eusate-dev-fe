@@ -245,3 +245,15 @@ export const convertSecondsToTime = (seconds: number) => {
 
   return hours > 0 ? `${hours}:${minutes}:${secs}` : `${minutes}:${secs}`
 }
+
+export const formatComma = (num: number | string) => {
+  if (!num) return num
+  const [integer, decimal] = num.toString().split(".")
+  const numArray = integer.split("")
+  let strVal = ""
+  while (numArray.length) {
+    const threeVal = numArray.splice(-3).join("")
+    strVal = (numArray.length ? "," : "") + threeVal + strVal
+  }
+  return decimal ? `${strVal}.${decimal}` : strVal
+}
