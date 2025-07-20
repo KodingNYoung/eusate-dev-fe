@@ -9,6 +9,7 @@ const AddwebsiteModal: FC = () => {
       id={PopupKeys.WEBSITE_MODAL}
       classNames={{ wrapper: "px-2", base: "w-full max-w-[600px] rounded-x20" }}
       header={{ title: "Add website" }}
+      isDismissable={false}
     >
       <WebsiteModalForm />
     </Modal>

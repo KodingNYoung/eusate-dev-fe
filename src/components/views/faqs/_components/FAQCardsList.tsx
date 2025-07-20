@@ -10,6 +10,7 @@ import DeleteSourceModal from "../../knowledge-base/_components/DeleteSourceModa
 
 type Props = {
   faqs: KnowledgeSource[]
+  loading?: boolean
 }
 
 const FAQCardsList: FC<Props> = ({ faqs }) => {

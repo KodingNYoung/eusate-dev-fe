@@ -12,12 +12,15 @@ import { useModal } from "@/hooks/popupHooks"
 import { PopupKeys } from "@/utils/enums"
 import BulkDeleteSourceModal from "./BulkDeleteSourceModal"
 import { toaster } from "@/components/molecules/Toast"
+import { useQueryClient } from "@tanstack/react-query"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 
 type Props = {
   rows: KnowledgeSource[]
 }
 
 const SelectedRowsBanner: FC<Props> = ({ rows }) => {
+  const queryClient = useQueryClient()
   const ref = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile()
   const { open } = useModal()
@@ -31,6 +34,9 @@ const SelectedRowsBanner: FC<Props> = ({ rows }) => {
     )
 
     if ("success" in response) {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
       toaster.success(response.success.message)
     } else if ("error" in response) {
       toaster.error(response.error.message)

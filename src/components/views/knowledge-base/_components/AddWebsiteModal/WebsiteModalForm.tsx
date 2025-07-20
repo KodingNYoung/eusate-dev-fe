@@ -6,11 +6,15 @@ import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import Info from "@/components/molecules/Info"
 import WebsiteInput from "@/components/organisms/WebsiteInput"
 import { useFormToast } from "@/hooks/formHooks"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { FC } from "@/utils/types"
-import React, { useMemo, useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
+import React, { useEffect, useMemo, useState } from "react"
 import { useFormState } from "react-dom"
 
 const WebsiteModalForm: FC = () => {
+  const queryClient = useQueryClient()
+
   const [mainWebsite, setMainWebsite] = useState("")
   const [subdomains, setSubdomains] = useState<string[]>([])
 
@@ -48,6 +52,14 @@ const WebsiteModalForm: FC = () => {
       setSubdomains(newSubdomains)
     }
   }
+
+  useEffect(() => {
+    if ("success" in state) {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
+    }
+  }, [queryClient])
 
   return (
     <div className="relative max-h-[60vh] overflow-y-auto custom-scrollbar ">
@@ -106,7 +118,7 @@ const WebsiteModalForm: FC = () => {
         ))}
         <footer className="flex items-center justify-end p-5 border-t border-gray-50 bg-white">
           <SubmitButton
-            className="px-3.5 !py-2.5"
+            className="!py-3.5 px-4.5"
             classNames={{ label: "text-medium-sm" }}
             disabled={
               !mainWebsite || subdomains.some((subdomain) => !subdomain)

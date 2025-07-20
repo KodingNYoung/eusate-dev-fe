@@ -61,16 +61,16 @@ export const LoaderIcon = (
       cy="28"
       r="24.5"
       stroke="#EEF2FF"
-      stroke-width="7"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M10.6759 10.6759C14.1023 7.2495 18.4678 4.9161 23.2203 3.97076C27.9728 3.02542 32.899 3.5106 37.3757 5.36495C41.8525 7.2193 45.6789 10.3595 48.371 14.3885C51.0631 18.4175 52.5 23.1544 52.5 28"
       stroke="url(#paint0_linear_2410_46863)"
-      stroke-width="7"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <defs>
       <linearGradient
@@ -81,8 +81,8 @@ export const LoaderIcon = (
         y2="28"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#D7AB07" />
-        <stop offset="1" stop-color="#E86555" />
+        <stop stopColor="#D7AB07" />
+        <stop offset="1" stopColor="#E86555" />
       </linearGradient>
     </defs>
   </svg>

@@ -94,7 +94,7 @@ const GeneralConfig: FC<Props> = ({
           name={DSFunctionFields.ENDPOINT}
           label="Endpoint URL"
           value={data[DSFunctionFields.ENDPOINT]}
-          placeholder="Enter an endpoint URL"
+          placeholder="https:api.example.com/user/{userId}/?type={userType}"
           errors={errors}
           touched={touched}
           onFieldChange={handleFieldChange}

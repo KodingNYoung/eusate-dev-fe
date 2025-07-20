@@ -6,6 +6,7 @@ import React, { useMemo } from "react"
 import { DEVSPACE_QUERY_KEYS, DEVSPACE_TABS, DevspaceTabs } from "../utils"
 import { PopupKeys } from "@/utils/enums"
 import OpenModalButton from "@/components/molecules/Buttons/OpenModalButton"
+import { useAuthConfig } from "@/hooks/api/devSpaceHooks"
 
 const buttonLabel = {
   [DevspaceTabs.AUTH]: "Add auth configuration",
@@ -18,6 +19,7 @@ const buttonModalId = {
 
 const DevSpaceActionButton: FC = () => {
   const { get } = useQueryParams()
+  const { configs, isLoading } = useAuthConfig()
 
   const tab = useMemo(
     () =>
@@ -25,11 +27,12 @@ const DevSpaceActionButton: FC = () => {
     [get]
   )
 
-  return (
+  return configs?.length && tab === DevspaceTabs.AUTH ? null : (
     <OpenModalButton
       modalKey={buttonModalId[tab]}
       size="sm"
       classNames={{ root: "px-4.5 py-2.5" }}
+      disabled={isLoading}
     >
       {buttonLabel[tab]}
     </OpenModalButton>

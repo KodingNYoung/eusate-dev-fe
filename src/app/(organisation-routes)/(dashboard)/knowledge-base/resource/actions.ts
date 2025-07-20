@@ -6,8 +6,7 @@ import { getSession } from "@/lib/sessions"
 import { ROUTES } from "@/utils/constants"
 import { KnowledgeSourceTags } from "@/utils/enums"
 import { formStateResponse } from "@/utils/helpers"
-import { FormState } from "@/utils/types"
-import { revalidatePath } from "next/cache"
+import { FormState, KnowledgeSource } from "@/utils/types"
 
 export const toggleSourcePublished = async () => {}
 
@@ -18,7 +17,7 @@ export const createArticle = async (
   formdata: FormData
 ): Promise<FormState> => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const { title, content, unpublished } = Object.fromEntries(formdata)
+  const { title, content, resourceState } = Object.fromEntries(formdata)
   const message = "Article record creation in progress"
   const route = ROUTES.KNOWLEDGE_BASE
 
@@ -29,7 +28,7 @@ export const createArticle = async (
       {
         title,
         content,
-        published: !unpublished,
+        published: resourceState !== "unpublished",
         organisation_id: session?.currentOrganisationId,
       },
       { method: "POST" }
@@ -45,7 +44,7 @@ export const createArticle = async (
       message: err instanceof Error ? err.message : "Something went wrong",
     })
   }
-  //   revalidatePath(ROUTES.KNOWLEDGE_BASE)
+
   return successResponse(message, route)
 }
 // create article and revalidate the knowledge base url
@@ -54,13 +53,17 @@ export const updateResourceContent = async (
   formdata: FormData
 ): Promise<FormState> => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const { title, content, id, tag } = Object.fromEntries(formdata)
-  const message = "Article record update in progress"
+  const { title, content, id, tag, resourceState } =
+    Object.fromEntries(formdata)
+  const message = "Article record updated"
   const route = ROUTES.KNOWLEDGE_BASE
 
   try {
     const response = await editSource(
-      { title, content } as Record<"title" | "content", string>,
+      { title, content, published: resourceState !== "unpublished" } as Pick<
+        KnowledgeSource,
+        "title" | "content" | "published"
+      >,
       id as string,
       tag as KnowledgeSourceTags
     )
@@ -74,6 +77,6 @@ export const updateResourceContent = async (
       message: err instanceof Error ? err.message : "Something went wrong",
     })
   }
-  revalidatePath(ROUTES.KNOWLEDGE_BASE)
+
   return successResponse(message, route)
 }

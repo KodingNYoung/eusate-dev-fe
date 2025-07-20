@@ -18,7 +18,7 @@ const FileInputContent: FC = () => {
           or drag and drop
         </Typography>
         <Typography className="text-regular-xs text-gray-400">
-          PDF, DOC or TXT (max. 800x400px)
+          PDF, DOC or TXT
         </Typography>
       </div>
       <Typography

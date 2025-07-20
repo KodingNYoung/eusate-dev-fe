@@ -1,17 +1,21 @@
 "use client"
 
 import { FC } from "@/utils/types"
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import "react-quill-new/dist/quill.snow.css"
 import "./editor.css"
 import dynamic from "next/dynamic"
+import { formatComma } from "@/utils/helpers"
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false })
 
 type Props = {
   content?: string
+  loading?: boolean
   onContentChange: () => void
 }
 
-const Editor: FC<Props> = ({ content = "", onContentChange }) => {
+const Editor: FC<Props> = ({ content = "", onContentChange, loading }) => {
   const [value, setValue] = useState(content)
 
   const wordCount = useMemo(() => {
@@ -20,28 +24,30 @@ const Editor: FC<Props> = ({ content = "", onContentChange }) => {
     return text ? text.split(/\s+/).length : 0
   }, [value])
 
-  const ReactQuill = useMemo(
-    () => dynamic(() => import("react-quill-new"), { ssr: false }),
-    []
-  )
+  useEffect(() => {
+    setValue(content)
+  }, [content])
 
   return (
-    <div className="text-editor grid flex-1 relative">
+    <div className="text-editor grid h-full relative">
       <input type="hidden" value={value} name="content" readOnly />
       <div className="absolute top-0 left-0 w-full h-full">
         <Toolbar count={wordCount} />
-        <ReactQuill
-          theme="snow"
-          value={value.replace("&nbsp", " ")}
-          onChange={(value) => {
-            setValue(value)
-            onContentChange()
-          }}
-          placeholder="Start typing..."
-          modules={{
-            toolbar: "#quill-toolbar",
-          }}
-        />
+        {!loading && (
+          <ReactQuill
+            theme="snow"
+            value={value}
+            onChange={(value) => {
+              setValue(value)
+              onContentChange()
+            }}
+            className="[&_.ql-editor]:font-app [&_.ql-editor]:placeholder:text-gray-300 [&_.ql-editor]:text-gray-600 [&_.ql-editor]:text-regular-base"
+            placeholder="Start typing..."
+            modules={{
+              toolbar: "#quill-toolbar",
+            }}
+          />
+        )}
       </div>
     </div>
   )
@@ -53,9 +59,9 @@ type ToolbarProps = { count: number }
 
 const Toolbar: FC<ToolbarProps> = ({ count }) => {
   return (
-    <div id="quill-toolbar">
+    <div id="quill-toolbar" className="[&_*]:font-app">
       <span className="text-semibold-base">
-        {count} {count === 1 ? "word" : "words"}
+        {formatComma(count)} {count === 1 ? "word" : "words"}
       </span>
       <div className="flex-1 flex items-center justify-end gap-2.5">
         <select

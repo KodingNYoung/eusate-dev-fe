@@ -3,15 +3,18 @@ import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 import { PopupKeys } from "@/utils/enums"
 import { cls } from "@/utils/helpers"
 import { FC, KnowledgeSource } from "@/utils/types"
+import { useQueryClient } from "@tanstack/react-query"
 import React, { useEffect, useMemo } from "react"
 import { useFormState } from "react-dom"
 
 type Props = { sources: KnowledgeSource[] }
 
 const BulkTogglePublishedModal: FC<Props> = ({ sources }) => {
+  const queryClient = useQueryClient()
   const hasPublished = useMemo(
     () => sources.some((source) => source.published),
     [sources]
@@ -26,9 +29,12 @@ const BulkTogglePublishedModal: FC<Props> = ({ sources }) => {
 
   useEffect(() => {
     if ("success" in state) {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
       close()
     }
-  }, [state])
+  }, [state, queryClient])
 
   return (
     <ConfirmationModal

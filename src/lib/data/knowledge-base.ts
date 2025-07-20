@@ -60,29 +60,20 @@ export const getKnowledgeSources = async (
 }
 
 export const getKnowledgeSource = async (
-  id: string,
-  tag: KnowledgeSourceTags
+  id?: string,
+  tag?: KnowledgeSourceTags
 ) => {
-  try {
-    const response = await sendAuthRequest<KnowledgeSource>(
-      `/api/v1/library/${tag}/${id}`
-    )
+  const session = await getSession()
+  const response = await sendAuthRequest<KnowledgeSource>(
+    `/api/v1/library/${session?.currentOrganisationId}/${tag}/${id}/`
+  )
 
-    if ("shouldAuthenticate" in response)
-      throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  if ("shouldAuthenticate" in response)
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
-    const content = await getFileContent(response.file)
+  const content = await getFileContent(response.file)
 
-    return { success: { message: "" }, data: { ...response, content } }
-  } catch (err) {
-    return {
-      error: {
-        message: err instanceof Error ? err.message : "Something went wrong",
-      },
-      shouldAuthenticate:
-        err instanceof Error && err.cause === ERROR_CAUSES.SESSION_EXPIRED,
-    }
-  }
+  return { ...response, content }
 }
 
 export const getFileContent = async (url?: string) => {

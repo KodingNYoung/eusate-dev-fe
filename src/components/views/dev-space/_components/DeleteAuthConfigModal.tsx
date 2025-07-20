@@ -23,9 +23,10 @@ const DeleteAuthConfigModal: FC<Props> = ({ id }) => {
     removeAuthConfig,
     {}
   )
-  useFormToast(state)
+  useFormToast(state, true)
 
   useEffect(() => {
+    console.log(state)
     if ("success" in state) {
       queryClient.invalidateQueries({ queryKey: QUERY_FN_KEYS.AUTH_CONFIG })
       close()

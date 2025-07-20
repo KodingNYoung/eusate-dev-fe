@@ -56,7 +56,7 @@ export const editFunction = async (id: string, payload: DSFunction) => {
   const response = await sendAuthRequest<DevSpaceFunctionsResponse>(
     `/api/v1/lab/function/${id}/edit/`,
     { ...payload, organisation_id: session?.currentOrganisationId },
-    { method: "PATCH" }
+    { method: "PUT" }
   )
 
   if ("shouldAuthenticate" in response) {

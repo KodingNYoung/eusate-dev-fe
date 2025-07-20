@@ -18,6 +18,15 @@ type Props = {
   kind: FeedbackKind
 }
 
+const modalIdMap = {
+  [FeedbackKind.LIKE]: PopupKeys.PLAYGROUND_LIKE_MODAL,
+  [FeedbackKind.DISLIKE]: PopupKeys.PLAYGROUND_DISLIKE_MODAL,
+}
+const feedbackValueMap = {
+  [FeedbackKind.LIKE]: true,
+  [FeedbackKind.DISLIKE]: false,
+}
+
 const FeedbackButton: FC<Props> = ({
   response,
   loading,
@@ -25,7 +34,7 @@ const FeedbackButton: FC<Props> = ({
   userMessageId,
   kind,
 }) => {
-  const { open, close } = useModal(PopupKeys.PLAYGROUND_LIKE_MODAL)
+  const { open, close } = useModal(modalIdMap[kind])
   const { likeOrDislikeResponse } = usePlayground()
   const [state, action] = useFormState(sendResponseFeedback, {})
 
@@ -59,10 +68,10 @@ const FeedbackButton: FC<Props> = ({
         variant="tetiaryText"
         size="mini"
         classNames={{
-          root: "!border-0 focus:border-0",
+          root: "!border-0 focus:border-0 disabled:cursor-pointer",
           label: "!leading-none",
         }}
-        disabled={loading}
+        disabled={loading || feedbackValueMap[kind] === response.liked}
       >
         <Icon
           name={getFeedbackIcon(kind, response.liked)}

@@ -43,7 +43,7 @@ export const addAuthConfig = async (
     })
   }
   revalidatePath(ROUTES.DEV_SPACE)
-  return successResponse("")
+  return successResponse("Auth config created successfully")
 }
 
 export const updateAuthConfig = async (
@@ -76,7 +76,7 @@ export const updateAuthConfig = async (
     })
   }
   revalidatePath(ROUTES.DEV_SPACE)
-  return successResponse("")
+  return successResponse("Auth config updated successfully")
 }
 export const addFunction = async (
   state: FormState,
@@ -104,7 +104,7 @@ export const addFunction = async (
     })
   }
   revalidatePath(ROUTES.DEV_SPACE)
-  return successResponse("")
+  return successResponse("Function created successfully")
 }
 
 export const updateFunction = async (
@@ -116,7 +116,7 @@ export const updateFunction = async (
     await editFunction(payload.id, {
       name: payload.name,
       description: payload.description || "",
-      auth_config_id: payload.auth_config_id,
+      auth_config_id: payload.auth_config_id || undefined,
       endpoint_url: payload.endpoint_url,
       method: payload.method,
       url_params: payload.url_params?.length ? payload.url_params : undefined,
@@ -132,7 +132,7 @@ export const updateFunction = async (
     })
   }
   revalidatePath(ROUTES.DEV_SPACE)
-  return successResponse("")
+  return successResponse("Function updated successfully")
 }
 
 export const removeAuthConfig = async (
@@ -140,7 +140,8 @@ export const removeAuthConfig = async (
   formdata: FormData
 ) => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const message = "You have successfully deleted a source."
+  const message =
+    "You have successfully deleted your authentication configuration"
   const { id } = Object.fromEntries(formdata)
   try {
     await deleteAuthconfig(id as string)
@@ -151,7 +152,6 @@ export const removeAuthConfig = async (
     })
   }
 
-  revalidatePath(ROUTES.DEV_SPACE)
   return successResponse(message)
 }
 

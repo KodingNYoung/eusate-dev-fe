@@ -14,9 +14,12 @@ import { uploadDocuments } from "@/app/(organisation-routes)/(dashboard)/knowled
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
 import { toaster } from "@/components/molecules/Toast"
+import { QUERY_FN_KEYS } from "@/utils/constants"
+import { useQueryClient } from "@tanstack/react-query"
 
 const DocumentModalForm: FC = () => {
   const { close } = useModal()
+  const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
 
   const [state, action] = useFormState(uploadDocuments, {})
@@ -37,9 +40,12 @@ const DocumentModalForm: FC = () => {
   useEffect(() => {
     if ("success" in state) {
       // TODO: Open the processes modal
+      queryClient.invalidateQueries({
+        queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+      })
       close()
     }
-  }, [state])
+  }, [state, queryClient])
 
   return (
     <form
@@ -78,7 +84,7 @@ const DocumentModalForm: FC = () => {
             />
           </section>
           <footer className="flex justify-end p-5 sticky bottom-0 bg-white border-t border-gray-50 rounded-b-x20">
-            <SubmitButton className="!py-4 px-3">
+            <SubmitButton className="!py-3.5 px-4.5">
               Add to knowledge base
             </SubmitButton>
           </footer>

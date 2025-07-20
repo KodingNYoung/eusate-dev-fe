@@ -28,8 +28,8 @@ const SourcePrivacyCheckbox: FC<Props> = ({ row, loading }) => {
 
   return (
     <form action={action}>
-      <input type="hidden" value={row.id} name="id" readOnly />
-      <input type="hidden" value={row.tag} name="tag" readOnly />
+      <input type="hidden" value={row.id || ""} name="id" readOnly />
+      <input type="hidden" value={row.tag || ""} name="tag" readOnly />
       <Checkbox
         name="privacy"
         value="internal"

@@ -20,6 +20,7 @@ const InviteMemberModal: FC<Props> = ({
       id={modalId}
       header={{ title: isInvite ? "Invite new member" : "Manage user access" }}
       headerStyle={{ title: "text-regular-lg" }}
+      isDismissable={false}
     >
       <InviteMemberForm member={member} isInvite={isInvite} />
     </AppModal>
