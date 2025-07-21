@@ -10,7 +10,7 @@ type Props = {
   type: KnowledgeSourceTags
 }
 
-const resourceIcon: { [type in KnowledgeSourceTags]: IconNames } = {
+export const resourceIcon: { [type in KnowledgeSourceTags]: IconNames } = {
   document: "icon-document-text",
   link: "icon-link",
   article: "icon-article-text",

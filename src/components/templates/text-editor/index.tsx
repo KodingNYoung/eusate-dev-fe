@@ -21,6 +21,7 @@ import { useKnowledgeBaseResource } from "@/hooks/api/knowledgeBaseHooks"
 import { Skeleton } from "@nextui-org/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { QUERY_FN_KEYS } from "@/utils/constants"
+import { useProcesses } from "@/hooks/processHooks"
 
 type Props = {
   id?: string
@@ -29,8 +30,9 @@ type Props = {
 
 const TextEditor: FC<Props> = ({ id, tag }) => {
   const queryClient = useQueryClient()
-  const formRef = useRef<HTMLFormElement>(null)
   const router = useRouter()
+  const { refetch: refetchProcesses } = useProcesses()
+  const formRef = useRef<HTMLFormElement>(null)
 
   const { data: resource, isLoading } = useKnowledgeBaseResource(id, tag)
 
@@ -50,6 +52,7 @@ const TextEditor: FC<Props> = ({ id, tag }) => {
 
   useEffect(() => {
     if ("success" in state) {
+      refetchProcesses()
       queryClient.invalidateQueries({
         queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
       })
@@ -59,7 +62,7 @@ const TextEditor: FC<Props> = ({ id, tag }) => {
         setShouldRedirect(false)
       }
     }
-  }, [state, shouldRedirect, queryClient])
+  }, [state, shouldRedirect, queryClient, refetchProcesses])
 
   return (
     <form

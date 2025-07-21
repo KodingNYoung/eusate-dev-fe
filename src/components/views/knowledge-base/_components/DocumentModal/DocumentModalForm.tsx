@@ -16,10 +16,13 @@ import { useModal } from "@/hooks/popupHooks"
 import { toaster } from "@/components/molecules/Toast"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { useQueryClient } from "@tanstack/react-query"
+import { useProcesses } from "@/hooks/processHooks"
 
 const DocumentModalForm: FC = () => {
   const { close } = useModal()
   const queryClient = useQueryClient()
+  const { refetch: refetchProcesses } = useProcesses()
+
   const [files, setFiles] = useState<File[]>([])
 
   const [state, action] = useFormState(uploadDocuments, {})
@@ -39,13 +42,13 @@ const DocumentModalForm: FC = () => {
 
   useEffect(() => {
     if ("success" in state) {
-      // TODO: Open the processes modal
+      refetchProcesses()
       queryClient.invalidateQueries({
         queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
       })
       close()
     }
-  }, [state, queryClient])
+  }, [state, queryClient, refetchProcesses])
 
   return (
     <form

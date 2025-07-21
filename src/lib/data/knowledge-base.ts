@@ -1,6 +1,6 @@
 "use server"
 
-import { KnowledgeSource } from "@/utils/types"
+import { KnowledgeSource, ResourceProcess } from "@/utils/types"
 import { sendAuthRequest } from "../request"
 import { ERROR_CAUSES } from "@/utils/constants"
 import { getSession } from "../sessions"
@@ -86,32 +86,20 @@ export const getFileContent = async (url?: string) => {
 
 type GetProcessResponse = {
   count: number
-  results: KnowledgeSource[]
+  results: ResourceProcess[]
   next: number
   previous: number
 }
 
 export const getProcesses = async () => {
-  const response = {} as GetProcessResponse
+  const session = await getSession()
 
-  //   try {
-  //     const session = await getSession()
+  const response = await sendAuthRequest<GetProcessResponse>(
+    `/api/v1/library/${session?.currentOrganisationId}/processing-resources/?status=ingesting&page_size=50`
+  )
 
-  //     if (!session) throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  if ("shouldAuthenticate" in response)
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
 
-  //     const _response = await sendAuthRequest<GetProcessResponse>(
-  //       `/api/v1/library/${session.currentOrganisationId}/processing-resources/?status=ingesting,updating`
-  //     )
-
-  //     if ("shouldAuthenticate" in _response)
-  //       throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
-
-  //     response = _response
-  //   } catch (err) {
-  //     console.log("gp", { err })
-  //     throw err
-  //   }
-
-  //   revalidatePath(ROUTES.KNOWLEDGE_BASE)
   return response
 }

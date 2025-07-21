@@ -6,6 +6,7 @@ import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import ValidatableLinkInput from "@/components/organisms/ValidatableLinkInput"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
+import { useProcesses } from "@/hooks/processHooks"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { FC, FormState } from "@/utils/types"
 import { useQueryClient } from "@tanstack/react-query"
@@ -13,8 +14,9 @@ import React, { useEffect, useState } from "react"
 import { useFormState } from "react-dom"
 
 const AddLink: FC = () => {
-  const queryClient = useQueryClient()
   const { close } = useModal()
+  const queryClient = useQueryClient()
+  const { refetch: refetchProcesses } = useProcesses()
 
   const [links, setLinks] = useState([""])
 
@@ -36,13 +38,13 @@ const AddLink: FC = () => {
 
   useEffect(() => {
     if ("success" in state) {
-      // TODO: open the processes modal
+      refetchProcesses()
       queryClient.invalidateQueries({
         queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
       })
       close()
     }
-  }, [state, queryClient])
+  }, [state, queryClient, refetchProcesses])
 
   return (
     <div className="relative">

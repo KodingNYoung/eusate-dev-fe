@@ -100,3 +100,12 @@ export enum MemberInviteStatus {
   ACCEPTED = "accepted",
   REJECTED = "rejected",
 }
+
+export enum ResourceProcessStatus {
+  INGESTING = "ingesting",
+  INGESTED = "ingested",
+  UPDATING = "updating",
+  UPDATED = "updated",
+  DELETING = "deleting",
+  DELETED = "deleted",
+}
