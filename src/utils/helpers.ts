@@ -121,23 +121,6 @@ export const formatFileSize = (bytes: number) => {
   }
 }
 
-export const chunkFile = (file: File, chunkSizeInByte: number) => {
-  const chunks = []
-  let offset = 0
-
-  while (offset < file.size) {
-    const chunk = file.slice(offset, offset + chunkSizeInByte)
-    const chunkFile = new File([chunk], file.name, {
-      type: file.type,
-      lastModified: file.lastModified,
-    })
-    chunks.push(chunkFile)
-    offset += chunkSizeInByte
-  }
-
-  return chunks
-}
-
 export const objToQuery = (obj: Record<string, string | number | boolean>) => {
   const query = new URLSearchParams()
   Object.keys(obj).forEach((key) => {

@@ -5,6 +5,7 @@ import {
   MemberInviteStatus,
   MessageSenders,
   PermissionCodenames,
+  ResourceProcessStatus,
   ResourceSources,
   TwoFAMethods,
 } from "./enums"
@@ -210,6 +211,15 @@ export type KnowledgeSource = DBResource & {
   extension: string | null
   content?: string
   file_size_kb: number | null
+}
+
+export type ResourceProcess = DBResource & {
+  organisation: string
+  resource_id: string | null
+  resource_title: string
+  status: ResourceProcessStatus
+  tag: KnowledgeSourceTags
+  user: string
 }
 
 export type UserMessage = DBResource & {

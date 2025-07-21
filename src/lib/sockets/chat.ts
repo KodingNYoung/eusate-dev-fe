@@ -59,7 +59,6 @@ export const useChatSocket = (
 
   const emitRead = useCallback(
     (chatId: string) => {
-      console.log("Read chat", chatId)
       if (!socket || !chatId || !isConnected) return
       const payload = {
         ticket_chat_id: chatId,

@@ -5,12 +5,11 @@ import {
   addLink,
   deleteSource,
   editSource,
-  initiateDocumentStream,
   uploadChunk,
 } from "@/lib/services/knowledge-base"
 import { getSession } from "@/lib/sessions"
 import { KnowledgeSourceTags } from "@/utils/enums"
-import { chunkFile, formStateResponse, mbToByte } from "@/utils/helpers"
+import { formStateResponse } from "@/utils/helpers"
 import { FormState, KnowledgeSource } from "@/utils/types"
 
 export type ValidateUrlResponse = { valid: boolean }
@@ -45,26 +44,8 @@ export const validateUrl = async (
   }
 }
 
-const MAX_TRANSFERRABLE_DOCUMENT_SIZE_IN_MB = 100
-const FILE_CHUNK_SIZE_IN_MB = 8
-
 /**
- * Uploads documents by either chunking them if they exceed a certain size or uploading them directly.
  *
- * @param {FormState} state - The current state of the form.
- * @param {FormData} formdata - The form data containing the documents to be uploaded.
- *
- * @returns {Promise<void>} - A promise that resolves when the documents have been uploaded.
- *
- * @throws {Error} - Throws an error if the upload process fails.
- *
- * The function performs the following steps:
- * 1. Retrieves the documents from the form data.
- * 2. For each document, checks its size.
- * 3. If the document size is 100MB or more, it chunks the file into 8MB pieces and uploads each chunk.
- * 4. If the document size is less than 100MB, it uploads the file directly.
- * 5. Handles errors and returns appropriate responses.
- * 6. Revalidates the knowledge base path upon successful upload.
  */
 export const uploadDocuments = async (state: FormState, formdata: FormData) => {
   const { successResponse, errorResponse } = formStateResponse(state)
@@ -74,23 +55,7 @@ export const uploadDocuments = async (state: FormState, formdata: FormData) => {
   try {
     await Promise.all(
       documents.map(async (document) => {
-        const size = document.size
-        const chunkSize = mbToByte(FILE_CHUNK_SIZE_IN_MB)
-
-        if (size >= mbToByte(MAX_TRANSFERRABLE_DOCUMENT_SIZE_IN_MB)) {
-          const chunks = chunkFile(document, chunkSize)
-          const streamKey = await initiateDocumentStream(chunks.length)
-
-          const responses = await Promise.all(
-            chunks.map(async (chunk, idx) => {
-              return await uploadChunk(chunk, { streamKey, idx })
-            })
-          )
-
-          return responses.find((response) => "process_id" in response)
-        } else {
-          return await uploadChunk(document)
-        }
+        return await uploadChunk(document)
       })
     )
   } catch (err) {

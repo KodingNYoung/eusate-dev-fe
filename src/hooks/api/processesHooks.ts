@@ -2,16 +2,18 @@
 
 import { toaster } from "@/components/molecules/Toast"
 import { getProcesses } from "@/lib/data/knowledge-base"
-import { useQuery } from "@tanstack/react-query"
-// import { useEffect, useRef } from "react"
-// import { io, Socket } from "socket.io-client"
-// import { useCookie } from "./storage"
-// import { COOKIES_KEYS } from "@/utils/constants"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useSocket } from "../sockets"
+import { useEffect } from "react"
+import { QUERY_FN_KEYS } from "@/utils/constants"
+import { ResourceProcess } from "@/utils/types"
+import { ResourceProcessStatus } from "@/utils/enums"
 
 export const useSourceProcesses = () => {
   const result = useQuery({
     queryKey: ["processes"],
     queryFn: async () => await getProcesses(),
+    staleTime: Infinity, // so the processes don't refetch until it is invalidated or
   })
 
   if (result.isError) {
@@ -22,31 +24,35 @@ export const useSourceProcesses = () => {
 }
 
 export const useProcessWithSocket = () => {
-  //   const socket = useRef<Socket>()
   const result = useSourceProcesses()
-  //   const { data, refetch: fetchSession } = useCookie(COOKIES_KEYS.SESSION)
-  //   useEffect(() => {
-  //     fetchSession()
-  //     ;(async () => {
-  //       if (socket.current) return
-  //       console.log(data)
-  //       const _socket = io("http://0.0.0.0:8000/library", {
-  //         autoConnect: true,
-  //         transports: ["websocket"],
-  //         query: {
-  //           token: session?.accessToken,
-  //           organisation_id: session?.currentOrganisationId,
-  //         },
-  //       })
-  //       _socket.on("disconnect", () => console.log("Disconnected"))
-  //       _socket.on("resource", () => {
-  //         result.refetch()
-  //       })
-  //       socket.current = _socket
-  //     })()
-  //     return () => {
-  //       socket.current?.disconnect()
-  //     }
-  //   }, [])
-  return result
+  const queryClient = useQueryClient()
+
+  const { isConnected, socket } = useSocket("/library")
+
+  useEffect(() => {
+    if (!socket || !isConnected) return
+
+    socket.on(
+      "resource",
+      (data: {
+        data: ResourceProcess
+        message: string
+        status_code: number
+      }) => {
+        if (
+          data?.status_code === 200 &&
+          data?.data?.status === ResourceProcessStatus.INGESTED
+        ) {
+          result.refetch()
+          queryClient.invalidateQueries({
+            queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+          })
+          toaster.success(data.message)
+        } else {
+          toaster.error(data.message)
+        }
+      }
+    )
+  }, [socket, isConnected, queryClient])
+  return { ...result, isConnected, socket }
 }
