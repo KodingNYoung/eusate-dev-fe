@@ -1,23 +1,21 @@
-export type IntegrationTabType = "api_keys" | "apps" | "data"
-
-export enum IntegrationTabs {
+export enum IntegrationTab {
   API_KEYS = "api_keys",
   APPS = "apps",
   DATA = "data",
 }
 
 // CONSTANTS
-export const INTEGRATION_TABS: { key: IntegrationTabType; label: string }[] = [
+export const INTEGRATION_TABS: { key: IntegrationTab; label: string }[] = [
   {
-    key: IntegrationTabs.API_KEYS,
+    key: IntegrationTab.API_KEYS,
     label: "API Keys",
   },
   {
-    key: IntegrationTabs.APPS,
+    key: IntegrationTab.APPS,
     label: "Apps",
   },
   {
-    key: IntegrationTabs.DATA,
+    key: IntegrationTab.DATA,
     label: "Data",
   },
 ] as const

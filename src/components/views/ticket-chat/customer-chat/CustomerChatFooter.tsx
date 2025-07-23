@@ -4,7 +4,7 @@ import { AttachmentMetadata, FC, Ticket } from "@/utils/types"
 import Icon from "@/components/atoms/Icon"
 import FileItem from "../_components/FileItem"
 import React, { useRef, useState } from "react"
-import { promptFileUpload } from "@/utils/helpers"
+import { byteToKb, promptFileUpload } from "@/utils/helpers"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import AutoResizingTextarea from "@/components/molecules/Inputs/AutoResizingTextarea"
 import AIModal, { AIModalTrigger } from "./AIModal"
@@ -37,7 +37,7 @@ const ChatFooter: FC<Props> = ({ ticket }) => {
     const attachmentMetadata: AttachmentMetadata = {
       name: file.name,
       url: URL.createObjectURL(file),
-      size_kb: file.size / 1024,
+      size_kb: byteToKb(file.size),
       extension: getFileExtension(file),
       loading: true,
     }

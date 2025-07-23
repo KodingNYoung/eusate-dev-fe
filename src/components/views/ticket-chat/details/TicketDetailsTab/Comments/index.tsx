@@ -23,19 +23,17 @@ const Comments: FC<Props> = ({ ticketId }) => {
   const { data } = useTicketComments(ticketId)
 
   return (
-    <div className="w-full h-full py-5 px-6">
-      <div className="flex flex-col border border-gray-50 h-full rounded-x20">
-        <div className="flex-1 px-5">
-          {data?.length ? (
-            data.map((comment) => (
-              <CommentCard comment={comment} key={comment.id} />
-            ))
-          ) : (
-            <NoContentFound msg="No Comment Found" />
-          )}
-        </div>
-        <CommentFooter ticketId={ticketId} />
+    <div className="flex flex-col border border-gray-50 h-full rounded-x20">
+      <div className="flex-1 px-5">
+        {data?.length ? (
+          data.map((comment) => (
+            <CommentCard comment={comment} key={comment.id} />
+          ))
+        ) : (
+          <NoContentFound msg="No Comment Found" />
+        )}
       </div>
+      <CommentFooter ticketId={ticketId} />
     </div>
   )
 }

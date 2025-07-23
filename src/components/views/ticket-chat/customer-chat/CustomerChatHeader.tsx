@@ -3,23 +3,25 @@ import { TEMPERAMENT_COLOR_MAP } from "../../help-desk/utils"
 import Icon from "@/components/atoms/Icon"
 import Userinfo from "@/components/molecules/Userinfo"
 import Badge from "@/components/atoms/Badge"
-import eusateUrl from "@/assets/images/eusate-avatar.svg"
 import { TicketCustomer } from "@/utils/types"
+import { useRouter } from "next/navigation"
 
 type Props = {
   customer: TicketCustomer
 }
 
 const CustomerChatHeader: FC<Props> = ({ customer }) => {
+  const { back } = useRouter()
   return (
     <div className="sticky top-0 left-0 flex z-1 bg-white items-center justify-between w-full px-4 sm:px-6 py sm:py-2 border-gray-50 border-b min-h-[68px]">
       <div className="flex items-center gap-x-8 my-3 sm:my-0">
-        <Icon
-          name="icon-arrow-left"
-          className="hidden md:block !text-regular-base sm:!text-regular-xl text-gray-400 cursor-pointer"
-        />
+        <button onClick={back}>
+          <Icon
+            name="icon-arrow-left"
+            className="hidden md:block !text-regular-base sm:!text-regular-xl text-gray-400 cursor-pointer"
+          />
+        </button>
         <Userinfo
-          src={eusateUrl}
           title={customer.id}
           subtitle={
             <Badge

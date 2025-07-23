@@ -1,6 +1,9 @@
 import React, { FC } from "react"
 import Badge from "@/components/atoms/Badge"
-import { BADGE_COLOR_MAP } from "@/components/views/help-desk/utils"
+import {
+  BADGE_COLOR_MAP,
+  TicketStatus,
+} from "@/components/views/help-desk/utils"
 import TicketDetailItem from "@/components/views/help-desk/_components/ViewTicketDrawer/TicketDetailItem"
 import { Ticket } from "@/utils/types"
 import dayjs from "dayjs"
@@ -22,11 +25,9 @@ const DetailsSection: FC<Props> = ({ ticket }) => {
         value={
           <Badge
             type="filled"
-            color={
-              BADGE_COLOR_MAP[ticket?.priority as keyof typeof BADGE_COLOR_MAP]
-            }
+            color={BADGE_COLOR_MAP[ticket?.priority]}
             size="sm"
-            className="capitalize py-0.5"
+            className="capitalize py-0.5 "
           >
             {ticket?.priority}
           </Badge>
@@ -42,7 +43,7 @@ const DetailsSection: FC<Props> = ({ ticket }) => {
         label="Created at"
         value={dayjs(ticket?.date_created).format("DD MMM, YYYY. hh:mmA")}
       />
-      {ticket?.assignee && (
+      {ticket.status === TicketStatus.TAKEN && (
         <TicketDetailItem
           icon="icon-user"
           label="Assigned to"
@@ -59,7 +60,7 @@ const DetailsSection: FC<Props> = ({ ticket }) => {
           //     />
           //   </div>
           // }
-          value={ticket?.assignee}
+          value={ticket?.assignee || "Sate"}
         />
       )}
       <TicketDetailItem

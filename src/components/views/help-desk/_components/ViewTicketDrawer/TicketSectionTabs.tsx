@@ -3,6 +3,8 @@ import AppTabs from "@/components/molecules/Tabs"
 import { IconNames } from "@/utils/iconNames"
 import { FC, Ticket } from "@/utils/types"
 import React, { useState } from "react"
+import ConversationSnippet from "./ConversationSnippet"
+import Comments from "@/components/views/ticket-chat/details/TicketDetailsTab/Comments"
 
 type Props = {
   ticket: Ticket
@@ -14,10 +16,10 @@ const SECTION_TABS: { key: string; label: string; icon: IconNames }[] = [
   { key: "activity", label: "Activity", icon: "icon-notification-status" },
 ]
 
-const TicketSectionTabs: FC<Props> = () => {
+const TicketSectionTabs: FC<Props> = ({ ticket }) => {
   const [currentTab, setCurrentTab] = useState(SECTION_TABS[0].key)
   return (
-    <div className="max-h-[500px] px-8 py-5 flex flex-col gap-2">
+    <div className="max-h-[500px] px-8 py-5 flex flex-col gap-6">
       <AppTabs
         tabs={SECTION_TABS.map(({ icon, ...tab }) => ({
           ...tab,
@@ -33,11 +35,13 @@ const TicketSectionTabs: FC<Props> = () => {
         onSelectionChange={(tab) => setCurrentTab(tab as string)}
         selectedKey={currentTab || SECTION_TABS[0].key}
       />
-      <div className="flex-1 border border-gray-50 rounded-x20 h-full overflow-y-auto">
+      <div className="flex-1 h-full overflow-y-auto">
         {currentTab === SECTION_TABS[0].key && (
-          <div className="h-[600px]">Conversations</div>
+          <ConversationSnippet ticketId={ticket.id} />
         )}
-        {currentTab === SECTION_TABS[1].key && <div className="">Comments</div>}
+        {currentTab === SECTION_TABS[1].key && (
+          <Comments ticketId={ticket?.id} />
+        )}
         {currentTab === SECTION_TABS[2].key && <div className="">Activity</div>}
       </div>
     </div>

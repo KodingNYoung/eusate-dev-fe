@@ -1,6 +1,6 @@
 import { PageFC } from "@/utils/types"
 import Integration from "@/components/views/settings/Integrations"
-import { IntegrationTabType } from "@/components/views/settings/Integrations/utils"
+import { IntegrationTab } from "@/components/views/settings/Integrations/utils"
 import {
   INTEGRATION_QUERY_KEYS,
   INTEGRATION_TABS,
@@ -8,7 +8,7 @@ import {
 
 const IntegrationPage: PageFC = ({ searchParams }) => {
   const tab =
-    (searchParams?.[INTEGRATION_QUERY_KEYS.TAB] as IntegrationTabType) ||
+    (searchParams?.[INTEGRATION_QUERY_KEYS.TAB] as IntegrationTab) ||
     INTEGRATION_TABS[0].key
   return <Integration tab={tab} />
 }

@@ -1,4 +1,5 @@
 import Button from "@/components/molecules/Buttons"
+import { useModal } from "@/hooks/popupHooks"
 import { ROUTES } from "@/utils/constants"
 import { Ticket } from "@/utils/types"
 import { useRouter } from "next/navigation"
@@ -10,10 +11,12 @@ type Props = {
 
 const TicketActionBtns: FC<Props> = ({ ticket }) => {
   const router = useRouter()
+  const { close } = useModal()
 
   const goToChat = useCallback(() => {
+    close()
     router.push(`${ROUTES.TICKET}/${ticket.id}`)
-  }, [ticket])
+  }, [ticket, close])
   const takeOver = useCallback(() => {}, [ticket])
 
   return (

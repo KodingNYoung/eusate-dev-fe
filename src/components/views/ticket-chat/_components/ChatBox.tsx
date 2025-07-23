@@ -11,6 +11,7 @@ import {
   truncateWord,
 } from "@/utils/helpers"
 import { MessageSenders } from "@/utils/enums"
+import Avatar from "@/components/atoms/Avatar"
 
 type Slots = "root" | "label" | "avatar"
 type Props = {
@@ -39,11 +40,19 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
     >
       <div
         className={cls(
-          "size-8 min-h-8 min-w-8 flex justify-center items-center rounded-full bg-black text-white self-end",
+          "size-8 min-h-8 min-w-8 flex justify-center items-center rounded-full self-end",
+          message.sender === MessageSenders.SATE && "bg-black text-white",
           classNames?.avatar
         )}
       >
-        <Icon name="icon-eusate" size={16} />
+        {message.sender === MessageSenders.SATE ? (
+          <Icon name="icon-eusate" size={16} />
+        ) : (
+          <Avatar
+            size="min-w-8 min-h-8 w-8 h-8"
+            classNames={{ root: "border-0" }}
+          />
+        )}
       </div>
       <div
         className={cls(

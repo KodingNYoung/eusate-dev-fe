@@ -35,7 +35,11 @@ const TicketDetailsTab: FC<Props> = ({ ticket }) => {
           // should use the ticket chat provider to get attachments
           <Attachments attachments={ticket?.attachments} />
         )}
-        {tab === "comments" && <Comments ticketId={ticket?.id} />}
+        {tab === "comments" && (
+          <div className="h-full w-full py-5 px-6">
+            <Comments ticketId={ticket?.id} />
+          </div>
+        )}
         {tab === "activity" && <Activities />}
       </div>
     </div>
