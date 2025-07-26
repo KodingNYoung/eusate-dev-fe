@@ -1,6 +1,7 @@
 import { resendOtp } from "@/app/(auth)/actions"
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
+import Button from "@/components/molecules/Buttons"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import OtpInput from "@/components/molecules/Inputs/OtpInput"
 import { toaster } from "@/components/molecules/Toast"
@@ -8,7 +9,7 @@ import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { useCountdown } from "@/hooks/utilityHooks"
 import { sendCodePayloadSchema } from "@/lib/schemas/auth"
 import { TwoFAMethods } from "@/utils/enums"
-import { convertSecondsToTime } from "@/utils/helpers"
+import { cls, convertSecondsToTime } from "@/utils/helpers"
 import { FC, FormState } from "@/utils/types"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useRef, useState } from "react"
@@ -29,6 +30,7 @@ const CodeInputForm: FC<Props> = ({ submitAction, method }) => {
   const { start, stop, secondsLeft, isCounting } = useCountdown()
 
   const [otp, setOtp] = useState("")
+  const [isResending, setIsResending] = useState(false)
 
   const { hasErrors, markFieldTouched } = useValidation(
     sendCodePayloadSchema,
@@ -58,37 +60,44 @@ const CodeInputForm: FC<Props> = ({ submitAction, method }) => {
 
   return (
     <form
-      className="pt-10 pb-5 flex flex-col gap-10"
+      className={cls(
+        "pb-5 flex flex-col gap-10",
+        method === TwoFAMethods.EMAIL ? "pt-10" : "pt-4"
+      )}
       action={action}
       ref={formRef}
     >
       <input name="code" value={otp} readOnly hidden />
       <div className="flex flex-col items-start gap-5">
         <OtpInput label="Enter 2FA code" onChange={onCodeChange} />
-        {isCounting ? (
-          <Typography className="text-medium-sm text-gray-500">
-            Resend code in {convertSecondsToTime(secondsLeft)}
-          </Typography>
-        ) : (
-          <SubmitButton
-            variant="tetiary"
-            classNames={{ root: "!py-2.5 px-3" }}
-            formAction={async () => {
-              const res = await resendOtp()
-              if ("success" in res) {
-                start(OTP_RESEND_TIMEOUT)
-                toaster.success(res.success.message)
-              } else if ("error" in res) {
-                toaster.error(res.error.message)
-              }
-            }}
-            startContent={<Icon name="icon-refresh-2" size={20} />}
-          >
-            Resend code
-          </SubmitButton>
-        )}
+        {method === TwoFAMethods.EMAIL ? (
+          isCounting ? (
+            <Typography className="text-medium-sm text-gray-500">
+              Resend code in {convertSecondsToTime(secondsLeft)}
+            </Typography>
+          ) : (
+            <Button
+              variant="tetiary"
+              classNames={{ root: "!py-2.5 px-3" }}
+              onClick={async () => {
+                setIsResending(true)
+                const res = await resendOtp()
+                if ("success" in res) {
+                  start(OTP_RESEND_TIMEOUT)
+                  toaster.success(res.success.message)
+                } else if ("error" in res) {
+                  toaster.error(res.error.message)
+                }
+                setIsResending(false)
+              }}
+              startContent={<Icon name="icon-refresh-2" size={20} />}
+            >
+              Resend code
+            </Button>
+          )
+        ) : null}
       </div>
-      <SubmitButton size="xl" disabled={hasErrors}>
+      <SubmitButton size="xl" disabled={hasErrors || isResending}>
         Verify 2FA code
       </SubmitButton>
     </form>

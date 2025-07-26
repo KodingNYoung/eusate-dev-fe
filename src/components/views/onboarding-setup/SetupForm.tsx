@@ -4,13 +4,12 @@ import { setupAccount } from "@/app/(auth)/onboarding-setup/actions"
 import AppAutocomplete from "@/components/molecules/AppAutocomplete"
 import AppSelect from "@/components/molecules/AppSelect"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
-import Input from "@/components/molecules/Inputs"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
 import { onboardingSetupPayloadSchema } from "@/lib/schemas/auth"
-import { INDUSTRIES, ORGANISATION_SIZES } from "@/utils/dummy"
+import { INDUSTRIES, ORGANISATION_SIZES, PRIMARY_USE_CASE } from "@/utils/dummy"
 import { FC, FormState } from "@/utils/types"
 import { useRouter } from "next/navigation"
-import React, { ChangeEvent, useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { useFormState } from "react-dom"
 
 const SetupForm: FC = () => {
@@ -24,11 +23,6 @@ const SetupForm: FC = () => {
   )
 
   useFormToast(state, true)
-
-  //   functions
-  const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-    markFieldTouched(e.target.name)
-  }
 
   useEffect(() => {
     if ("success" in state) {
@@ -66,13 +60,22 @@ const SetupForm: FC = () => {
           },
         }}
       />
-      <Input
-        name="use_case"
+      <AppAutocomplete
         label="Primary use case for eusate"
+        name="use_case"
+        aira-label="select-use-case"
         placeholder="e.g. Customer support"
-        isError={!!errors?.use_case}
-        helperText={errors?.use_case}
-        onChange={onFieldChange}
+        size="lg"
+        items={PRIMARY_USE_CASE}
+        isInvalid={!!errors?.use_case}
+        errorMessage={errors?.use_case}
+        onInputChange={() => markFieldTouched("use_case")}
+        inputProps={{
+          classNames: {
+            inputWrapper: "rounded-[100px] min-h-14",
+            input: "text-[14px]",
+          },
+        }}
       />
       <SubmitButton className="mt-5" disabled={hasErrors}>
         Proceed

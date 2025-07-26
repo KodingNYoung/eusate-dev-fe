@@ -14,3 +14,19 @@ export const INDUSTRIES = [
   { key: "Technology", label: "Technology" },
   { key: "Arts & Lifestyle", label: "Arts & Lifestyle" },
 ]
+
+export const PRIMARY_USE_CASE = [
+  { key: "Improve customer experience", label: "Improve customer experience" },
+  { key: "Streamline agent workflow", label: "Streamline agent workflow" },
+  { key: "Get support analytics", label: "Get support analytics" },
+  {
+    key: "Reduce ticket resolution time",
+    label: "Reduce ticket resolution time",
+  },
+  { key: "Handle routine inquiries", label: "Handle routine inquiries" },
+  {
+    key: "Secure customer conversations",
+    label: "Secure customer conversations",
+  },
+  { key: "Automate customer support", label: "Automate customer support" },
+]

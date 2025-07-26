@@ -74,7 +74,7 @@ const DocumentModalForm: FC = () => {
               <Badge
                 type="filled"
                 color="neutral"
-                className="size-5 !p-0 flex items-center justify-center text-semibold-xxs"
+                className="size-5 min-w-5 min-h-5 !p-0 flex items-center justify-center text-semibold-xxs"
               >
                 {files.length}
               </Badge>
