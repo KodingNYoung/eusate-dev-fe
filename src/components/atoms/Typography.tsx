@@ -8,6 +8,7 @@ type Props = HTMLProps<HTMLHeadingElement & HTMLParagraphElement> & {
   as?: keyof HTMLElementTagNameMap
   weight?: 400 | 500 | 600 | 700
   loading?: boolean
+  placeholder?: ReactNode
 }
 
 const weightProps = {
@@ -37,17 +38,20 @@ const Typography: FC<Props> = ({
   children,
   className,
   loading,
+  placeholder,
   ...props
 }) => {
   return loading ? (
-    <Skeleton isLoaded={false} className={cls("rounded-sm w-52", className)}>
-      {getElement(
-        as,
-        children || "John doe", // Placeholder text for loading state
-        cls("font-app", weight && weightProps[weight], className, variant),
-        props
-      )}
-    </Skeleton>
+    <>
+      <Skeleton isLoaded={false} className={cls("rounded-sm w-fit", className)}>
+        {getElement(
+          as,
+          placeholder || children || "John doe", // Placeholder text for loading state
+          cls("font-app", weight && weightProps[weight], className, variant),
+          props
+        )}
+      </Skeleton>
+    </>
   ) : (
     getElement(
       as,

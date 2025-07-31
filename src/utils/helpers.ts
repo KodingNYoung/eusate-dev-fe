@@ -240,3 +240,8 @@ export const formatComma = (num: number | string) => {
   }
   return decimal ? `${strVal}.${decimal}` : strVal
 }
+
+export const round = (num: number, dp: number = 2) => {
+  const multiplier = Math.pow(10, dp || 0)
+  return Math.round((num + Number.EPSILON) * multiplier) / multiplier
+}

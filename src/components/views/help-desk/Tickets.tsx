@@ -46,7 +46,7 @@ const Tickets: FC<Props> = () => {
         <TicketsEmptyState hasFilters={!!Object.values(filters).length} />
       )}
       {!!data?.pages?.[0]?.count && (
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(270px,1fr))] gap-5">
+        <div className="grid grid-cols-[repeat(auto-fill,_minmax(270px,1fr))] gap-5">
           {data.pages
             .flatMap((page) => page.results)
             .map((ticket) => {

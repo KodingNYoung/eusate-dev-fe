@@ -15,8 +15,7 @@ export const useKnowledgeBaseResources = (
 ) => {
   const result = useQuery({
     queryKey: [...QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES, options],
-    queryFn: async () =>
-      await getKnowledgeSources({ ...options, page_size: 6 }),
+    queryFn: async () => await getKnowledgeSources(options),
   })
 
   if (result.isError) {

@@ -8,9 +8,10 @@ import React from "react"
 
 type Props = {
   onView: () => void
+  loading?: boolean
 }
 
-const TicketCardActions: FC<Props> = ({ onView }) => {
+const TicketCardActions: FC<Props> = ({ onView, loading }) => {
   const { open } = useModal()
   const sections = [
     {
@@ -58,6 +59,7 @@ const TicketCardActions: FC<Props> = ({ onView }) => {
           title: "text-[14px] font-app font-medium text-gray-600",
         },
       }}
+      isDisabled={loading}
     />
   )
 }

@@ -60,7 +60,7 @@ const badgeSizes: { [size in Sizes]: TWClassNames } = {
 const Badge: FC<Props> = ({
   size = "lg",
   type = "outline",
-  color = "primary",
+  color = "disabled",
   children,
   className,
   loading,
@@ -70,11 +70,12 @@ const Badge: FC<Props> = ({
       as="span"
       variant={typoVariants[size]}
       className={cls(
-        "rounded-2xl block w-fit",
+        "rounded-2xl block w-fit whitespace-nowrap",
         badgeSizes[size],
         badgeVariants[`${type}-${color}`],
         className
       )}
+      placeholder="medium"
       loading={loading}
     >
       {children}

@@ -11,13 +11,11 @@ import {
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 
-export const useTickets = (
-  filters?: Omit<GetTicketOptions, "page" | "pageSize">
-) => {
+export const useTickets = (filters?: Omit<GetTicketOptions, "page">) => {
   const result = useInfiniteQuery({
     queryKey: [...QUERY_FN_KEYS.TICKETS, filters],
     queryFn: async ({ pageParam = 0 }) =>
-      await getTickets({ page: pageParam, pageSize: 15, ...filters }),
+      await getTickets({ page: pageParam, ...filters }),
     initialPageParam: 1,
     getNextPageParam: (_, pages) => {
       return pages.length + 1

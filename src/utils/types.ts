@@ -11,10 +11,13 @@ import {
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
 import {
+  COMPARISON_CARD_UNITS,
   COOKIES_KEYS,
   FILE_ICON_MAP,
   SHOW_FOR,
   STORAGE_KEYS,
+  TICKET_CHANNELS_DATA,
+  TICKET_EVENTS,
 } from "./constants"
 import {
   AuthLocation,
@@ -409,4 +412,31 @@ export type MemberInviteType = DBResource & {
   expired: boolean
   organisation: { id: string; name: string; logo: string }
   permissions: string[]
+}
+export type TicketEvent = ValueOf<typeof TICKET_EVENTS>
+export type TicketActivity = {
+  event: TicketEvent
+  actor: UserType & {
+    actor_type: MessageSenders
+  }
+  value: string
+}
+export type ComparisonCardUnits = ValueOf<typeof COMPARISON_CARD_UNITS>
+export type ComparisonCardDataType = {
+  start_datetime: string
+  end_datetime: string
+  value: number
+  value_unit: ComparisonCardUnits
+  percentage_change: number
+}
+export type TicketPriorityBreakdownItem = {
+  priority: TicketPriority
+  count: number
+  percentage: number
+}
+export type TicketChannels = keyof typeof TICKET_CHANNELS_DATA
+export type ChannelCountData = {
+  channel: TicketChannels
+  count: number
+  percentage: number
 }

@@ -20,7 +20,7 @@ export type GetTicketsResponse = {
 }
 export type GetTicketOptions = {
   page: number
-  pageSize: number
+  page_size?: number
   priority?: TicketPriority
   status?: TicketStatus
   temperament?: UserTemperament
@@ -28,9 +28,11 @@ export type GetTicketOptions = {
   date_updated?: string
   assigned_to_me?: boolean
   ai_tickets?: boolean
+  start_date?: string
+  end_date?: string
 }
 export const getTickets = async (options: GetTicketOptions) => {
-  const query = objToQuery(options)
+  const query = objToQuery({ page_size: 15, ...options })
   const session = await getSession()
   const response = await sendAuthRequest<GetTicketsResponse>(
     `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/?${query}`
