@@ -89,7 +89,7 @@ const DonutChart: FC<Props> = ({
                     value: "font-semibold text-sm text-black",
                   }}
                   label={item.label}
-                  value={(item.count / total) * 100}
+                  value={(item.count * 100) / (total > 0 ? total : 1)}
                   size="sm"
                   showValueLabel
                 />

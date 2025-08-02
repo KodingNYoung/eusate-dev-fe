@@ -3,7 +3,7 @@ import tailwindConfig from "../../tailwind.config"
 
 export function useIsMobile() {
   const screens = tailwindConfig.theme?.screens
-  const size = parseInt(screens?.xs.max)
+  const size = parseInt(screens?.sm)
 
   const [isMobile, setIsMobile] = useState(false)
 

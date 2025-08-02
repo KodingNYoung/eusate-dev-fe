@@ -57,12 +57,12 @@ export const getDateRange = (date: string) => {
       }
     case DATE_FILTER.PAST_WEEK:
       return {
-        start: today.subtract(6, "days").startOf("day").toISOString(),
+        start: today.startOf("week").startOf("day").toISOString(),
         end: today.endOf("day").toISOString(),
       }
     case DATE_FILTER.PAST_MONTH:
       return {
-        start: today.subtract(1, "months").startOf("day").toISOString(),
+        start: today.startOf("month").startOf("day").toISOString(),
         end: today.endOf("day").toISOString(),
       }
     default:

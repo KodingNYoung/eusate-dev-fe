@@ -61,3 +61,9 @@
     @apply bg-clip-text text-transparent bg-brand-gradient;
   }
 }
+
+@layer components {
+  .container {
+    @apply w-full max-w-[1536px] mx-auto;
+  }
+}

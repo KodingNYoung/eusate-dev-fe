@@ -31,7 +31,7 @@ const RecentlyAddedResources: FC<Props> = () => {
       title="Recently Added Resources"
       hideTrendAnalysis
       classNames={{
-        root: "pt-0 pb-0 overflow-hidden",
+        root: "pt-0 pb-0 overflow-hidden h-full",
         main: "!py-0 !px-0 overflow-y-auto max-h-[290px]",
       }}
     >
@@ -41,7 +41,7 @@ const RecentlyAddedResources: FC<Props> = () => {
             ? resources
             : new Array<KnowledgeSource>(PAGE_SIZE).fill({} as KnowledgeSource)
           ).map((resource, idx) => (
-            <Skeleton isLoaded={!isLoading} className="rounded-sm" key={idx}>
+            <Skeleton isLoaded={!isLoading} className="rounded-xl" key={idx}>
               <div
                 // href={`${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${resource.id}&${KB_QUERY_KEYS.TAGS}=${resource.tag}`}
                 key={idx}
@@ -67,24 +67,26 @@ const RecentlyAddedResources: FC<Props> = () => {
             </Skeleton>
           ))}
       </div>
-      <footer className="border-t border-[#e6e6e6] bg-white py-4 flex items-center justify-center sticky bottom-0">
-        <Link
-          href={`${ROUTES.KNOWLEDGE_BASE}`}
-          className="flex items-center justify-center gap-1 leading-none group/link"
-        >
-          <Typography
-            as="span"
-            className="text-medium-sm text-gray-500 group-hover/link:text-gradient"
+      {!!resources.length && (
+        <footer className="border-t border-[#e6e6e6] bg-white py-4 flex items-center justify-center sticky bottom-0 mt-auto">
+          <Link
+            href={`${ROUTES.KNOWLEDGE_BASE}`}
+            className="flex items-center justify-center gap-1 leading-none group/link"
           >
-            See all tickets
-          </Typography>
-          <Icon
-            name="icon-arrow-right"
-            size={20}
-            className="text-gray-500 group-hover/link:text-gradient"
-          />
-        </Link>
-      </footer>
+            <Typography
+              as="span"
+              className="text-medium-sm text-gray-500 group-hover/link:text-gradient"
+            >
+              See all tickets
+            </Typography>
+            <Icon
+              name="icon-arrow-right"
+              size={20}
+              className="text-gray-500 group-hover/link:text-gradient"
+            />
+          </Link>
+        </footer>
+      )}
     </ChartCard>
   )
 }

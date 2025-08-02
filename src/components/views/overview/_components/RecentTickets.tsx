@@ -30,8 +30,8 @@ const RecentTickets: FC<Props> = ({ start: start_date, end: end_date }) => {
       title="Recent Tickets"
       hideTrendAnalysis
       classNames={{
-        root: "pt-0 pb-0 overflow-hidden",
-        main: "!py-0 !px-0 max-h-[351px] overflow-auto",
+        root: "pt-0 pb-0 overflow-hidden h-full",
+        main: "!py-0 !px-0 max-h-[351px] h-full overflow-auto",
       }}
     >
       <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,1fr))] gap-5 px-6">
@@ -46,7 +46,7 @@ const RecentTickets: FC<Props> = ({ start: start_date, end: end_date }) => {
             )
           )}
       </div>
-      <footer className="border-t border-[#e6e6e6] bg-white py-4 flex items-center justify-center sticky bottom-0">
+      <footer className="border-t border-[#e6e6e6] bg-white py-4 flex items-center justify-center sticky bottom-0 mt-auto">
         <Link
           href={`${ROUTES.HELP_DESK}?${HD_QUERY_KEYS.TAB}=${HelpDeskTabs.ALL}`}
           className="flex items-center justify-center gap-1 leading-none group/link"

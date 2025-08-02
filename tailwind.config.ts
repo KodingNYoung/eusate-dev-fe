@@ -1,5 +1,4 @@
 import { nextui } from "@nextui-org/react"
-import type { Config } from "tailwindcss"
 import defaultTheme from "tailwindcss/defaultTheme"
 
 const config = {
@@ -221,7 +220,6 @@ const config = {
       xlarge: "10px",
     },
     screens: {
-      "xs": { max: "639px" },
       "sm": "640px",
       "md": "768px",
       "lg": "1024px",
@@ -421,13 +419,6 @@ const config = {
       },
     }),
   ],
-} satisfies Config & {
-  theme: Omit<typeof defaultTheme, "screens"> & {
-    screens: Record<
-      "xs" | "sm" | "md" | "lg" | "xl" | "2xl",
-      { min?: string; max?: string } | string
-    >
-  }
 }
 
 export default config

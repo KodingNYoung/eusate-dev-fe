@@ -43,14 +43,14 @@ export const useProcessWithSocket = () => {
           data?.status_code === 200 &&
           data?.data?.status === ResourceProcessStatus.INGESTED
         ) {
-          result.refetch()
-          queryClient.invalidateQueries({
-            queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
-          })
           toaster.success(data.message)
         } else {
           toaster.error(data.message)
         }
+        result.refetch()
+        queryClient.invalidateQueries({
+          queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+        })
       }
     )
   }, [socket, isConnected, queryClient])

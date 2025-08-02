@@ -1,17 +1,11 @@
 "use client"
 
-// import MetricCard from "@/components/molecules/Cards/MetricCard"
 import { formatComma, round } from "@/utils/helpers"
 import { FC } from "@/utils/types"
 import React from "react"
 import { COMPARISM_TIMEFRAME } from "../utils"
 import { useOverviewTopCards } from "@/hooks/api/overviewHooks"
-import dynamic from "next/dynamic"
-
-const MetricCard = dynamic(
-  () => import("@/components/molecules/Cards/MetricCard"),
-  { ssr: false }
-)
+import MetricCard from "@/components/molecules/Cards/MetricCard"
 
 type Props = {
   date: string

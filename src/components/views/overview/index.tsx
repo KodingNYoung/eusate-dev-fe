@@ -1,3 +1,5 @@
+"use client"
+
 import Typography from "@/components/atoms/Typography"
 import { FC } from "@/utils/types"
 import React, { useMemo } from "react"
@@ -31,15 +33,11 @@ const Overview: FC<Props> = ({ date }) => {
       <main className="grid items-start gap-5 w-full pb-20">
         <OverviewDateFilter date={date} />
         <TopCards date={date} start={start} end={end} />
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(343px,_1fr))]  items-start gap-5 px-4 sm:px-5">
+        <div className="grid items-start gap-5 px-4 sm:px-5 min-[854px]:grid-cols-[repeat(2,_minmax(343px,_1fr))]">
           <RecentTickets start={start} end={end} />
           <OpenTicketOverview date={date} start={start} end={end} />
-        </div>
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(343px,_1fr))]  items-start gap-5 px-4 sm:px-5">
           <ResourceTypesOverview start={start} end={end} />
           <ChannelDistribution start={start} end={end} />
-        </div>
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(343px,_1fr))]  items-start gap-5 px-4 sm:px-5">
           <WalletOverview start={start} end={end} />
           <RecentlyAddedResources start={start} end={end} />
         </div>
