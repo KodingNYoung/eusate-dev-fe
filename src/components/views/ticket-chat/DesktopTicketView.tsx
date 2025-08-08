@@ -5,7 +5,7 @@ import Details from "./details"
 
 const DesktopTicketView: FC = () => {
   return (
-    <div className="hidden md:grid w-full h-full grid-cols-[27%_46%_27%]">
+    <div className="hidden lg:grid w-full h-full grid-cols-[27%_46%_27%]">
       <Details />
       <CustomerChat />
       {/* <AIChat /> */}

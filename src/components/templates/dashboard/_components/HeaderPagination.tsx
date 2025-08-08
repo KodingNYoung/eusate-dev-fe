@@ -1,13 +1,10 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import { ROUTES } from "@/utils/constants"
-import Icon from "@/components/atoms/Icon"
 import { usePathname } from "next/navigation"
 import { FC, PageLayers } from "@/utils/types"
-import Typography from "@/components/atoms/Typography"
-import { cls, pageLayerAdapter } from "@/utils/helpers"
+import PaginationItem from "@/components/molecules/PaginationItem"
 
 const PAGE_LAYERS: PageLayers = {
   [ROUTES.OVERVIEW]: [
@@ -16,22 +13,15 @@ const PAGE_LAYERS: PageLayers = {
   [ROUTES.KNOWLEDGE_BASE]: [
     { label: "Knowledge base", icon: "icon-layer", id: 2 },
   ],
-  [ROUTES.HELP_DESK]: [
+  [ROUTES.FAQS]: [
     {
-      label: "Helpdesk",
-      icon: "icon-ticket",
-      id: 3,
+      label: "Knowledge base",
+      icon: "icon-layer",
+      link: ROUTES.KNOWLEDGE_BASE,
+      id: 1,
     },
+    { label: "FAQs", id: 2 },
   ],
-  [ROUTES.REPORTS]: [{ label: "Reports", icon: "icon-chart", id: 4 }],
-  [ROUTES.SETTINGS]: [
-    { label: "Settings", icon: "icon-setting", id: 5 },
-    { label: "Profile", id: 2 },
-  ],
-  [ROUTES.HELP_AND_SUPPORT]: [
-    { label: "Help & Support", icon: "icon-health", id: 6 },
-  ],
-  [ROUTES.PLAYGROUND]: [{ label: "Playground", icon: "icon-eusate", id: 1 }],
   [ROUTES.NEW_ARTICLE]: [
     {
       label: "Knowledge base",
@@ -50,56 +40,68 @@ const PAGE_LAYERS: PageLayers = {
     },
     { label: "Resource", id: 2 },
   ],
-  [ROUTES.FAQS]: [
-    {
-      label: "Knowledge base",
-      icon: "icon-layer",
-      link: ROUTES.KNOWLEDGE_BASE,
-      id: 1,
-    },
-    { label: "FAQs", id: 2 },
+  [ROUTES.HELP_DESK]: [{ label: "Helpdesk", icon: "icon-ticket", id: 3 }],
+  [ROUTES.REPORTS]: [{ label: "Reports", icon: "icon-chart", id: 4 }],
+  [ROUTES.SETTINGS]: [{ label: "Settings", icon: "icon-setting", id: 5 }],
+  [ROUTES.PROFILE]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Profile", id: 2 },
+  ],
+  [ROUTES.ORGANISATION]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Organisation", id: 2 },
+  ],
+  [ROUTES.SATE_AI]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Sate AI", id: 2 },
+  ],
+  [ROUTES.INTEGRATIONS]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Integrations", id: 2 },
+  ],
+  [ROUTES.USAGE_AND_BILLING]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Usage & Billing", id: 2 },
+  ],
+  [ROUTES.NOTIFICATIONS]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Notifications", id: 2 },
+  ],
+  [ROUTES.SECURITY]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Security", id: 2 },
+  ],
+  [ROUTES.SUPPORT]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Support", id: 2 },
+  ],
+  [ROUTES.RESOURCES]: [
+    { label: "Settings", icon: "icon-setting", id: 1 },
+    { label: "Resources", id: 2 },
+  ],
+  [ROUTES.HELP_AND_SUPPORT]: [
+    { label: "Help & Support", icon: "icon-health", id: 6 },
   ],
   [ROUTES.DEV_SPACE]: [{ label: "Developer Space", icon: "icon-code", id: 1 }],
+  [ROUTES.PLAYGROUND]: [{ label: "Playground", icon: "icon-eusate", id: 1 }],
 }
 
 const HeaderPagination: FC = () => {
   const pathname = usePathname()
-  const pages = pageLayerAdapter(pathname, PAGE_LAYERS)
+  const pages = PAGE_LAYERS[pathname] || []
 
   return (
     <section className="flex items-center gap-2 text-gray-400">
-      {pages.map((page, idx) => {
-        const content = (
-          <Typography
-            as="span"
-            className={cls(
-              "flex items-center gap-2 text-medium-xs sm:text-medium-sm",
-              pages.length > 1 && !page.link && "text-gray-900"
-            )}
-          >
-            {page.icon && (
-              <Icon
-                name={page.icon}
-                className="!text-regular-base sm:!text-regular-xl"
-              />
-            )}
-            {page.label}
-          </Typography>
-        )
-
-        return (
-          <div className="flex items-center gap-2" key={page.id}>
-            {page.link ? (
-              <Link href={page.link} prefetch>
-                {content}
-              </Link>
-            ) : (
-              content
-            )}
-            {pages.length - 1 !== idx && <Icon name="icon-chevron-right" />}
-          </div>
-        )
-      })}
+      {pages.map((page, idx) => (
+        <PaginationItem
+          key={page.id}
+          label={page.label}
+          icon={page.icon}
+          link={page.link}
+          hasMultipleLayers={pages.length > 1}
+          isLast={pages.length - 1 === idx}
+        />
+      ))}
     </section>
   )
 }
