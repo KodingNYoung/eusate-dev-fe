@@ -3,7 +3,7 @@ import Input, { InputProps } from "@/components/molecules/Inputs"
 import { useDebounceCallback } from "@/hooks/utilityHooks"
 import { cls } from "@/utils/helpers"
 import { FC } from "@/utils/types"
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 type Props = Omit<InputProps, "name"> & {
   onSearch: (value: string) => void
@@ -14,8 +14,29 @@ const SearchInput: FC<Props> = ({ value, onSearch, classNames, ...props }) => {
   const handleSearch = useDebounceCallback(onSearch, 500)
   const [search, setSearch] = useState(value)
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check for Cmd+K (Mac) or Ctrl+K (Windows/Linux)
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+        event.preventDefault() // Prevent default browser behavior
+        inputRef.current?.focus()
+      }
+    }
+
+    // Add event listener to document
+    document.addEventListener("keydown", handleKeyDown)
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
+
   return (
     <Input
+      ref={inputRef}
       name="search"
       size="sm"
       placeholder="Search"

@@ -8,22 +8,11 @@ type Props = {
   ticketId: string
 }
 
-// import { MockComments } from "../../mockData"; !if you want to test with mock data
-
-// const scrollToBottom = (element: HTMLElement) => {
-//   element.scrollTo({
-//     top: element.scrollHeight,
-//     behavior: "smooth",
-//   })
-// }
-
 const Comments: FC<Props> = ({ ticketId }) => {
-  // const formRef = useRef<HTMLFormElement>(null)
-
   const { data } = useTicketComments(ticketId)
 
   return (
-    <div className="flex flex-col border border-gray-50 h-full rounded-x20">
+    <div className="flex flex-col h-full">
       <div className="flex-1 px-5">
         {data?.length ? (
           data.map((comment) => (

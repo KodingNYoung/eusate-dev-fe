@@ -8,7 +8,7 @@ type Props = {
 
 const DetailsHeader: FC<Props> = ({ title }) => {
   return (
-    <header className="px-6 py-4 items-center gap-x-4 text-gray-400 border-gray-50 border-b h-[68px] hidden md:flex md:sticky md:top-0 md:left-0 md:bg-white md:z-[1]">
+    <header className="px-6 py-4 items-center gap-x-4 text-gray-400 border-gray-50 border-b h-[68px] hidden md:flex md:sticky md:top-0 md:left-0 md:bg-white md:z-[11]">
       <div className="flex items-center gap-2">
         <Icon
           name="icon-ticket"

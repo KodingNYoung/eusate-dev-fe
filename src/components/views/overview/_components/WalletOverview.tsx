@@ -21,7 +21,7 @@ const WalletOverview: FC<Props> = ({}) => {
       hideTrendAnalysis
       classNames={{
         root: "pt-0 pb-0 overflow-hidden",
-        main: "!py-0 !px-0 overflow-y-auto max-h-[290px]",
+        main: "!py-0 !px-0 overflow-y-auto max-h-[290px] no-scrollbar",
       }}
     >
       <div className="grid gap-6 px-6 pt-1.5">

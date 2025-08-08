@@ -3,7 +3,13 @@
 import { ERROR_CAUSES } from "@/utils/constants"
 import { sendAuthRequest } from "../request"
 import { getSession } from "../sessions"
-import { DBResource, MessageType, Ticket, TicketComment } from "@/utils/types"
+import {
+  DBResource,
+  MessageType,
+  Ticket,
+  TicketActivity,
+  TicketComment,
+} from "@/utils/types"
 import {
   TicketPriority,
   TicketStatus,
@@ -23,7 +29,7 @@ export type GetTicketOptions = {
   page_size?: number
   priority?: TicketPriority
   status?: TicketStatus
-  temperament?: UserTemperament
+  temperaments?: UserTemperament
   date_created?: string
   date_updated?: string
   assigned_to_me?: boolean
@@ -34,6 +40,7 @@ export type GetTicketOptions = {
 export const getTickets = async (options: GetTicketOptions) => {
   const query = objToQuery({ page_size: 15, ...options })
   const session = await getSession()
+  console.log(query)
   const response = await sendAuthRequest<GetTicketsResponse>(
     `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/?${query}`
   )
@@ -62,6 +69,18 @@ export const getTicketComments = async (id: string) => {
   const session = await getSession()
   const response = await sendAuthRequest<TicketComment[]>(
     `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/comments`
+  )
+
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+export const getTicketActivities = async (id: string) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<TicketActivity[]>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/activities`
   )
 
   if ("shouldAuthenticate" in response) {

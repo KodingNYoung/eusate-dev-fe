@@ -1,9 +1,15 @@
 "use server"
 
+import { TicketStatus } from "@/components/views/help-desk/utils"
 import { sendAuthRequest } from "@/lib/request"
 import { getSession } from "@/lib/sessions"
 import { formStateResponse } from "@/utils/helpers"
-import { AttachmentMetadata, FormState, TicketComment } from "@/utils/types"
+import {
+  AttachmentMetadata,
+  FormState,
+  Ticket,
+  TicketComment,
+} from "@/utils/types"
 
 export const addTicketComment = async (
   state: FormState,
@@ -69,6 +75,32 @@ export const takeoverTicket = async (state: FormState, formdata: FormData) => {
       `/api/v1/helpdesk/tickets/${ticket}/take-over/`,
       { organisation_id: session?.currentOrganisationId },
       { method: "POST" }
+    )
+
+    if ("shouldAuthenticate" in response)
+      throw new Error("Session expired, log in again")
+
+    return successResponse("", "", response)
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+}
+
+export const changeTicketStatus = async (
+  status: TicketStatus,
+  ticket: string
+) => {
+  const { successResponse, errorResponse } = formStateResponse<Ticket>()
+
+  try {
+    const session = await getSession()
+    const response = await sendAuthRequest<Ticket>(
+      `/api/v1/helpdesk/tickets/${ticket}/edit/`,
+      { organisation_id: session?.currentOrganisationId, status },
+      { method: "PATCH" }
     )
 
     if ("shouldAuthenticate" in response)

@@ -11,7 +11,7 @@ type Props = {
 
 const Attachments: FC<Props> = ({ attachments }) => {
   return (
-    <div className="custom-scrollbar w-full p-6 flex flex-col gap-3 overflow-y-auto flex-1">
+    <div className="h-full w-full p-6 py-5 flex flex-col gap-3 flex-1">
       {attachments.length ? (
         attachments.map((attachment, idx) => (
           <AttachmentItem key={idx} attachment={attachment} />

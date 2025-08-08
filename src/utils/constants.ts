@@ -1,4 +1,9 @@
-import { AiTones, ResourceSources, SortOrder } from "./enums"
+import {
+  AiTones,
+  ResourceSources,
+  SortOrder,
+  TicketChannelNames,
+} from "./enums"
 import doc from "@/assets/images/file-doc.svg"
 import gif from "@/assets/images/file-gif.svg"
 import jpg from "@/assets/images/file-jpg.svg"
@@ -8,6 +13,8 @@ import png from "@/assets/images/file-png.svg"
 import txt from "@/assets/images/file-txt.svg"
 import xls from "@/assets/images/file-xls.svg"
 import { TicketPriority } from "@/components/views/help-desk/utils"
+import { TWClassNames } from "./types"
+import { IconNames } from "./iconNames"
 
 export const API_BASEURL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT_URL
 
@@ -91,8 +98,8 @@ export const QUERY_FN_KEYS = {
   CODENAMES: ["codenames"],
   API_KEYS: ["api-keys"],
   TICKETS: ["tickets"],
-  TICKET: ["ticket"],
-  TICKET_COMMENTS: ["ticket-comments"],
+  TICKET_COMMENTS: ["tickets", "comments"],
+  TICKET_ACTIVITIES: ["tickets", "activities"],
   TICKET_CHAT: ["ticket-chat"],
   USER_PROFILE: ["user-profile"],
   OWNED_ORGANISATION: ["owned-organisation"],
@@ -154,11 +161,33 @@ export const TICKET_PRIORITY_DATA = {
   [TicketPriority.MEDIUM]: { bg: "bg-info-700" },
   [TicketPriority.LOW]: { bg: "bg-gray-900" },
 }
-export const TICKET_CHANNELS_DATA = {
-  DISCORD: { color: "#2E90FA", bg: "bg-info-500", name: "Discord" },
-  WHATSAPP: { color: "#667085", bg: "bg-gray-500", name: "Whatsapp" },
-  X: { color: "#D7AB07", bg: "bg-warning-500", name: "X" },
-  FACEBOOK: { color: "", bg: "", name: "Facebook" },
-  INSTAGRAM: { color: "", bg: "", name: "Instagram" },
-  EUSATE_API: { color: "#E86555", bg: "bg-red-500", name: "Eusate API" },
+export const TICKET_CHANNELS_DATA: {
+  [key in TicketChannelNames]: {
+    color: string
+    bg: TWClassNames
+    name: string
+    icon: IconNames
+  }
+} = {
+  DISCORD: {
+    color: "#2E90FA",
+    bg: "bg-info-500",
+    name: "Discord",
+    icon: "icon-discord",
+  },
+  WHATSAPP: {
+    color: "#667085",
+    bg: "bg-gray-500",
+    name: "Whatsapp",
+    icon: "icon-whatsapp",
+  },
+  X: { color: "#D7AB07", bg: "bg-warning-500", name: "X", icon: "icon-x" },
+  FACEBOOK: { color: "", bg: "", name: "Facebook", icon: "icon-facebook" },
+  INSTAGRAM: { color: "", bg: "", name: "Instagram", icon: "icon-instagram" },
+  EUSATE_API: {
+    color: "#E86555",
+    bg: "bg-red-500",
+    name: "Eusate API",
+    icon: "icon-eusate",
+  },
 } as const

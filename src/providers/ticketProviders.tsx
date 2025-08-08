@@ -2,7 +2,14 @@ import { useTicketChats, useTicketDetails } from "@/hooks/api/helpdeskHooks"
 import { useChatSocket } from "@/lib/sockets/chat"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { MessageSenders } from "@/utils/enums"
-import { AttachmentMetadata, FC, MessageType, Ticket } from "@/utils/types"
+import {
+  AttachmentMetadata,
+  FC,
+  MessageType,
+  Ticket,
+  WSMessageReceiveData,
+  WSResponse,
+} from "@/utils/types"
 import { useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import dayjs from "dayjs"
 import {
@@ -41,15 +48,19 @@ export const TicketContextProvider: FC<TicketProviderProps> = ({
 // CHAT CONTEXT
 type ChatContextProps = {
   messages: MessageType[]
+  composerText: string
   isLoading: boolean
   scrollRef?: RefObject<HTMLDivElement>
+  setComposerText: (text: string) => void
   sendMessage: (message: string, attachment?: AttachmentMetadata) => void
   readChat: () => void
   scrollToBottom: (behavior?: ScrollBehavior, delay?: number) => void
 }
 export const ChatContext = createContext<ChatContextProps>({
   messages: [],
+  composerText: "",
   isLoading: true,
+  setComposerText: () => {},
   sendMessage: () => {},
   readChat: () => {},
   scrollToBottom: () => {},
@@ -66,15 +77,24 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
 
   // create ticket message state
   const [messages, setMessages] = useState<MessageType[]>([])
+  const [composerText, setComposerText] = useState("")
 
   // get ticket messages
   const { data: ticketChat, isLoading } = useTicketChats(ticketId)
 
   // connect to websocket with the ticket
   const { emitMessage, emitRead } = useChatSocket(ticketChat?.id, {
-    onmessage: (data) => {
-      console.log("Received message:", data)
-      // readChat();
+    onmessage: (message: WSResponse<WSMessageReceiveData>) => {
+      updateMessages({
+        date_created: message.data.date_created,
+        date_updated: message.data.date_updated,
+        message: message.data.message,
+        sender: message.data.sender,
+        is_attachment: message.data.attachment,
+        attachment_metadata: message.data.attachment_metadata,
+        ticket_chat: message.data.ticket_chat_id,
+      })
+      readChat()
     },
   })
   // expose functions to emit message to ticket chat, mark chat as read, read conversations in real time, scroll to bottom
@@ -121,7 +141,7 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
       }
       if (attachment) {
         queryClient.invalidateQueries({
-          queryKey: [QUERY_FN_KEYS.TICKET, ticketId],
+          queryKey: [QUERY_FN_KEYS.TICKETS, ticketId],
         })
       }
     },
@@ -137,6 +157,8 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
     <ChatContext.Provider
       value={{
         messages,
+        composerText,
+        setComposerText: (text: string) => setComposerText(text),
         isLoading,
         scrollRef: chatScrollRef,
         sendMessage,

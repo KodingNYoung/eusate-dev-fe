@@ -1,18 +1,23 @@
 import { useSocket } from "@/hooks/sockets"
 import { MessageSenders } from "@/utils/enums"
-import { AttachmentMetadata } from "@/utils/types"
+import {
+  AttachmentMetadata,
+  WSMessageReceiveData,
+  WSResponse,
+} from "@/utils/types"
 import { useCallback, useEffect, useMemo } from "react"
 import { Socket } from "socket.io-client"
 
 enum SocketEvents {
   SEND_MESSAGE = "agent_support",
+  RECEIVE_MESSAGE = "support",
   MARK_CONVERSATION_READ = "mark_conversation_read",
   JOIN_CHAT = "enter_support",
 }
 
 export const useChatSocket = (
   chatId?: string,
-  cb?: { onmessage?: (message: unknown) => void }
+  cb?: { onmessage?: (message: WSResponse<WSMessageReceiveData>) => void }
 ) => {
   const { onmessage } = cb || {}
 
@@ -34,9 +39,12 @@ export const useChatSocket = (
   useEffect(() => {
     if (!socket) return
 
-    socket.on(SocketEvents.SEND_MESSAGE, (data: unknown) => {
-      if (onmessage) onmessage(data)
-    })
+    socket.on(
+      SocketEvents.RECEIVE_MESSAGE,
+      (data: WSResponse<WSMessageReceiveData>) => {
+        if (onmessage) onmessage(data)
+      }
+    )
   }, [socket])
 
   // FUNCTIONS

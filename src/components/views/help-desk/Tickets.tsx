@@ -3,7 +3,9 @@
 import { FC, Ticket } from "@/utils/types"
 import React, { useMemo, useState } from "react"
 import {
+  HD_QUERY_KEYS,
   HelpDeskTabs,
+  TicketFilters,
   TicketPriority,
   TicketStatus,
   UserTemperament,
@@ -14,6 +16,8 @@ import TicketCard from "./_components/TicketCard"
 import TicketViewDrawer from "./_components/ViewTicketDrawer"
 import { useTickets } from "@/hooks/api/helpdeskHooks"
 import { useQueryParams } from "@/hooks/utilityHooks"
+import { useModal } from "@/hooks/popupHooks"
+import { PopupKeys } from "@/utils/enums"
 
 type Props = {
   tab: HelpDeskTabs
@@ -21,18 +25,22 @@ type Props = {
 
 const Tickets: FC<Props> = () => {
   const { get, searchParams } = useQueryParams()
+  const { open } = useModal()
 
   const [ticket, setTicket] = useState<Ticket>({} as Ticket)
 
   const filters = useMemo(
     () => ({
-      priority: (get("priority") as TicketPriority) || undefined,
-      status: (get("status") as TicketStatus) || undefined,
-      date_created: (get("date_created") as string) || undefined,
-      date_updated: (get("date_updated") as string) || undefined,
-      assigned_to_me: get("tab") === HelpDeskTabs.ASSIGNED_TO_ME || undefined,
-      ai_tickets: get("tab") === HelpDeskTabs.AI_TICKETS || undefined,
-      temperament: (get("temperament") as UserTemperament) || undefined,
+      priority: (get(TicketFilters.PRIORITY) as TicketPriority) || undefined,
+      status: (get(TicketFilters.STATUS) as TicketStatus) || undefined,
+      date_created: (get(TicketFilters.DATE_CREATED) as string) || undefined,
+      assigned_to_me:
+        get(HD_QUERY_KEYS.TAB) === HelpDeskTabs.ASSIGNED_TO_ME || undefined,
+      ai_tickets:
+        get(HD_QUERY_KEYS.TAB) === HelpDeskTabs.AI_TICKETS || undefined,
+      temperaments:
+        (get(TicketFilters.TEMPERAMENT) as UserTemperament) || undefined,
+      search: (get(HD_QUERY_KEYS.SEARCH) as string) || undefined,
     }),
     [searchParams]
   )
@@ -46,7 +54,7 @@ const Tickets: FC<Props> = () => {
         <TicketsEmptyState hasFilters={!!Object.values(filters).length} />
       )}
       {!!data?.pages?.[0]?.count && (
-        <div className="grid grid-cols-[repeat(auto-fill,_minmax(270px,1fr))] gap-5">
+        <div className="grid grid-cols-[repeat(auto-fill,_minmax(290px,1fr))] gap-5">
           {data.pages
             .flatMap((page) => page.results)
             .map((ticket) => {
@@ -54,7 +62,10 @@ const Tickets: FC<Props> = () => {
                 <TicketCard
                   key={ticket.id}
                   ticket={ticket}
-                  onView={() => setTicket(ticket)}
+                  onView={() => {
+                    setTicket(ticket)
+                    open(PopupKeys.VIEW_TICKET_DRAWER)
+                  }}
                 />
               )
             })}

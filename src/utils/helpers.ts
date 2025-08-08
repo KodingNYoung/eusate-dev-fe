@@ -194,24 +194,6 @@ export const formatToMessageTime = (date: string) => {
     sameElse: "DD/MM/YYYY, h:mmA ", // Everything else ( 7/10/2011 )
   })
 }
-export const promptFileUpload = (
-  accept = "*",
-  multiple = false
-): Promise<FileList | null> => {
-  return new Promise((resolve) => {
-    const input = document.createElement("input")
-    input.type = "file"
-    input.accept = accept
-    input.multiple = multiple
-    input.style.display = "none"
-    input.onchange = () => {
-      resolve(input.files)
-    }
-    document.body.appendChild(input)
-    input.click()
-    document.body.removeChild(input)
-  })
-}
 
 export const hasSameBasePath = (a: string, b: string) => {
   const baseA = a.split("/")[1]

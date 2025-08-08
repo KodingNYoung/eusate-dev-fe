@@ -23,7 +23,7 @@ const ResourceTypesOverview: FC<Props> = ({ start, end }) => {
       hideTrendAnalysis
       classNames={{
         root: "pt-0 pb-0 overflow-hidden",
-        main: "pt-0.5 gap-6",
+        main: "pt-0.5 gap-6 no-scrollbar",
       }}
     >
       <DonutChart

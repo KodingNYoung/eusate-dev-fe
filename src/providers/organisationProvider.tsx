@@ -32,6 +32,7 @@ type OrganisationContextType = {
   switchOrganisation: (organisationId: string) => Promise<void>
   refreshOrganisations: () => Promise<void>
   setCurrentOrganisation: (organisation: OrganisationType) => void
+  organisationUserId: string
 }
 
 const OrganisationContext = createContext<OrganisationContextType | null>({
@@ -43,6 +44,7 @@ const OrganisationContext = createContext<OrganisationContextType | null>({
   refreshOrganisations: async () => {},
   switchOrganisation: async () => {},
   setCurrentOrganisation: () => {},
+  organisationUserId: "",
 })
 
 export const OrganisationProvider: FC = ({ children }) => {
@@ -51,6 +53,7 @@ export const OrganisationProvider: FC = ({ children }) => {
 
   const [currentOrganisation, setCurrentOrganisation] =
     useState<OrganisationType | null>(null)
+  const [currentOrganisationUserId, setCurrentOrganisationUserId] = useState("")
   const [permissions, setPermissions] = useState<UserPermission[]>([])
   const [organisations, setOrganisations] = useState<OrganisationType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -74,6 +77,9 @@ export const OrganisationProvider: FC = ({ children }) => {
 
       // and set the current organisation state
       setCurrentOrganisation(currentOrgContext.organisation)
+
+      // set the organisation user id
+      setCurrentOrganisationUserId(currentOrgContext.organisation_user)
 
       // get other organisations and permissions from the BE
       const [userProfile, permissions] = await Promise.all([
@@ -109,15 +115,28 @@ export const OrganisationProvider: FC = ({ children }) => {
         )
         if (!newOrg) throw new Error("Organisation not found")
         // update the BE and session
-        await Promise.all([
+        const [currentOrganisationContext] = await Promise.all([
           updateCurrentOrganisation(newOrg.id),
           updateCurrentOrganisationInSession(newOrg?.id),
         ])
+
+        // if it wasn't a success
+        if (!("success" in currentOrganisationContext)) {
+          if ("error" in currentOrganisationContext) {
+            toaster.error(currentOrganisationContext.error.message)
+          }
+          return
+        }
+
         // fetch new organisation permission
         const permissions = await getOrganisationUserPermissions()
         // update the FE state with permission and currentOrganisation
         setCurrentOrganisation(newOrg)
         setPermissions(permissions)
+        setCurrentOrganisationUserId(
+          currentOrganisationContext?.payload?.organisation_user || ""
+        )
+
         // clear react query store
         queryClient.clear()
         // show toast
@@ -151,6 +170,7 @@ export const OrganisationProvider: FC = ({ children }) => {
     <OrganisationContext.Provider
       value={{
         currentOrganisation,
+        organisationUserId: currentOrganisationUserId,
         organisations,
         permissions,
         isLoading,

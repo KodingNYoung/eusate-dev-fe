@@ -11,17 +11,8 @@ import Link from "next/link"
 import { ROUTES } from "@/utils/constants"
 import { HD_QUERY_KEYS, HelpDeskTabs } from "../../help-desk/utils"
 
-type Props = {
-  start: string
-  end: string
-}
-
-const RecentTickets: FC<Props> = ({ start: start_date, end: end_date }) => {
-  const { data, isLoading } = useTickets({
-    start_date,
-    end_date,
-    page_size: 4,
-  })
+const RecentTickets: FC = () => {
+  const { data, isLoading } = useTickets({ page_size: 6 })
   const tickets = useMemo(() => {
     return data?.pages?.flatMap((page) => page.results) || []
   }, [data])
@@ -31,7 +22,7 @@ const RecentTickets: FC<Props> = ({ start: start_date, end: end_date }) => {
       hideTrendAnalysis
       classNames={{
         root: "pt-0 pb-0 overflow-hidden h-full",
-        main: "!py-0 !px-0 max-h-[351px] h-full overflow-auto",
+        main: "!py-0 !px-0 max-h-[351px] h-full overflow-auto no-scrollbar",
       }}
     >
       <div className="grid grid-cols-[repeat(auto-fill,_minmax(250px,1fr))] gap-5 px-6">

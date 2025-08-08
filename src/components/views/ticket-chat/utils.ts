@@ -3,6 +3,7 @@ import {
   TicketStatus,
   UserTemperament,
 } from "../help-desk/utils"
+import { TICKET_EVENTS } from "@/utils/constants"
 
 export enum MobileTicketChatTabs {
   CONVERSATION = "conversation",
@@ -46,15 +47,6 @@ export enum TicketDetailsTabs {
   USERINFO = "userinfo",
 }
 
-export type Activity = {
-  avatarUrl: string
-  name: string
-  activityType: "status" | "comment"
-  status?: TicketStatus
-  comment?: string
-  createdAt: Date
-}
-
 export const TICKET_DETAILS_TABS_LIST: {
   key: TicketDetailsTabs
   label: string
@@ -76,25 +68,20 @@ export const TICKET_DETAILS_TABS_LIST: {
     label: "Activity",
   },
 ]
+export const ACTIVITY_DESCRIPTIONS = {
+  [TICKET_EVENTS.PRIORITY_CHANGE]: "changed ticket priority to",
+  [TICKET_EVENTS.STATUS_CHANGE]: "changed ticket status to",
+  [TICKET_EVENTS.CALL_JOIN]: "joined ongoing call",
+  [TICKET_EVENTS.CALL_START]: "started a call",
+  [TICKET_EVENTS.CALL_END]: "call lasted for",
+  [TICKET_EVENTS.COMMENT]: "commented on this ticket",
+} as const
 
 export const getFileFromPublicAssets = async (path: string): Promise<File> => {
   const response = await fetch(path)
   const blob = await response.blob()
   const filename = path.split("/").pop() || "file"
   return new File([blob], filename, { type: blob.type })
-}
-
-export const formatDateTimeParts = (input: Date | string): [string, string] => {
-  const date = typeof input === "string" ? new Date(input) : input
-  const day = date.getDate()
-  const month = date.toLocaleString("default", { month: "short" })
-  let hours = date.getHours()
-  const minutes = date.getMinutes().toString().padStart(2, "0")
-  const ampm = hours >= 12 ? "pm" : "am"
-  hours = hours % 12 || 12
-  const datePart = `${day} ${month}`
-  const timePart = `${hours}:${minutes}${ampm}`
-  return [datePart, timePart]
 }
 
 export const formatTime12Hr = (input: Date | string): string => {

@@ -1,3 +1,4 @@
+import { ROUTES } from "@/utils/constants"
 import { IconNames } from "@/utils/iconNames"
 
 //  TYPES
@@ -37,17 +38,6 @@ export const SETTINGS_NAV_LINKS: SettingsNavLink[] = [
   "sate-ai",
   "profile",
 ] as const
-export const SETTINGS_ROUTES = {
-  USAGE_AND_BILLING: "/settings/usage-billing",
-  NOTIFICATIONS: "/settings/notifications",
-  INTEGRATIONS: "/settings/integrations",
-  ORGANISATION: "/settings/organisation",
-  RESOURCES: "/settings/resources",
-  SECURITY: "/settings/security",
-  SUPPORT: "/settings/support",
-  PROFILE: "/settings/profile",
-  SATE_AI: "/settings/sate-ai",
-} as const
 export const SETTINGS_TABS: {
   id: number
   icon: IconNames
@@ -56,55 +46,55 @@ export const SETTINGS_TABS: {
 }[] = [
   {
     id: 1,
-    link: SETTINGS_ROUTES.PROFILE,
+    link: ROUTES.PROFILE,
     label: "Profile",
     icon: "icon-user",
   },
   {
     id: 2,
-    link: SETTINGS_ROUTES.ORGANISATION,
+    link: ROUTES.ORGANISATION,
     label: "Organisation",
     icon: "icon-building",
   },
   {
     id: 3,
-    link: SETTINGS_ROUTES.SATE_AI,
+    link: ROUTES.SATE_AI,
     label: "Sate AI",
     icon: "icon-eusate",
   },
   {
     id: 4,
-    link: SETTINGS_ROUTES.INTEGRATIONS,
+    link: ROUTES.INTEGRATIONS,
     label: "Integrations",
     icon: "icon-integration",
   },
   {
     id: 5,
-    link: SETTINGS_ROUTES.USAGE_AND_BILLING,
+    link: ROUTES.USAGE_AND_BILLING,
     label: "Usage & Billing",
     icon: "icon-bill",
   },
   {
     id: 6,
-    link: SETTINGS_ROUTES.NOTIFICATIONS,
+    link: ROUTES.NOTIFICATIONS,
     label: "Notifications",
     icon: "icon-notification",
   },
   {
     id: 7,
-    link: SETTINGS_ROUTES.SECURITY,
+    link: ROUTES.SECURITY,
     label: "Security",
     icon: "icon-security-user",
   },
   {
     id: 8,
-    link: SETTINGS_ROUTES.SUPPORT,
+    link: ROUTES.SUPPORT,
     label: "Support",
     icon: "icon-support",
   },
   {
     id: 9,
-    link: SETTINGS_ROUTES.RESOURCES,
+    link: ROUTES.RESOURCES,
     label: "Resources",
     icon: "icon-layer",
   },

@@ -2,6 +2,7 @@
 
 import { toaster } from "@/components/molecules/Toast"
 import {
+  getTicketActivities,
   getTicketChats,
   getTicketComments,
   getTicketDetails,
@@ -9,6 +10,7 @@ import {
   getTickets,
 } from "@/lib/data/helpdesk"
 import { QUERY_FN_KEYS } from "@/utils/constants"
+import { Ticket } from "@/utils/types"
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 
 export const useTickets = (filters?: Omit<GetTicketOptions, "page">) => {
@@ -29,11 +31,14 @@ export const useTickets = (filters?: Omit<GetTicketOptions, "page">) => {
   return result
 }
 
-export const useTicketDetails = (id: string) => {
+export const useTicketDetails = (id: string, ticket?: Ticket) => {
   const result = useQuery({
-    queryKey: [...QUERY_FN_KEYS.TICKET, id],
+    queryKey: [...QUERY_FN_KEYS.TICKETS, id],
     queryFn: async () => getTicketDetails(id),
+    placeholderData: ticket,
   })
+
+  console.log(result.data)
 
   if (result.isError) {
     toaster.error(result.error.message)
@@ -46,6 +51,18 @@ export const useTicketComments = (id: string) => {
   const result = useQuery({
     queryKey: [...QUERY_FN_KEYS.TICKET_COMMENTS, id],
     queryFn: async () => getTicketComments(id),
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  return result
+}
+export const useTicketActivities = (id: string) => {
+  const result = useQuery({
+    queryKey: [...QUERY_FN_KEYS.TICKET_ACTIVITIES, id],
+    queryFn: async () => getTicketActivities(id),
   })
 
   if (result.isError) {

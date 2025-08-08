@@ -109,3 +109,12 @@ export enum ResourceProcessStatus {
   DELETING = "deleting",
   DELETED = "deleted",
 }
+
+export enum TicketChannelNames {
+  DISCORD = "DISCORD",
+  WHATSAPP = "WHATSAPP",
+  X = "X",
+  FACEBOOK = "FACEBOOK",
+  INSTAGRAM = "INSTAGRAM",
+  EUSATE_API = "EUSATE_API",
+}

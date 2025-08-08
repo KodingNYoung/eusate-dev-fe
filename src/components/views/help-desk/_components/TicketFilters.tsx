@@ -8,16 +8,14 @@ import { TicketFilters as ETicketFilters } from "../utils"
 const TicketFilters: FC = () => {
   const { get, set, searchParams } = useQueryParams()
 
-  const { priorities, statuses, date_created, last_created, temperament } =
-    useMemo(() => {
-      return {
-        priorities: get(ETicketFilters.PRIORITY)?.split(",") || [],
-        statuses: get(ETicketFilters.STATUS)?.split(",") || [],
-        date_created: get(ETicketFilters.DATE_CREATED),
-        last_created: get(ETicketFilters.LAST_UPDATED),
-        temperament: get(ETicketFilters.TEMPERAMENT)?.split(",") || [],
-      }
-    }, [searchParams])
+  const { priorities, statuses, date_created, temperament } = useMemo(() => {
+    return {
+      priorities: get(ETicketFilters.PRIORITY)?.split(",") || [],
+      statuses: get(ETicketFilters.STATUS)?.split(",") || [],
+      date_created: get(ETicketFilters.DATE_CREATED),
+      temperament: get(ETicketFilters.TEMPERAMENT)?.split(",") || [],
+    }
+  }, [searchParams])
 
   const removeFilter = useCallback(
     (filter: ETicketFilters, value?: string) => {
@@ -75,13 +73,6 @@ const TicketFilters: FC = () => {
               label="Date Created"
               value={date_created}
               onRemove={() => removeFilter(ETicketFilters.DATE_CREATED)}
-            />
-          )}
-          {last_created && (
-            <TicketFilterItem
-              label="Last Created"
-              value={last_created}
-              onRemove={() => removeFilter(ETicketFilters.LAST_UPDATED)}
             />
           )}
           {temperament.map((temp) => (

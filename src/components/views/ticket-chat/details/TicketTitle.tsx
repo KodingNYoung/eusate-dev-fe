@@ -3,7 +3,7 @@ import { Ticket } from "@/utils/types"
 import React, { FC } from "react"
 
 type Props = { ticket: Ticket }
-const Header: FC<Props> = ({ ticket }) => {
+const TicketTitle: FC<Props> = ({ ticket }) => {
   return (
     <header className="grid gap-2 mb-6">
       <Typography as="h2" className="text-semibold-xl text-gray-900">
@@ -16,4 +16,4 @@ const Header: FC<Props> = ({ ticket }) => {
   )
 }
 
-export default Header
+export default TicketTitle

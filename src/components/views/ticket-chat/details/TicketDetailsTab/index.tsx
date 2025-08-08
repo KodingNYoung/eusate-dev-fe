@@ -5,17 +5,17 @@ import Attachments from "./Attachments"
 import Comments from "./Comments"
 import Activities from "./Activity"
 import { Ticket } from "@/utils/types"
-import { TICKET_DETAILS_TABS_LIST } from "../../utils"
+import { TICKET_DETAILS_TABS_LIST, TicketDetailsTabs } from "../../utils"
 
 type Props = {
   ticket: Ticket
 }
 
 const TicketDetailsTab: FC<Props> = ({ ticket }) => {
-  const [tab, setTab] = useState<number | string>("attachments")
+  const [tab, setTab] = useState<number | string>(TicketDetailsTabs.ATTACHMENTS)
 
   return (
-    <div className="w-full h-[50%] max-h-[500px] overflow-y-auto border-t border-gray-50 flex flex-col">
+    <div className="h-[500px] border-t border-gray-50">
       <AppTabs
         tabs={TICKET_DETAILS_TABS_LIST.map(({ ...tab }) => ({
           ...tab,
@@ -29,18 +29,32 @@ const TicketDetailsTab: FC<Props> = ({ ticket }) => {
         onSelectionChange={(tab) => setTab(tab)}
         selectedKey={tab}
       />
-      <div className="flex flex-col flex-1">
-        {tab === "userinfo" && <UserInfo customer={ticket?.customer} />}
-        {tab === "attachments" && (
+      <div className="h-[calc(100%_-_54px)]">
+        {tab === TicketDetailsTabs.ATTACHMENTS && (
           // should use the ticket chat provider to get attachments
-          <Attachments attachments={ticket?.attachments} />
-        )}
-        {tab === "comments" && (
-          <div className="h-full w-full py-5 px-6">
-            <Comments ticketId={ticket?.id} />
+          <div className="max-h-full h-full overflow-auto no-scrollbar">
+            <Attachments attachments={ticket?.attachments} />
           </div>
         )}
-        {tab === "activity" && <Activities />}
+        {tab === TicketDetailsTabs.USERINFO && (
+          <div className="max-h-full h-full overflow-auto no-scrollbar">
+            <UserInfo customer={ticket?.customer} />
+          </div>
+        )}
+        {tab === TicketDetailsTabs.COMMENTS && (
+          <div className="h-full w-full py-5 px-6">
+            <div className="max-h-full h-full overflow-auto no-scrollbar border border-gray-50 rounded-x20">
+              <Comments ticketId={ticket?.id} />
+            </div>
+          </div>
+        )}
+        {tab === TicketDetailsTabs.ACTIVITY && (
+          <div className="h-full w-full py-5 px-6">
+            <div className="max-h-full h-full overflow-auto no-scrollbar border border-gray-50 rounded-x20">
+              <Activities ticketId={ticket?.id} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -35,7 +35,7 @@ const OpenTicketOverview: FC<Props> = ({ date, start, end }) => {
       hideTrendAnalysis
       classNames={{
         root: "pt-0 pb-0 overflow-hidden",
-        main: "overflow-y-auto pt-0.5 gap-6",
+        main: "overflow-y-auto pt-0.5 gap-6 no-scrollbar",
       }}
     >
       <div>

@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useMemo } from "react"
 import Badge from "@/components/atoms/Badge"
 import {
   BADGE_COLOR_MAP,
@@ -8,10 +8,19 @@ import TicketDetailItem from "@/components/views/help-desk/_components/ViewTicke
 import { Ticket } from "@/utils/types"
 import dayjs from "dayjs"
 import StatusDropdown from "./StatusDropdown"
+import { TICKET_CHANNELS_DATA } from "@/utils/constants"
+import Typography from "@/components/atoms/Typography"
+import Icon from "@/components/atoms/Icon"
+import Userinfo from "@/components/molecules/Userinfo"
+import sateAvatar from "@/assets/images/eusate-avatar.svg"
 
 type Props = { ticket: Ticket }
 
 const DetailsSection: FC<Props> = ({ ticket }) => {
+  const ticketChannel = useMemo(
+    () => (ticket ? TICKET_CHANNELS_DATA[ticket?.channel?.name] : null),
+    [ticket]
+  )
   return (
     <div className="flex flex-col gap-4">
       <TicketDetailItem
@@ -47,33 +56,49 @@ const DetailsSection: FC<Props> = ({ ticket }) => {
         <TicketDetailItem
           icon="icon-user"
           label="Assigned to"
-          // value={
-          //   <div className="flex items-center gap-8">
-          //     <Userinfo
-          //       src="https://images.pexels.com/photos/2100697/pexels-photo-2100697.jpeg"
-          //       title={assignedTo}
-          //       classNames={{
-          //         root: "!py-0",
-          //         avatar: "!size-5 !min-w-5 !min-h-5",
-          //         title: "!text-medium-sm !text-gray-900",
-          //       }}
-          //     />
-          //   </div>
-          // }
-          value={ticket?.assignee || "Sate"}
+          value={
+            ticket.status === TicketStatus.TAKEN ? (
+              <div className="flex items-center gap-8">
+                <Userinfo
+                  src={
+                    ticket.assignee === null
+                      ? sateAvatar
+                      : ticket.assignee.profile_picture
+                  }
+                  title={
+                    ticket.assignee === null ? "Sate" : ticket.assignee.name
+                  }
+                  classNames={{
+                    root: "!py-0",
+                    avatar: "!size-[17px] !min-w-[17px] !min-h-[17px]",
+                    title: "!text-medium-sm !text-gray-900",
+                  }}
+                />
+              </div>
+            ) : (
+              "-"
+            )
+          }
         />
       )}
       <TicketDetailItem
         icon="icon-share"
         label="Channel"
-        // value={
-        //   <Icon
-        //     name={CHANNELS_ICON[channel]}
-        //     size={20}
-        //     className="text-gray-900"
-        //   />
-        // }
-        value={ticket?.channel.name.replaceAll("_", " ")}
+        value={
+          ticketChannel && (
+            <Typography
+              as="span"
+              className="text-gray-400 text-regular-xs flex items-center gap-2"
+            >
+              <Icon
+                name={ticketChannel.icon}
+                size={17}
+                className="text-black"
+              />
+              From {ticketChannel.name}
+            </Typography>
+          )
+        }
       />
     </div>
   )

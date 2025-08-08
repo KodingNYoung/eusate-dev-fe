@@ -34,12 +34,12 @@ const Overview: FC<Props> = ({ date }) => {
         <OverviewDateFilter date={date} />
         <TopCards date={date} start={start} end={end} />
         <div className="grid items-start gap-5 px-4 sm:px-5 min-[854px]:grid-cols-[repeat(2,_minmax(343px,_1fr))]">
-          <RecentTickets start={start} end={end} />
+          <RecentTickets />
           <OpenTicketOverview date={date} start={start} end={end} />
           <ResourceTypesOverview start={start} end={end} />
           <ChannelDistribution start={start} end={end} />
           <WalletOverview start={start} end={end} />
-          <RecentlyAddedResources start={start} end={end} />
+          <RecentlyAddedResources />
         </div>
       </main>
     </div>

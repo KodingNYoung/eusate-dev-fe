@@ -70,9 +70,11 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
             {/* ))} */}
           </div>
         ) : null}
-        <Typography className="text-medium-sm text-gray-700">
-          {message.message}
-        </Typography>
+        <Typography
+          as="span"
+          className="text-medium-sm text-gray-700 [&_ol]:list-decimal [&_ol]:list-inside [&_ul]:list-inside whitespace-break-spaces block"
+          dangerouslySetInnerHTML={{ __html: message.message?.trim() }}
+        />
         <Typography className="text-regular-xs text-gray-400">
           {formatToMessageTime(message.date_created)}
         </Typography>

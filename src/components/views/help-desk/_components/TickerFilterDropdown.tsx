@@ -47,7 +47,6 @@ const TickerFilterDropdown: FC = () => {
         {openedFilter === TicketFilters.STATUS && <StatusFilter />}
         {openedFilter === TicketFilters.ASSIGNEE && <PriorityFilter />}
         {openedFilter === TicketFilters.DATE_CREATED && <PriorityFilter />}
-        {openedFilter === TicketFilters.LAST_UPDATED && <PriorityFilter />}
         {openedFilter === TicketFilters.TEMPERAMENT && <TemperamentFilter />}
       </AppPopover>
       <button
@@ -73,12 +72,6 @@ const TickerFilterDropdown: FC = () => {
         onClick={() => setOpenedFilter(TicketFilters.DATE_CREATED)}
       >
         Date created
-      </button> */}
-      {/* <button
-        className="w-full p-3 flex justify-start text-medium-sm text-gray-700"
-        onClick={() => setOpenedFilter(TicketFilters.LAST_UPDATED)}
-      >
-        Last updated
       </button> */}
       <button
         className="w-full p-3 flex justify-start text-medium-sm text-gray-700"

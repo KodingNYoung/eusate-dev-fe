@@ -31,7 +31,6 @@ export enum TicketFilters {
   STATUS = "status",
   ASSIGNEE = "assignee",
   DATE_CREATED = "date_created",
-  LAST_UPDATED = "last_updated",
   TEMPERAMENT = "temperament",
 }
 
@@ -42,11 +41,6 @@ export const HD_QUERY_KEYS = {
 }
 export const HD_TABS: { icon: IconNames; key: HelpDeskTabs; label: string }[] =
   [
-    {
-      icon: "icon-chart-2",
-      key: HelpDeskTabs.SUMMARY,
-      label: "Summary",
-    },
     {
       icon: "icon-ticket",
       key: HelpDeskTabs.ALL,
@@ -61,6 +55,11 @@ export const HD_TABS: { icon: IconNames; key: HelpDeskTabs; label: string }[] =
       icon: "icon-eusate",
       key: HelpDeskTabs.AI_TICKETS,
       label: "AI tickets",
+    },
+    {
+      icon: "icon-chart-2",
+      key: HelpDeskTabs.SUMMARY,
+      label: "Summary",
     },
   ]
 export const BADGE_COLOR_MAP = {
@@ -83,6 +82,6 @@ export const STATUS_COLOR_MAP: {
   [TicketStatus.OPEN]: "warning",
   [TicketStatus.CLOSED]: "neutral",
   [TicketStatus.TAKEN]: "success",
-  [TicketStatus.RESOLVED_AND_CLOSED]: "primary",
-  [TicketStatus.RELEASED_AND_OPEN]: "success",
+  [TicketStatus.RESOLVED_AND_CLOSED]: "success",
+  [TicketStatus.RELEASED_AND_OPEN]: "primary",
 }

@@ -1,5 +1,3 @@
-import { TicketStatus } from "../help-desk/utils"
-import { Activity } from "./utils"
 import { Chat as AIChat } from "./aichat"
 
 export const MOCK_IMAGE_URL =
@@ -25,40 +23,6 @@ export const MOCK_SATE_CHAT: AIChat = {
   },
   chatPayload: [],
 }
-export const MockActivity: Activity[] = [
-  {
-    avatarUrl:
-      "https://images.pexels.com/photos/2100697/pexels-photo-2100697.jpeg",
-    name: "Calum Willson",
-    activityType: "status",
-    createdAt: new Date(),
-    status: TicketStatus.CLOSED,
-  },
-  {
-    avatarUrl:
-      "https://images.pexels.com/photos/2100697/pexels-photo-2100697.jpeg",
-    name: "Calum Willson",
-    activityType: "comment",
-    createdAt: new Date(),
-    comment:
-      "Hi team, I appreciate your help with this interventions. Looking forward to your response. Thanks!",
-  },
-  {
-    avatarUrl: "",
-    name: "Calum Willson",
-    activityType: "status",
-    createdAt: new Date(),
-    status: TicketStatus.RELEASED_AND_OPEN,
-  },
-  {
-    avatarUrl: "",
-    name: "Calum Willson",
-    activityType: "comment",
-    createdAt: new Date(),
-    comment:
-      "Hi team, I appreciate your help with this interventions. Looking forward to your response. Thanks!",
-  },
-]
 
 export const MockFiles: (File | string)[] = [
   mockFileGenerator("particle.png", "image/png"),

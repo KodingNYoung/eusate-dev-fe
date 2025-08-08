@@ -1,20 +1,25 @@
-import { Activity } from "../../utils"
-import React, { useState } from "react"
+import React from "react"
 import ActivityCard from "../../_components/ActivityCard"
 import NoContentFound from "../../_components/NoContentFound"
+import { FC } from "@/utils/types"
+import { useTicketActivities } from "@/hooks/api/helpdeskHooks"
 
-const Activities = () => {
-  const [localActivities] = useState<Activity[]>([])
+type Props = {
+  ticketId: string
+}
+
+const Activities: FC<Props> = ({ ticketId }) => {
+  const { data } = useTicketActivities(ticketId)
 
   return (
-    <div className="custom-scrollbar px-6 py-4 h-[17rem] overflow-y-auto">
-      {localActivities?.length ? (
-        <div className="border border-gray-50 rounded-x20 p-4 flex flex-col gap-y-4">
-          {localActivities.map((activity, idx) => (
+    <div className="p-5 px-3">
+      {data?.length ? (
+        <div className="flex flex-col gap-6">
+          {data.map((activity, idx) => (
             <ActivityCard
               key={idx}
               activity={activity}
-              lastCard={idx === localActivities.length - 1}
+              lastCard={idx === data.length - 1}
             />
           ))}
         </div>

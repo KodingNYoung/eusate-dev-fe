@@ -4,7 +4,6 @@ import Userinfo from "@/components/molecules/Userinfo"
 import { TicketComment } from "@/utils/types"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
-import sateAvatar from "@/assets/images/eusate-avatar.svg"
 
 dayjs.extend(relativeTime)
 
@@ -17,7 +16,7 @@ const CommentCard: FC<Props> = ({ comment }) => {
     <div className="flex flex-col w-full border-b last:border-0 border-b-gray-50 py-4 gap-2.5">
       <div className="flex gap-2 items-center">
         <Userinfo
-          src={sateAvatar}
+          src={comment.agent.profile_picture}
           title={comment.agent.name}
           classNames={{
             root: "!py-0 !gap-2.5",

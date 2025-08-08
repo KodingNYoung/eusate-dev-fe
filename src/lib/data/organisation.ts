@@ -4,8 +4,8 @@ import { ERROR_CAUSES } from "@/utils/constants"
 import { sendAuthRequest, sendRequest } from "../request"
 import { getSession } from "../sessions"
 import {
-  DBResource,
   MemberInviteType,
+  OrganisationContext,
   OrganisationType,
   OrganisationUser,
   UserPermission,
@@ -28,10 +28,6 @@ export const getOwnedOrganisation = cache(async () => {
 /**
  * Get user's last selected organisation with full details
  */
-type OrganisationContext = DBResource & {
-  user: string
-  organisation: OrganisationType
-}
 export const getCurrentOrganisation = cache(async () => {
   const response = await sendAuthRequest<OrganisationContext>(
     `/api/v1/organisations/context/`

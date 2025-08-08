@@ -7,6 +7,7 @@ import {
   PermissionCodenames,
   ResourceProcessStatus,
   ResourceSources,
+  TicketChannelNames,
   TwoFAMethods,
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
@@ -16,7 +17,6 @@ import {
   FILE_ICON_MAP,
   SHOW_FOR,
   STORAGE_KEYS,
-  TICKET_CHANNELS_DATA,
   TICKET_EVENTS,
 } from "./constants"
 import {
@@ -199,6 +199,13 @@ export type DBResource = {
   date_updated: string
 }
 
+export type WSResponse<T = unknown> = {
+  message: string
+  status_code: number
+  sid: string
+  data: T
+}
+
 export type KnowledgeSource = DBResource & {
   organisation_id: string
   title: string
@@ -300,8 +307,14 @@ export type TicketCustomer = {
   temperaments: UserTemperament[]
 }
 export type TicketChannel = DBResource & {
-  name: string
+  name: TicketChannelNames
   logo: string
+}
+export type TicketAssignee = DBResource & {
+  id: string
+  name: string
+  email: string
+  profile_picture: string
 }
 
 export type Ticket = DBResource & {
@@ -314,18 +327,13 @@ export type Ticket = DBResource & {
   pinned: boolean
   customer: TicketCustomer
   attachments: AttachmentMetadata[]
-  assignee: string | null
+  assignee: TicketAssignee | null
   channel: TicketChannel
-}
-export type TicketCommentAgent = {
-  id: string
-  name: string
-  email: string
 }
 export type TicketComment = DBResource & {
   message: string
   ticket: string
-  agent: TicketCommentAgent
+  agent: TicketAssignee
 }
 export type AttachmentMetadata = {
   url: string
@@ -379,6 +387,11 @@ export type OrganisationType = DBResource & {
     company_size: string
   }
 }
+export type OrganisationContext = DBResource & {
+  user: string
+  organisation_user: string
+  organisation: OrganisationType
+}
 export type UserType = DBResource & {
   email: string
   username: string
@@ -414,9 +427,12 @@ export type MemberInviteType = DBResource & {
   permissions: string[]
 }
 export type TicketEvent = ValueOf<typeof TICKET_EVENTS>
-export type TicketActivity = {
+export type TicketActivity = DBResource & {
   event: TicketEvent
   actor: UserType & {
+    actor_type: MessageSenders
+  }
+  actor_on_delete: UserType & {
     actor_type: MessageSenders
   }
   value: string
@@ -434,9 +450,17 @@ export type TicketPriorityBreakdownItem = {
   count: number
   percentage: number
 }
-export type TicketChannels = keyof typeof TICKET_CHANNELS_DATA
 export type ChannelCountData = {
-  channel: TicketChannels
+  channel: TicketChannelNames
   count: number
   percentage: number
+}
+export type WSMessageReceiveData = Omit<DBResource, "id"> & {
+  attachment: boolean
+  attachment_metadata: AttachmentMetadata | null
+  close_support: boolean
+  closed_support: boolean
+  message: string
+  sender: MessageSenders
+  ticket_chat_id: string
 }

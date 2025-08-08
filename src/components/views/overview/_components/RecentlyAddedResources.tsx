@@ -12,14 +12,9 @@ import { resourceIcon } from "../../knowledge-base/_components/ResourceTypeTag"
 import dayjs from "dayjs"
 import { Skeleton } from "@nextui-org/react"
 
-type Props = {
-  start: string
-  end: string
-}
-
 const PAGE_SIZE = 5
 
-const RecentlyAddedResources: FC<Props> = () => {
+const RecentlyAddedResources: FC = () => {
   const { data, isLoading } = useKnowledgeBaseResources({
     page_size: PAGE_SIZE,
   })
@@ -32,7 +27,7 @@ const RecentlyAddedResources: FC<Props> = () => {
       hideTrendAnalysis
       classNames={{
         root: "pt-0 pb-0 overflow-hidden h-full",
-        main: "!py-0 !px-0 overflow-y-auto max-h-[290px]",
+        main: "!py-0 !px-0 overflow-y-auto max-h-[290px] no-scrollbar",
       }}
     >
       <div className="grid gap-1.5 px-6">
@@ -43,7 +38,6 @@ const RecentlyAddedResources: FC<Props> = () => {
           ).map((resource, idx) => (
             <Skeleton isLoaded={!isLoading} className="rounded-xl" key={idx}>
               <div
-                // href={`${ROUTES.RESOURCE}/?${KB_QUERY_KEYS.ID}=${resource.id}&${KB_QUERY_KEYS.TAGS}=${resource.tag}`}
                 key={idx}
                 className="px-6 py-5 rounded-xl bg-gray-25 flex items-center justify-between"
               >

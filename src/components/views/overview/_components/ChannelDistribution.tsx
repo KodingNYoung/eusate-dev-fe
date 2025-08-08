@@ -18,41 +18,43 @@ const ChannelDistribution: FC<Props> = ({ start, end }) => {
     end_date: end,
   })
 
-  return data?.data?.length || isLoading ? (
+  return (
     <ChartCard
       title="Channel Distribution"
       hideTrendAnalysis
       classNames={{
         root: "pt-0 pb-0 overflow-hidden h-full",
-        main: "pt-0.5 gap-6 h-full",
+        main: "pt-0.5 gap-6 h-full no-scrollbar",
       }}
     >
-      <DonutChart
-        unit="ticket"
-        name="Channel Distribution"
-        hasLegend
-        loading={isLoading}
-        data={
-          isLoading
-            ? Object.values(TICKET_CHANNELS_DATA)
-                .filter((channel) => channel.bg)
-                .map((channel) => ({
-                  label: channel.name,
-                  color: channel.color,
-                  indicatorBg: channel.bg,
-                  count: 0,
-                }))
-            : data?.data.map((channel) => ({
-                label: TICKET_CHANNELS_DATA[channel.channel].name,
-                color: TICKET_CHANNELS_DATA[channel.channel].color,
-                indicatorBg: TICKET_CHANNELS_DATA[channel.channel].bg,
-                count: channel.count,
-              })) || []
-        }
-      />
+      {data?.data?.length || isLoading ? (
+        <DonutChart
+          unit="ticket"
+          name="Channel Distribution"
+          hasLegend
+          loading={isLoading}
+          data={
+            isLoading
+              ? Object.values(TICKET_CHANNELS_DATA)
+                  .filter((channel) => channel.bg)
+                  .map((channel) => ({
+                    label: channel.name,
+                    color: channel.color,
+                    indicatorBg: channel.bg,
+                    count: 0,
+                  }))
+              : data?.data.map((channel) => ({
+                  label: TICKET_CHANNELS_DATA[channel.channel].name,
+                  color: TICKET_CHANNELS_DATA[channel.channel].color,
+                  indicatorBg: TICKET_CHANNELS_DATA[channel.channel].bg,
+                  count: channel.count,
+                })) || []
+          }
+        />
+      ) : (
+        <>No Channel data yet</>
+      )}
     </ChartCard>
-  ) : (
-    <>No Channel data yet</>
   )
 }
 
