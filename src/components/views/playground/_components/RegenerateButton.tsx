@@ -1,6 +1,7 @@
 import { createMessage } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import Icon from "@/components/atoms/Icon"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
+import { useFormToast } from "@/hooks/formHooks"
 import { usePlayground } from "@/hooks/playground"
 import { SendMessageResponse } from "@/lib/services/playground"
 import { FC, FormState } from "@/utils/types"
@@ -35,6 +36,8 @@ const RegenerateButton: FC<Props> = ({
       ...settings,
     })
   }, {})
+
+  useFormToast(state)
 
   useEffect(() => {
     if ("success" in state) {

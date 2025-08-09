@@ -38,6 +38,7 @@ export enum TicketFilters {
 export const HD_QUERY_KEYS = {
   TAB: "tab",
   SEARCH: "q",
+  DATE: "date",
 }
 export const HD_TABS: { icon: IconNames; key: HelpDeskTabs; label: string }[] =
   [

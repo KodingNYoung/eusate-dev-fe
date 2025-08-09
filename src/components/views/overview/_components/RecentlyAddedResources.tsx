@@ -71,7 +71,7 @@ const RecentlyAddedResources: FC = () => {
               as="span"
               className="text-medium-sm text-gray-500 group-hover/link:text-gradient"
             >
-              See all tickets
+              See all resources
             </Typography>
             <Icon
               name="icon-arrow-right"

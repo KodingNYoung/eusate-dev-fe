@@ -1,5 +1,6 @@
 import { takeoverTicket } from "@/app/(organisation-routes)/(dashboard)/helpdesk/actions"
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
+import { useFormToast } from "@/hooks/formHooks"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { FC, Ticket } from "@/utils/types"
 import { useQueryClient } from "@tanstack/react-query"
@@ -15,6 +16,8 @@ const TicketTakeoverBtn: FC<Props> = ({ ticket, onTakeover }) => {
   const queryClient = useQueryClient()
 
   const [state, action] = useFormState(takeoverTicket, {})
+
+  useFormToast(state)
 
   useEffect(() => {
     if ("success" in state) {

@@ -4,6 +4,7 @@ import { ERROR_CAUSES } from "@/utils/constants"
 import { sendAuthRequest } from "../request"
 import { getSession } from "../sessions"
 import {
+  ComparisonCardDataType,
   DBResource,
   MessageType,
   Ticket,
@@ -17,6 +18,7 @@ import {
 } from "@/components/views/help-desk/utils"
 import { objToQuery } from "@/utils/helpers"
 import { MessageSenders } from "@/utils/enums"
+import { OverviewFilterOptions } from "./overview"
 
 export type GetTicketsResponse = {
   count: number
@@ -102,6 +104,48 @@ export const getTicketChats = async (id: string) => {
     `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/chat/`
   )
 
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+
+// SUMMARY
+type HDSummaryTopCardData = Record<
+  | "all_tickets"
+  | "avg_human_response_time"
+  | "avg_resolution_time"
+  | "resolution_rate"
+  | "csat_score",
+  ComparisonCardDataType
+>
+
+export const getHDSummaryTopCardsData = async (
+  options: OverviewFilterOptions
+) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<HDSummaryTopCardData>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/dashboard/ticket-metrics/?start_date=${options.start_date}&end_date=${options.end_date}`
+  )
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+
+type TicketPrioritiesResponse = {
+  total: number
+  start_datetime: string
+  end_datetime: string
+  data: { priority: TicketPriority; count: number; percentage: number }[]
+}
+export const getTicketPrioties = async (options: OverviewFilterOptions) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<TicketPrioritiesResponse>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/dashboard/ticket-priority/?start_date=${options.start_date}&end_date=${options.end_date}`
+  )
   if ("shouldAuthenticate" in response) {
     throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
   }

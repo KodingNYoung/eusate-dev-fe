@@ -14,6 +14,7 @@ import { useFormState } from "react-dom"
 import { createMessage } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import { SendMessageResponse } from "@/lib/services/playground"
 import { usePlayground } from "@/hooks/playground"
+import { useFormToast } from "@/hooks/formHooks"
 
 const ChatFooter: FC = () => {
   const [ids, setIds] = useState<AddMessageReturnType>()
@@ -32,6 +33,8 @@ const ChatFooter: FC = () => {
     const message = formdata.get("message") as string
     return await createMessage(state, { message, ...settings })
   }, {})
+
+  useFormToast(state)
 
   useEffect(() => {
     if ("success" in state) {

@@ -16,16 +16,18 @@ type Props = {
 }
 
 const Editor: FC<Props> = ({ content = "", onContentChange, loading }) => {
-  const [value, setValue] = useState(content)
+  const [value, setValue] = useState(() => JSON.stringify(content))
 
   const wordCount = useMemo(() => {
+    console.log({ value })
     if (!value) return 0
-    const text = value.replace(/<[^>]+>/g, "").trim()
-    return text ? text.split(/\s+/).length : 0
+    const text = value?.replace(/<[^>]+>/g, "")?.trim()
+    console.log(text)
+    return text ? text?.split(/\s+/)?.length : 0
   }, [value])
 
   useEffect(() => {
-    setValue(content)
+    setValue(() => JSON.stringify(content))
   }, [content])
 
   return (
@@ -41,7 +43,7 @@ const Editor: FC<Props> = ({ content = "", onContentChange, loading }) => {
               setValue(value)
               onContentChange()
             }}
-            className="[&_.ql-editor]:font-app [&_.ql-editor]:placeholder:text-gray-300 [&_.ql-editor]:text-gray-600 [&_.ql-editor]:text-regular-base"
+            className="[&_.ql-editor]:font-app [&_.ql-editor]:placeholder:text-gray-300 [&_.ql-editor]:text-gray-600 [&_.ql-editor]:text-regular-base [&_.ql-editor_*]:whitespace-break-spaces"
             placeholder="Start typing..."
             modules={{
               toolbar: "#quill-toolbar",

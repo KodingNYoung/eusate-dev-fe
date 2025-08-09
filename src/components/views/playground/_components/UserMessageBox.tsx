@@ -7,6 +7,7 @@ import { useFormState } from "react-dom"
 import { SendMessageResponse } from "@/lib/services/playground"
 import { createMessage } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import { EditMessageReturnType } from "@/providers/playgroundProvider"
+import { useFormToast } from "@/hooks/formHooks"
 
 type Props = {
   msg: UserMessage
@@ -40,6 +41,7 @@ const UserMessageBox: FC<Props> = ({
       ...settings,
     })
   }, {})
+  useFormToast(state)
 
   useEffect(() => {
     if ("success" in state) {

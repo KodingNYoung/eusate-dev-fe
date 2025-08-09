@@ -11,12 +11,12 @@ import {
 } from "@nextui-org/react"
 import React, { ReactElement } from "react"
 
-type Props = Omit<PopoverProps, "children"> & {
+export type AppPopoverProps = Omit<PopoverProps, "children"> & {
   classNames?: { [slot in PopoverSlots]?: string }
   trigger?: ReactElement
 }
 
-const AppPopover: FC<Props> = ({
+const AppPopover: FC<AppPopoverProps> = ({
   children,
   trigger,
   placement,

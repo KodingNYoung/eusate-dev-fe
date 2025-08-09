@@ -20,7 +20,7 @@ const AgentMetricItem: FC<Props> = ({ metric }) => {
         }}
         avatarProps={{
           classNames: {
-            root: "min-w-16 min-h-16 w-16 h-16",
+            root: "min-w-9 min-h-9 w-9 h-9",
             icon: "!text-regular-2xl",
           },
         }}

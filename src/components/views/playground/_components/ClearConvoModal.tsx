@@ -1,6 +1,7 @@
 import { clearChatWall } from "@/app/(organisation-routes)/(dashboard)/playground/actions"
 import Icon from "@/components/atoms/Icon"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
+import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
 import { PopupKeys } from "@/utils/enums"
 import { FC } from "@/utils/types"
@@ -11,6 +12,8 @@ const ClearConvoModal: FC = () => {
   const { close } = useModal()
 
   const [state, action] = useFormState(clearChatWall, {})
+
+  useFormToast(state, true)
 
   useEffect(() => {
     if ("success" in state) close()

@@ -101,6 +101,7 @@ export const QUERY_FN_KEYS = {
   TICKET_COMMENTS: ["tickets", "comments"],
   TICKET_ACTIVITIES: ["tickets", "activities"],
   TICKET_CHAT: ["ticket-chat"],
+  HELPDESK_SUMMARY: ["helpdesk", "summary"],
   USER_PROFILE: ["user-profile"],
   OWNED_ORGANISATION: ["owned-organisation"],
   ORGANISATION: ["organisation"],
@@ -156,10 +157,10 @@ export const COMPARISON_CARD_UNITS = {
   SCORE: "score",
 }
 export const TICKET_PRIORITY_DATA = {
-  [TicketPriority.CRITICAL]: { bg: "bg-error-500" },
-  [TicketPriority.HIGH]: { bg: "bg-warning-500" },
-  [TicketPriority.MEDIUM]: { bg: "bg-info-700" },
-  [TicketPriority.LOW]: { bg: "bg-gray-900" },
+  [TicketPriority.CRITICAL]: { bg: "bg-error-500", color: "#F04438" },
+  [TicketPriority.HIGH]: { bg: "bg-warning-500", color: "#F79009" },
+  [TicketPriority.MEDIUM]: { bg: "bg-info-700", color: "#2E90FA" },
+  [TicketPriority.LOW]: { bg: "bg-gray-900", color: "#0A0A0A" },
 }
 export const TICKET_CHANNELS_DATA: {
   [key in TicketChannelNames]: {

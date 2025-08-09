@@ -21,15 +21,12 @@ const ChartCard: FC<Props> = ({
   return (
     <div
       className={cls(
-        "border border-[#e6e6e6] py-1.5 flex flex-col gap-2.5 rounded-x10",
+        "border border-gray-50 py-1.5 flex flex-col gap-2.5 rounded-x10",
         classNames?.root
       )}
     >
       <header
-        className={cls(
-          "px-6 py-4 border-b border-[#e6e6e6]",
-          classNames?.header
-        )}
+        className={cls("px-6 py-4 border-b border-gray-50", classNames?.header)}
       >
         <Typography
           as="h3"
@@ -49,7 +46,7 @@ const ChartCard: FC<Props> = ({
       {!hideTrendAnalysis && (
         <footer
           className={cls(
-            "border-t border-[#e6e6e6] pt-2 pb-1 flex items-center justify-center",
+            "border-t border-gray-50 pt-2 pb-1 flex items-center justify-center",
             classNames?.footer
           )}
         >
