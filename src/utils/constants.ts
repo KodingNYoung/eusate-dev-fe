@@ -13,7 +13,6 @@ import png from "@/assets/images/file-png.svg"
 import txt from "@/assets/images/file-txt.svg"
 import xls from "@/assets/images/file-xls.svg"
 import { TicketPriority } from "@/components/views/help-desk/utils"
-import { TWClassNames } from "./types"
 import { IconNames } from "./iconNames"
 
 export const API_BASEURL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT_URL
@@ -160,35 +159,39 @@ export const TICKET_PRIORITY_DATA = {
   [TicketPriority.CRITICAL]: { bg: "bg-error-500", color: "#F04438" },
   [TicketPriority.HIGH]: { bg: "bg-warning-500", color: "#F79009" },
   [TicketPriority.MEDIUM]: { bg: "bg-info-700", color: "#2E90FA" },
-  [TicketPriority.LOW]: { bg: "bg-gray-900", color: "#0A0A0A" },
+  [TicketPriority.LOW]: { bg: "bg-gray-900", color: "#989FAD" },
 }
 export const TICKET_CHANNELS_DATA: {
   [key in TicketChannelNames]: {
     color: string
-    bg: TWClassNames
     name: string
     icon: IconNames
   }
 } = {
   DISCORD: {
     color: "#2E90FA",
-    bg: "bg-info-500",
     name: "Discord",
     icon: "icon-discord",
   },
   WHATSAPP: {
     color: "#667085",
-    bg: "bg-gray-500",
     name: "Whatsapp",
     icon: "icon-whatsapp",
   },
-  X: { color: "#D7AB07", bg: "bg-warning-500", name: "X", icon: "icon-x" },
-  FACEBOOK: { color: "", bg: "", name: "Facebook", icon: "icon-facebook" },
-  INSTAGRAM: { color: "", bg: "", name: "Instagram", icon: "icon-instagram" },
+  X: { color: "#D7AB07", name: "X", icon: "icon-x" },
+  FACEBOOK: { color: "", name: "Facebook", icon: "icon-facebook" },
+  INSTAGRAM: { color: "", name: "Instagram", icon: "icon-instagram" },
   EUSATE_API: {
     color: "#E86555",
-    bg: "bg-red-500",
     name: "Eusate API",
     icon: "icon-eusate",
   },
 } as const
+export const CHART_INTERVALS = {
+  MINUTES: "minutes",
+  HOURS: "hours",
+  DAYS: "days",
+  WEEKS: "weeks",
+  MONTHS: "months",
+  YEARS: "years",
+}

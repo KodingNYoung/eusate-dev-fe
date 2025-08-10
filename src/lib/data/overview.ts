@@ -2,6 +2,7 @@
 
 import {
   ChannelCountData,
+  ChartInterval,
   ComparisonCardDataType,
   TicketPriorityBreakdownItem,
 } from "@/utils/types"
@@ -12,6 +13,7 @@ import { ERROR_CAUSES } from "@/utils/constants"
 export type OverviewFilterOptions = {
   start_date: string
   end_date: string
+  interval?: ChartInterval
 }
 
 type GetOpenTicketOverviewResponse = {

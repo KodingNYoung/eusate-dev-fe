@@ -31,19 +31,16 @@ const OverallPerformance: FC = () => {
                 label: "Whatsapp",
                 count: 1012,
                 color: "#D7AB07",
-                indicatorBg: "bg-gold-500",
               },
               {
                 label: "Twitter",
                 count: 2343,
-                color: "#0A0A0A",
-                indicatorBg: "bg-black-100",
+                color: "#989FAD",
               },
               {
                 label: "Website",
                 count: 7345,
                 color: "#2E90FA",
-                indicatorBg: "bg-info-500",
               },
             ]}
           />

@@ -10,6 +10,7 @@ import TopCards from "./_components/TopCards"
 import TicketPriorities from "./_components/TicketPriorities"
 import AgentResolutionTimes from "./_components/AgentResolutionTimes"
 import TicketVolume from "./_components/TicketVolume"
+import TicketResolution from "./_components/TicketResolution"
 
 type Props = { date: string }
 
@@ -27,12 +28,13 @@ const HelpdeskSummary: FC<Props> = ({ date }) => {
       />
       <TopCards date={date} start={start} end={end} />
       <div className="flex items-start flex-wrap gap-5">
-        <div className="flex-[2] min-w-full sm:min-w-[500px]">
+        <div className="flex-[2] min-w-full sm:min-w-[500px] grid gap-5">
           <TicketVolume date={date} start={start} end={end} />
+          <TicketResolution date={date} start={start} end={end} />
         </div>
         <div className="flex-1 min-w-full sm:min-w-[343px] grid gap-5">
           <TicketPriorities start={start} end={end} />
-          <AgentResolutionTimes />
+          <AgentResolutionTimes start={start} end={end} />
         </div>
       </div>
     </div>

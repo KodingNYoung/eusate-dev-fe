@@ -1,10 +1,10 @@
 "use client"
-import { cls } from "@/utils/helpers"
-import { FC, TWClassNames } from "@/utils/types"
+import { FC } from "@/utils/types"
 import { Chart } from "@highcharts/react"
 import { Pie } from "@highcharts/react/series"
-import { Progress, Skeleton } from "@nextui-org/react"
+import { Skeleton } from "@nextui-org/react"
 import React, { useMemo } from "react"
+import AppProgress from "./AppProgress"
 
 type Props = {
   unit?: string
@@ -15,7 +15,6 @@ type Props = {
     label: string
     count: number
     color: string
-    indicatorBg: TWClassNames
   }[]
 }
 
@@ -36,13 +35,7 @@ const DonutChart: FC<Props> = ({
         <Skeleton isLoaded={!loading} className="rounded-full">
           <Chart
             options={{
-              accessibility: {
-                enabled: true,
-                description: `Pie chart showing ${name} distribution. Total: ${total} ${unit}s`,
-                point: {
-                  valueSuffix: ` ${unit}s`,
-                },
-              },
+              accessibility: { enabled: false },
               credits: { enabled: false },
               chart: { height: "100%", margin: 0 },
               tooltip: {
@@ -73,27 +66,16 @@ const DonutChart: FC<Props> = ({
       </div>
       {hasLegend && (
         <div className="flex-1 min-w-2/5 flex flex-col gap-5">
-          {data.map((item, idx) => {
+          {data.map((item) => {
             return (
-              <Skeleton
-                key={idx}
-                isLoaded={!loading}
-                className="w-full rounded-sm"
-              >
-                <Progress
-                  key={item.label}
-                  classNames={{
-                    track: "h-[5px]",
-                    indicator: cls(item.indicatorBg),
-                    label: "font-semibold text-sm text-black whitespace-nowrap",
-                    value: "font-semibold text-sm text-black",
-                  }}
-                  label={item.label}
-                  value={(item.count * 100) / (total > 0 ? total : 1)}
-                  size="sm"
-                  showValueLabel
-                />
-              </Skeleton>
+              <AppProgress
+                key={item.label}
+                color={item.color}
+                value={(item.count * 100) / (total > 0 ? total : 1)}
+                label={item.label}
+                showValueLabel
+                loading={loading}
+              />
             )
           })}
         </div>

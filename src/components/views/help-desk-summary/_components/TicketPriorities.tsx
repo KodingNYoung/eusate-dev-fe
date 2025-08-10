@@ -26,27 +26,28 @@ const TicketPriorities: FC<Props> = ({ start, end }) => {
             label: capitalizeFirstLetter(priority.priority),
             count: priority.count,
             color: priorityData.color,
-            indicatorBg: priorityData.bg,
           }
         }),
     [data]
   )
   return (
     <section className="border border-gray-50 rounded-x10 p-4 sm:p-6">
-      <Typography as="h3" className="text-semibold-base">
-        TicketPriorities
+      <Typography as="h3" className="text-semibold-base mb-6">
+        Ticket priorities
       </Typography>
-      {data?.total && data?.data?.length ? (
-        <DonutChart
-          unit="ticket"
-          name="helpdesk tickets"
-          hasLegend
-          loading={isLoading}
-          data={priorities}
-        />
-      ) : (
-        "No entries for the selected period"
-      )}
+      <div className="min-h-[220px]">
+        {(data?.total && data?.data?.length) || isLoading ? (
+          <DonutChart
+            unit="ticket"
+            name="helpdesk tickets"
+            hasLegend
+            loading={isLoading}
+            data={priorities}
+          />
+        ) : (
+          "No entries for the selected period"
+        )}
+      </div>
     </section>
   )
 }

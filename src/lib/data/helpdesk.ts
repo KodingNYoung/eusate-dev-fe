@@ -10,6 +10,7 @@ import {
   Ticket,
   TicketActivity,
   TicketComment,
+  UserType,
 } from "@/utils/types"
 import {
   TicketPriority,
@@ -145,6 +146,61 @@ export const getTicketPrioties = async (options: OverviewFilterOptions) => {
   const session = await getSession()
   const response = await sendAuthRequest<TicketPrioritiesResponse>(
     `/api/v1/helpdesk/${session?.currentOrganisationId}/dashboard/ticket-priority/?start_date=${options.start_date}&end_date=${options.end_date}`
+  )
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+export const getTicketVolumes = async (options: OverviewFilterOptions) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<Record<string, number>>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/dashboard/ticket-volume/?start_date=${options.start_date}&end_date=${options.end_date}&interval=${options.interval}`
+  )
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+
+type HDSummaryTicketResolution = {
+  data: {
+    timestamp: string
+    [MessageSenders.SATE]: number
+    [MessageSenders.AGENT]: number
+  }[]
+  efficiency: {
+    [MessageSenders.SATE]: number
+    [MessageSenders.AGENT]: number
+  }
+}
+export const getTicketResolution = async (options: OverviewFilterOptions) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<HDSummaryTicketResolution>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/dashboard/ticket-res-count/?start_date=${options.start_date}&end_date=${options.end_date}&interval=${options.interval}`
+  )
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+type AgentResolutionTimes = {
+  start_datetime: string
+  end_datetime: string
+  data: (UserType & {
+    avg_resolution_time_seconds: number
+  })[]
+}
+
+export const getAgentResolutionTimes = async (
+  options: OverviewFilterOptions
+) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<AgentResolutionTimes>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/dashboard/avg-agent-times/?start_date=${options.start_date}&end_date=${options.end_date}`
   )
   if ("shouldAuthenticate" in response) {
     throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })

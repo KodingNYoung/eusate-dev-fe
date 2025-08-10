@@ -12,6 +12,7 @@ import {
 } from "./enums"
 import { TableHeadTooltip } from "@/components/organisms/Table/TableHeadCell"
 import {
+  CHART_INTERVALS,
   COMPARISON_CARD_UNITS,
   COOKIES_KEYS,
   FILE_ICON_MAP,
@@ -464,3 +465,4 @@ export type WSMessageReceiveData = Omit<DBResource, "id"> & {
   sender: MessageSenders
   ticket_chat_id: string
 }
+export type ChartInterval = ValueOf<typeof CHART_INTERVALS>

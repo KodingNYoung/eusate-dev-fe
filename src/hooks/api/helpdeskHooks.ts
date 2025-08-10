@@ -2,6 +2,7 @@
 
 import { toaster } from "@/components/molecules/Toast"
 import {
+  getAgentResolutionTimes,
   getHDSummaryTopCardsData,
   getTicketActivities,
   getTicketChats,
@@ -9,7 +10,9 @@ import {
   getTicketDetails,
   GetTicketOptions,
   getTicketPrioties,
+  getTicketResolution,
   getTickets,
+  getTicketVolumes,
 } from "@/lib/data/helpdesk"
 import { OverviewFilterOptions } from "@/lib/data/overview"
 import { QUERY_FN_KEYS } from "@/utils/constants"
@@ -88,7 +91,7 @@ export const useTicketChats = (id: string) => {
 // SUMMARY
 export const useHDSummaryTopCards = (filter: OverviewFilterOptions) => {
   const result = useQuery({
-    queryKey: [...QUERY_FN_KEYS.HELPDESK_SUMMARY, "top-cards", { filter }],
+    queryKey: [...QUERY_FN_KEYS.HELPDESK_SUMMARY, "top-cards", filter],
     queryFn: async () => await getHDSummaryTopCardsData(filter),
   })
 
@@ -100,12 +103,49 @@ export const useHDSummaryTopCards = (filter: OverviewFilterOptions) => {
 }
 export const useHDSummaryTicketPriorities = (filter: OverviewFilterOptions) => {
   const result = useQuery({
+    queryKey: [...QUERY_FN_KEYS.HELPDESK_SUMMARY, "ticket-priorities", filter],
+    queryFn: async () => await getTicketPrioties(filter),
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  return result
+}
+
+export const useTicketVolume = (filter: OverviewFilterOptions) => {
+  const result = useQuery({
+    queryKey: [...QUERY_FN_KEYS.HELPDESK_SUMMARY, "ticket-volumes", filter],
+    queryFn: async () => await getTicketVolumes(filter),
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  return result
+}
+export const useTicketResolution = (filter: OverviewFilterOptions) => {
+  const result = useQuery({
+    queryKey: [...QUERY_FN_KEYS.HELPDESK_SUMMARY, "ticket-resolution", filter],
+    queryFn: async () => await getTicketResolution(filter),
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  return result
+}
+export const useAgentResolutionTimes = (filter: OverviewFilterOptions) => {
+  const result = useQuery({
     queryKey: [
       ...QUERY_FN_KEYS.HELPDESK_SUMMARY,
-      "ticket-priorities",
-      { filter },
+      "agent-resolution-times",
+      filter,
     ],
-    queryFn: async () => await getTicketPrioties(filter),
+    queryFn: async () => await getAgentResolutionTimes(filter),
   })
 
   if (result.isError) {

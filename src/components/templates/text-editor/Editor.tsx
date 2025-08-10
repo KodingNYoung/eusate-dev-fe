@@ -19,10 +19,8 @@ const Editor: FC<Props> = ({ content = "", onContentChange, loading }) => {
   const [value, setValue] = useState(() => JSON.stringify(content))
 
   const wordCount = useMemo(() => {
-    console.log({ value })
     if (!value) return 0
     const text = value?.replace(/<[^>]+>/g, "")?.trim()
-    console.log(text)
     return text ? text?.split(/\s+/)?.length : 0
   }, [value])
 

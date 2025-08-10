@@ -36,17 +36,15 @@ const ChannelDistribution: FC<Props> = ({ start, end }) => {
           data={
             isLoading
               ? Object.values(TICKET_CHANNELS_DATA)
-                  .filter((channel) => channel.bg)
+                  .filter((channel) => channel.color)
                   .map((channel) => ({
                     label: channel.name,
                     color: channel.color,
-                    indicatorBg: channel.bg,
                     count: 0,
                   }))
               : data?.data.map((channel) => ({
                   label: TICKET_CHANNELS_DATA[channel.channel].name,
                   color: TICKET_CHANNELS_DATA[channel.channel].color,
-                  indicatorBg: TICKET_CHANNELS_DATA[channel.channel].bg,
                   count: channel.count,
                 })) || []
           }

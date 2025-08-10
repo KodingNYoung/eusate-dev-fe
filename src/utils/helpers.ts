@@ -227,3 +227,34 @@ export const round = (num: number, dp: number = 2) => {
   const multiplier = Math.pow(10, dp || 0)
   return Math.round((num + Number.EPSILON) * multiplier) / multiplier
 }
+
+export const secsToMins = (secs: number) => {
+  return secs / 60
+}
+export const secsToHrs = (secs: number) => {
+  return secs / (60 * 60)
+}
+export const secsToDays = (secs: number) => {
+  return secs / (60 * 60 * 24)
+}
+export const minsToSecs = (mins: number) => {
+  return mins * 60
+}
+export const hrsToSecs = (hrs: number) => {
+  return hrs * 60 * 60
+}
+export const daysToSecs = (days: number) => {
+  return days * 60 * 60 * 24
+}
+
+export const formatDuration = (secs: number, dp: number = 2) => {
+  if (secs < 60) {
+    return secs
+  } else if (secs < 60 * 60) {
+    return round(secsToMins(secs), dp)
+  } else if (secs < 60 * 60 * 24) {
+    return round(secsToHrs(secs), dp)
+  } else {
+    return round(secsToDays(secs), dp)
+  }
+}
