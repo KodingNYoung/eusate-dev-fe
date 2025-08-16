@@ -207,6 +207,19 @@ export type WSResponse<T = unknown> = {
   data: T
 }
 
+export type PageLayersPath = {
+  label: string
+  icon?: IconNames
+  link?: string
+  id: number
+}
+
+export type PageLayers = {
+  [path: string]: PageLayersPath[]
+}
+
+// KNOWLEDGE BASE
+
 export type KnowledgeSource = DBResource & {
   organisation_id: string
   title: string
@@ -233,6 +246,7 @@ export type ResourceProcess = DBResource & {
   user: string
 }
 
+// PLAYGROUND
 export type UserMessage = DBResource & {
   message: string
   message_history_code: string
@@ -265,6 +279,7 @@ export type Conversation = {
   messages: { user_message: UserMessage; sate_responses: SateMessage[] }[]
 }
 
+// DEV SPACE
 export type AuthConfig = {
   login_url: string
   auth_location: AuthLocation
@@ -302,6 +317,8 @@ export type DSFunction = {
   auth_config_id?: string
 }
 
+// HELPDESK
+export type TicketEvent = ValueOf<typeof TICKET_EVENTS>
 export type TicketCustomer = {
   id: string
   current_temperament: UserTemperament
@@ -317,7 +334,6 @@ export type TicketAssignee = DBResource & {
   email: string
   profile_picture: string
 }
-
 export type Ticket = DBResource & {
   organisation: string
   id_slug: string
@@ -344,15 +360,57 @@ export type AttachmentMetadata = {
   loading?: boolean
   error?: boolean
 }
-
 export type MessageType = DBResource & {
   message: string
   sender: MessageSenders
   is_attachment: boolean
   attachment_metadata: AttachmentMetadata | null
   ticket_chat: string
+  loading?: boolean
+}
+export type TicketActivity = DBResource & {
+  event: TicketEvent
+  actor: UserType & {
+    actor_type: MessageSenders
+  }
+  actor_on_delete: UserType & {
+    actor_type: MessageSenders
+  }
+  value: string
+}
+export type CopilotUserMessage = DBResource & {
+  message: string
+  ticket_copilot_chat: string
+  agent: string
+}
+export type CopilotSateMessage = DBResource & {
+  response: string
+  ticket_copilot_message: string
+  ticket_copilot_chat: string
+  loading?: boolean
+}
+export type CopilotConversation = {
+  message: CopilotUserMessage
+  sate_response: CopilotSateMessage
+}
+export type CopilotConversations = DBResource & {
+  ticket: string
+  conversations: CopilotConversation[]
 }
 
+// SETTINGS: USER PROFILE
+export type UserType = DBResource & {
+  email: string
+  username: string
+  profile_picture: string
+}
+export type UserProfileType = UserType & {
+  twofa_method: string
+  verified: boolean
+  organisations: OrganisationType[]
+}
+
+// SETTINGS: INTEGRATIONS - API KEYS
 export type ApiKeysType = {
   token: string
   name: string
@@ -366,17 +424,7 @@ export type ApiKeysType = {
   }
 }
 
-export type PageLayersPath = {
-  label: string
-  icon?: IconNames
-  link?: string
-  id: number
-}
-
-export type PageLayers = {
-  [path: string]: PageLayersPath[]
-}
-
+// SETTINGS: ORGANISATION
 export type OrganisationType = DBResource & {
   owner: { email: string }
   name: string
@@ -393,17 +441,6 @@ export type OrganisationContext = DBResource & {
   organisation_user: string
   organisation: OrganisationType
 }
-export type UserType = DBResource & {
-  email: string
-  username: string
-  profile_picture: string
-}
-export type UserProfileType = UserType & {
-  twofa_method: string
-  verified: boolean
-  organisations: OrganisationType[]
-}
-
 export type OrganisationUser = DBResource & {
   owner: boolean
   user: UserType
@@ -427,18 +464,10 @@ export type MemberInviteType = DBResource & {
   organisation: { id: string; name: string; logo: string }
   permissions: string[]
 }
-export type TicketEvent = ValueOf<typeof TICKET_EVENTS>
-export type TicketActivity = DBResource & {
-  event: TicketEvent
-  actor: UserType & {
-    actor_type: MessageSenders
-  }
-  actor_on_delete: UserType & {
-    actor_type: MessageSenders
-  }
-  value: string
-}
+
+// DASHBOARD
 export type ComparisonCardUnits = ValueOf<typeof COMPARISON_CARD_UNITS>
+export type ChartInterval = ValueOf<typeof CHART_INTERVALS>
 export type ComparisonCardDataType = {
   start_datetime: string
   end_datetime: string
@@ -465,4 +494,3 @@ export type WSMessageReceiveData = Omit<DBResource, "id"> & {
   sender: MessageSenders
   ticket_chat_id: string
 }
-export type ChartInterval = ValueOf<typeof CHART_INTERVALS>

@@ -2,7 +2,7 @@ import { addTicketComment } from "@/app/(organisation-routes)/(dashboard)/helpde
 import SubmitButton from "@/components/molecules/Buttons/SubmitButton"
 import AutoResizingTextarea from "@/components/molecules/Inputs/AutoResizingTextarea"
 import { useFormToast, useValidation } from "@/hooks/formHooks"
-import { addCommentSchema } from "@/lib/schemas/helpdesk"
+import { sendMessageSchema } from "@/lib/schemas/helpdesk"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { FC } from "@/utils/types"
 import { useQueryClient } from "@tanstack/react-query"
@@ -18,7 +18,7 @@ const CommentFooter: FC<Props> = ({ ticketId }) => {
   const queryClient = useQueryClient()
 
   const { hasErrors, markFieldTouched } = useValidation(
-    addCommentSchema,
+    sendMessageSchema,
     formRef
   )
 

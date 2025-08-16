@@ -1,6 +1,11 @@
 import React, { FC, useMemo } from "react"
 import Icon from "@/components/atoms/Icon"
-import { AttachmentMetadata, MessageType, TWClassNames } from "@/utils/types"
+import {
+  AttachmentMetadata,
+  KnowledgeSource,
+  MessageType,
+  TWClassNames,
+} from "@/utils/types"
 import Typography from "@/components/atoms/Typography"
 import {
   cls,
@@ -12,28 +17,42 @@ import {
 } from "@/utils/helpers"
 import { MessageSenders } from "@/utils/enums"
 import Avatar from "@/components/atoms/Avatar"
+import ChatLoader from "@/components/atoms/ChatLoader"
+import Button from "@/components/molecules/Buttons"
+import CopyButton from "../../playground/_components/CopyButton"
+import SourcesDropdown from "../copilot/SourcesDropdown"
 
 type Slots = "root" | "label" | "avatar"
 type Props = {
   message: MessageType
   classNames?: { [slot in Slots]?: TWClassNames }
+  align?: "right" | "left"
+  copilotOptions?: {
+    copyToComposer?: () => void | false
+    sources?: KnowledgeSource[]
+  }
 }
 
 const boxVariantStyle: { [variant in MessageSenders]?: TWClassNames } = {
-  sate: "bg-gold-50",
-  agent: "bg-none border border-gray-50",
-  customer: "bg-gray-25 border border-gray-50",
+  [MessageSenders.SATE]: "bg-gold-50",
+  [MessageSenders.CUSTOMER]: "bg-none border border-gray-50",
+  [MessageSenders.AGENT]: "bg-gray-25 border border-gray-50",
 }
 
-const ChatBox: FC<Props> = ({ message, classNames }) => {
+const ChatBox: FC<Props> = ({
+  message,
+  classNames,
+  align = "right",
+  copilotOptions,
+}) => {
   const isGuest = useMemo(
-    () => message.sender === MessageSenders.CUSTOMER,
-    [message]
+    () => message.sender === MessageSenders.CUSTOMER || align === "left",
+    [message, align]
   )
   return (
     <div
       className={cls(
-        "p-2 flex gap-2 relative w-96 max-w-full",
+        "p-2 flex gap-2 relative max-w-[min(384px,_95%)] w-fit",
         isGuest ? "self-start flex-row" : "self-end flex-row-reverse",
         classNames?.root
       )}
@@ -54,51 +73,59 @@ const ChatBox: FC<Props> = ({ message, classNames }) => {
           />
         )}
       </div>
-      <div
-        className={cls(
-          "p-3 rounded-xl space-y-2 flex-1",
-          boxVariantStyle[message.sender]
-        )}
-      >
-        {/* Attachments */}
-        {message.is_attachment && message.attachment_metadata ? (
-          <div className="grid gap-2">
-            {/* {message.sender?.map((file, idx) => ( */}
-            <CustomerSupportAttachmentCard
-              attachment={message.attachment_metadata}
-            />
-            {/* ))} */}
+      <div className="flex-1 space-y-2">
+        <div
+          className={cls(
+            "p-3 rounded-xl space-y-2 w-full",
+            boxVariantStyle[message.sender]
+          )}
+        >
+          {message.loading ? (
+            <ChatLoader className="w-8" />
+          ) : (
+            <>
+              {/* Attachments */}
+              {message.is_attachment && message.attachment_metadata ? (
+                <div className="grid gap-2">
+                  <CustomerSupportAttachmentCard
+                    attachment={message.attachment_metadata}
+                  />
+                </div>
+              ) : null}
+              <Typography
+                as="span"
+                className="text-medium-sm text-gray-700 [&_ol]:list-decimal [&_ol]:list-inside [&_ul]:list-inside whitespace-break-spaces block"
+                dangerouslySetInnerHTML={{ __html: message.message?.trim() }}
+              />
+              <Typography className="text-regular-xs text-gray-400">
+                {formatToMessageTime(message.date_created)}
+              </Typography>
+              {copilotOptions ? (
+                <Button
+                  variant="tetiary"
+                  classNames={{
+                    root: "rounded-lg border-gray-900 w-full p-2",
+                    label: "text-semibold-sm text-black",
+                  }}
+                  onClick={copilotOptions.copyToComposer}
+                >
+                  Copy to composer
+                </Button>
+              ) : null}
+            </>
+          )}
+        </div>
+        {copilotOptions ? (
+          <div className="flex items-center gap-3 px-3 py-2">
+            <CopyButton response={message.message} />{" "}
+            {copilotOptions.sources?.length ? (
+              <>
+                <div className="h-5 w-px bg-gray-100" />
+                <SourcesDropdown sources={copilotOptions.sources} />
+              </>
+            ) : null}
           </div>
         ) : null}
-        <Typography
-          as="span"
-          className="text-medium-sm text-gray-700 [&_ol]:list-decimal [&_ol]:list-inside [&_ul]:list-inside whitespace-break-spaces block"
-          dangerouslySetInnerHTML={{ __html: message.message?.trim() }}
-        />
-        <Typography className="text-regular-xs text-gray-400">
-          {formatToMessageTime(message.date_created)}
-        </Typography>
-
-        {/* Sate Attachments */}
-        {/* <div className="space-y-2">
-          {showComposer && variant === "sate" && (
-            <div
-              onClick={() => setComposer(msg)}
-              className="cursor-pointer p-3 w-full rounded-xl text-semibold-sm font-[600] border border-gray-900"
-            >
-              <Typography className="text-center text-semibold-sm font-[600]">
-                Copy to composer
-              </Typography>
-            </div>
-          )}
-          {variant === "sate" && files?.length && (
-            <div className="p-3 rounded-xl border flex flex-col gap-y-2 border-black/10">
-              {files?.map(({ name }, idx) => (
-                <SateAttachmentsCard key={idx} idx={idx} filename={name} />
-              ))}
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   )
@@ -111,11 +138,9 @@ const CustomerSupportAttachmentCard: FC<{ attachment: AttachmentMetadata }> = ({
 }) => {
   return (
     <a
-      // download={attachment.name}
       href={attachment.url}
       target="_blank"
       rel="noopener noreferrer"
-      // aria-label={`Download attachment: ${attachment.name}`}
       role="button"
       tabIndex={0}
       className="p-2 flex gap-3 items-center bg-gray-50 rounded-xl text-left"
@@ -136,27 +161,3 @@ const CustomerSupportAttachmentCard: FC<{ attachment: AttachmentMetadata }> = ({
     </a>
   )
 }
-
-// const SateAttachmentsCard: FC<{ filename: string; idx: number }> = ({
-//   filename,
-//   idx,
-// }) => {
-//   return (
-//     <div
-//       className={`cursor-pointer flex justify-between py-3 ${idx > 0 && "border-t "} border-t-black/5`}
-//     >
-//       <div className="flex items-center gap-3">
-//         <Icon
-//           size={20}
-//           name="icon-document-text"
-//           className="text-gray-500 font-[300]"
-//         />
-//         <Typography className="text-medium-xs font-[500]">
-//           {capitalizeFirstLetter(filename)}
-//         </Typography>
-//       </div>
-
-//       <Icon size={20} name="icon-chevron-right" className="text-gray-500" />
-//     </div>
-//   )
-// }

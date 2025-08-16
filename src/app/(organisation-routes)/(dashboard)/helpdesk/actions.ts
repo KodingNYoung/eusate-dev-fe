@@ -114,3 +114,40 @@ export const changeTicketStatus = async (
     })
   }
 }
+export type SendCopilotMessageResponse = {
+  ticket_copilot_message_id: string
+  ticket_copilot_sate_response_id: string
+  response: string
+  message: string
+}
+export const sendCopilotMessage = async (
+  state: FormState,
+  formdata: FormData
+) => {
+  const { successResponse, errorResponse } =
+    formStateResponse<SendCopilotMessageResponse>(state)
+  const { message, ticketId } = Object.fromEntries(formdata)
+
+  try {
+    const session = await getSession()
+    const response = await sendAuthRequest<SendCopilotMessageResponse>(
+      `/api/v1/helpdesk/copilot/`,
+      {
+        organisation_id: session?.currentOrganisationId,
+        message,
+        ticket_id: ticketId,
+      },
+      { method: "POST" }
+    )
+
+    if ("shouldAuthenticate" in response)
+      throw new Error("Session expired, log in again")
+
+    return successResponse("", "", response)
+  } catch (err) {
+    return errorResponse({
+      type: "request",
+      message: err instanceof Error ? err.message : "Something went wrong",
+    })
+  }
+}

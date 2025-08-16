@@ -13,21 +13,14 @@ const Header: FC = () => {
         <Icon
           onClick={() => close()}
           name="icon-arrow-left"
-          className="block sm:hidden !text-regular-base sm:!text-regular-xl text-gray-400 cursor-pointer"
+          className="block lg:hidden !text-regular-base lg:!text-regular-xl text-gray-400 cursor-pointer"
         />
-        <div className="flex items-center gap-x-4">
-          <Avatar className="!size-12 !min-w-12 !min-h-12" src={avatar} />
+        <div className="flex items-center gap-3">
+          <Avatar src={avatar} />
           <Typography className="text-semibold-sm font-[600] text-gray-900">
             AI Copilot
           </Typography>
         </div>
-      </div>
-
-      <div className="rounded-full px-2 py-[.25rem] border border-gray-300 cursor-pointer rotate-[90deg]">
-        <Icon
-          name="icon-more"
-          className="!text-regular-base sm:!text-regular-xl text-gray-400"
-        />
       </div>
     </div>
   )

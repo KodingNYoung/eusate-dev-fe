@@ -20,7 +20,7 @@ const AutoResizingTextarea: FC<Props> = ({
           classNames?.inputWrapper,
         ],
         input: [
-          "!text-regular-lg text-gray-900 placeholder:text-gray-300",
+          "!text-regular-lg text-gray-900 placeholder:text-gray-300 font-app",
           classNames?.input,
         ],
       }}

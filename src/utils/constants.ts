@@ -100,6 +100,7 @@ export const QUERY_FN_KEYS = {
   TICKET_COMMENTS: ["tickets", "comments"],
   TICKET_ACTIVITIES: ["tickets", "activities"],
   TICKET_CHAT: ["ticket-chat"],
+  COPILOT_CONVERSATION: ["copilot-conversations"],
   HELPDESK_SUMMARY: ["helpdesk", "summary"],
   USER_PROFILE: ["user-profile"],
   OWNED_ORGANISATION: ["owned-organisation"],

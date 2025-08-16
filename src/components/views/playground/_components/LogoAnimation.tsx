@@ -7,10 +7,10 @@ const LogoAnimation: FC = () => {
   return (
     <Image
       src={logo}
-      height={100}
-      width={100}
+      height={160}
+      width={160}
       alt="logo"
-      className="w-16 sm:w-24 h-16 sm:h-24"
+      className="w-28 sm:w-40 h-28 sm:h-40"
     />
   )
 }

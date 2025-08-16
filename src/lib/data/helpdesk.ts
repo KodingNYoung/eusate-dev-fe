@@ -5,6 +5,7 @@ import { sendAuthRequest } from "../request"
 import { getSession } from "../sessions"
 import {
   ComparisonCardDataType,
+  CopilotConversations,
   DBResource,
   MessageType,
   Ticket,
@@ -112,6 +113,19 @@ export const getTicketChats = async (id: string) => {
   return response
 }
 
+export const getCopilotConversations = async (id: string) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<CopilotConversations[]>(
+    `/api/v1/helpdesk/${session?.currentOrganisationId}/tickets/${id}/copilot-chat/`
+  )
+
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}
+
 // SUMMARY
 type HDSummaryTopCardData = Record<
   | "all_tickets"
@@ -121,7 +135,6 @@ type HDSummaryTopCardData = Record<
   | "csat_score",
   ComparisonCardDataType
 >
-
 export const getHDSummaryTopCardsData = async (
   options: OverviewFilterOptions
 ) => {

@@ -4,7 +4,7 @@ import Typography from "@/components/atoms/Typography"
 import AppModal from "@/components/organisms/Modal"
 import { PopupKeys } from "@/utils/enums"
 import React from "react"
-import AIChat from "../aichat"
+import AIChat from "../copilot"
 import { useModal } from "@/hooks/popupHooks"
 
 const AIModal = () => {

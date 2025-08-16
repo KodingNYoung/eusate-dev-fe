@@ -1,4 +1,8 @@
-import { ChatContext, TicketContext } from "@/providers/ticketProviders"
+import {
+  ChatContext,
+  CopilotContext,
+  TicketContext,
+} from "@/providers/ticketProviders"
 import { useContext } from "react"
 
 export const useChatContext = () => {
@@ -11,6 +15,14 @@ export const useChatContext = () => {
 
 export const useTicketContext = () => {
   const context = useContext(TicketContext)
+  if (!context) {
+    throw new Error("useTicket should be called inside a TicketContextProvider")
+  }
+  return context
+}
+
+export const useCopilot = () => {
+  const context = useContext(CopilotContext)
   if (!context) {
     throw new Error("useTicket should be called inside a TicketContextProvider")
   }

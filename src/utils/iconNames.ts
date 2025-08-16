@@ -39,6 +39,7 @@ export type IconNames =
   | "icon-edit-alt"
   | "icon-eusate"
   | "icon-export"
+  | "icon-folder"
   | "icon-facebook"
   | "icon-health"
   | "icon-help"

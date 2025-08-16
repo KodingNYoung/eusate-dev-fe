@@ -180,7 +180,7 @@ export const OrganisationProvider: FC = ({ children }) => {
         setCurrentOrganisation,
       }}
     >
-      {(isLoading || isSwitching) && (
+      {isSwitching && (
         <div className="fixed left-0 top-0 z-[1000001] w-full h-full flex flex-col justify-center items-center gap-4 bg-white backdrop-blur-large  bg-opacity-50">
           <div className="size-24 min-w-24 min-h-24 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
             <span className="block animate-spin">{LoaderIcon}</span>

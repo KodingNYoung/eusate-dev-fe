@@ -3,6 +3,7 @@
 import { toaster } from "@/components/molecules/Toast"
 import {
   getAgentResolutionTimes,
+  getCopilotConversations,
   getHDSummaryTopCardsData,
   getTicketActivities,
   getTicketChats,
@@ -44,8 +45,6 @@ export const useTicketDetails = (id: string, ticket?: Ticket) => {
     placeholderData: ticket,
   })
 
-  console.log(result.data)
-
   if (result.isError) {
     toaster.error(result.error.message)
   }
@@ -85,7 +84,24 @@ export const useTicketChats = (id: string) => {
     retry: 0,
   })
 
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
   return result
+}
+export const useCopilotConversations = (id: string) => {
+  const result = useQuery({
+    queryKey: [...QUERY_FN_KEYS.COPILOT_CONVERSATION, id],
+    queryFn: async () => await getCopilotConversations(id),
+    retry: 0,
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  return { ...result, conversations: result.data?.[0] }
 }
 
 // SUMMARY

@@ -7,8 +7,10 @@ import Prompts from "./Prompts"
 const EmptyState: FC = () => {
   return (
     <div className="flex flex-col gap-16">
-      <div className="flex flex-col gap-8">
-        <LogoAnimation />
+      <div>
+        <div className="-ml-8">
+          <LogoAnimation />
+        </div>
         <div className="flex flex-col gap-2">
           <Typography className="text-bold-xl sm:text-bold-base text-gray-200">
             Hello there,

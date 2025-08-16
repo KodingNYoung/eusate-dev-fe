@@ -24,7 +24,7 @@ const CustomerChat: FC = () => {
       {!!ticket && (
         <div
           ref={scrollRef}
-          className="h-full overflow-auto over flex flex-col no-scrollbar"
+          className="h-full overflow-auto flex flex-col custom-scrollbar"
         >
           <CustomerChatHeader customer={ticket?.customer} />
           <CustomerChatArea />

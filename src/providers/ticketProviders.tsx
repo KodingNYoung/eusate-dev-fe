@@ -1,9 +1,16 @@
-import { useTicketChats, useTicketDetails } from "@/hooks/api/helpdeskHooks"
+import {
+  useCopilotConversations,
+  useTicketChats,
+  useTicketDetails,
+} from "@/hooks/api/helpdeskHooks"
 import { useChatSocket } from "@/lib/sockets/chat"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { MessageSenders } from "@/utils/enums"
 import {
   AttachmentMetadata,
+  CopilotConversation,
+  CopilotSateMessage,
+  CopilotUserMessage,
   FC,
   MessageType,
   Ticket,
@@ -12,6 +19,7 @@ import {
 } from "@/utils/types"
 import { useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import dayjs from "dayjs"
+import { useParams } from "next/navigation"
 import {
   createContext,
   RefObject,
@@ -21,8 +29,11 @@ import {
   useState,
 } from "react"
 import { v4 as uuidV4 } from "uuid"
+import { useOrganisation } from "./organisationProvider"
+import { SendCopilotMessageResponse } from "@/app/(organisation-routes)/(dashboard)/helpdesk/actions"
+import { copyObject } from "@/utils/helpers"
 
-// TICKET CONTEXT
+// TICKET CONTEXT  =================================================================
 type TicketContextProps = {
   ticketDetails?: UseQueryResult<Ticket>
   ticketId: string
@@ -45,7 +56,7 @@ export const TicketContextProvider: FC<TicketProviderProps> = ({
   )
 }
 
-// CHAT CONTEXT
+// CHAT CONTEXT  =================================================================
 type ChatContextProps = {
   messages: MessageType[]
   composerText: string
@@ -168,5 +179,130 @@ export const ChatContextProvider: FC<ChatProviderProps> = ({
     >
       {children}
     </ChatContext.Provider>
+  )
+}
+
+// COPILOT PROVIDER ===============================================
+type CopilotContextType = {
+  textboxValue: string
+  conversations: CopilotConversation[]
+  isLoading: boolean
+  scrollRef?: RefObject<HTMLDivElement>
+  setTextboxValue: (value: string) => void
+  sendMessage: (message: string) => string | undefined
+  updateNewMessageResponse: (
+    payload: SendCopilotMessageResponse,
+    messageId: string
+  ) => void
+}
+
+export const CopilotContext = createContext<CopilotContextType>({
+  textboxValue: "",
+  setTextboxValue: () => {},
+  conversations: [],
+  isLoading: true,
+  sendMessage: () => "",
+  updateNewMessageResponse: () => {},
+})
+
+export const CopilotProvider: FC = ({ children }) => {
+  const params = useParams()
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const { organisationUserId } = useOrganisation()
+  const { conversations: _conversations, isLoading } = useCopilotConversations(
+    params?.ticketId as string
+  )
+
+  const [textboxValue, setTextboxValue] = useState("")
+  const [conversations, setConversations] = useState<CopilotConversation[]>([])
+
+  const sendMessage = useCallback(
+    (messageStr: string) => {
+      if (!_conversations?.id) return
+      // get message
+      // create the CopilotUserMessage type object
+      const messageId = `user-${conversations.length}`
+      const message: CopilotUserMessage = {
+        id: messageId,
+        message: messageStr,
+        agent: organisationUserId,
+        date_created: dayjs().format(),
+        date_updated: dayjs().format(),
+        ticket_copilot_chat: _conversations?.id,
+      }
+      // generate sate response
+      const sate_response: CopilotSateMessage = {
+        date_created: dayjs().format(),
+        date_updated: dayjs().format(),
+        id: `sate-${conversations.length}`,
+        response: "",
+        ticket_copilot_chat: _conversations?.id,
+        ticket_copilot_message: messageId,
+        loading: true,
+      }
+
+      setConversations((curr) => [...curr, { message, sate_response }])
+      setTextboxValue("")
+      setTimeout(scrollToBottom, 100)
+
+      return messageId
+    },
+    [params?.ticketId, _conversations?.id, organisationUserId]
+  )
+  const updateNewMessageResponse = useCallback(
+    (payload: SendCopilotMessageResponse, messageId: string) => {
+      setConversations((prev) => {
+        const conversations = copyObject(prev)
+        const message = conversations.find(
+          (message) => message.message.id === messageId
+        )
+
+        if (!message) return conversations
+
+        message.message.id = payload.ticket_copilot_message_id
+        message.sate_response = {
+          ...message.sate_response,
+          response: payload.response,
+          id: payload.ticket_copilot_sate_response_id,
+          loading: false,
+        }
+        return conversations
+      })
+    },
+    []
+  )
+
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth",
+      })
+    }
+  }
+
+  useEffect(() => {
+    setTimeout(scrollToBottom, 100)
+  }, [])
+
+  useEffect(() => {
+    setConversations(_conversations?.conversations || [])
+  }, [_conversations])
+
+  return (
+    <CopilotContext.Provider
+      value={{
+        textboxValue,
+        conversations,
+        isLoading,
+        scrollRef,
+        setTextboxValue,
+        sendMessage,
+        updateNewMessageResponse,
+      }}
+    >
+      {children}
+    </CopilotContext.Provider>
   )
 }

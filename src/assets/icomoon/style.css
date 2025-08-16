@@ -1,11 +1,11 @@
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?qkluy8");
+  src: url("fonts/icomoon.eot?zbuyl0");
   src:
-    url("fonts/icomoon.eot?qkluy8#iefix") format("embedded-opentype"),
-    url("fonts/icomoon.ttf?qkluy8") format("truetype"),
-    url("fonts/icomoon.woff?qkluy8") format("woff"),
-    url("fonts/icomoon.svg?qkluy8#icomoon") format("svg");
+    url("fonts/icomoon.eot?zbuyl0#iefix") format("embedded-opentype"),
+    url("fonts/icomoon.ttf?zbuyl0") format("truetype"),
+    url("fonts/icomoon.woff?zbuyl0") format("woff"),
+    url("fonts/icomoon.svg?zbuyl0#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,6 +27,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-folder:before {
+  content: "\e964";
+}
 .icon-call-slash:before {
   content: "\e962";
 }

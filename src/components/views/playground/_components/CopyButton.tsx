@@ -12,7 +12,7 @@ const CopyButton: FC<Props> = ({ response, loading }) => {
   return (
     <AppTooltip
       trigger="click"
-      content="copied"
+      content="copied!"
       placement="top"
       isOpen={copied}
       classNames={{ content: "text-white", trigger: "z-0" }}

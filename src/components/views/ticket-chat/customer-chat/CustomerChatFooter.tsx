@@ -83,7 +83,11 @@ const ChatFooter: FC<Props> = ({ ticket }) => {
             autoFocus
             onChange={setComposerText}
             onKeyDown={(e) => {
-              if (e.key === "Enter" && e.currentTarget.value && !e.shiftKey) {
+              if (
+                e.key === "Enter" &&
+                e.currentTarget.value.trim() &&
+                !e.shiftKey
+              ) {
                 e.preventDefault()
                 e.currentTarget.form.requestSubmit()
               }
@@ -91,7 +95,7 @@ const ChatFooter: FC<Props> = ({ ticket }) => {
             classNames={{
               inputWrapper:
                 "p-3 border border-gray-50 group-data-[focus=true]:border-warning-500 group-data-[hover=true]:border-warning-300 !shadow-none !ring-0 !ring-offset-0",
-              input: "!text-medium-sm font-[500] text-gray-900 outline-none",
+              input: "!text-medium-sm font-[500] outline-none",
             }}
             minRows={3}
             maxRows={6}

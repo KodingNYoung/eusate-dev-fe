@@ -57,35 +57,40 @@ const SateResponseBox: FC<Props> = ({
           )}
         </div>
       </div>
-      <div className="flex gap-3 px-3 py-2">
-        <MsgPageIndicator
-          totalMsgs={responses.length}
-          currentIdx={currResponse}
-          goToMsg={setCurrResponse}
-          loading={response.isLoading}
-        />
-        <RegenerateButton
-          historyCode={msgHistoryCode}
-          userMessageId={response.playground_user_message}
-          userMessageText={userMessageText}
-          setCanGoToLast={setCanGoToLast}
-        />
-        <CopyButton response={response.response} loading={response.isLoading} />
-        <FeedbackButton
-          kind={FeedbackKind.LIKE}
-          historyCode={msgHistoryCode}
-          userMessageId={response.playground_user_message}
-          response={response}
-          loading={response.isLoading}
-        />
-        <FeedbackButton
-          kind={FeedbackKind.DISLIKE}
-          historyCode={msgHistoryCode}
-          userMessageId={response.playground_user_message}
-          response={response}
-          loading={response.isLoading}
-        />
-      </div>
+      {response.isLoading ? null : (
+        <div className="flex gap-3 px-3 py-2">
+          <MsgPageIndicator
+            totalMsgs={responses.length}
+            currentIdx={currResponse}
+            goToMsg={setCurrResponse}
+            loading={response.isLoading}
+          />
+          <RegenerateButton
+            historyCode={msgHistoryCode}
+            userMessageId={response.playground_user_message}
+            userMessageText={userMessageText}
+            setCanGoToLast={setCanGoToLast}
+          />
+          <CopyButton
+            response={response.response}
+            loading={response.isLoading}
+          />
+          <FeedbackButton
+            kind={FeedbackKind.LIKE}
+            historyCode={msgHistoryCode}
+            userMessageId={response.playground_user_message}
+            response={response}
+            loading={response.isLoading}
+          />
+          <FeedbackButton
+            kind={FeedbackKind.DISLIKE}
+            historyCode={msgHistoryCode}
+            userMessageId={response.playground_user_message}
+            response={response}
+            loading={response.isLoading}
+          />
+        </div>
+      )}
     </div>
   )
 }
