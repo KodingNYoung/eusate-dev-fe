@@ -20,6 +20,7 @@ import { inviteMemberSchema, manageUserSchema } from "@/lib/schemas/settings"
 import { QUERY_FN_KEYS } from "@/utils/constants"
 import { PopupKeys } from "@/utils/enums"
 import { FC, OrganisationUser } from "@/utils/types"
+import { Skeleton } from "@nextui-org/react"
 import { useQueryClient } from "@tanstack/react-query"
 import React, { useEffect, useMemo, useRef } from "react"
 import { useFormState } from "react-dom"
@@ -50,7 +51,7 @@ const InviteMemberForm: FC<Props> = ({ isInvite, member }) => {
 
   useFormToast(state, !isInvite)
 
-  const usePermission = useMemo(() => {
+  const userPermissions = useMemo(() => {
     if (!userPermissionData) return new Set() as Set<string>
     return userPermissionData?.reduce(
       (cumm, curr) => cumm.add(curr.id),
@@ -101,9 +102,20 @@ const InviteMemberForm: FC<Props> = ({ isInvite, member }) => {
             )}
           </header>
           <div className="p-4 grid gap-4 max-h-[370px] overflow-auto">
-            {(data?.length || isLoading || loadingUserPermission) &&
-              (data?.length ? data : new Array(12).fill({})).map(
-                (permission, idx) => (
+            {isLoading || loadingUserPermission
+              ? new Array(12).fill({}).map((_, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between gap-2"
+                    >
+                      <Skeleton className="h-[17.5px] w-48 rounded-sm" />
+                      <Skeleton className="size-5 min-h-5 min-w-5 rounded-sm" />
+                    </div>
+                  )
+                })
+              : data?.length &&
+                data.map((permission, idx) => (
                   <Checkbox
                     key={idx}
                     name="permissions"
@@ -112,7 +124,7 @@ const InviteMemberForm: FC<Props> = ({ isInvite, member }) => {
                       root: "flex-row-reverse justify-between",
                       label: "!text-regular-sm text-gray-900",
                     }}
-                    defaultChecked={usePermission.has(permission.id)}
+                    defaultChecked={userPermissions.has(permission.id)}
                     loading={isLoading || loadingUserPermission}
                     disabled={isLoading || loadingUserPermission}
                     onChange={(e) => {
@@ -121,8 +133,7 @@ const InviteMemberForm: FC<Props> = ({ isInvite, member }) => {
                   >
                     {permission.name}
                   </Checkbox>
-                )
-              )}
+                ))}
           </div>
         </section>
       </main>
@@ -132,7 +143,7 @@ const InviteMemberForm: FC<Props> = ({ isInvite, member }) => {
           className="px-6 py-5 w-full"
           disabled={hasErrors}
         >
-          Send invite
+          {isInvite ? "Send invite" : "Manage access"}
         </SubmitButton>
       </footer>
     </form>

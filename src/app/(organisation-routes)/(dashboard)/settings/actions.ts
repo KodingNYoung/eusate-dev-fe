@@ -69,7 +69,7 @@ export const updateOrganisation = async (
     const response = await sendAuthRequest<OrganisationType>(
       `/api/v1/organisations/${session?.currentOrganisationId}/edit/`,
       {
-        logo,
+        logo: logo || null,
         name,
         meta: { company_size, sector },
       },
@@ -140,13 +140,13 @@ export const deleteAPIKey = async (state: FormState, formdata: FormData) => {
 
 export const revokeAPIKey = async (state: FormState, formdata: FormData) => {
   const { successResponse, errorResponse } = formStateResponse(state)
-  const { token } = Object.fromEntries(formdata)
+  const { id } = Object.fromEntries(formdata)
 
   try {
     const session = await getSession()
     const response = await sendAuthRequest<{ success: true }>(
       `/api/v1/organisations/${session?.currentOrganisationId}/apikeys/revoke/`,
-      { token },
+      { id },
       { method: "POST" }
     )
     if ("shouldAuthenticate" in response)

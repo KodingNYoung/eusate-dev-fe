@@ -33,7 +33,7 @@ const RevokeApiKeyModal: FC<Props> = ({ apiKey }) => {
   }, [state, queryClient, close])
 
   const form = new FormData()
-  form.append("token", apiKey.token)
+  form.append("id", apiKey.id)
 
   return (
     <ConfirmationModal

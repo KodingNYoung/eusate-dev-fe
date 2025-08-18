@@ -8,7 +8,7 @@ import SettingsProvider from "@/providers/settingsProvider"
 const SettingsLayout: FC = ({ children }) => {
   return (
     <div className="bg-white sm:rounded-x20 px-4 sm:px-5 py-3 sm:py-4.5 h-full flex flex-col gap-8 sm:gap-9 relative">
-      <header className="grid gap-2">
+      <header className="gap-2 hidden sm:grid">
         <Typography className="text-bold-base sm:text-bold-2xl text-gray-900">
           Settings
         </Typography>

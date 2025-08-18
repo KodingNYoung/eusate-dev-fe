@@ -26,7 +26,7 @@ const SIDEBAR_ROUTES: Route[] = [
   },
   { icon: "icon-ticket", label: "Helpdesk", link: ROUTES.HELP_DESK, id: 3 },
   { icon: "icon-chart", label: "Reports", link: ROUTES.REPORTS, id: 4 },
-  { icon: "icon-setting", label: "Settings", link: ROUTES.SETTINGS, id: 5 },
+  { icon: "icon-setting", label: "Settings", link: ROUTES.PROFILE, id: 5 },
   {
     icon: "icon-health",
     label: "Help & Support",

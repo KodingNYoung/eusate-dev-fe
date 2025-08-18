@@ -39,7 +39,7 @@ export const ROUTES = {
   PLAYGROUND: "/playground",
   DEV_SPACE: "/dev-space",
   INVITE: "/invite",
-  SETTINGS: "/settings/profile",
+  SETTINGS: "/settings",
   USAGE_AND_BILLING: "/settings/usage-billing",
   NOTIFICATIONS: "/settings/notifications",
   INTEGRATIONS: "/settings/integrations",

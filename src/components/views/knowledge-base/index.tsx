@@ -53,20 +53,16 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
   const [source, setSource] = useState<KnowledgeSource>({} as KnowledgeSource)
 
   // memos
-  const { resources, total, isSearched, page } = useMemo(
-    () => ({
+  const { resources, total, isSearched, page } = useMemo(() => {
+    return {
       resources: data?.data?.results || [],
       total: data?.data?.count || 0,
       isSearched: Boolean(
-        options.search ||
-          options.published === undefined ||
-          options.external === undefined ||
-          (options.page || 0) > 1
+        options.search || options.external === false || (options.page || 0) > 1
       ),
       page: data?.data?.page || 1,
-    }),
-    [data]
-  )
+    }
+  }, [data])
 
   const openModal = (id: PopupKeys, source: KnowledgeSource) => {
     open(id)

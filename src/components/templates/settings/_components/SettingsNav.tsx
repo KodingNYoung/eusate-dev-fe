@@ -4,7 +4,7 @@ import { cls } from "@/utils/helpers"
 
 const SettingsNav = () => {
   return (
-    <section>
+    <section className="hidden sm:block">
       {SETTINGS_TABS.map(({ link, id, ...route }) => (
         <NavItem
           key={id}

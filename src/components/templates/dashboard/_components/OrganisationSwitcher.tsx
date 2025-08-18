@@ -46,12 +46,16 @@ const OrganisationSwitcher = () => {
             <Typography as="h3" className="text-semibold-sm text-black">
               Other workspaces
             </Typography>
-            {organisations.map((organisation) => (
-              <OrganisationCard
-                organisation={organisation}
-                key={organisation.id}
-              />
-            ))}
+            {organisations
+              .filter(
+                (organisation) => organisation.id !== currentOrganisation?.id
+              )
+              .map((organisation) => (
+                <OrganisationCard
+                  organisation={organisation}
+                  key={organisation.id}
+                />
+              ))}
           </div>
         )}
       </>
