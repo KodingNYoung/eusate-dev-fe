@@ -41,6 +41,7 @@ const DocumentModalForm: FC = () => {
   }
 
   useEffect(() => {
+    console.log({ state })
     if ("success" in state) {
       refetchProcesses()
       queryClient.invalidateQueries({
