@@ -80,6 +80,8 @@ export const sendAuthRequest = cache(
       return { shouldAuthenticate: true }
     }
 
+    console.log({ endpoint, payload, options })
+
     try {
       const response = await requestHandler(endpoint, payload, {
         ...options,
@@ -88,9 +90,11 @@ export const sendAuthRequest = cache(
           Authorization: `Bearer ${session?.accessToken}`,
         },
       })
+      console.log({ response })
 
       return response.data as T
     } catch (err) {
+      console.log({ err })
       if (err instanceof AxiosError) {
         // Handle 401 - token refresh
         if (err.response?.status === 401) {

@@ -51,12 +51,12 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
 
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [source, setSource] = useState<KnowledgeSource>({} as KnowledgeSource)
+  const [resources, setResources] = useState<KnowledgeSource[]>([])
+  const [total, setTotal] = useState(0)
 
   // memos
-  const { resources, total, isSearched, page } = useMemo(() => {
+  const { isSearched, page } = useMemo(() => {
     return {
-      resources: data?.data?.results || [],
-      total: data?.data?.count || 0,
       isSearched: Boolean(
         options.search || options.external === false || (options.page || 0) > 1
       ),
@@ -246,6 +246,11 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
     },
   ]
 
+  useEffect(() => {
+    if (!data?.data) return
+    setResources(data?.data?.results || [])
+    setTotal(data?.data?.count || 0)
+  }, [data, options])
   useEffect(() => {
     if (resources) {
       setSelectedRows(new Set())

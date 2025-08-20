@@ -2,8 +2,11 @@ import { TableColumn, TWClassNames } from "@/utils/types"
 import React from "react"
 import TableHeadCell from "./TableHeadCell"
 import { cls } from "@/utils/helpers"
-import AppPagination, { AppPaginationProps } from "../AppPagination"
+import { AppPaginationProps } from "../AppPagination"
 import TableRow from "./TableRow"
+import dynamic from "next/dynamic"
+
+const AppPagination = dynamic(() => import("../AppPagination"), { ssr: false })
 
 type TableSlots =
   | "root"
