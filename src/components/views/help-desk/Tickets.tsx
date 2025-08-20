@@ -45,30 +45,35 @@ const Tickets: FC<Props> = () => {
     [searchParams]
   )
 
-  const { data, isFetching } = useTickets(filters)
+  const { data, isLoading } = useTickets(filters)
+
+  const tickets = useMemo(() => {
+    return data?.pages.flatMap((page) => page.results) || []
+  }, [data])
 
   return (
     <div className="grid gap-5 content-start flex-1">
       <TicketsActions />
-      {!data?.pages?.[0]?.count && !isFetching && (
+      {!data?.pages?.[0]?.count && !isLoading && (
         <TicketsEmptyState hasFilters={!!Object.values(filters).length} />
       )}
-      {!!data?.pages?.[0]?.count && (
+      {(!!tickets.length || isLoading) && (
         <div className="grid grid-cols-[repeat(auto-fill,_minmax(290px,1fr))] gap-5">
-          {data.pages
-            .flatMap((page) => page.results)
-            .map((ticket) => {
+          {(tickets.length ? tickets : new Array(8).fill(null)).map(
+            (ticket, idx) => {
               return (
                 <TicketCard
-                  key={ticket.id}
+                  key={ticket?.id || idx}
                   ticket={ticket}
                   onView={() => {
                     setTicket(ticket)
                     open(PopupKeys.VIEW_TICKET_DRAWER)
                   }}
+                  loading={isLoading}
                 />
               )
-            })}
+            }
+          )}
         </div>
       )}
       <TicketViewDrawer ticket={ticket} />

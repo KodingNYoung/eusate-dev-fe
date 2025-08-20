@@ -14,7 +14,7 @@ const PAGE_SIZE = 6
 type SearchParamsProps = {
   [KB_QUERY_KEYS.SORT_BY]: string
   [KB_QUERY_KEYS.TAGS]: KnowledgeSourceTags
-  [KB_QUERY_KEYS.PAGE]: number
+  [KB_QUERY_KEYS.PAGE]: string
   [KB_QUERY_KEYS.SEARCH]: string
   [KB_QUERY_KEYS.PRIVACY]?: "internal"
 }
@@ -24,7 +24,7 @@ const KnowledgeBasePage: PageFC<unknown, SearchParamsProps> = async ({
 }) => {
   const sort_by = searchParams?.[KB_QUERY_KEYS.SORT_BY],
     tags = searchParams?.[KB_QUERY_KEYS.TAGS] as KnowledgeSourceTags,
-    page = Number(searchParams?.[KB_QUERY_KEYS.PAGE] ?? 1),
+    page = Number(searchParams?.[KB_QUERY_KEYS.PAGE]) || 1,
     search = searchParams?.[KB_QUERY_KEYS.SEARCH] as string,
     external =
       searchParams?.[KB_QUERY_KEYS.PRIVACY] === "internal" ? false : undefined

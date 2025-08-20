@@ -31,6 +31,7 @@ const AgentResolutionTimes: FC<Props> = ({ start, end }) => {
                 key={agent?.id || idx}
                 title={agent?.username}
                 subtitle={agent?.email}
+                src={agent.profile_picture}
                 loading={isLoading}
                 classNames={{
                   metric: "grid justify-items-end",

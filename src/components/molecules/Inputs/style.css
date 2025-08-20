@@ -14,7 +14,8 @@
   --inputColor1: #b9bdc7;
   --inputColor2: #b9bdc7;
 }
-.text-input-container:has(:focus):before {
+.text-input-container:has(:focus):before,
+.text-input-container[data-open="true"]:before {
   --inputColor1: #d7ab07;
   --inputColor2: #e86555;
 }

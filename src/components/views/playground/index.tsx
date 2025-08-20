@@ -5,15 +5,10 @@ import PlaygroundProvider from "@/providers/playgroundProvider"
 import ChatArea from "./_components/ChatArea"
 import FeedbackModal from "./_components/FeedbackModal"
 import { FeedbackKind } from "./utils"
-import { GetChatHistoryResponse } from "@/lib/data/playground"
 
-type Props = {
-  chatHistory?: GetChatHistoryResponse
-}
-
-const Playground: FC<Props> = ({ chatHistory }) => {
+const Playground: FC = () => {
   return (
-    <PlaygroundProvider chatHistory={chatHistory}>
+    <PlaygroundProvider>
       <section className="bg-white h-full rounded-x20 flex flex-col gap-2.5">
         <ChatArea />
         <ChatFooter />

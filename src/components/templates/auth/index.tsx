@@ -10,7 +10,7 @@ import authImage from "@/assets/images/auth-pages-image.svg"
 const AuthLayout: FC = ({ children }) => {
   return (
     <main className="flex h-screen flex-col md:flex-row">
-      <div className="bg-auth-design bg-fixed bg-cover bg-no-repeat md:w-[40%] md:min-w-[320px]">
+      <div className="bg-auth-design bg-fixed bg-cover bg-no-repeat md:w-[40%] md:min-w-[320px] max-h-full overflow-hidden flex flex-col ">
         <div className="py-12 p-10 flex flex-col items-center justify-center md:items-start">
           <Logo type="full-gradient-white" className="h-6 w-fit" />
           <Typography
@@ -25,7 +25,7 @@ const AuthLayout: FC = ({ children }) => {
             Without Scaling Your Headcount
           </Typography>
         </div>
-        <div className="pl-10 hidden md:block">
+        <div className="pl-10 ml-auto mt-auto hidden md:block">
           <Image
             src={authImage}
             alt="Auth Page Illustration"

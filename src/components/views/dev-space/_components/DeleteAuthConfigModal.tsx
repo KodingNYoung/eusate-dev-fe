@@ -2,6 +2,7 @@ import { removeAuthConfig } from "@/app/(organisation-routes)/(dashboard)/dev-sp
 import Icon from "@/components/atoms/Icon"
 import Typography from "@/components/atoms/Typography"
 import ConfirmationModal from "@/components/organisms/ConfirmationModal"
+import { useAuthConfigFunctions } from "@/hooks/api/devSpaceHooks"
 import { useFormToast } from "@/hooks/formHooks"
 import { useModal } from "@/hooks/popupHooks"
 import { QUERY_FN_KEYS } from "@/utils/constants"
@@ -23,6 +24,8 @@ const DeleteAuthConfigModal: FC<Props> = ({ id }) => {
     removeAuthConfig,
     {}
   )
+  const { functions } = useAuthConfigFunctions(id)
+
   useFormToast(state, true)
 
   useEffect(() => {
@@ -42,21 +45,21 @@ const DeleteAuthConfigModal: FC<Props> = ({ id }) => {
       header={{ title: "Delete config" }}
       title="Delete auth config"
       content={
-        <div className="flex flex-col gap-2">
+        functions?.length ? (
           <span>
             This will delete the auth config permanently and all authenticated
-            functions would become non-authenticated.{" "}
-            {"The following are the affected functions you have:"}
-          </span>
-          {
+            functions would become non-authenticated. The following are the
+            affected functions you have:
             <Typography
               as="span"
-              className="p-2 border border-gray-50 bg-gray-25 rounded-xl text-medium-base text-gray-600"
+              className="p-2 border border-gray-50 bg-gray-25 rounded-xl text-medium-base text-gray-600 block mt-2"
             >
-              Function name
+              {functions.map((fn) => fn.name).join(", ")}
             </Typography>
-          }
-        </div>
+          </span>
+        ) : (
+          "This will delete this authentication configuration. You can always come back to set up a new one."
+        )
       }
       icon={
         <div className="w-10 h-10 border border-error-500 bg-error-50 flex items-center justify-center rounded-full">

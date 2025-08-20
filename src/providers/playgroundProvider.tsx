@@ -7,6 +7,7 @@ import {
   PREFERENCES_DEFAULT_VALUES,
   updateSateResponse,
 } from "@/components/views/playground/utils"
+import { usePlaygroundChat } from "@/hooks/api/playgroundHooks"
 import { GetChatHistoryResponse } from "@/lib/data/playground"
 import { SendMessageResponse } from "@/lib/services/playground"
 import { copyObject } from "@/utils/helpers"
@@ -43,6 +44,7 @@ type PlaygroundContextType = {
   id: GetChatHistoryResponse["id"]
   scrollRef?: RefObject<HTMLDivElement>
   selectedResponseId?: string
+  isLoading: boolean
   setTextBoxValue: (value: string) => void
   setPreferences: (settings: PlaygroundSettings) => void
   //   setSelectedResponseId: (id: string) => void
@@ -74,6 +76,7 @@ export const PlaygroundContext = createContext<PlaygroundContextType>({
   settings: PREFERENCES_DEFAULT_VALUES,
   conversations: [],
   id: "",
+  isLoading: true,
   setTextBoxValue: () => {},
   setPreferences: () => {},
   //   setSelectedResponseId: () => {},
@@ -85,12 +88,9 @@ export const PlaygroundContext = createContext<PlaygroundContextType>({
   likeOrDislikeResponse: () => false,
 })
 
-type Props = {
-  chatHistory?: GetChatHistoryResponse
-}
-
-const PlaygroundProvider: FC<Props> = ({ children, chatHistory }) => {
+const PlaygroundProvider: FC = ({ children }) => {
   const chatScrollRef = useRef<HTMLDivElement>(null)
+  const { chatHistory, isLoading } = usePlaygroundChat()
 
   const [textBoxValue, setTextBoxValue] = useState("")
   const [settings, setSettings] = useState<PlaygroundSettings>(
@@ -276,6 +276,7 @@ const PlaygroundProvider: FC<Props> = ({ children, chatHistory }) => {
         id,
         scrollRef: chatScrollRef,
         selectedResponseId,
+        isLoading,
         setTextBoxValue,
         setPreferences,
         // setSelectedResponseId,

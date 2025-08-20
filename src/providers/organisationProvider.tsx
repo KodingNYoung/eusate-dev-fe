@@ -18,10 +18,11 @@ import {
   updateCurrentOrganisation,
   updateCurrentOrganisationInSession,
 } from "@/app/(organisation-routes)/actions"
-import { getUserProfile } from "@/lib/data/settings"
 import { toaster } from "@/components/molecules/Toast"
 import Typography from "@/components/atoms/Typography"
 import { LoaderIcon } from "@/assets/images/svg"
+import { useUserProfile } from "@/hooks/api/settingsHooks"
+import { QUERY_FN_KEYS } from "@/utils/constants"
 
 type OrganisationContextType = {
   currentOrganisation: OrganisationType | null
@@ -50,12 +51,16 @@ const OrganisationContext = createContext<OrganisationContextType | null>({
 export const OrganisationProvider: FC = ({ children }) => {
   const queryClient = useQueryClient()
   const { user } = useAuth()
+  const {
+    data: userProfile,
+    isLoading: loadingOrganisations,
+    refetch,
+  } = useUserProfile()
 
   const [currentOrganisation, setCurrentOrganisation] =
     useState<OrganisationType | null>(null)
   const [currentOrganisationUserId, setCurrentOrganisationUserId] = useState("")
   const [permissions, setPermissions] = useState<UserPermission[]>([])
-  const [organisations, setOrganisations] = useState<OrganisationType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isSwitching, setIsSwitching] = useState<boolean>(false)
 
@@ -66,29 +71,18 @@ export const OrganisationProvider: FC = ({ children }) => {
       setIsLoading(true)
 
       // get the last current organisation from the BE
-      const currentOrgContext = await getCurrentOrganisation()
+      const currentOrgContext = await queryClient.fetchQuery({
+        queryKey: [...QUERY_FN_KEYS.ORGANISATION, "context"],
+        queryFn: async () => await getCurrentOrganisation(),
+      })
 
       if (!currentOrgContext) throw new Error("No current organisation found")
-
-      // update the current organisation id in session
-      await updateCurrentOrganisationInSession(
-        currentOrgContext.organisation.id
-      )
 
       // and set the current organisation state
       setCurrentOrganisation(currentOrgContext.organisation)
 
       // set the organisation user id
       setCurrentOrganisationUserId(currentOrgContext.organisation_user)
-
-      // get other organisations and permissions from the BE
-      const [userProfile, permissions] = await Promise.all([
-        getUserProfile(),
-        getOrganisationUserPermissions(),
-      ])
-
-      setOrganisations(userProfile.organisations)
-      setPermissions(permissions)
     } catch (err) {
       console.log("error fetching organisations", err)
       // show error toast
@@ -110,15 +104,14 @@ export const OrganisationProvider: FC = ({ children }) => {
         // set switching to true
         setIsSwitching(true)
         // use the organisationId to find the organisation from the organisations
-        const newOrg = organisations.find(
+        const newOrg = userProfile?.organisations?.find(
           (organisation) => organisation.id === organisationId
         )
         if (!newOrg) throw new Error("Organisation not found")
         // update the BE and session
-        const [currentOrganisationContext] = await Promise.all([
-          updateCurrentOrganisation(newOrg.id),
-          updateCurrentOrganisationInSession(newOrg?.id),
-        ])
+        const currentOrganisationContext = await updateCurrentOrganisation(
+          newOrg.id
+        )
 
         // if it wasn't a success
         if (!("success" in currentOrganisationContext)) {
@@ -127,18 +120,14 @@ export const OrganisationProvider: FC = ({ children }) => {
           }
           return
         }
-
-        // fetch new organisation permission
-        const permissions = await getOrganisationUserPermissions()
-        // update the FE state with permission and currentOrganisation
+        // update the FE state with currentOrganisation
         setCurrentOrganisation(newOrg)
-        setPermissions(permissions)
         setCurrentOrganisationUserId(
           currentOrganisationContext?.payload?.organisation_user || ""
         )
-
         // clear react query store
         queryClient.clear()
+
         // show toast
         toaster.success(`Switch organisation to ${newOrg.name}`)
       } catch (err) {
@@ -149,34 +138,47 @@ export const OrganisationProvider: FC = ({ children }) => {
         setIsSwitching(false)
       }
     },
-    [isSwitching, organisations, queryClient]
+    [isSwitching, userProfile?.organisations, queryClient]
   )
 
-  const refreshOrganisations = useCallback(async () => {
-    try {
-      const userProfile = await getUserProfile()
-      setOrganisations(userProfile.organisations)
-    } catch (error) {
-      console.error("Failed to refresh organisations:", error)
-      toaster.error("Failed to refresh organisations")
-    }
-  }, [])
+  const handleOrganisationContextChange = useCallback(
+    async (currentOrganisation: OrganisationType) => {
+      // TODO: fetch plans
+
+      // update the current organisation id in the session
+      await updateCurrentOrganisationInSession(currentOrganisation.id)
+      // fetch new organisation permission
+      const permissions = await queryClient.fetchQuery({
+        queryKey: [...QUERY_FN_KEYS.ORGANISATION, "permissions"],
+        queryFn: async () => await getOrganisationUserPermissions(),
+      })
+
+      setPermissions(permissions)
+    },
+    [currentOrganisation, queryClient]
+  )
 
   useEffect(() => {
     initializeOrganization()
   }, [])
+  useEffect(() => {
+    if (!currentOrganisation) return
+    handleOrganisationContextChange(currentOrganisation)
+  }, [currentOrganisation])
 
   return (
     <OrganisationContext.Provider
       value={{
         currentOrganisation,
         organisationUserId: currentOrganisationUserId,
-        organisations,
+        organisations: userProfile?.organisations || [],
         permissions,
-        isLoading,
+        isLoading: isLoading || loadingOrganisations,
         isSwitching,
         switchOrganisation,
-        refreshOrganisations,
+        refreshOrganisations: async () => {
+          refetch()
+        },
         setCurrentOrganisation,
       }}
     >

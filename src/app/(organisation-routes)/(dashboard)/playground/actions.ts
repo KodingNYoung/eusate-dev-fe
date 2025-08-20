@@ -51,7 +51,7 @@ export const clearChatWall = async (state: FormState) => {
     })
   }
   revalidatePath(ROUTES.PLAYGROUND)
-  return successResponse("")
+  return successResponse("Conversations have been cleared successfully")
 }
 
 export const sendResponseFeedback = async (

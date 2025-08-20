@@ -34,7 +34,7 @@ import FAQModal from "../faqs/_components/FAQModal"
 import Userinfo from "@/components/molecules/Userinfo"
 
 type Props = {
-  options: GetKnowledgeSourcesOptions
+  options: GetKnowledgeSourcesOptions & { page: number }
 }
 
 const PAGE_SIZE = 6
@@ -60,9 +60,9 @@ const KnowledgeBase: FC<Props> = ({ options }) => {
       isSearched: Boolean(
         options.search || options.external === false || (options.page || 0) > 1
       ),
-      page: data?.data?.page || 1,
+      page: options?.page,
     }
-  }, [data])
+  }, [data, options])
 
   const openModal = (id: PopupKeys, source: KnowledgeSource) => {
     open(id)

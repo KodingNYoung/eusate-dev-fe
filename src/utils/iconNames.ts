@@ -88,6 +88,7 @@ export type IconNames =
   | "icon-trash"
   | "icon-textalign-left"
   | "icon-trend-up"
+  | "icon-tick"
   | "icon-tick-circle"
   | "icon-tick-circle-bold"
   | "icon-tick-square-bold"

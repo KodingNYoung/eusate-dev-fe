@@ -39,17 +39,17 @@ export const useProcessWithSocket = () => {
         message: string
         status_code: number
       }) => {
-        if (
-          data?.status_code === 200 &&
-          data?.data?.status === ResourceProcessStatus.INGESTED
-        ) {
-          toaster.success(data.message)
-        } else {
-          toaster.error(data.message)
+        if (data?.data?.status === ResourceProcessStatus.INGESTED) {
+          if (data?.status_code === 200) {
+            toaster.success(data.message)
+          } else {
+            toaster.error(data.message)
+          }
         }
         result.refetch()
         queryClient.invalidateQueries({
           queryKey: QUERY_FN_KEYS.KNOWLEDGE_BASE_RESOURCES,
+          exact: false,
         })
       }
     )

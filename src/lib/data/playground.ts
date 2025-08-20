@@ -1,4 +1,4 @@
-"server only"
+"use server"
 
 import { Conversation, DBResource } from "@/utils/types"
 import { getSession } from "../sessions"

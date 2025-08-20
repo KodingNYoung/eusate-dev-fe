@@ -1,5 +1,6 @@
 import { toaster } from "@/components/molecules/Toast"
 import {
+  getAuthConfigFunctions,
   getAuthConfiguration,
   getDevSpaceFunctions,
   getParamsCodenames,
@@ -43,4 +44,19 @@ export const useParamsCodenames = () => {
   }
 
   return { ...result, codenames: result.data?.code_names }
+}
+
+export const useAuthConfigFunctions = (authConfigId: string) => {
+  const result = useQuery({
+    queryKey: [...QUERY_FN_KEYS.DEV_SPACE_FUNCTIONS, authConfigId],
+    queryFn: async () => await getAuthConfigFunctions(authConfigId),
+  })
+
+  if (result.isError) {
+    toaster.error(result.error.message)
+  }
+
+  console.log(result)
+
+  return { ...result, functions: result.data?.functions || [] }
 }

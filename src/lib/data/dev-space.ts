@@ -50,3 +50,18 @@ export const getParamsCodenames = async () => {
 
   return response
 }
+
+export const getAuthConfigFunctions = async (authConfigId: string) => {
+  const session = await getSession()
+  const response = await sendAuthRequest<{
+    functions: DevSpaceFunctionsResponse[]
+  }>(
+    `/api/v1/lab/${session?.currentOrganisationId}/auth_config/${authConfigId}/functions/`
+  )
+
+  if ("shouldAuthenticate" in response) {
+    throw new Error("", { cause: ERROR_CAUSES.SESSION_EXPIRED })
+  }
+
+  return response
+}

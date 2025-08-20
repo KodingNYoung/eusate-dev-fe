@@ -27,7 +27,7 @@ const DevSpaceActionButton: FC = () => {
     [get]
   )
 
-  return configs?.length && tab === DevspaceTabs.AUTH ? null : (
+  return (isLoading || configs?.length) && tab === DevspaceTabs.AUTH ? null : (
     <OpenModalButton
       modalKey={buttonModalId[tab]}
       size="sm"

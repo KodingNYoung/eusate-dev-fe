@@ -36,7 +36,7 @@ const OrganisationCard: FC<Props> = ({ organisation, isCurrent }) => {
       {!isCurrent && (
         <Button
           variant="tetiary"
-          className="py-1 px-3.5"
+          classNames={{ root: "py-1 px-3.5", label: "text-medium-xs" }}
           onClick={() => switchOrganisation(organisation.id)}
         >
           Switch to

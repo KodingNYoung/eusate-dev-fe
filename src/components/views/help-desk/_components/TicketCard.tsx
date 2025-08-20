@@ -54,9 +54,9 @@ const TicketCard: FC<Props> = ({ ticket, onView, loading }) => {
     <div
       className={cls(
         "w-full rounded-2xl border border-gray-50 overflow-hidden text-left cursor-pointer",
-        bgMap[ticket.status]
+        bgMap[ticket?.status]
       )}
-      onClick={() => push(`${ROUTES.HELP_DESK}/ticket/${ticket.id}`)}
+      onClick={() => push(`${ROUTES.HELP_DESK}/ticket/${ticket?.id}`)}
     >
       <main className="p-5 bg-white rounded-[14px] grid gap-4.5">
         <header className="flex items-center justify-between gap-2">
@@ -68,18 +68,18 @@ const TicketCard: FC<Props> = ({ ticket, onView, loading }) => {
               className="text-regular-sm text-[inherit] !leading-none w-24"
               loading={loading}
             >
-              {ticket.id_slug}
+              {ticket?.id_slug}
             </Typography>
           </div>
-          {(ticket.priority || loading) && (
+          {(ticket?.priority || loading) && (
             <Badge
               type="filled"
-              color={BADGE_COLOR_MAP[ticket.priority]}
+              color={BADGE_COLOR_MAP[ticket?.priority]}
               size="sm"
               className={cls("capitalize", loading && "max-w-14")}
               loading={loading}
             >
-              {ticket.priority}
+              {ticket?.priority}
             </Badge>
           )}
           {onView && <TicketCardActions onView={onView} loading={loading} />}
@@ -90,14 +90,14 @@ const TicketCard: FC<Props> = ({ ticket, onView, loading }) => {
             className="text-gray-900 text-medium-lg truncate"
             loading={loading}
           >
-            {ticket.title}
+            {ticket?.title}
           </Typography>
           <Typography
             as="span"
             className="line-clamp-2 text-gray-500 text-regular-sm"
             loading={loading}
           >
-            {ticket.description}
+            {ticket?.description}
           </Typography>
         </section>
         <footer className="flex items-center justify-between">
@@ -115,14 +115,14 @@ const TicketCard: FC<Props> = ({ ticket, onView, loading }) => {
               From {ticketChannel.name}
             </Typography>
           )}
-          {ticket.status === TicketStatus.TAKEN || loading ? (
+          {ticket?.status === TicketStatus.TAKEN || loading ? (
             <Skeleton isLoaded={!loading} className="rounded-full ml-auto">
               <div className="size-6 min-w-6 min-h-6 rounded-full bg-brand-gradient p-px">
                 <div className="w-full h-full rounded-[inherit] bg-black text-white !leading-none flex items-center justify-center overflow-hidden">
                   {!loading && (
                     <Image
                       src={
-                        ticket.assignee === null
+                        ticket?.assignee === null
                           ? sateAvatar
                           : ticket?.assignee?.profile_picture
                       }
@@ -142,12 +142,12 @@ const TicketCard: FC<Props> = ({ ticket, onView, loading }) => {
           className="text-gray-400 text-regular-xs"
           loading={loading}
         >
-          Created at {dayjs(ticket.date_created).format("DD/MM/YYYY hh:mmA")}
+          Created at {dayjs(ticket?.date_created).format("DD/MM/YYYY hh:mmA")}
         </Typography>
       </main>
       <span className="flex justify-center p-1">
-        <Typography className={cls("text-medium-xs", colorMap[ticket.status])}>
-          {tagMap[ticket.status]}
+        <Typography className={cls("text-medium-xs", colorMap[ticket?.status])}>
+          {tagMap[ticket?.status]}
         </Typography>
       </span>
     </div>

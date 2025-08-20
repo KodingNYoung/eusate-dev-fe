@@ -109,6 +109,7 @@ export const QUERY_FN_KEYS = {
   PERMISSIONS: ["permissions"],
   INVITE: ["invite"],
   OVERVIEW: ["overview"],
+  PLAYGROUND_CHAT: ["playground-chat"],
 }
 
 export const FILE_ICON_MAP = {
